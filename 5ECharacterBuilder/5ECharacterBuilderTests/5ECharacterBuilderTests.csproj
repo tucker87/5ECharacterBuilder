@@ -50,8 +50,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CreateCharacterTests.cs" />
+    <Compile Include="CharacterAttributeTests.cs" />
+    <Compile Include="CharacterRaceTests.cs" />
+    <Compile Include="CharacterBaseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\5ECharacterBuilder\5ECharacterBuilder.csproj">
+      <Project>{d14d1121-065d-470d-9605-8d3370b4046e}</Project>
+      <Name>5ECharacterBuilder</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
