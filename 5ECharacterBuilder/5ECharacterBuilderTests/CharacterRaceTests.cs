@@ -7,13 +7,11 @@ namespace _5ECharacterBuilderTests
     public class CharacterRaceTests
     {
         private static CharacterBase _characterBase;
-        private static CharacterAttributeScores _characterAttributeScrores;
 
         [TestInitialize]
         public static void Setup()
         {
-            _characterAttributeScrores = new CharacterAttributeScores(10,10,10,10,10,10);
-            _characterBase = new CharacterBase(name: "John", attributeScores: _characterAttributeScrores);
+            _characterBase = new CharacterBase(name: "John");
         }
 
         [TestMethod]

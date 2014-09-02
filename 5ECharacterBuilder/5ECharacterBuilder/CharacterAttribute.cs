@@ -4,7 +4,7 @@ namespace _5ECharacterBuilder
 {
     public class CharacterAttributeScores
     {
-        public CharacterAttributeScores(int strength, int constitution, int dexterity, int intelligence, int wisdom, int charisma)
+        public CharacterAttributeScores(int strength = 10, int constitution = 10, int dexterity = 10, int intelligence = 10, int wisdom = 10, int charisma = 10)
         {
             Strength = VerifyScore(strength);
             Constitution = VerifyScore(constitution);
