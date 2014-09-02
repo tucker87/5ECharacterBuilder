@@ -16,7 +16,7 @@ namespace _5ECharacterBuilder
         public virtual List<int> HitDice { get { return _character.HitDice; } }
         public virtual int MaxHp { get { return CharacterBase.CalculateMaxHp(_character.HitDice, Attributes.Constitution.Modifier); } }
         public virtual string Name { get { return _character.Name; } }
-        public virtual List<string> SkillProficiencies { get { return _character.SkillProficiencies; } }
+        public virtual List<AvailableSkills> SkillProficiencies { get { return _character.SkillProficiencies; } }
         public virtual int SkillProficiencyCount { get { return _character.SkillProficiencyCount; } }
         public virtual List<string> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public virtual List<AvailableWeapons> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
@@ -28,7 +28,7 @@ namespace _5ECharacterBuilder
     public class Monk : CharacterClass
     {
         private readonly ICharacter _character;
-        public Monk(ICharacter character, SkillList skillList = null, AvailableTools? artisanTool = null, AvailableInstruments? instrument = null)
+        public Monk(ICharacter character, List<AvailableSkills> skillList = null, AvailableTools? artisanTool = null, AvailableInstruments? instrument = null)
             : base(character)
         {
             _character = character;
@@ -40,8 +40,8 @@ namespace _5ECharacterBuilder
             _character.SavingThrowProficiencies.Add(SavingThrows.Dexterity);
             
             if (skillList == null) return;
-            var availableSkills = SetAvailableSkills();
-            SetSkills(skillList, availableSkills);
+            if (skillList.Count > 2) throw new Exception("Monks can only choose two skills from their list.");
+            SetSkills(skillList, MonkSkills);
         }
 
         private void AddSimpleWeaponProficiencies()
@@ -67,9 +67,9 @@ namespace _5ECharacterBuilder
                 _character.InstrumentProficiencies.Add((AvailableInstruments) instrument);
         }
 
-        private void SetSkills(SkillList skillList, List<string> availableSkills)
+        private void SetSkills(IEnumerable<AvailableSkills> skillList, List<AvailableSkills> availableSkills)
         {
-            foreach (var skill in skillList.Skills)
+            foreach (var skill in skillList)
             {
                 if (availableSkills.Contains(skill))
                 {
@@ -82,27 +82,12 @@ namespace _5ECharacterBuilder
             }
         }
 
-        private static List<string> SetAvailableSkills()
-        {
-            var availableSkills = new List<string>
-            {
-                "Acrobat",
-                "Athletics",
-                "History",
-                "Insight",
-                "Religion",
-                "Stealth"
-            };
-            return availableSkills;
-        }
-
-        public override List<int> HitDice
-        {
-            get { return _character.HitDice; }
-        }
-        public override sealed List<string> SkillProficiencies { get { return _character.SkillProficiencies; } }
+        public override List<int> HitDice { get { return _character.HitDice; } }
+        public override sealed List<AvailableSkills> SkillProficiencies { get { return _character.SkillProficiencies; } }
         public override int SkillProficiencyCount {get { return _character.SkillProficiencyCount + 2; } }
         public override List<AvailableWeapons> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
         public override List<SavingThrows> SavingThrowProficiencies { get { return _character.SavingThrowProficiencies;} }
+        private List<AvailableSkills> MonkSkills { get { return new List<AvailableSkills> { AvailableSkills.Acrobat, AvailableSkills.Athletics, AvailableSkills.History, AvailableSkills.Insight, AvailableSkills.Religion, AvailableSkills.Stealth }; }
+        } 
     }
 }

@@ -14,7 +14,7 @@ namespace _5ECharacterBuilder
         public virtual List<int> HitDice { get { return _character.HitDice; } }
         public virtual int MaxHp { get { return CharacterBase.CalculateMaxHp(_character.HitDice, Attributes.Constitution.Modifier); } }
         public virtual string Name { get { return _character.Name; } }
-        public virtual List<string> SkillProficiencies { get { return _character.SkillProficiencies; } }
+        public virtual List<AvailableSkills> SkillProficiencies { get { return _character.SkillProficiencies; } }
         public virtual int SkillProficiencyCount { get { return _character.SkillProficiencyCount; } }
         public virtual List<string> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public virtual List<AvailableWeapons> WeaponProficiencies { get { return _character.WeaponProficiencies; } }

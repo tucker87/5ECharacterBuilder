@@ -25,7 +25,7 @@ namespace _5ECharacterBuilderTests
         public List<int> HitDice { get; private set; }
         public int MaxHp { get; private set; }
         public string Name { get; private set; }
-        public List<string> SkillProficiencies { get; set; }
+        public List<AvailableSkills> SkillProficiencies { get; set; }
         public int SkillProficiencyCount { get; private set; }
         public List<string> ArmorProficiencies { get; private set; }
         public List<AvailableWeapons> WeaponProficiencies { get; private set; }

@@ -32,20 +32,27 @@ namespace _5ECharacterBuilderTests
         }
 
         [TestMethod]
-        public void MonksCanChooseTwoKillsFromTheirProficiencyList()
+        [ExpectedException(typeof(Exception), "Monks can only choose two skills from their list.")]
+        public void MonksCannotChooseMoreThanTwoSkills()
         {
-            var skills = new List<string> {"Acrobat", "Religion"};
-            var skillList = new SkillList(skills);
-            var monk = new Monk(_characterBase, skillList);
-            Assert.AreEqual(monk.SkillProficiencies[0], "Acrobat");
+            var skillList = new List<AvailableSkills>{AvailableSkills.Acrobat, AvailableSkills.Religion, AvailableSkills.Stealth };
+            var monk = new Monk(new CharacterBase(), skillList, AvailableTools.AlchemistsSupplies);
+            Assert.AreEqual(2, monk.SkillProficiencies.Count);
         }
 
         [TestMethod]
-        [ExpectedException (typeof(Exception))]
+        public void MonksCanChooseTwoKillsFromTheirProficiencyList()
+        {
+            var skillList = new List<AvailableSkills>{AvailableSkills.Acrobat, AvailableSkills.Religion};
+            var monk = new Monk(_characterBase, skillList);
+            Assert.AreEqual(monk.SkillProficiencies[0], AvailableSkills.Acrobat);
+        }
+
+        [TestMethod]
+        [ExpectedException (typeof(Exception), "Arcana is not a skill available to this class.")]
         public void MonkCanNotChooseASkillThatIsNotOnTheirProficiencyList()
         {
-            var skills = new List<string> { "Acrobat", "Arcana" };
-            var skillList = new SkillList(skills);
+            var skillList = new List<AvailableSkills>{ AvailableSkills.Acrobat, AvailableSkills.Arcana };
             // ReSharper disable once ObjectCreationAsStatement
             new Monk(_characterBase, skillList, AvailableTools.AlchemistsSupplies);
         }
