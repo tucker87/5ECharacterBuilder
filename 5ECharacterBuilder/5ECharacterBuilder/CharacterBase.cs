@@ -14,6 +14,8 @@ namespace _5ECharacterBuilder
         int SkillProficiencyCount { get; }
         List<string> ArmorProficiencies { get; }
         List<AvailableWeapons> WeaponProficiencies { get; }
+        List<AvailableTools> ToolProficiencies { get; }
+        List<AvailableInstruments> InstrumentProficiencies { get; }
     }
 
     public class CharacterBase : ICharacter
@@ -23,6 +25,8 @@ namespace _5ECharacterBuilder
             attributeScores = attributeScores ?? new CharacterAttributeScores();
             ArmorProficiencies = new List<string>();
             SkillProficiencies = new List<string>();
+            ToolProficiencies = new List<AvailableTools>();
+            InstrumentProficiencies = new List<AvailableInstruments>();
             WeaponProficiencies = new List<AvailableWeapons>();
             Name = name;
             Attributes = new CharacterAttributes(attributeScores);
@@ -42,12 +46,16 @@ namespace _5ECharacterBuilder
         public int SkillProficiencyCount { get; private set; }
         public List<string> ArmorProficiencies { get; private set; }
         public List<AvailableWeapons> WeaponProficiencies { get; private set; }
+        public List<AvailableTools> ToolProficiencies { get; private set; }
+        public List<AvailableInstruments> InstrumentProficiencies { get; private set; }
     }
 
     public enum AvailableRaces { Human }
     public enum AvailableClasses { Fighter }
     public enum AvailableSkills { Acrobat, Arcana, Athletics, AnimalHandling, Deception, History, Insight, Medicine, Perception, Religion, Stealth }
-    
+    public enum AvailableTools { AlchemistsSupplies }
+    public enum AvailableInstruments { Lute }
+
     public class SkillList
     {
         public SkillList(IEnumerable<string> skills)

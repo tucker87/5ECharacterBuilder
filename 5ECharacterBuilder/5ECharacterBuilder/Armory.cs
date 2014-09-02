@@ -14,4 +14,6 @@ namespace _5ECharacterBuilder
         }
         public List<AvailableWeapons> SimpleWeapons { get; private set; }
     }
+
+    public enum AvailableWeapons { ShortSword, Club, Dagger }
 }

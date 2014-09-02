@@ -20,22 +20,38 @@ namespace _5ECharacterBuilder
         public virtual int SkillProficiencyCount { get { return _character.SkillProficiencyCount; } }
         public virtual List<string> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public virtual List<AvailableWeapons> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
+        public virtual List<AvailableTools> ToolProficiencies { get { return _character.ToolProficiencies; } }
+        public List<AvailableInstruments> InstrumentProficiencies { get { return _character.InstrumentProficiencies; } }
     }
 
     public class Monk : CharacterClass
     {
         private readonly ICharacter _character;
-        public Monk(ICharacter character, SkillList skillList = null)
+        public Monk(ICharacter character, SkillList skillList = null, AvailableTools? artisanTool = null, AvailableInstruments? instrument = null)
             : base(character)
         {
             _character = character;
             _character.HitDice.Add(8);
             var armory = new Armory();
             _character.WeaponProficiencies.Add(AvailableWeapons.ShortSword);
-            foreach (var weapon in armory.SimpleWeapons)
+            if (_character.ToolProficiencies.Count == 0 && _character.InstrumentProficiencies.Count == 0)
             {
-                _character.WeaponProficiencies.Add(weapon);
+                if (artisanTool == null && instrument == null)
+                    throw new Exception("Monks must select one tool or instrument");
+
+                if (artisanTool != null && instrument != null)
+                    throw new Exception("Monks can only select one tool or instrument");
+
+                if (artisanTool != null)
+                    _character.ToolProficiencies.Add((AvailableTools) artisanTool);
+
+                if (instrument != null)
+                    _character.InstrumentProficiencies.Add((AvailableInstruments) instrument);
             }
+
+            foreach (var weapon in armory.SimpleWeapons)
+                _character.WeaponProficiencies.Add(weapon);
+            
             if (skillList == null) return;
             var availableSkills = SetAvailableSkills();
             SetSkills(skillList, availableSkills);
@@ -77,5 +93,6 @@ namespace _5ECharacterBuilder
         public override sealed List<string> SkillProficiencies { get { return _character.SkillProficiencies; } }
         public override int SkillProficiencyCount {get { return _character.SkillProficiencyCount + 2; } }
         public override List<AvailableWeapons> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
+        public override List<AvailableTools> ToolProficiencies { get { return base.ToolProficiencies; } }
     }
 }

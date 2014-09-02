@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Armory.cs" />
     <Compile Include="CharacterBase.cs" />
     <Compile Include="CharacterAttribute.cs" />
     <Compile Include="CharacterClass.cs" />

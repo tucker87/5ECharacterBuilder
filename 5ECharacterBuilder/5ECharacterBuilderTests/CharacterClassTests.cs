@@ -15,7 +15,7 @@ namespace _5ECharacterBuilderTests
         public static void Setup()
         {
             _characterBase = new CharacterBase(name: "John");
-            _monk = new Monk(_characterBase);
+            _monk = new Monk(_characterBase, artisanTool:AvailableTools.AlchemistsSupplies);
         }
         
         [TestMethod]
@@ -47,7 +47,7 @@ namespace _5ECharacterBuilderTests
             var skills = new List<string> { "Acrobat", "Arcana" };
             var skillList = new SkillList(skills);
             // ReSharper disable once ObjectCreationAsStatement
-            new Monk(_characterBase, skillList);
+            new Monk(_characterBase, skillList, AvailableTools.AlchemistsSupplies);
         }
 
         [TestMethod]
@@ -65,8 +65,39 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void MonksAreProficientWithSimpleWeapons()
         {
-            Assert.IsTrue(_monk.WeaponProficiencies.Contains(AvailableWeapons.Club));
-            Assert.IsTrue(_monk.WeaponProficiencies.Contains(AvailableWeapons.Dagger));
+            var armory = new Armory();
+            foreach (var weapon in armory.SimpleWeapons)
+            {
+                Assert.IsTrue(_monk.WeaponProficiencies.Contains(weapon));
+            }
+        }
+        [TestMethod]
+        public void MonksAreProficientWithOneToolOrMusicalInstrument()
+        {
+            var monk = new Monk(new CharacterBase(), artisanTool: AvailableTools.AlchemistsSupplies);
+            Assert.AreEqual(monk.ToolProficiencies[0], AvailableTools.AlchemistsSupplies);
+            monk = new Monk(new CharacterBase(), instrument: AvailableInstruments.Lute);
+            Assert.AreEqual(monk.InstrumentProficiencies[0], AvailableInstruments.Lute);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception), "Monks must select one tool or instrument")]
+        public void MonksMustPickAnArtisanToolOrAnInstrument()
+        {
+            var monk = new Monk(new CharacterBase());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception), "Monks can only select one tool or instrument")]
+        public void MonksCannotPickBothAToolAndInstrument()
+        {
+            var monk = new Monk(new CharacterBase(), instrument: AvailableInstruments.Lute, artisanTool: AvailableTools.AlchemistsSupplies);
+        }
+
+        [TestMethod]
+        public void MonksAreProficientInStrengthSavingThrows()
+        {
+
         }
     }
 }

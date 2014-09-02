@@ -29,5 +29,7 @@ namespace _5ECharacterBuilderTests
         public int SkillProficiencyCount { get; private set; }
         public List<string> ArmorProficiencies { get; private set; }
         public List<AvailableWeapons> WeaponProficiencies { get; private set; }
+        public List<AvailableTools> ToolProficiencies { get; private set; }
+        public List<AvailableInstruments> InstrumentProficiencies { get; private set; }
     }
 }

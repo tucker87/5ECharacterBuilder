@@ -18,6 +18,8 @@ namespace _5ECharacterBuilder
         public virtual int SkillProficiencyCount { get { return _character.SkillProficiencyCount; } }
         public virtual List<string> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public virtual List<AvailableWeapons> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
+        public virtual List<AvailableTools> ToolProficiencies { get { return _character.ToolProficiencies; } }
+        public List<AvailableInstruments> InstrumentProficiencies { get { return _character.InstrumentProficiencies; } }
     }
 
     public class Human : CharacterRace

@@ -22,14 +22,14 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void CharactersMaxHpIsBasedOnMaxOfFirstHitDice()
         {
-            var characterWithHitDice = new Monk(_characterBase);
+            var characterWithHitDice = new Monk(_characterBase, artisanTool:AvailableTools.AlchemistsSupplies);
             Assert.AreEqual(8, characterWithHitDice.MaxHp);
         }
 
         [TestMethod]
         public void CharactersMaxHpIsBasedOnMaxOfFirstPlusAverageOfRemainingHitDice()
         {
-            var characterWithMultipleHitDice = new Monk(new Monk(_characterBase));
+            var characterWithMultipleHitDice = new Monk(new Monk(_characterBase, artisanTool: AvailableTools.AlchemistsSupplies));
             Assert.AreEqual(13, characterWithMultipleHitDice.MaxHp);
         }
 
@@ -37,7 +37,7 @@ namespace _5ECharacterBuilderTests
         public void CharactersMaxHpIsBoostedByConstitutionModifier()
         {
             var highCon = new CharacterAttributeScores(constitution: 14);
-            var characterWithHitDiceAndCon = new Monk(new CharacterBase(highCon));
+            var characterWithHitDiceAndCon = new Monk(new CharacterBase(highCon),instrument:AvailableInstruments.Lute);
             Assert.AreEqual(10, characterWithHitDiceAndCon.MaxHp);
         }
     }
