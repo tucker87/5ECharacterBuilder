@@ -51,8 +51,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CharacterAttributeTests.cs" />
+    <Compile Include="CharacterClassTests.cs" />
     <Compile Include="CharacterRaceTests.cs" />
     <Compile Include="CharacterBaseTests.cs" />
+    <Compile Include="CreateCharacterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

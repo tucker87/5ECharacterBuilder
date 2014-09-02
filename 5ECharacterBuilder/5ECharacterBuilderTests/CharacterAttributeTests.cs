@@ -15,7 +15,7 @@ namespace _5ECharacterBuilderTests
         public static void Setup()
         {
             _characterAttributeScrores = new CharacterAttributeScores(10,10,10,10,10,10);
-            _characterBase = new CharacterBase(name: "John", hitDice: new List<int> { 8 }, attributeScores: _characterAttributeScrores);
+            _characterBase = new CharacterBase(name: "John", attributeScores: _characterAttributeScrores);
         }
         [TestMethod]
         [ExpectedException(typeof(Exception))]

@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="CharacterBase.cs" />
     <Compile Include="CharacterAttribute.cs" />
+    <Compile Include="CharacterClass.cs" />
     <Compile Include="CharacterRace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

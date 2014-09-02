@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using _5ECharacterBuilder;
 
 namespace _5ECharacterBuilderTests
@@ -8,21 +7,25 @@ namespace _5ECharacterBuilderTests
     public class CharacterRaceTests
     {
         private static CharacterBase _characterBase;
-        private static CharacterAttributeScores _characterAttributeScroreList;
+        private static CharacterAttributeScores _characterAttributeScrores;
 
         [TestInitialize]
         public static void Setup()
         {
-            _characterAttributeScroreList = new CharacterAttributeScores(10,10,10,10,10,10);
-            _characterBase = new CharacterBase(name: "John", hitDice: new List<int> {8},
-                attributeScores: _characterAttributeScroreList);
+            _characterAttributeScrores = new CharacterAttributeScores(10,10,10,10,10,10);
+            _characterBase = new CharacterBase(name: "John", attributeScores: _characterAttributeScrores);
         }
 
-        //[TestMethod]
-        //public void HumansMaxHpIs3More()
-        //{
-        //    var human = new Human(_characterBase);
-        //    Assert.AreEqual(8, human.MaxHp);
-        //}
+        [TestMethod]
+        public void HumansGetPlusOneToAllAttributeScores()
+        {
+            var human = new Human(_characterBase);
+            Assert.AreEqual(11, human.Attributes.Strength.Score);
+            Assert.AreEqual(11, human.Attributes.Constitution.Score);
+            Assert.AreEqual(11, human.Attributes.Dexterity.Score);
+            Assert.AreEqual(11, human.Attributes.Intelligence.Score);
+            Assert.AreEqual(11, human.Attributes.Wisdom.Score);
+            Assert.AreEqual(11, human.Attributes.Charisma.Score);
+        }
     }
 }

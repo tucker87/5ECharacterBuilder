@@ -1,0 +1,21 @@
+Character
+	Alignment
+	Attributes ( Initiative, MaxHp )
+	Background ( Languages, Skill Proficiency )
+	Class ( HitDice, MaxHP )		
+	CurrentHP
+	Experience Points
+	HitDice
+	Initiative
+	Inspiration
+	Languages
+	Levels ( Attribute, Feats, Proficiency Bonus )
+	MaxHp
+	Name	
+	Proficiency Bonus
+	Race( Attributes, Languages, Saving Throw Proficiency, Skill Proficiency, Speed, Weapon Proficiency )
+	Saving Throw Proficiency
+	Skill Proficiency
+	Speed
+	TempHP
+	Weapon Proficiency		

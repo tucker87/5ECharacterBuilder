@@ -61,7 +61,7 @@ namespace _5ECharacterBuilder
             Modifier = CalculateModifier(score);
         }
 
-        public int Score { get; private set; }
+        public int Score { get; protected internal set; }
         public int Modifier { get; private set; }
         
         private static int CalculateModifier(int score)
