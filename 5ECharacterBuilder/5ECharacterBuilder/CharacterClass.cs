@@ -32,7 +32,10 @@ namespace _5ECharacterBuilder
             _character.HitDice.Add(8);
             var armory = new Armory();
             _character.WeaponProficiencies.Add(AvailableWeapons.ShortSword);
-            _character.WeaponProficiencies.Add(armory.SimpleWeapons[0]);
+            foreach (var weapon in armory.SimpleWeapons)
+            {
+                _character.WeaponProficiencies.Add(weapon);
+            }
             if (skillList == null) return;
             var availableSkills = SetAvailableSkills();
             SetSkills(skillList, availableSkills);

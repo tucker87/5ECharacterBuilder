@@ -66,6 +66,7 @@ namespace _5ECharacterBuilderTests
         public void MonksAreProficientWithSimpleWeapons()
         {
             Assert.IsTrue(_monk.WeaponProficiencies.Contains(AvailableWeapons.Club));
+            Assert.IsTrue(_monk.WeaponProficiencies.Contains(AvailableWeapons.Dagger));
         }
     }
 }

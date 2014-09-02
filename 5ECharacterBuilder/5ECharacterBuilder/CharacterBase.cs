@@ -47,18 +47,7 @@ namespace _5ECharacterBuilder
     public enum AvailableRaces { Human }
     public enum AvailableClasses { Fighter }
     public enum AvailableSkills { Acrobat, Arcana, Athletics, AnimalHandling, Deception, History, Insight, Medicine, Perception, Religion, Stealth }
-    public enum AvailableWeapons { ShortSword, Club }
-
-    public class Armory
-    {
-        public Armory()
-        {
-            SimpleWeapons = new List<AvailableWeapons>();
-            SimpleWeapons.Add(AvailableWeapons.Club);
-        }
-        public List<AvailableWeapons> SimpleWeapons { get; private set; }
-    }
-
+    
     public class SkillList
     {
         public SkillList(IEnumerable<string> skills)
