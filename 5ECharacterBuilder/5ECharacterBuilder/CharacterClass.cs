@@ -21,7 +21,8 @@ namespace _5ECharacterBuilder
         public virtual List<string> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public virtual List<AvailableWeapons> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
         public virtual List<AvailableTools> ToolProficiencies { get { return _character.ToolProficiencies; } }
-        public List<AvailableInstruments> InstrumentProficiencies { get { return _character.InstrumentProficiencies; } }
+        public virtual List<AvailableInstruments> InstrumentProficiencies { get { return _character.InstrumentProficiencies; } }
+        public virtual List<SavingThrows> SavingThrowProficiencies { get { return _character.SavingThrowProficiencies; } }
     }
 
     public class Monk : CharacterClass
@@ -32,29 +33,38 @@ namespace _5ECharacterBuilder
         {
             _character = character;
             _character.HitDice.Add(8);
-            var armory = new Armory();
+            AddToolOrInstrumentProficiencies(artisanTool, instrument);
             _character.WeaponProficiencies.Add(AvailableWeapons.ShortSword);
-            if (_character.ToolProficiencies.Count == 0 && _character.InstrumentProficiencies.Count == 0)
-            {
-                if (artisanTool == null && instrument == null)
-                    throw new Exception("Monks must select one tool or instrument");
-
-                if (artisanTool != null && instrument != null)
-                    throw new Exception("Monks can only select one tool or instrument");
-
-                if (artisanTool != null)
-                    _character.ToolProficiencies.Add((AvailableTools) artisanTool);
-
-                if (instrument != null)
-                    _character.InstrumentProficiencies.Add((AvailableInstruments) instrument);
-            }
-
-            foreach (var weapon in armory.SimpleWeapons)
-                _character.WeaponProficiencies.Add(weapon);
+            AddSimpleWeaponProficiencies();
+            _character.SavingThrowProficiencies.Add(SavingThrows.Strength);
+            _character.SavingThrowProficiencies.Add(SavingThrows.Dexterity);
             
             if (skillList == null) return;
             var availableSkills = SetAvailableSkills();
             SetSkills(skillList, availableSkills);
+        }
+
+        private void AddSimpleWeaponProficiencies()
+        {
+            var armory = new Armory();
+            foreach (var weapon in armory.SimpleWeapons)
+                _character.WeaponProficiencies.Add(weapon);
+        }
+
+        private void AddToolOrInstrumentProficiencies(AvailableTools? artisanTool, AvailableInstruments? instrument)
+        {
+            if (_character.ToolProficiencies.Count != 0 || _character.InstrumentProficiencies.Count != 0) return;
+            if (artisanTool == null && instrument == null)
+                throw new Exception("Monks must select one tool or instrument");
+
+            if (artisanTool != null && instrument != null)
+                throw new Exception("Monks can only select one tool or instrument");
+
+            if (artisanTool != null)
+                _character.ToolProficiencies.Add((AvailableTools) artisanTool);
+
+            if (instrument != null)
+                _character.InstrumentProficiencies.Add((AvailableInstruments) instrument);
         }
 
         private void SetSkills(SkillList skillList, List<string> availableSkills)
@@ -93,6 +103,6 @@ namespace _5ECharacterBuilder
         public override sealed List<string> SkillProficiencies { get { return _character.SkillProficiencies; } }
         public override int SkillProficiencyCount {get { return _character.SkillProficiencyCount + 2; } }
         public override List<AvailableWeapons> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
-        public override List<AvailableTools> ToolProficiencies { get { return base.ToolProficiencies; } }
+        public override List<SavingThrows> SavingThrowProficiencies { get { return _character.SavingThrowProficiencies;} }
     }
 }

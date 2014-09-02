@@ -84,20 +84,30 @@ namespace _5ECharacterBuilderTests
         [ExpectedException(typeof(Exception), "Monks must select one tool or instrument")]
         public void MonksMustPickAnArtisanToolOrAnInstrument()
         {
-            var monk = new Monk(new CharacterBase());
+            // ReSharper disable once ObjectCreationAsStatement
+            new Monk(new CharacterBase());
         }
 
         [TestMethod]
         [ExpectedException(typeof(Exception), "Monks can only select one tool or instrument")]
         public void MonksCannotPickBothAToolAndInstrument()
         {
-            var monk = new Monk(new CharacterBase(), instrument: AvailableInstruments.Lute, artisanTool: AvailableTools.AlchemistsSupplies);
+            // ReSharper disable once ObjectCreationAsStatement
+            new Monk(new CharacterBase(), instrument: AvailableInstruments.Lute, artisanTool: AvailableTools.AlchemistsSupplies);
         }
 
         [TestMethod]
         public void MonksAreProficientInStrengthSavingThrows()
         {
+            var monk = new Monk(_characterBase);
+            Assert.IsTrue(monk.SavingThrowProficiencies.Contains(SavingThrows.Strength));
+        }
 
+        [TestMethod]
+        public void MonkAreProficientInDexteritySavingThrows()
+        {
+            var monk = new Monk(_characterBase);
+            Assert.IsTrue(monk.SavingThrowProficiencies.Contains(SavingThrows.Dexterity));
         }
     }
 }

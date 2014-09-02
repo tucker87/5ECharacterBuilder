@@ -16,6 +16,7 @@ namespace _5ECharacterBuilder
         List<AvailableWeapons> WeaponProficiencies { get; }
         List<AvailableTools> ToolProficiencies { get; }
         List<AvailableInstruments> InstrumentProficiencies { get; }
+        List<SavingThrows> SavingThrowProficiencies { get; }
     }
 
     public class CharacterBase : ICharacter
@@ -48,6 +49,7 @@ namespace _5ECharacterBuilder
         public List<AvailableWeapons> WeaponProficiencies { get; private set; }
         public List<AvailableTools> ToolProficiencies { get; private set; }
         public List<AvailableInstruments> InstrumentProficiencies { get; private set; }
+        public List<SavingThrows> SavingThrowProficiencies { get; private set; }
     }
 
     public enum AvailableRaces { Human }
@@ -55,6 +57,7 @@ namespace _5ECharacterBuilder
     public enum AvailableSkills { Acrobat, Arcana, Athletics, AnimalHandling, Deception, History, Insight, Medicine, Perception, Religion, Stealth }
     public enum AvailableTools { AlchemistsSupplies }
     public enum AvailableInstruments { Lute }
+    public enum SavingThrows { Strength, Constitution, Dexterity, Intelligence, Wisdom, Charisma }
 
     public class SkillList
     {
