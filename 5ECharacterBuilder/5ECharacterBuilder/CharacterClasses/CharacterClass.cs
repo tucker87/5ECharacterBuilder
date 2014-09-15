@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 
-namespace _5ECharacterBuilder
+namespace _5ECharacterBuilder.CharacterClasses
 {
-    public abstract class CharacterRace : ICharacter
+    public class CharacterClass : ICharacter
     {
-        private readonly CharacterBase _character;
-        protected CharacterRace(CharacterBase character)
+        private readonly ICharacter _character;
+
+        public CharacterClass( ICharacter character)
         {
             _character = character;
         }
@@ -20,14 +21,7 @@ namespace _5ECharacterBuilder
         public virtual List<AvailableWeapons> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
         public virtual List<AvailableTools> ToolProficiencies { get { return _character.ToolProficiencies; } }
         public virtual List<AvailableInstruments> InstrumentProficiencies { get { return _character.InstrumentProficiencies; } }
+        public CharacterAttributeScores RacialAttributeBonuses { get; private set; }
         public virtual List<SavingThrows> SavingThrowProficiencies { get { return _character.SavingThrowProficiencies; } }
-    }
-
-    public class Human : CharacterRace
-    {
-        public Human(CharacterBase character) : base(character)
-        {
-            character.Attributes = new CharacterAttributes(character.Attributes RacialBonuses(1,1,1,1,1,1);
-        }
     }
 }

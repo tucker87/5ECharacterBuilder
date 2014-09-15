@@ -56,7 +56,7 @@ namespace _5ECharacterBuilder
             Constitution = new CharacterAttribute(scores.Constitution, racialBonuses.Constitution);
             Intelligence = new CharacterAttribute(scores.Intelligence, racialBonuses.Intelligence);
             Wisdom = new CharacterAttribute(scores.Wisdom, racialBonuses.Wisdom);
-            Charisma = new CharacterAttribute(scores.Charisma, , racialBonuses.Charisma);
+            Charisma = new CharacterAttribute(scores.Charisma, racialBonuses.Charisma);
 
         }
 
@@ -70,7 +70,7 @@ namespace _5ECharacterBuilder
 
     public class CharacterAttribute
     {
-        private readonly int _score;
+        private int _score;
         public CharacterAttribute(int score, int racialBonus)
         {
             _score = score;
@@ -78,7 +78,15 @@ namespace _5ECharacterBuilder
             RacialBonus = racialBonus;
         }
 
-        public int Score { get {return _score + RacialBonus} protected set; }
+        public int Score
+        {
+            get
+            {
+                return _score + RacialBonus;
+            }
+            protected set { _score = value; }
+        }
+
         public int Modifier { get; private set; }
         public int RacialBonus { get; private set; }
         
