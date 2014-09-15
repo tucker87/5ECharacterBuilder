@@ -31,6 +31,7 @@ namespace _5ECharacterBuilderTests
         public List<AvailableWeapons> WeaponProficiencies { get; private set; }
         public List<AvailableTools> ToolProficiencies { get; private set; }
         public List<AvailableInstruments> InstrumentProficiencies { get; private set; }
+        public CharacterAttributeScores RacialAttributeBonuses { get; private set; }
         public List<SavingThrows> SavingThrowProficiencies { get; private set; }
     }
 }

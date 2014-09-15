@@ -40,9 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Armory.cs" />
+    <Compile Include="AvailableEnums.cs" />
     <Compile Include="CharacterBase.cs" />
     <Compile Include="CharacterAttribute.cs" />
-    <Compile Include="CharacterClass.cs" />
+    <Compile Include="CharacterClasses\CharacterClass.cs" />
+    <Compile Include="CharacterClasses\Fighter.cs" />
+    <Compile Include="CharacterClasses\Monk.cs" />
+    <Compile Include="CharacterFactory.cs" />
     <Compile Include="CharacterRace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

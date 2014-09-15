@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using _5ECharacterBuilder;
+using _5ECharacterBuilder.CharacterClasses;
 
 namespace _5ECharacterBuilderTests
 {

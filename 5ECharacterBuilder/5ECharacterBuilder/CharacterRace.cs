@@ -25,21 +25,9 @@ namespace _5ECharacterBuilder
 
     public class Human : CharacterRace
     {
-        private readonly CharacterBase _character;
         public Human(CharacterBase character) : base(character)
         {
-            _character = character;
-            _character.Attributes.Strength.Score += 1;
-            _character.Attributes.Constitution.Score += 1;
-            _character.Attributes.Dexterity.Score += 1;
-            _character.Attributes.Intelligence.Score += 1;
-            _character.Attributes.Wisdom.Score += 1;
-            _character.Attributes.Charisma.Score += 1;
-        }
-
-        public override CharacterAttributes Attributes
-        {
-            get { return _character.Attributes; }
+            character.Attributes.RacialAttributeBonuses = new RacialBonuses(1,1,1,1,1,1);
         }
     }
 }
