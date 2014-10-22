@@ -37,27 +37,56 @@ namespace _5ECharacterBuilder
     {
         public RacialBonuses(int strength = 0, int dexterity = 0, int constitution = 0, int intelligence = 0, int wisdom = 0, int charisma = 0)
         {
-            Strength = VerifyScore(strength);
-            Dexterity = VerifyScore(dexterity);
-            Constitution = VerifyScore(constitution);
-            Intelligence = VerifyScore(intelligence);
-            Wisdom = VerifyScore(wisdom);
-            Charisma = VerifyScore(charisma);
+            Strength = strength;
+            Dexterity = dexterity;
+            Constitution = constitution;
+            Intelligence = intelligence;
+            Wisdom = wisdom;
+            Charisma = charisma;
         }
     }
 
     public class CharacterAttributes
     {
-        public CharacterAttributes(CharacterAttributeScores scores, RacialBonuses racialBonuses = null)
+        public CharacterAttributes()
         {
-            if (racialBonuses == null) racialBonuses = new RacialBonuses();
-            Strength = new CharacterAttribute(scores.Strength, racialBonuses.Strength);
-            Dexterity = new CharacterAttribute(scores.Dexterity, racialBonuses.Dexterity);
-            Constitution = new CharacterAttribute(scores.Constitution, racialBonuses.Constitution);
-            Intelligence = new CharacterAttribute(scores.Intelligence, racialBonuses.Intelligence);
-            Wisdom = new CharacterAttribute(scores.Wisdom, racialBonuses.Wisdom);
-            Charisma = new CharacterAttribute(scores.Charisma, racialBonuses.Charisma);
+            
+        }
 
+        public CharacterAttributes(CharacterAttributes attributes)
+        {
+            Strength = attributes.Strength;
+            Dexterity = attributes.Dexterity;
+            Constitution = attributes.Constitution;
+            Intelligence = attributes.Intelligence;
+            Wisdom = attributes.Wisdom;
+            Charisma = attributes.Charisma;
+        }
+
+        public CharacterAttributes(CharacterAttributeScores attributeScores)
+        {
+            Strength = new CharacterAttribute(attributeScores.Strength);
+            Dexterity = new CharacterAttribute(attributeScores.Dexterity);
+            Constitution = new CharacterAttribute(attributeScores.Constitution);
+            Intelligence = new CharacterAttribute(attributeScores.Intelligence);
+            Wisdom = new CharacterAttribute(attributeScores.Wisdom);
+            Charisma = new CharacterAttribute(attributeScores.Charisma);
+        }
+
+        public CharacterAttributes(CharacterAttributes attributes, CharacterAttributeScores racialBonuses)
+        {
+            Strength = attributes.Strength;
+            Strength.RacialBonus = racialBonuses.Strength;
+            Dexterity = attributes.Dexterity;
+            Dexterity.RacialBonus = racialBonuses.Dexterity;
+            Constitution = attributes.Constitution;
+            Constitution.RacialBonus = racialBonuses.Constitution;
+            Intelligence = attributes.Intelligence;
+            Intelligence.RacialBonus = racialBonuses.Intelligence;
+            Wisdom = attributes.Wisdom;
+            Wisdom.RacialBonus = racialBonuses.Wisdom;
+            Charisma = attributes.Charisma;
+            Charisma.RacialBonus = racialBonuses.Charisma;
         }
 
         public CharacterAttribute Strength { get; private set; }
@@ -71,24 +100,21 @@ namespace _5ECharacterBuilder
     public class CharacterAttribute
     {
         private int _score;
-        public CharacterAttribute(int score, int racialBonus)
+
+        public CharacterAttribute(int score, int racialBonus = 0)
         {
             _score = score;
-            Modifier = CalculateModifier(score);
             RacialBonus = racialBonus;
         }
 
         public int Score
         {
-            get
-            {
-                return _score + RacialBonus;
-            }
-            protected set { _score = value; }
+            get { return _score + RacialBonus; }
+            set { _score = value; }
         }
 
-        public int Modifier { get; private set; }
-        public int RacialBonus { get; private set; }
+        public int Modifier { get { return CalculateModifier(Score); } }
+        public int RacialBonus { get; internal set; }
         
         private static int CalculateModifier(int score)
         {

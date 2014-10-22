@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5ECharacterBuilderTests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleFrontEnd", "ExampleFrontEnd\ExampleFrontEnd.csproj", "{4629FE07-02BC-46AB-94F9-80D0C935DD20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleExampleFrontEnd", "SimpleExampleFrontEnd\SimpleExampleFrontEnd.csproj", "{BDF1CAE6-722A-4F36-9BFE-1B311920E0C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{4629FE07-02BC-46AB-94F9-80D0C935DD20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4629FE07-02BC-46AB-94F9-80D0C935DD20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4629FE07-02BC-46AB-94F9-80D0C935DD20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDF1CAE6-722A-4F36-9BFE-1B311920E0C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDF1CAE6-722A-4F36-9BFE-1B311920E0C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDF1CAE6-722A-4F36-9BFE-1B311920E0C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDF1CAE6-722A-4F36-9BFE-1B311920E0C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

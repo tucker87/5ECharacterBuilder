@@ -1,36 +1,36 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using _5ECharacterBuilder;
-using _5ECharacterBuilder.CharacterClasses;
 
 namespace _5ECharacterBuilderTests
 {
     [TestClass]
     public class CharacterBaseTests
     {
-        private static CharacterBase _characterBase;
+        private static Character _character;
 
         [TestInitialize]
         public static void Setup()
         {
-            _characterBase = new CharacterBase(name:"John", attributeScores: new CharacterAttributeScores());
+            _character = new Character(AvailableRaces.Human, AvailableClasses.Monk);
         }
         [TestMethod]
         public void CharactersCanHaveNames()
         {
-            Assert.AreEqual("John", _characterBase.Name);
+            _character.Name = "John";
+            Assert.AreEqual("John", _character.Name);
         }
 
         [TestMethod]
         public void CharactersMaxHpIsBasedOnMaxOfFirstHitDice()
         {
-            var characterWithHitDice = new Monk(_characterBase, artisanTool:AvailableTools.AlchemistsSupplies);
+            var characterWithHitDice = new Character(AvailableRaces.Human, AvailableClasses.Monk);
             Assert.AreEqual(8, characterWithHitDice.MaxHp);
         }
 
         [TestMethod]
         public void CharactersMaxHpIsBasedOnMaxOfFirstPlusAverageOfRemainingHitDice()
         {
-            var characterWithMultipleHitDice = new Monk(new Monk(_characterBase, artisanTool: AvailableTools.AlchemistsSupplies));
+            var characterWithMultipleHitDice = new Character(AvailableRaces.Human, AvailableClasses.Monk, 2);
             Assert.AreEqual(13, characterWithMultipleHitDice.MaxHp);
         }
 
@@ -38,8 +38,14 @@ namespace _5ECharacterBuilderTests
         public void CharactersMaxHpIsBoostedByConstitutionModifier()
         {
             var highCon = new CharacterAttributeScores(constitution: 14);
-            var characterWithHitDiceAndCon = new Monk(new CharacterBase(highCon),instrument:AvailableInstruments.Lute);
+            var characterWithHitDiceAndCon = new Character(AvailableRaces.Human, AvailableClasses.Monk, highCon);
             Assert.AreEqual(10, characterWithHitDiceAndCon.MaxHp);
+        }
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+            
         }
     }
 }

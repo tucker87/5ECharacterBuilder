@@ -8,7 +8,8 @@ namespace ExampleFrontEnd
 {
     public partial class MainWindow
     {
-        private ICharacter _character;
+        private Character _character;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -18,61 +19,68 @@ namespace ExampleFrontEnd
         {
             ClassBox.ItemsSource = Enum.GetNames(typeof(AvailableClasses));
             RaceBox.ItemsSource = Enum.GetNames(typeof(AvailableRaces));
-            UpdateChracterScores();
-            UpdateCharacterModifiers();
+            ClassBox.SelectedIndex = 0;
+            RaceBox.SelectedIndex = 0;
+            MakeNewCharacter();
         }
 
-        private void RaceBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void RaceClassBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _character = new CharacterBase(GetCharacterAttributeScores());
+            MakeNewCharacter();
         }
-
-        private void ClassBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
 
         private void ScoreTextBox_OnChange(object sender, RoutedEventArgs e)
         {
             if (!IsLoaded) return;
             var score = GetAttributeScore((TextBox) sender);
             if (score < 1 || score > 20) return;
-            UpdateChracterScores();
+            MakeNewCharacter();
+        }
+
+        private void MakeNewCharacter()
+        {   
+            _character = LevelBox.Text == "1'" ? 
+                new Character((AvailableRaces)RaceBox.SelectedValue, (AvailableClasses)ClassBox.SelectedValue) : 
+                new Character((AvailableRaces)RaceBox.SelectedValue, (AvailableClasses)ClassBox.SelectedValue, Convert.ToInt32(LevelBox.Text));
+
+            SetChracterScores();
+            UpdateCharacterRacialBonuses();
             UpdateCharacterModifiers();
         }
 
+        private void SetChracterScores()
+        {
+            _character.Attributes.Strength.Score = GetAttributeScore(StrengthScoreTextBox);
+            _character.Attributes.Dexterity.Score = GetAttributeScore(DexterityScoreTextBox);
+            _character.Attributes.Constitution.Score = GetAttributeScore(ConstitutionScoreTextBox);
+            _character.Attributes.Intelligence.Score = GetAttributeScore(IntelligenceScoreTextBox);
+            _character.Attributes.Wisdom.Score = GetAttributeScore(WisdomScoreTextBox);
+            _character.Attributes.Charisma.Score = GetAttributeScore(CharismaScoreTextBox);
+        }
+        
         private static int GetAttributeScore(TextBox textBox)
         {
             return textBox.Text == "" ? 1 : Convert.ToInt32(textBox.Text);
         }
 
-        private void UpdateChracterScores()
+        private void UpdateCharacterRacialBonuses()
         {
-            var scores = GetCharacterAttributeScores();
-            _character = new CharacterBase(scores);
-        }
-
-        private CharacterAttributeScores GetCharacterAttributeScores()
-        {
-            var scores = new CharacterAttributeScores(
-                GetAttributeScore(StrengthScoreTextBox),
-                GetAttributeScore(DexterityScoreTextBox),
-                GetAttributeScore(ConstitutionScoreTextBox),
-                GetAttributeScore(IntelligenceScoreTextBox),
-                GetAttributeScore(WisdomScoreTextBox),
-                GetAttributeScore(CharismaScoreTextBox));
-            return scores;
+            StrengthRacialTextBox.Text = _character.Attributes.Strength.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            DexterityRacialTextBox.Text = _character.Attributes.Strength.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            ConstitutionRacialTextBox.Text = _character.Attributes.Strength.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            IntelligenceRacialTextBox.Text = _character.Attributes.Strength.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            WisdomRacialTextBox.Text = _character.Attributes.Strength.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            CharismaRacialTextBox.Text = _character.Attributes.Strength.RacialBonus.ToString(CultureInfo.InvariantCulture);
         }
 
         private void UpdateCharacterModifiers()
         {
-            StrengthModTextBox.Text = _character.Attributes.Strength.Modifier.ToString(CultureInfo.InvariantCulture);
-            DexterityModTextBox.Text = _character.Attributes.Dexterity.Modifier.ToString(CultureInfo.InvariantCulture);
-            ConstitutionModTextBox.Text = _character.Attributes.Constitution.Modifier.ToString(CultureInfo.InvariantCulture);
-            IntelligenceModTextBox.Text = _character.Attributes.Intelligence.Modifier.ToString(CultureInfo.InvariantCulture);
-            WisdomModTextBox.Text = _character.Attributes.Wisdom.Modifier.ToString(CultureInfo.InvariantCulture);
-            CharismaModTextBox.Text = _character.Attributes.Charisma.Modifier.ToString(CultureInfo.InvariantCulture);
+            StrengthModTextBox.Text = "" + (_character.Attributes.Strength.Modifier + _character.Attributes.Strength.RacialBonus);
+            DexterityModTextBox.Text = "" + (_character.Attributes.Dexterity.Modifier + _character.Attributes.Dexterity.RacialBonus);
+            ConstitutionModTextBox.Text = "" + (_character.Attributes.Constitution.Modifier + _character.Attributes.Constitution.RacialBonus);
+            IntelligenceModTextBox.Text = "" + (_character.Attributes.Intelligence.Modifier + _character.Attributes.Intelligence.RacialBonus);
+            WisdomModTextBox.Text = "" + (_character.Attributes.Wisdom.Modifier + _character.Attributes.Wisdom.RacialBonus);
+            CharismaModTextBox.Text = "" + (_character.Attributes.Charisma.Modifier + _character.Attributes.Charisma.RacialBonus);
         }
 
 

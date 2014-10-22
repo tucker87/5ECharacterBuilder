@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using _5ECharacterBuilder;
 
@@ -8,14 +7,14 @@ namespace _5ECharacterBuilderTests
     [TestClass]
     class CharacterAttributeTests
     {
-        private static CharacterBase _characterBase;
+        private static Character _character;
         private static CharacterAttributeScores _characterAttributeScrores;
 
         [TestInitialize]
         public static void Setup()
         {
-            _characterAttributeScrores = new CharacterAttributeScores(10,10,10,10,10,10);
-            _characterBase = new CharacterBase(name: "John", attributeScores: _characterAttributeScrores);
+            _characterAttributeScrores = new CharacterAttributeScores();
+            _character = new Character(AvailableRaces.Human, AvailableClasses.Monk);
         }
         [TestMethod]
         [ExpectedException(typeof(Exception))]
@@ -36,12 +35,13 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void CharactersAttributesScoresAreSet()
         {
-            Assert.AreEqual(_characterAttributeScrores.Strength, _characterBase.Attributes.Strength.Score);
-            Assert.AreEqual(_characterAttributeScrores.Constitution, _characterBase.Attributes.Constitution.Score);
-            Assert.AreEqual(_characterAttributeScrores.Dexterity, _characterBase.Attributes.Dexterity.Score);
-            Assert.AreEqual(_characterAttributeScrores.Intelligence, _characterBase.Attributes.Intelligence.Score);
-            Assert.AreEqual(_characterAttributeScrores.Wisdom, _characterBase.Attributes.Wisdom.Score);
-            Assert.AreEqual(_characterAttributeScrores.Charisma, _characterBase.Attributes.Charisma.Score);
+            const int humanBonus = 1;
+            Assert.AreEqual(_characterAttributeScrores.Strength + humanBonus, _character.Attributes.Strength.Score);
+            Assert.AreEqual(_characterAttributeScrores.Constitution + humanBonus, _character.Attributes.Constitution.Score);
+            Assert.AreEqual(_characterAttributeScrores.Dexterity + humanBonus, _character.Attributes.Dexterity.Score);
+            Assert.AreEqual(_characterAttributeScrores.Intelligence + humanBonus, _character.Attributes.Intelligence.Score);
+            Assert.AreEqual(_characterAttributeScrores.Wisdom + humanBonus, _character.Attributes.Wisdom.Score);
+            Assert.AreEqual(_characterAttributeScrores.Charisma + humanBonus, _character.Attributes.Charisma.Score);
         }
 
         [TestMethod]

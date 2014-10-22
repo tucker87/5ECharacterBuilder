@@ -1,73 +1,80 @@
-using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace _5ECharacterBuilder.CharacterClasses
 {
-    public class Monk : CharacterClass
+    sealed class Monk : CharacterClass
     {
-        private readonly ICharacter _character;
-        public Monk(ICharacter character, List<AvailableSkills> skillList = null, AvailableTools? artisanTool = null, AvailableInstruments? instrument = null)
-            : base(character)
+        public Monk(ICharacter character, List<AvailableSkill> skillList = null) : base(character)
         {
-            _character = character;
-            _character.HitDice.Add(8);
-            AddToolOrInstrumentProficiencies(artisanTool, instrument);
-            _character.WeaponProficiencies.Add(AvailableWeapons.ShortSword);
+            HitDice.Add(8);
+            AddWeaponProfs(new List<AvailableWeapon>{AvailableWeapon.ShortSword});
             AddSimpleWeaponProficiencies();
-            _character.SavingThrowProficiencies.Add(SavingThrows.Strength);
-            _character.SavingThrowProficiencies.Add(SavingThrows.Dexterity);
-
-            if (skillList == null) return;
-            if (skillList.Count > 2) throw new Exception("Monks can only choose two skills from their list.");
-            SetSkills(skillList, MonkSkills);
+            AddSavingThrows(new List<SavingThrow> {SavingThrow.Strength, SavingThrow.Dexterity});
+            if(skillList != null)
+                AddSkills(skillList);
         }
 
         private void AddSimpleWeaponProficiencies()
         {
             var armory = new Armory();
-            foreach (var weapon in armory.SimpleWeapons)
-                _character.WeaponProficiencies.Add(weapon);
+            AddWeaponProfs(armory.SimpleWeapons);
         }
 
-        private void AddToolOrInstrumentProficiencies(AvailableTools? artisanTool, AvailableInstruments? instrument)
+        public override void AddSkills(List<AvailableSkill> skillList)
         {
-            if (_character.ToolProficiencies.Count != 0 || _character.InstrumentProficiencies.Count != 0) return;
-            if (artisanTool == null && instrument == null)
-                throw new Exception("Monks must select one tool or instrument");
+            var currentSkills = SkillProficiencies.ToList();
+            var classSkills = ClassSkills.ToList();
 
-            if (artisanTool != null && instrument != null)
-                throw new Exception("Monks can only select one tool or instrument");
-
-            if (artisanTool != null)
-                _character.ToolProficiencies.Add((AvailableTools)artisanTool);
-
-            if (instrument != null)
-                _character.InstrumentProficiencies.Add((AvailableInstruments)instrument);
-        }
-
-        private void SetSkills(IEnumerable<AvailableSkills> skillList, List<AvailableSkills> availableSkills)
-        {
             foreach (var skill in skillList)
             {
-                if (availableSkills.Contains(skill))
-                {
-                    _character.SkillProficiencies.Add(skill);
-                }
-                else
-                {
-                    throw new Exception(skill + " is not a skill available to this class.");
-                }
+                currentSkills.Add(skill);
+                if (!classSkills.Contains(skill))
+                    RuleIssues.Add(skill + " is not a skill available to this class.");
             }
+
+            SkillProficiencies = new ReadOnlyCollection<AvailableSkill>(currentSkills);
+            
+            if (skillList.Count > CLassSkillCount)
+                RuleIssues.Add("Monks can only choose two skills from their list.");
         }
 
-        public override List<int> HitDice { get { return _character.HitDice; } }
-        public override sealed List<AvailableSkills> SkillProficiencies { get { return _character.SkillProficiencies; } }
-        public override int SkillProficiencyCount { get { return _character.SkillProficiencyCount + 2; } }
-        public override List<AvailableWeapons> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
-        public override List<SavingThrows> SavingThrowProficiencies { get { return _character.SavingThrowProficiencies; } }
-        private List<AvailableSkills> MonkSkills
+        public override void AddToolProfs(List<AvailableTool> tools)
         {
-            get { return new List<AvailableSkills> { AvailableSkills.Acrobat, AvailableSkills.Athletics, AvailableSkills.History, AvailableSkills.Insight, AvailableSkills.Religion, AvailableSkills.Stealth }; }
+            base.AddToolProfs(tools);
+            CheckMonkToolIntrumentProf();
+        }
+
+        public override void AddInstrumentProfs(List<AvailableInstrument> instrument)
+        {
+            base.AddInstrumentProfs(instrument);
+            CheckMonkToolIntrumentProf();
+        }
+
+        private void CheckMonkToolIntrumentProf()
+        {
+            if (ToolProficiencies.Count > 0 && InstrumentProficiencies.Count > 0)
+                RuleIssues.Add("Monks can only choose an instrument or a Tool");
+        }
+
+        public override int SkillProficiencyCount { get { return base.SkillProficiencyCount + 2; } }
+        public override string Class { get { return "Monk"; } }
+        public override int CLassSkillCount { get { return 2; } }
+        public override int ArmorClass {  get { return 10 + Attributes.Dexterity.Modifier + Attributes.Wisdom.Modifier; } }
+        
+        public override ReadOnlyCollection<AvailableSkill> ClassSkills
+        {
+            get { return new ReadOnlyCollection<AvailableSkill>(new[]
+                    {
+                        AvailableSkill.Acrobat, 
+                        AvailableSkill.Athletics, 
+                        AvailableSkill.History,
+                        AvailableSkill.Insight, 
+                        AvailableSkill.Religion, 
+                        AvailableSkill.Stealth
+                    });
+            }
         }
     }
 }

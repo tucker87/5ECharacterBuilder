@@ -50,12 +50,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ArmoryTests.cs" />
     <Compile Include="CharacterAttributeTests.cs" />
+    <Compile Include="CharacterClassTests\FighterTests.cs" />
     <Compile Include="CharacterClassTests\MonkTests.cs" />
-    <Compile Include="CharacterFactoryTests.cs" />
     <Compile Include="CharacterRaceTests.cs" />
     <Compile Include="CharacterBaseTests.cs" />
-    <Compile Include="CreateCharacterTests.cs" />
+    <Compile Include="CharacterValidationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

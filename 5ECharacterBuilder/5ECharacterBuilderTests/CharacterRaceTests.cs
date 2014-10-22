@@ -6,24 +6,23 @@ namespace _5ECharacterBuilderTests
     [TestClass]
     public class CharacterRaceTests
     {
-        private static CharacterBase _characterBase;
+        private static Character _character;
 
         [TestInitialize]
         public static void Setup()
         {
-            _characterBase = new CharacterBase(name: "John");
+            _character = new Character(AvailableRaces.Human, AvailableClasses.Fighter);
         }
 
         [TestMethod]
         public void HumansGetPlusOneToAllAttributeScores()
         {
-            var human = new Human(_characterBase);
-            Assert.AreEqual(11, human.Attributes.Strength.Score);
-            Assert.AreEqual(11, human.Attributes.Constitution.Score);
-            Assert.AreEqual(11, human.Attributes.Dexterity.Score);
-            Assert.AreEqual(11, human.Attributes.Intelligence.Score);
-            Assert.AreEqual(11, human.Attributes.Wisdom.Score);
-            Assert.AreEqual(11, human.Attributes.Charisma.Score);
+            Assert.AreEqual(11, _character.Attributes.Strength.Score);
+            Assert.AreEqual(11, _character.Attributes.Constitution.Score);
+            Assert.AreEqual(11, _character.Attributes.Dexterity.Score);
+            Assert.AreEqual(11, _character.Attributes.Intelligence.Score);
+            Assert.AreEqual(11, _character.Attributes.Wisdom.Score);
+            Assert.AreEqual(11, _character.Attributes.Charisma.Score);
         }
     }
 }

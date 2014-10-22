@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using _5ECharacterBuilder;
-using _5ECharacterBuilder.CharacterClasses;
 
 namespace _5ECharacterBuilderTests.CharacterClassTests
 {
     [TestClass]
     public class MonkClassTests
     {
-        private static CharacterBase _characterBase;
-        private static Monk _monk;
+        private static Character _monk;
 
         [TestInitialize]
         public static void Setup()
         {
-            _characterBase = new CharacterBase(name: "John");
-            _monk = new Monk(_characterBase, artisanTool:AvailableTools.AlchemistsSupplies);
+            _monk = new Character(AvailableRaces.Human, AvailableClasses.Monk);
         }
         
         [TestMethod]
         public void MonksHave1D8HitDiceAtLevelOne()
         {
-
             Assert.AreEqual(8, _monk.HitDice[0]);
         }
 
@@ -33,29 +28,27 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception), "Monks can only choose two skills from their list.")]
         public void MonksCannotChooseMoreThanTwoSkills()
         {
-            var skillList = new List<AvailableSkills>{AvailableSkills.Acrobat, AvailableSkills.Religion, AvailableSkills.Stealth };
-            var monk = new Monk(new CharacterBase(), skillList, AvailableTools.AlchemistsSupplies);
-            Assert.AreEqual(2, monk.SkillProficiencies.Count);
+            var skillList = new List<AvailableSkill>{AvailableSkill.Acrobat, AvailableSkill.Religion, AvailableSkill.Stealth };
+            _monk.AddSkills(skillList);
+            Assert.AreEqual(1, _monk.RuleIssues.Count);
         }
 
         [TestMethod]
         public void MonksCanChooseTwoKillsFromTheirProficiencyList()
         {
-            var skillList = new List<AvailableSkills>{AvailableSkills.Acrobat, AvailableSkills.Religion};
-            var monk = new Monk(_characterBase, skillList);
-            Assert.AreEqual(monk.SkillProficiencies[0], AvailableSkills.Acrobat);
+            var skillList = new List<AvailableSkill>{AvailableSkill.Acrobat, AvailableSkill.Religion};
+            _monk.AddSkills(skillList);
+            Assert.AreEqual(_monk.SkillProficiencies[0], AvailableSkill.Acrobat);
         }
 
         [TestMethod]
-        [ExpectedException (typeof(Exception), "Arcana is not a skill available to this class.")]
         public void MonkCanNotChooseASkillThatIsNotOnTheirProficiencyList()
         {
-            var skillList = new List<AvailableSkills>{ AvailableSkills.Acrobat, AvailableSkills.Arcana };
-            // ReSharper disable once ObjectCreationAsStatement
-            new Monk(_characterBase, skillList, AvailableTools.AlchemistsSupplies);
+            var skillList = new List<AvailableSkill>{ AvailableSkill.Acrobat, AvailableSkill.Arcana };
+            _monk.AddSkills(skillList);
+            Assert.AreEqual("Arcana is not a skill available to this class.", _monk.RuleIssues[0]);
         }
 
         [TestMethod]
@@ -67,7 +60,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void MonksAreProficientWithShortSwords()
         {
-            Assert.IsTrue(_monk.WeaponProficiencies.Contains(AvailableWeapons.ShortSword));
+            Assert.IsTrue(_monk.WeaponProficiencies.Contains(AvailableWeapon.ShortSword));
         }
 
         [TestMethod]
@@ -82,40 +75,39 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void MonksAreProficientWithOneToolOrMusicalInstrument()
         {
-            var monk = new Monk(new CharacterBase(), artisanTool: AvailableTools.AlchemistsSupplies);
-            Assert.AreEqual(monk.ToolProficiencies[0], AvailableTools.AlchemistsSupplies);
-            monk = new Monk(new CharacterBase(), instrument: AvailableInstruments.Lute);
-            Assert.AreEqual(monk.InstrumentProficiencies[0], AvailableInstruments.Lute);
+            _monk.AddToolProfs(new List<AvailableTool>{AvailableTool.AlchemistsSupplies});
+            Assert.AreEqual(_monk.ToolProficiencies[0], AvailableTool.AlchemistsSupplies);
+            _monk = new Character(AvailableRaces.Human, AvailableClasses.Monk);
+            _monk.AddInstrumentProfs(new List<AvailableInstrument> {AvailableInstrument.Lute});
+            Assert.AreEqual(_monk.InstrumentProficiencies[0], AvailableInstrument.Lute);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception), "Monks must select one tool or instrument")]
-        public void MonksMustPickAnArtisanToolOrAnInstrument()
+        public void MonksCanPickAnArtisanToolOrAnInstrument()
         {
-            // ReSharper disable once ObjectCreationAsStatement
-            new Monk(new CharacterBase());
+            _monk.AddInstrumentProfs(new List<AvailableInstrument>{AvailableInstrument.Lute});
+            Assert.IsFalse(_monk.RuleIssues.Contains("Instrument"));
+            
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception), "Monks can only select one tool or instrument")]
         public void MonksCannotPickBothAToolAndInstrument()
         {
-            // ReSharper disable once ObjectCreationAsStatement
-            new Monk(new CharacterBase(), instrument: AvailableInstruments.Lute, artisanTool: AvailableTools.AlchemistsSupplies);
+            _monk.AddToolProfs(new List<AvailableTool>{AvailableTool.AlchemistsSupplies});
+            _monk.AddInstrumentProfs(new List<AvailableInstrument>{AvailableInstrument.Lute});
+            Assert.AreEqual("Monks can only choose an instrument or a Tool", _monk.RuleIssues[0]);
         }
 
         [TestMethod]
         public void MonksAreProficientInStrengthSavingThrows()
         {
-            var monk = new Monk(_characterBase);
-            Assert.IsTrue(monk.SavingThrowProficiencies.Contains(SavingThrows.Strength));
+            Assert.IsTrue(_monk.SavingThrowProficiencies.Contains(SavingThrow.Strength));
         }
 
         [TestMethod]
         public void MonkAreProficientInDexteritySavingThrows()
         {
-            var monk = new Monk(_characterBase);
-            Assert.IsTrue(monk.SavingThrowProficiencies.Contains(SavingThrows.Dexterity));
+            Assert.IsTrue(_monk.SavingThrowProficiencies.Contains(SavingThrow.Dexterity));
         }
     }
 }
