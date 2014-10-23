@@ -27,8 +27,11 @@ namespace SimpleExampleFrontEnd
             Console.Write("Equipped Armor:");
             foreach (var armor in character.EquippedArmors)
                 Console.Write(" " + armor);
-            
+
+            character.HasShieldEquipped = true;
             Console.WriteLine();
+            Console.WriteLine("Has Shield: " + (character.HasShieldEquipped ? "Yes":"No"));
+
             Console.WriteLine("Armor Class: " + character.ArmorClass);
             Console.WriteLine("Initiative: " + character.Initiative);
             Console.WriteLine("Speed: " + character.Speed);

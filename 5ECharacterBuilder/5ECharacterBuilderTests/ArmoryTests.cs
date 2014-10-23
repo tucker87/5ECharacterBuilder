@@ -35,7 +35,7 @@ namespace _5ECharacterBuilderTests
         public void ShieldsGive2AcOnTopOfDex()
         {
             _character.Attributes = new CharacterAttributes(new CharacterAttributeScores(dexterity: 20));
-            _character.EquipShield();
+            _character.HasShieldEquipped = true;
             Assert.AreEqual(17, _character.ArmorClass);
         }
 
@@ -44,7 +44,7 @@ namespace _5ECharacterBuilderTests
         {
             _character.Attributes = new CharacterAttributes(new CharacterAttributeScores(dexterity: 20));
             _character.AddArmor(AvailableArmor.Plate);
-            _character.EquipShield();
+            _character.HasShieldEquipped = true;
             Assert.AreEqual(20, _character.ArmorClass);
         }
     }

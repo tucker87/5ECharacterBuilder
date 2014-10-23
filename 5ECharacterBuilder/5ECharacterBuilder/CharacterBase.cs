@@ -52,7 +52,6 @@ namespace _5ECharacterBuilder
 
         public string Race{get { return _character.Race; } }
         public string Class {get { return _character.Class; } }
-        public int SkillProficiencyCount { get { return _character.SkillProficiencyCount; } }
         public ReadOnlyCollection<AvailableArmor> EquippedArmors { get { return _character.EquippedArmors; } }
         public ReadOnlyCollection<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public ReadOnlyCollection<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
@@ -67,6 +66,7 @@ namespace _5ECharacterBuilder
         public Currency Currency { get { return _character.Currency; } }
         public int ArmorClass { get { return _character.ArmorClass; } }
         public ReadOnlyCollection<AvailableLanguages> Languages { get { return _character.Languages; } }
+        public bool HasShieldEquipped {get { return _character.HasSheild; } set { _character.HasSheild = value; }}
 
         public int CalculateMaxHp() { return _character.MaxHp; }
         public static int CalculateMaxHp(List<int> hitDice, int constitution)
@@ -107,16 +107,6 @@ namespace _5ECharacterBuilder
         {
             _character.AddEquippedArmors(armors);
         }
-
-        public void EquipShield()
-        {
-            _character.HasSheild = true;
-        }
-
-        public void RemoveShield()
-        {
-            _character.HasSheild = false;
-        }
     }
 
     public class Currency
@@ -133,7 +123,6 @@ namespace _5ECharacterBuilder
         int MaxHp { get; }
         string Name { get; set; }
         ReadOnlyCollection<AvailableSkill> SkillProficiencies { get; set; }
-        int SkillProficiencyCount { get; }
         ReadOnlyCollection<AvailableArmor> EquippedArmors { get; }
         ReadOnlyCollection<AvailableArmor> ArmorProficiencies { get; }
         ReadOnlyCollection<AvailableInstrument> InstrumentProficiencies { get; }

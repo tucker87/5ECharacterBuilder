@@ -13,7 +13,6 @@ namespace _5ECharacterBuilder
         public virtual int MaxHp { get { return _character.MaxHp; } }
         public virtual string Name { get { return _character.Name; } set { _character.Name = value; } }
         public virtual ReadOnlyCollection<AvailableSkill> SkillProficiencies { get { return _character.SkillProficiencies; } set { _character.SkillProficiencies = value; } }
-        public virtual int SkillProficiencyCount { get { return _character.SkillProficiencyCount; } }
         public ReadOnlyCollection<AvailableArmor> EquippedArmors { get { return _character.EquippedArmors; } }
         public virtual ReadOnlyCollection<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public virtual ReadOnlyCollection<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } }

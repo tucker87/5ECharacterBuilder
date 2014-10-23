@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace _5ECharacterBuilder.CharacterClasses
 {
@@ -13,7 +14,6 @@ namespace _5ECharacterBuilder.CharacterClasses
         public virtual int MaxHp { get { return _character.MaxHp; } }
         public virtual string Name { get { return _character.Name; } set { _character.Name = value; } }
         public virtual ReadOnlyCollection<AvailableSkill> SkillProficiencies { get { return _character.SkillProficiencies; } set { _character.SkillProficiencies = value; } }
-        public virtual int SkillProficiencyCount { get { return _character.SkillProficiencyCount; } }
         public ReadOnlyCollection<AvailableArmor> EquippedArmors { get { return _character.EquippedArmors; } }
         public virtual ReadOnlyCollection<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public virtual ReadOnlyCollection<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
@@ -33,9 +33,34 @@ namespace _5ECharacterBuilder.CharacterClasses
         public virtual ReadOnlyCollection<SavingThrow> SavingThrowProficiencies { get { return _character.SavingThrowProficiencies; } }
         public virtual ReadOnlyCollection<AvailableSkill> ClassSkills { get { return _character.ClassSkills; } }
 
-        public virtual List<string> VerifyCharacter() { return _character.VerifyCharacter(); }
+        public virtual List<string> VerifyCharacter()
+        {
+            var ruleIssues =_character.VerifyCharacter();
 
-        public virtual void AddSkills(List<AvailableSkill> skillList) { _character.AddSkills(skillList); }
+            if (ClassSkills.ToList().Count > CLassSkillCount)
+                ruleIssues.Add(Class + " can only choose " + CLassSkillCount + " skills from their list.");
+
+            return ruleIssues;
+        }
+
+        public virtual void AddSkills(List<AvailableSkill> skillList)
+        {
+            _character.AddSkills(skillList);
+
+            var currentSkills = SkillProficiencies.ToList();
+            var classSkills = ClassSkills.ToList();
+
+            foreach (var skill in skillList)
+            {
+                currentSkills.Add(skill);
+                if (!classSkills.Contains(skill))
+                    RuleIssues.Add(skill + " is not a skill available to this class.");
+            }
+
+            SkillProficiencies = new ReadOnlyCollection<AvailableSkill>(currentSkills);
+
+            VerifyCharacter();
+        }
 
         public virtual void AddWeaponProfs(List<AvailableWeapon> weaponList) { _character.AddWeaponProfs(weaponList); }
 

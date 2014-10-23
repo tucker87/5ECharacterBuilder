@@ -22,12 +22,6 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         }
 
         [TestMethod]
-        public void MonksGetTwoSkillProficiencies()
-        {
-            Assert.AreEqual(2, _monk.SkillProficiencyCount);
-        }
-
-        [TestMethod]
         public void MonksCannotChooseMoreThanTwoSkills()
         {
             var skillList = new List<AvailableSkill>{AvailableSkill.Acrobat, AvailableSkill.Religion, AvailableSkill.Stealth };
