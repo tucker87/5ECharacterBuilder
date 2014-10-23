@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -67,6 +66,7 @@ namespace _5ECharacterBuilder
         public int ArmorClass { get { return _character.ArmorClass; } }
         public ReadOnlyCollection<AvailableLanguages> Languages { get { return _character.Languages; } }
         public bool HasShieldEquipped {get { return _character.HasSheild; } set { _character.HasSheild = value; }}
+        public string Size { get { return _character.Size; } }
 
         public int CalculateMaxHp() { return _character.MaxHp; }
         public static int CalculateMaxHp(List<int> hitDice, int constitution)
@@ -76,7 +76,7 @@ namespace _5ECharacterBuilder
 
         public List<string> VerifyCharacter()
         {
-            throw new System.NotImplementedException();
+            return _character.VerifyCharacter();
         }
 
         public void AddSkills(List<AvailableSkill> skillList)
@@ -109,13 +109,6 @@ namespace _5ECharacterBuilder
         }
     }
 
-    public class Currency
-    {
-        public int Gold { get; private set; }
-        public int Silver { get; private set; }
-        public int Copper { get; private set; }
-    }
-
     public interface ICharacter
     {
         CharacterAttributes Attributes { get; set; }
@@ -140,6 +133,7 @@ namespace _5ECharacterBuilder
         int ArmorClass { get; }
         ReadOnlyCollection<AvailableLanguages> Languages { get; }
         bool HasSheild { get; set; }
+        string Size { get; }
         List<string> VerifyCharacter();
         void AddSkills(List<AvailableSkill> skillList);
         void AddWeaponProfs(List<AvailableWeapon> weaponList);
@@ -193,6 +187,9 @@ namespace _5ECharacterBuilder
         public int Speed { get; private set; }
         public int CLassSkillCount { get; private set; }
         public Currency Currency { get; private set; }
+        public ReadOnlyCollection<AvailableLanguages> Languages { get; private set; }
+        public bool HasSheild { get; set; }
+        public string Size { get; private set; }
 
         public int ArmorClass
         {
@@ -212,15 +209,9 @@ namespace _5ECharacterBuilder
             var armory = new Armory();
             return armory.GetArmorClassBonus(armor, dex);
         }
-
-        public ReadOnlyCollection<AvailableLanguages> Languages { get; private set; }
-        public bool HasSheild { get; set; }
-
-        public List<string> VerifyCharacter()
-        {
-            return RuleIssues;
-        }
-
+        
+        public List<string> VerifyCharacter() { return RuleIssues; }
+        
         public void AddSkills(List<AvailableSkill> skillList)
         {
             var currentSkills = SkillProficiencies.ToList();

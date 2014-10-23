@@ -48,6 +48,7 @@
     <Compile Include="CharacterClasses\Monk.cs" />
     <Compile Include="CharacterFactory.cs" />
     <Compile Include="CharacterRace.cs" />
+    <Compile Include="Currency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

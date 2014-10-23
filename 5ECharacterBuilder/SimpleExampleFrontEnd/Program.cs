@@ -8,7 +8,7 @@ namespace SimpleExampleFrontEnd
     {
         static void Main()
         {
-            var character = new Character(AvailableRaces.Human, AvailableClasses.Fighter, new CharacterAttributeScores(11,11,11,11,11,11));
+            var character = new Character(AvailableRaces.Human, AvailableClasses.Monk, new CharacterAttributeScores(11,11,11,11,11,11));
 
             Console.WriteLine(character.Race + ", " + character.Class);
             Console.Write("Hit Dice:");
@@ -34,6 +34,7 @@ namespace SimpleExampleFrontEnd
 
             Console.WriteLine("Armor Class: " + character.ArmorClass);
             Console.WriteLine("Initiative: " + character.Initiative);
+            Console.WriteLine("Size: " + character.Size);
             Console.WriteLine("Speed: " + character.Speed);
             Console.WriteLine();
             Console.WriteLine("Strength: " + character.Attributes.Strength.Score + " Modifier: " + character.Attributes.Strength.Modifier);
@@ -49,6 +50,12 @@ namespace SimpleExampleFrontEnd
             foreach (var weapon in character.WeaponProficiencies)
                 Console.Write(" " + weapon);
             
+            Console.WriteLine();
+            Console.Write("Saving Throw Proficiencies:");
+            foreach (var savingThrowProficiency in character.SavingThrowProficiencies)
+                Console.Write(" " + savingThrowProficiency);
+            
+
             Console.WriteLine();
             Console.WriteLine();
             Console.Write("Class Skill Proficiencies:");
