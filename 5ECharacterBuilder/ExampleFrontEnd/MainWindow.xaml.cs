@@ -39,9 +39,9 @@ namespace ExampleFrontEnd
 
         private void MakeNewCharacter()
         {   
-            _character = LevelBox.Text == "1'" ? 
-                new Character((AvailableRaces)RaceBox.SelectedValue, (AvailableClasses)ClassBox.SelectedValue) : 
-                new Character((AvailableRaces)RaceBox.SelectedValue, (AvailableClasses)ClassBox.SelectedValue, Convert.ToInt32(LevelBox.Text));
+            _character = LevelBox.Text == "1'" ?
+                new Character((AvailableRaces)RaceBox.SelectedValue, (AvailableClasses)ClassBox.SelectedValue, AvailableBackgrounds.Criminal) :
+                new Character((AvailableRaces)RaceBox.SelectedValue, (AvailableClasses)ClassBox.SelectedValue, AvailableBackgrounds.Criminal, Convert.ToInt32(LevelBox.Text));
 
             SetChracterScores();
             UpdateCharacterRacialBonuses();

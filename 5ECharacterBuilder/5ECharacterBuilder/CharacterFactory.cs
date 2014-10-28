@@ -1,34 +1,35 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using _5ECharacterBuilder.CharacterBackgrounds;
 using _5ECharacterBuilder.CharacterClasses;
+using _5ECharacterBuilder.CharacterRaces;
 
 namespace _5ECharacterBuilder
 {
     class CharacterFactory
     {
-        public ICharacter BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass)
-        {
-            AvailableRaces? nullableRace = selectedRace;
-            AvailableClasses? nullableClass = selectedClass;
-            return BuildACharacter(nullableRace, nullableClass);
-        }
-
-        public static ICharacter BuildACharacter(AvailableRaces? selectedRace, AvailableClasses? selectedClass)
+        public ICharacter BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground)
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
-            var characterClasses = currentAssembly.GetTypes()
+            var characterClass = currentAssembly.GetTypes()
                 .First(t => typeof (CharacterClass).IsAssignableFrom(t) && t.Name == selectedClass.ToString());
-            var characterRaces = currentAssembly.GetTypes()
+            var characterRace = currentAssembly.GetTypes()
                 .First(t => typeof(CharacterRace).IsAssignableFrom(t) && t.Name == selectedRace.ToString());
+            var characterBackground = currentAssembly.GetTypes()
+                .First(t => typeof(CharacterBackground).IsAssignableFrom(t) && t.Name == selectedBackground.ToString());
             
-            var newCharacter = (ICharacter)Activator.CreateInstance(characterRaces,
+            var newCharacter = (ICharacter)Activator.CreateInstance(characterRace,
                 BindingFlags.OptionalParamBinding,
-                null, new[] { new CharacterBase() }, null);
+                null, new object[] { new CharacterBase() }, null);
 
-            newCharacter = (ICharacter)Activator.CreateInstance(characterClasses, 
+            newCharacter = (ICharacter)Activator.CreateInstance(characterClass, 
                 BindingFlags.OptionalParamBinding,
-                null, new[] { newCharacter }, null);
+                null, new object[] { newCharacter }, null);
+
+            newCharacter = (ICharacter)Activator.CreateInstance(characterBackground,
+                BindingFlags.OptionalParamBinding,
+                null, new object[] { newCharacter }, null);
 
             return newCharacter;
         }
@@ -41,7 +42,7 @@ namespace _5ECharacterBuilder
 
             character = (ICharacter)Activator.CreateInstance(characterClasses,
                 BindingFlags.OptionalParamBinding,
-                null, new[] { character }, null);
+                null, new object[] { character }, null);
 
             return character;
         }

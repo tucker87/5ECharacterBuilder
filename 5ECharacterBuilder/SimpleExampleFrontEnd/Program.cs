@@ -8,9 +8,9 @@ namespace SimpleExampleFrontEnd
     {
         static void Main()
         {
-            var character = new Character(AvailableRaces.Human, AvailableClasses.Monk, new CharacterAttributeScores(11,11,11,11,11,11));
+            var character = new Character(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal, new CharacterAttributeScores(11, 11, 11, 11, 11, 11));
 
-            Console.WriteLine(character.Race + ", " + character.Class);
+            Console.WriteLine(character.Race + ", " + character.Class + ", " + character.Background);
             Console.Write("Hit Dice:");
             foreach (var hitDie in character.HitDice)
                 Console.Write(" 1d" + hitDie);
@@ -59,12 +59,12 @@ namespace SimpleExampleFrontEnd
             Console.WriteLine();
             Console.WriteLine();
             Console.Write("Class Skill Proficiencies:");
-            foreach (var skill in character.ClassSkills)
+            foreach (var skill in character.Skills)
                 Console.Write(" " + skill);
 
             Console.WriteLine();
             Console.WriteLine("Class Skill Count: " + character.ClassSkillCount);
-            character.AddSkills(new List<AvailableSkill>{AvailableSkill.Acrobat,AvailableSkill.History,AvailableSkill.Arcana});
+            character.AddSkills(new List<AvailableSkill>{AvailableSkill.Acrobatics,AvailableSkill.History,AvailableSkill.Arcana});
             Console.Write("Choosen Skill Proficiencies:");
             foreach (var skill in character.SkillProficiencies)
                 Console.Write(" " + skill);

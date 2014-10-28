@@ -16,19 +16,19 @@ namespace _5ECharacterBuilder.CharacterClasses
             AddWeaponProfs(fighterWeapons);
             AddSavingThrows(new List<SavingThrow>{SavingThrow.Strength, SavingThrow.Constitution});
             if (skillList != null)
-                AddSkills(skillList);
+                AddClassSkills(skillList);
         }
 
         public override string Class { get { return "Fighter"; } }
         public override string Name { get; set; }
-        public override int CLassSkillCount { get { return 2; } }
+        public override int ClassSkillCount { get { return 2; } }
         public override ReadOnlyCollection<AvailableSkill> ClassSkills
         {
             get
             {
                 return new ReadOnlyCollection<AvailableSkill>(new[]
                     {
-                        AvailableSkill.Acrobat,
+                        AvailableSkill.Acrobatics,
                         AvailableSkill.AnimalHandling,
                         AvailableSkill.Athletics,
                         AvailableSkill.History,

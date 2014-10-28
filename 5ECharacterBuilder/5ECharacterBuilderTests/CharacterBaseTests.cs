@@ -11,7 +11,7 @@ namespace _5ECharacterBuilderTests
         [TestInitialize]
         public static void Setup()
         {
-            _character = new Character(AvailableRaces.Human, AvailableClasses.Monk);
+            _character = new Character(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
         }
         [TestMethod]
         public void CharactersCanHaveNames()
@@ -23,14 +23,14 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void CharactersMaxHpIsBasedOnMaxOfFirstHitDice()
         {
-            var characterWithHitDice = new Character(AvailableRaces.Human, AvailableClasses.Monk);
+            var characterWithHitDice = new Character(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
             Assert.AreEqual(8, characterWithHitDice.MaxHp);
         }
 
         [TestMethod]
         public void CharactersMaxHpIsBasedOnMaxOfFirstPlusAverageOfRemainingHitDice()
         {
-            var characterWithMultipleHitDice = new Character(AvailableRaces.Human, AvailableClasses.Monk, 2);
+            var characterWithMultipleHitDice = new Character(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal, 2);
             Assert.AreEqual(13, characterWithMultipleHitDice.MaxHp);
         }
 
@@ -38,7 +38,7 @@ namespace _5ECharacterBuilderTests
         public void CharactersMaxHpIsBoostedByConstitutionModifier()
         {
             var highCon = new CharacterAttributeScores(constitution: 14);
-            var characterWithHitDiceAndCon = new Character(AvailableRaces.Human, AvailableClasses.Monk, highCon);
+            var characterWithHitDiceAndCon = new Character(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal, highCon);
             Assert.AreEqual(10, characterWithHitDiceAndCon.MaxHp);
         }
 

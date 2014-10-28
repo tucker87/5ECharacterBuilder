@@ -11,7 +11,7 @@ namespace _5ECharacterBuilderTests
         [TestInitialize]
         public void Setup()
         {
-            _character = new Character(AvailableRaces.Human, AvailableClasses.Fighter);
+            _character = new Character(AvailableRaces.Human, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
             _armory = new Armory();
         }
 

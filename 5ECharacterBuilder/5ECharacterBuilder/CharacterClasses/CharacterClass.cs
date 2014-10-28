@@ -10,6 +10,9 @@ namespace _5ECharacterBuilder.CharacterClasses
         protected CharacterClass(ICharacter character) { _character = character; }
 
         public virtual CharacterAttributes Attributes { get { return _character.Attributes; } set { _character.Attributes = value; } }
+        public virtual string Background { get { return _character.Background; } }
+        public virtual ReadOnlyCollection<AvailableSkill> BackgroundSkills { get { return _character.BackgroundSkills; } }
+
         public virtual List<int> HitDice { get { return _character.HitDice; } }
         public virtual int MaxHp { get { return _character.MaxHp; } }
         public virtual string Name { get { return _character.Name; } set { _character.Name = value; } }
@@ -18,7 +21,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         public virtual string Class { get { return _character.Class; } }
         public virtual int Initiative { get { return _character.Initiative; } }
         public virtual int Speed { get { return _character.Speed; } }
-        public virtual int CLassSkillCount { get { return _character.CLassSkillCount; } }
+        public virtual int ClassSkillCount { get { return _character.ClassSkillCount; } }
         public virtual Currency Currency { get { return _character.Currency; } }
         public virtual int ArmorClass { get { return _character.ArmorClass; } }
         public virtual ReadOnlyCollection<AvailableLanguages> Languages { get { return _character.Languages; } }
@@ -29,7 +32,8 @@ namespace _5ECharacterBuilder.CharacterClasses
         public virtual ReadOnlyCollection<AvailableSkill> SkillProficiencies { get { return _character.SkillProficiencies; } set { _character.SkillProficiencies = value; } }
         public virtual ReadOnlyCollection<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public virtual ReadOnlyCollection<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
-        public virtual ReadOnlyCollection<AvailableTool> ToolProficiencies { get { return _character.ToolProficiencies; } }
+
+        public virtual ReadOnlyCollection<AvailableTool> ToolProficiencies { get { return _character.ToolProficiencies; } set { _character.ToolProficiencies = value; } }
         public virtual ReadOnlyCollection<AvailableInstrument> InstrumentProficiencies { get { return _character.InstrumentProficiencies; } }
         public virtual ReadOnlyCollection<SavingThrow> SavingThrowProficiencies { get { return _character.SavingThrowProficiencies; } }
         
@@ -40,15 +44,15 @@ namespace _5ECharacterBuilder.CharacterClasses
         {
             var ruleIssues =_character.VerifyCharacter();
 
-            if (ClassSkills.ToList().Count > CLassSkillCount)
-                ruleIssues.Add(Class + " can only choose " + CLassSkillCount + " skills from their list.");
+            if (ClassSkills.ToList().Count > ClassSkillCount)
+                ruleIssues.Add(Class + " can only choose " + ClassSkillCount + " skills from their list.");
 
             return ruleIssues;
         }
 
-        public virtual void AddSkills(List<AvailableSkill> skillList)
+        public virtual void AddClassSkills(List<AvailableSkill> skillList)
         {
-            _character.AddSkills(skillList);
+            _character.AddClassSkills(skillList);
 
             var currentSkills = SkillProficiencies.ToList();
             var classSkills = ClassSkills.ToList();
@@ -76,6 +80,8 @@ namespace _5ECharacterBuilder.CharacterClasses
         public virtual void SetAttributes(CharacterAttributes characterAttributes) { _character.SetAttributes(characterAttributes); }
 
         public virtual void AddLanguages(List<AvailableLanguages> languages) { _character.AddLanguages(languages); }
+
+        public void AddBackgroundSkills(List<AvailableSkill> skillList)  { _character.AddBackgroundSkills(skillList); }
 
         public virtual void AddEquippedArmors(List<AvailableArmor> armors) { _character.AddEquippedArmors(armors); }
 

@@ -14,7 +14,7 @@ namespace _5ECharacterBuilderTests
         public static void Setup()
         {
             _characterAttributeScrores = new CharacterAttributeScores();
-            _character = new Character(AvailableRaces.Human, AvailableClasses.Monk);
+            _character = new Character(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
         }
         [TestMethod]
         [ExpectedException(typeof(Exception))]

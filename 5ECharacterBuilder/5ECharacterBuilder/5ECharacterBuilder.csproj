@@ -41,13 +41,16 @@
   <ItemGroup>
     <Compile Include="Armory.cs" />
     <Compile Include="AvailableEnums.cs" />
+    <Compile Include="CharacterBackgrounds\CharacterBackground.cs" />
+    <Compile Include="CharacterBackgrounds\Criminal.cs" />
     <Compile Include="CharacterBase.cs" />
     <Compile Include="CharacterAttribute.cs" />
     <Compile Include="CharacterClasses\CharacterClass.cs" />
     <Compile Include="CharacterClasses\Fighter.cs" />
     <Compile Include="CharacterClasses\Monk.cs" />
     <Compile Include="CharacterFactory.cs" />
-    <Compile Include="CharacterRace.cs" />
+    <Compile Include="CharacterRaces\CharacterRace.cs" />
+    <Compile Include="CharacterRaces\Human.cs" />
     <Compile Include="Currency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

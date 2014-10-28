@@ -93,6 +93,11 @@ namespace _5ECharacterBuilder
             return armor.ArmorClass(dex);
 
         }
+
+        public List<AvailableTool> GetGamingSets()
+        {
+            return new List<AvailableTool>{AvailableTool.DiceSet, AvailableTool.DragonchessSet, AvailableTool.PlayingCardSet, AvailableTool.ThreeDragonAnteSet};
+        }
     }
     public enum AvailableWeapon
     {
