@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace _5ECharacterBuilder.CharacterClasses
 {
@@ -9,8 +10,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         {
             HitDice.Add(8);
 
-            var armory = new Armory();
-            AddWeaponProfs(armory.SimpleWeapons);
+            AddWeaponProfs(Armory.SimpleWeapons);
             AddWeaponProfs(new List<AvailableWeapon>{AvailableWeapon.ShortSword});
 
             AddSavingThrows(new List<SavingThrow> {SavingThrow.Strength, SavingThrow.Dexterity});
@@ -38,8 +38,18 @@ namespace _5ECharacterBuilder.CharacterClasses
 
         public override string Class { get { return "Monk"; } }
         public override int ClassSkillCount { get { return 2; } }
-        public override int ArmorClass {  get { return 10 + Attributes.Dexterity.Modifier + Attributes.Wisdom.Modifier; } }
-        
+
+        public override int ArmorClass
+        {
+            get
+            {
+                if (EquippedArmor.Name == AvailableArmor.Cloth.ToString())
+                    return 10 + Attributes.Dexterity.Modifier + Attributes.Wisdom.Modifier;
+
+                return base.ArmorClass;
+            }
+        }
+
         public override ReadOnlyCollection<AvailableSkill> ClassSkills
         {
             get { return new ReadOnlyCollection<AvailableSkill>(new[]

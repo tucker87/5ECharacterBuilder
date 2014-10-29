@@ -25,7 +25,7 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         public virtual ReadOnlyCollection<AvailableLanguages> Languages { get { return _character.Languages; } }
         public virtual bool HasSheild { get { return _character.HasSheild; } set { _character.HasSheild = value; } }
 
-        public virtual ReadOnlyCollection<AvailableArmor> EquippedArmors { get { return _character.EquippedArmors; } }
+        public virtual Armor EquippedArmor { get { return _character.EquippedArmor; } }
         public virtual ReadOnlyCollection<AvailableSkill> ClassSkills { get { return _character.ClassSkills; } }
         public virtual ReadOnlyCollection<AvailableSkill> SkillProficiencies { get { return _character.SkillProficiencies; } set { _character.SkillProficiencies = value; } }
         public virtual ReadOnlyCollection<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
@@ -34,12 +34,12 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         public virtual ReadOnlyCollection<AvailableInstrument> InstrumentProficiencies { get { return _character.InstrumentProficiencies; } }
         public virtual ReadOnlyCollection<SavingThrow> SavingThrowProficiencies { get { return _character.SavingThrowProficiencies; } }
         public virtual string Size { get { return _character.Size; } }
-
-        public List<string> VerifyCharacter()  {  return _character.VerifyCharacter(); }
-
+        
         public void AddClassSkills(List<AvailableSkill> skillList) {  _character.AddClassSkills(skillList); }
 
         public void AddWeaponProfs(List<AvailableWeapon> weaponList)  {  _character.AddWeaponProfs(weaponList); }
+
+        public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }
 
         public void AddSavingThrows(List<SavingThrow> savingThrows) {  _character.AddSavingThrows(savingThrows); }
 
@@ -52,8 +52,6 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         public void AddLanguages(List<AvailableLanguages> languages) { _character.AddLanguages(languages); }
 
         public void AddBackgroundSkills(List<AvailableSkill> skillList) { _character.AddBackgroundSkills(skillList); }
-
-        public void AddEquippedArmors(List<AvailableArmor> armors) { _character.AddEquippedArmors(armors); }
 
         public void AddArmorProf(List<AvailableArmor> armors) { _character.AddArmorProf(armors); }
     }

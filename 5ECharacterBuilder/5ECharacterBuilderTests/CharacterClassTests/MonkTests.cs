@@ -26,7 +26,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             var skillList = new List<AvailableSkill>{AvailableSkill.Acrobatics, AvailableSkill.Religion, AvailableSkill.Stealth };
             _monk.AddSkills(skillList);
-            Assert.AreEqual(1, _monk.RuleIssues.Count);
+            Assert.IsTrue(_monk.RuleIssues.Contains("Monks can only choose 2 skills from their list."));
         }
 
         [TestMethod]
@@ -61,8 +61,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void MonksAreProficientWithSimpleWeapons()
         {
-            var armory = new Armory();
-            foreach (var weapon in armory.SimpleWeapons)
+            foreach (var weapon in Armory.SimpleWeapons)
             {
                 Assert.IsTrue(_monk.WeaponProficiencies.Contains(weapon));
             }

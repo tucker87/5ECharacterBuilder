@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -26,8 +27,8 @@ namespace _5ECharacterBuilder.CharacterClasses
         public virtual int ArmorClass { get { return _character.ArmorClass; } }
         public virtual ReadOnlyCollection<AvailableLanguages> Languages { get { return _character.Languages; } }
         public virtual bool HasSheild { get { return _character.HasSheild; } set { _character.HasSheild = value; } }
+        public virtual Armor EquippedArmor { get { return _character.EquippedArmor; } }
 
-        public virtual ReadOnlyCollection<AvailableArmor> EquippedArmors { get { return _character.EquippedArmors; } }
         public virtual ReadOnlyCollection<AvailableSkill> ClassSkills { get { return _character.ClassSkills; } }
         public virtual ReadOnlyCollection<AvailableSkill> SkillProficiencies { get { return _character.SkillProficiencies; } set { _character.SkillProficiencies = value; } }
         public virtual ReadOnlyCollection<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
@@ -36,16 +37,16 @@ namespace _5ECharacterBuilder.CharacterClasses
         public virtual ReadOnlyCollection<AvailableTool> ToolProficiencies { get { return _character.ToolProficiencies; } set { _character.ToolProficiencies = value; } }
         public virtual ReadOnlyCollection<AvailableInstrument> InstrumentProficiencies { get { return _character.InstrumentProficiencies; } }
         public virtual ReadOnlyCollection<SavingThrow> SavingThrowProficiencies { get { return _character.SavingThrowProficiencies; } }
-        
+
 
         public virtual string Size { get { return _character.Size; } }
 
         public virtual List<string> VerifyCharacter()
         {
-            var ruleIssues =_character.VerifyCharacter();
+            var ruleIssues =_character.RuleIssues;
 
             if (ClassSkills.ToList().Count > ClassSkillCount)
-                ruleIssues.Add(Class + " can only choose " + ClassSkillCount + " skills from their list.");
+                ruleIssues.Add(String.Format("{0}s can only choose {1} skills from their list.", Class, ClassSkillCount));
 
             return ruleIssues;
         }
@@ -83,7 +84,7 @@ namespace _5ECharacterBuilder.CharacterClasses
 
         public void AddBackgroundSkills(List<AvailableSkill> skillList)  { _character.AddBackgroundSkills(skillList); }
 
-        public virtual void AddEquippedArmors(List<AvailableArmor> armors) { _character.AddEquippedArmors(armors); }
+        public virtual void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }
 
         public virtual void AddArmorProf(List<AvailableArmor> armors) { _character.AddArmorProf(armors); }
     }

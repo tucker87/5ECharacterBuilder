@@ -19,7 +19,7 @@ namespace _5ECharacterBuilderTests
         public void ClothArmorGivesFullDexBonus()
         {
             _character.Attributes = new CharacterAttributes(new CharacterAttributeScores(dexterity:20));
-            _character.AddArmor(AvailableArmor.Cloth);
+            _character.EquipArmor(AvailableArmor.Cloth);
             Assert.AreEqual(15, _character.ArmorClass);
         }
 
@@ -27,7 +27,7 @@ namespace _5ECharacterBuilderTests
         public void PlateArmorGiveNoDexBonus()
         {
             _character.Attributes = new CharacterAttributes(new CharacterAttributeScores(dexterity: 20));
-            _character.AddArmor(AvailableArmor.Plate);
+            _character.EquipArmor(AvailableArmor.Plate);
             Assert.AreEqual(18, _character.ArmorClass);
         }
 
@@ -43,7 +43,7 @@ namespace _5ECharacterBuilderTests
         public void ShieldsGive2AcOnTopOfArmor()
         {
             _character.Attributes = new CharacterAttributes(new CharacterAttributeScores(dexterity: 20));
-            _character.AddArmor(AvailableArmor.Plate);
+            _character.EquipArmor(AvailableArmor.Plate);
             _character.HasShieldEquipped = true;
             Assert.AreEqual(20, _character.ArmorClass);
         }

@@ -7,12 +7,10 @@ namespace _5ECharacterBuilder.CharacterClasses
     {
         public Fighter(ICharacter character, List<AvailableSkill> skillList = null) : base(character)
         {
-            var armory = new Armory();
-
             HitDice.Add(10);
-            AddArmorProf(new List<AvailableArmor>(armory.AllArmor) {AvailableArmor.Shield});
-            var fighterWeapons = new List<AvailableWeapon>(armory.SimpleWeapons);
-            fighterWeapons.AddRange(armory.MartialWeapons);
+            AddArmorProf(new List<AvailableArmor>(Armory.AllArmor) {AvailableArmor.Shield});
+            var fighterWeapons = new List<AvailableWeapon>(Armory.SimpleWeapons);
+            fighterWeapons.AddRange(Armory.MartialWeapons);
             AddWeaponProfs(fighterWeapons);
             AddSavingThrows(new List<SavingThrow>{SavingThrow.Strength, SavingThrow.Constitution});
             if (skillList != null)

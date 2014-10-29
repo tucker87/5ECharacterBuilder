@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -37,7 +38,7 @@ namespace _5ECharacterBuilder
         public string Class {get { return _character.Class; } }
         public int ClassSkillCount { get { return _character.ClassSkillCount; } }
         public Currency Currency { get { return _character.Currency; } }
-        public ReadOnlyCollection<AvailableArmor> EquippedArmors { get { return _character.EquippedArmors; } }
+        public Armor EquippedArmor { get { return _character.EquippedArmor; } }
         public bool HasShieldEquipped {get { return _character.HasSheild; } set { _character.HasSheild = value; }}
         public List<int> HitDice { get { return _character.HitDice; } }
         public int Initiative { get { return _character.Initiative; } }
@@ -46,7 +47,6 @@ namespace _5ECharacterBuilder
         public int MaxHp { get { return _character.MaxHp; } }
         public string Name { get { return _character.Name; } set { _character.Name = value; } }
         public string Race{get { return _character.Race; } }
-        public List<string> RuleIssues { get { return _character.RuleIssues; } }
         public ReadOnlyCollection<SavingThrow> SavingThrowProficiencies { get { return _character.SavingThrowProficiencies; } }
         public string Size { get { return _character.Size; } }
         public ReadOnlyCollection<AvailableSkill> SkillProficiencies { get { return _character.SkillProficiencies; } }
@@ -74,20 +74,27 @@ namespace _5ECharacterBuilder
         {
             _character.AddLanguages(languages);
         }
-
-        public void AddArmor(AvailableArmor armor)
+        
+        public void EquipArmor(AvailableArmor armor)
         {
-            AddArmors(new List<AvailableArmor> { armor });
+            _character.EquipArmor(armor);
         }
 
-        public void AddArmors(List<AvailableArmor> armors)
+        public List<string> RuleIssues
         {
-            _character.AddEquippedArmors(armors);
-        }
+            get
+            {
+                var currentIssues = _character.RuleIssues;
 
-        public List<string> VerifyCharacter()
-        {
-            return _character.VerifyCharacter();
+                if (!ArmorProficiencies.Contains((AvailableArmor)Enum.Parse(typeof(AvailableArmor), EquippedArmor.Name)))
+                    currentIssues.Add(String.Format("Character is not proficient with {0} Armor. Penalties will apply.", EquippedArmor.Name));
+
+                if(HasShieldEquipped)
+                    if (!ArmorProficiencies.Contains(AvailableArmor.Shield))
+                        currentIssues.Add("Character is not proficient with Shields. Penalties will apply.");
+                    
+                return currentIssues;
+            }
         }
     }
 
@@ -102,7 +109,7 @@ namespace _5ECharacterBuilder
         int ClassSkillCount { get; }
         Currency Currency { get; }
         ReadOnlyCollection<AvailableSkill> ClassSkills { get; }
-        ReadOnlyCollection<AvailableArmor> EquippedArmors { get; }
+        Armor EquippedArmor { get; }
         bool HasSheild { get; set; }
         List<int> HitDice { get; }
         int Initiative { get; }
@@ -121,7 +128,7 @@ namespace _5ECharacterBuilder
 
         void AddArmorProf(List<AvailableArmor> armors);
         void AddBackgroundSkills(List<AvailableSkill> skillList);
-        void AddEquippedArmors(List<AvailableArmor> armors);
+        void EquipArmor(AvailableArmor armor);
         void AddSavingThrows(List<SavingThrow> savingThrows);
         void AddInstrumentProfs(List<AvailableInstrument> instruments);
         void AddLanguages(List<AvailableLanguages> languages);
@@ -129,13 +136,13 @@ namespace _5ECharacterBuilder
         void AddToolProfs(List<AvailableTool> tools);
         void AddWeaponProfs(List<AvailableWeapon> weaponList);
         void SetAttributes(CharacterAttributes characterAttributes);
-        List<string> VerifyCharacter();
     }
 
     internal class CharacterBase : ICharacter
     {
         public CharacterBase(CharacterAttributeScores attributeScores = null, string name = "")
         {
+            EquipArmor(AvailableArmor.Cloth);
             attributeScores = attributeScores ?? new CharacterAttributeScores();
             ArmorProficiencies = new ReadOnlyCollection<AvailableArmor>(new List<AvailableArmor>());
             BackgroundSkills = new ReadOnlyCollection<AvailableSkill>(new List<AvailableSkill>());
@@ -151,7 +158,6 @@ namespace _5ECharacterBuilder
             RuleIssues = new List<string>();
             Currency = new Currency();
             Languages = new ReadOnlyCollection<AvailableLanguages>(new List<AvailableLanguages>());
-            EquippedArmors = new ReadOnlyCollection<AvailableArmor>(new List<AvailableArmor>());
         }
 
         public int SkillProficiencyCount { get { return SkillProficiencies.Count; } }
@@ -161,11 +167,12 @@ namespace _5ECharacterBuilder
         public string Background { get; private set; }
         public ReadOnlyCollection<AvailableSkill> BackgroundSkills { get; private set; }
         public List<int> HitDice { get; private set; }
+        public string Class { get; private set; }
+        public Armor EquippedArmor { get; private set; }
         public int MaxHp { get { return CalculateMaxHp(HitDice, Attributes.Constitution.Modifier); } }
         public string Name { get; set; }
         public ReadOnlyCollection<AvailableSkill> SkillProficiencies { get; set; }
         public ReadOnlyCollection<AvailableArmor> ArmorProficiencies { get; private set; }
-        public ReadOnlyCollection<AvailableArmor> EquippedArmors { get; private set; }
         public ReadOnlyCollection<AvailableWeapon> WeaponProficiencies { get; private set; }
         public List<string> RuleIssues { get; private set; }
         public ReadOnlyCollection<AvailableTool> ToolProficiencies { get; set; }
@@ -173,7 +180,6 @@ namespace _5ECharacterBuilder
         public ReadOnlyCollection<SavingThrow> SavingThrowProficiencies { get; private set; }
         public ReadOnlyCollection<AvailableSkill> ClassSkills { get; private set; }
         public string Race { get; private set; }
-        public string Class { get; private set; }
         public int Initiative { get { return Attributes.Dexterity.Modifier; } }
         public int Speed { get; private set; }
         public int ClassSkillCount { get; private set; }
@@ -186,15 +192,10 @@ namespace _5ECharacterBuilder
         {
             get
             {
-                if (EquippedArmors.Count == 0)
-                    AddEquippedArmor(AvailableArmor.Cloth);
-                return EquippedArmors.Sum(a => GetArmorClassBonus(a, Attributes.Dexterity.Modifier)) + ShieldBonus;
+                return GetArmorClassBonus(EquippedArmor, Attributes.Dexterity.Modifier) + ShieldBonus;
             }
         }
 
-
-        public List<string> VerifyCharacter() { return RuleIssues; }
-        
         public void AddClassSkills(List<AvailableSkill> skillList)
         {
             var currentSkills = SkillProficiencies.ToList();
@@ -208,6 +209,8 @@ namespace _5ECharacterBuilder
             currentWeapons.AddRange(weaponList);
             WeaponProficiencies = new ReadOnlyCollection<AvailableWeapon>(currentWeapons);
         }
+
+        public void EquipArmor(AvailableArmor armor) { EquippedArmor = Armory.GetArmor(armor); }
 
         public void AddSavingThrows(List<SavingThrow> savingThrows)
         {
@@ -256,11 +259,9 @@ namespace _5ECharacterBuilder
             BackgroundSkills = new ReadOnlyCollection<AvailableSkill>(currentBackgroundSkills);
         }
 
-        public void AddEquippedArmors(List<AvailableArmor> armors)
+        public void EquipArmor(Armor armor)
         {
-            var currentArmor = EquippedArmors.ToList();
-            currentArmor.AddRange(armors);
-            EquippedArmors = new ReadOnlyCollection<AvailableArmor>(currentArmor);
+            EquippedArmor = armor;
         }
 
         public void AddArmorProf(List<AvailableArmor> armors)
@@ -270,20 +271,20 @@ namespace _5ECharacterBuilder
             ArmorProficiencies = new ReadOnlyCollection<AvailableArmor>(currentArmor);
         }
 
-        private static int GetArmorClassBonus(AvailableArmor armor, int dex)
+        private static int GetArmorClassBonus(Armor armor, int dex)
         {
-            var armory = new Armory();
-            return armory.GetArmorClassBonus(armor, dex);
+            if (armor.MaxDexterityBonus == -1)
+                return armor.BaseArmor + dex;
+
+            if (dex > armor.MaxDexterityBonus)
+                dex = armor.MaxDexterityBonus;
+
+            return armor.BaseArmor + dex;
         }
 
         public static int CalculateMaxHp(List<int> hitDice, int constitutionMod)
         {
             return hitDice[0] + hitDice.GetRange(1, hitDice.Count - 1).Sum(hitDie => (hitDie / 2) + 1) + constitutionMod;
-        }
-
-        private void AddEquippedArmor(AvailableArmor armor)
-        {
-            AddEquippedArmors(new List<AvailableArmor>{armor});
         }
     }
 }

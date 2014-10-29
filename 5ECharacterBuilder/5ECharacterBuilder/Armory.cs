@@ -4,7 +4,7 @@ namespace _5ECharacterBuilder
 {
     public class Armory
     {
-        public Armory()
+        static Armory()
         {
             SimpleWeapons = new List<AvailableWeapon>
             {
@@ -39,7 +39,7 @@ namespace _5ECharacterBuilder
             AllArmor.AddRange(LightArmor);
             AllArmor.AddRange(MediumArmor);
             AllArmor.AddRange(HeavyArmor);
-            _armors = new List<Armor>
+            Armors = new List<Armor>
             {
                 new Armor("Cloth", 0, 10, false, 0),
                 new Armor("Plate", 1500, 18, true, 65, 15,0),
@@ -47,50 +47,19 @@ namespace _5ECharacterBuilder
             };
         }
 
-        public List<AvailableArmor> LightArmor { get; set; }
-        public List<AvailableArmor> MediumArmor { get; set; }
-        public List<AvailableArmor> HeavyArmor { get; set; }
-        public List<AvailableArmor> AllArmor { get; private set; }
-        private readonly List<Armor> _armors;
-        public List<Armor> Armors { get { return _armors; } } 
+        public static List<AvailableArmor> LightArmor { get; set; }
+        public static List<AvailableArmor> MediumArmor { get; set; }
+        public static List<AvailableArmor> HeavyArmor { get; set; }
+        public static List<AvailableArmor> AllArmor { get; private set; }
+        public static List<Armor> Armors { get; private set; } 
 
-        public List<AvailableWeapon> SimpleWeapons { get; private set; }
-        public List<AvailableWeapon> MartialWeapons { get; set; }
+        public static List<AvailableWeapon> SimpleWeapons { get; private set; }
+        public static List<AvailableWeapon> MartialWeapons { get; set; }
         
-        public class Armor
-        {
-            public Armor(string name, int cost, int baseArmor, bool stealthDisadvantage, int weight, int requiredStrength = 0, int? maxDexBonus = null)
-            {
-                Name = name;
-                Cost = cost;
-                _baseArmor = baseArmor;
-                MaxDexterityBonus = maxDexBonus;
-                RequiredStrength = requiredStrength;
-                StealthDisadvantge = stealthDisadvantage;
-                Weight = weight;
-            }
-
-            public string Name;
-            public int Cost;
-            private readonly int _baseArmor;
-            public int? MaxDexterityBonus;
-            public int ArmorClass(int dex)
-            {
-                if (MaxDexterityBonus != null)
-                    if (dex > MaxDexterityBonus)
-                        dex = (int) MaxDexterityBonus;
-
-                return _baseArmor + dex;
-            }
-            public int RequiredStrength;
-            public bool StealthDisadvantge;
-            public int Weight;
-        }
-
-        public int GetArmorClassBonus(AvailableArmor armorName, int dex)
+        public static Armor GetArmor(AvailableArmor armorName)
         {
             var armor = Armors.Find(a => a.Name == armorName.ToString()) ?? Armors[0];
-            return armor.ArmorClass(dex);
+            return armor;
 
         }
 
@@ -99,6 +68,29 @@ namespace _5ECharacterBuilder
             return new List<AvailableTool>{AvailableTool.DiceSet, AvailableTool.DragonchessSet, AvailableTool.PlayingCardSet, AvailableTool.ThreeDragonAnteSet};
         }
     }
+
+    public class Armor
+    {
+        public Armor(string name, int cost, int baseArmor, bool stealthDisadvantage, int weight, int requiredStrength = 0, int maxDexBonus = -1)
+        {
+            Name = name;
+            Cost = cost;
+            BaseArmor = baseArmor;
+            MaxDexterityBonus = maxDexBonus;
+            RequiredStrength = requiredStrength;
+            StealthDisadvantge = stealthDisadvantage;
+            Weight = weight;
+        }
+
+        public string Name;
+        public int Cost;
+        public int BaseArmor;
+        public int MaxDexterityBonus;
+        public int RequiredStrength;
+        public bool StealthDisadvantge;
+        public int Weight;
+    }
+
     public enum AvailableWeapon
     {
         ShortSword,
