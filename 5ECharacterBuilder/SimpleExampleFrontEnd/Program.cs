@@ -9,11 +9,11 @@ namespace SimpleExampleFrontEnd
         private static void Main()
         {
             Console.WriteLine("Choose a Race: ");
-            var characterRace = AskFor<AvailableRaces>();
+            var characterRace = Generics.AskFor<AvailableRaces>();
             Console.WriteLine("Choose a Class: ");
-            var characterClass = AskFor<AvailableClasses>();
+            var characterClass = Generics.AskFor<AvailableClasses>();
             Console.WriteLine("Choose a Background: ");
-            var characterBackground = AskFor<AvailableBackgrounds>();
+            var characterBackground = Generics.AskFor<AvailableBackgrounds>();
 
 
             var character = CreateCharacter(characterRace, characterClass, characterBackground);
@@ -23,45 +23,15 @@ namespace SimpleExampleFrontEnd
             {
                 Console.Clear();
                 WriteCharacter(character);
-
-                var i = 1;
-                foreach (var option in Enum.GetValues(typeof(Menu.MenuOptions)))
-                    Console.WriteLine("{0}: {1}", i++, option);
-
-                var chosen = Convert.ToInt32(Console.ReadLine()) -1;
-                var result = Menu.MenuSelection((Menu.MenuOptions) chosen, ref character);
+                
+                var selectedAction = Generics.AskFor<Menu.MenuOptions>();
+                var result = Menu.RunSelectedAction(selectedAction, ref character);
                 if (result == -1)
                     exit = true;
                 
             }
-
-            character.EquipArmor(AvailableArmor.Plate);
-
-            //character.AddSkills(new List<AvailableSkill>
-            //{
-            //    AvailableSkill.Acrobatics,
-            //    AvailableSkill.History,
-            //    AvailableSkill.Arcana
-            //});
-
-            //character.AddToolProfs(new List<AvailableTool> { AvailableTool.AlchemistsSupplies });
-            //character.AddInstrumentProfs(new List<AvailableInstrument> { AvailableInstrument.Lute });
-            //character.AddLanguages(new List<AvailableLanguages> { AvailableLanguages.Common });
         }
-
-        private static T AskFor<T>() where T : struct, IConvertible
-        {
-            var i = 1;
-            foreach (var race in (T[]) Enum.GetValues(typeof (T)))
-                Console.WriteLine("{0}: {1}", i++, race);
-
-            var chosen = Convert.ToInt32(Console.ReadLine()) - 1;
-
-            var characterRace = (T) (object) chosen;
-            Console.Clear();
-            return characterRace;
-        }
-
+        
         private static Character CreateCharacter(AvailableRaces characterRace, AvailableClasses characterClass,
             AvailableBackgrounds characterBackground)
         {
@@ -189,9 +159,15 @@ namespace SimpleExampleFrontEnd
             }
         }
 
+        
+        //character.AddToolProfs(new List<AvailableTool> { AvailableTool.AlchemistsSupplies });
+        //character.AddInstrumentProfs(new List<AvailableInstrument> { AvailableInstrument.Lute });
+        //character.AddLanguages(new List<AvailableLanguages> { AvailableLanguages.Common });
+
         private static void EquipArmor()
         {
-            throw new NotImplementedException();
+            var chosenArmor = Generics.AskFor<AvailableArmor>();
+            _character.EquippedArmor = chosenArmor;
         }
 
         private static void ToggleShield()
@@ -201,7 +177,8 @@ namespace SimpleExampleFrontEnd
 
         private static void LearnSkill()
         {
-            throw new NotImplementedException();
+            var chosenSkill = Generics.AskFor<AvailableSkill>();
+            _character.PickSkill(chosenSkill);
         }
 
         private static void LearnTool()
@@ -229,7 +206,7 @@ namespace SimpleExampleFrontEnd
             Exit
         }
 
-        public static int MenuSelection(MenuOptions option, ref Character character)
+        public static int RunSelectedAction(MenuOptions option, ref Character character)
         {
             _character = character;
             new Menu().SystemDetailsProcessDictionary[option]();
@@ -238,4 +215,19 @@ namespace SimpleExampleFrontEnd
         }
     }
 
+    public class Generics
+    {
+        public static T AskFor<T>() where T : struct, IConvertible
+        {
+            var i = 1;
+            foreach (var race in (T[])Enum.GetValues(typeof(T)))
+                Console.WriteLine("{0}: {1}", i++, race);
+
+            var chosen = Convert.ToInt32(Console.ReadLine()) - 1;
+
+            var characterRace = (T)(object)chosen;
+            Console.Clear();
+            return characterRace;
+        }
+    }
 }

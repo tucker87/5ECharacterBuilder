@@ -8,6 +8,7 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         private readonly ICharacter _character;
         protected CharacterBackground(ICharacter character) { _character = character; }
 
+        public virtual int ArmorClass { get { return _character.ArmorClass; } }
         public virtual CharacterAttributes Attributes { get { return _character.Attributes; } set{ _character.Attributes = value; } }
         public virtual string Background { get { return _character.Background; } }
         public virtual ReadOnlyCollection<AvailableSkill> BackgroundSkills { get { return _character.BackgroundSkills; } }
@@ -21,7 +22,6 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         public virtual int Speed { get { return _character.Speed; } }
         public virtual int ClassSkillCount { get { return _character.ClassSkillCount; } }
         public virtual Currency Currency { get { return _character.Currency; } }
-        public virtual int ArmorClass { get { return _character.ArmorClass; } }
         public virtual ReadOnlyCollection<AvailableLanguages> Languages { get { return _character.Languages; } }
         public virtual bool HasSheild { get { return _character.HasSheild; } set { _character.HasSheild = value; } }
 
@@ -35,7 +35,7 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         public virtual ReadOnlyCollection<SavingThrow> SavingThrowProficiencies { get { return _character.SavingThrowProficiencies; } }
         public virtual string Size { get { return _character.Size; } }
         
-        public void AddClassSkills(List<AvailableSkill> skillList) {  _character.AddClassSkills(skillList); }
+        public void PickSkills(List<AvailableSkill> skillList) {  _character.PickSkills(skillList); }
 
         public void AddWeaponProfs(List<AvailableWeapon> weaponList)  {  _character.AddWeaponProfs(weaponList); }
 
@@ -52,6 +52,8 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         public void AddLanguages(List<AvailableLanguages> languages) { _character.AddLanguages(languages); }
 
         public void AddBackgroundSkills(List<AvailableSkill> skillList) { _character.AddBackgroundSkills(skillList); }
+
+        public void PickSkill(AvailableSkill skill) { _character.PickSkill(skill); }
 
         public void AddArmorProf(List<AvailableArmor> armors) { _character.AddArmorProf(armors); }
     }

@@ -25,7 +25,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void MonksCannotChooseMoreThanTwoSkills()
         {
             var skillList = new List<AvailableSkill>{AvailableSkill.Acrobatics, AvailableSkill.Religion, AvailableSkill.Stealth };
-            _monk.AddSkills(skillList);
+            _monk.AddClassSkills(skillList);
             Assert.IsTrue(_monk.RuleIssues.Contains("Monks can only choose 2 skills from their list."));
         }
 
@@ -33,7 +33,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void MonksCanChooseTwoKillsFromTheirProficiencyList()
         {
             var skillList = new List<AvailableSkill>{AvailableSkill.Acrobatics, AvailableSkill.Religion};
-            _monk.AddSkills(skillList);
+            _monk.AddClassSkills(skillList);
             Assert.IsTrue(_monk.SkillProficiencies.Contains(AvailableSkill.Acrobatics));
             Assert.IsTrue(_monk.SkillProficiencies.Contains(AvailableSkill.Religion));
         }
@@ -42,7 +42,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void MonkCanNotChooseASkillThatIsNotOnTheirProficiencyList()
         {
             var skillList = new List<AvailableSkill>{ AvailableSkill.Acrobatics, AvailableSkill.Arcana };
-            _monk.AddSkills(skillList);
+            _monk.AddClassSkills(skillList);
             Assert.IsTrue(_monk.RuleIssues.Contains("Arcana is not a skill available to this class."));
         }
 

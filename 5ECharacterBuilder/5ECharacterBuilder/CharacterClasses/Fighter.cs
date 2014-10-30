@@ -14,7 +14,7 @@ namespace _5ECharacterBuilder.CharacterClasses
             AddWeaponProfs(fighterWeapons);
             AddSavingThrows(new List<SavingThrow>{SavingThrow.Strength, SavingThrow.Constitution});
             if (skillList != null)
-                AddClassSkills(skillList);
+                PickSkills(skillList);
         }
 
         public override string Class { get { return "Fighter"; } }

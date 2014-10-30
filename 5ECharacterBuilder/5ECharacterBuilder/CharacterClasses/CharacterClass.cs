@@ -10,6 +10,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         private readonly ICharacter _character;
         protected CharacterClass(ICharacter character) { _character = character; }
 
+        public virtual int ArmorClass { get { return _character.ArmorClass; } }
         public virtual CharacterAttributes Attributes { get { return _character.Attributes; } set { _character.Attributes = value; } }
         public virtual string Background { get { return _character.Background; } }
         public virtual ReadOnlyCollection<AvailableSkill> BackgroundSkills { get { return _character.BackgroundSkills; } }
@@ -17,14 +18,12 @@ namespace _5ECharacterBuilder.CharacterClasses
         public virtual List<int> HitDice { get { return _character.HitDice; } }
         public virtual int MaxHp { get { return _character.MaxHp; } }
         public virtual string Name { get { return _character.Name; } set { _character.Name = value; } }
-        public virtual List<string> RuleIssues { get { return _character.RuleIssues; } }
         public virtual string Race { get { return _character.Race; } }
         public virtual string Class { get { return _character.Class; } }
         public virtual int Initiative { get { return _character.Initiative; } }
         public virtual int Speed { get { return _character.Speed; } }
         public virtual int ClassSkillCount { get { return _character.ClassSkillCount; } }
         public virtual Currency Currency { get { return _character.Currency; } }
-        public virtual int ArmorClass { get { return _character.ArmorClass; } }
         public virtual ReadOnlyCollection<AvailableLanguages> Languages { get { return _character.Languages; } }
         public virtual bool HasSheild { get { return _character.HasSheild; } set { _character.HasSheild = value; } }
         public virtual Armor EquippedArmor { get { return _character.EquippedArmor; } }
@@ -41,19 +40,25 @@ namespace _5ECharacterBuilder.CharacterClasses
 
         public virtual string Size { get { return _character.Size; } }
 
-        public virtual List<string> VerifyCharacter()
+        public virtual List<string> RuleIssues
         {
-            var ruleIssues =_character.RuleIssues;
+            get
+            {
+                
+                    var ruleIssues = _character.RuleIssues;
 
-            if (ClassSkills.ToList().Count > ClassSkillCount)
-                ruleIssues.Add(String.Format("{0}s can only choose {1} skills from their list.", Class, ClassSkillCount));
+                    if (ClassSkills.ToList().Count > ClassSkillCount)
+                        ruleIssues.Add(String.Format("{0}s can only choose {1} skills from their list.", Class,
+                            ClassSkillCount));
 
-            return ruleIssues;
+                    return ruleIssues;
+                
+            }
         }
 
-        public virtual void AddClassSkills(List<AvailableSkill> skillList)
+        public virtual void PickSkills(List<AvailableSkill> skillList)
         {
-            _character.AddClassSkills(skillList);
+            _character.PickSkills(skillList);
 
             var currentSkills = SkillProficiencies.ToList();
             var classSkills = ClassSkills.ToList();
@@ -66,8 +71,6 @@ namespace _5ECharacterBuilder.CharacterClasses
             }
 
             SkillProficiencies = new ReadOnlyCollection<AvailableSkill>(currentSkills);
-
-            VerifyCharacter();
         }
 
         public virtual void AddWeaponProfs(List<AvailableWeapon> weaponList) { _character.AddWeaponProfs(weaponList); }
@@ -85,6 +88,8 @@ namespace _5ECharacterBuilder.CharacterClasses
         public void AddBackgroundSkills(List<AvailableSkill> skillList)  { _character.AddBackgroundSkills(skillList); }
 
         public virtual void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }
+
+        public void PickSkill(AvailableSkill skill) { _character.PickSkill(skill); }
 
         public virtual void AddArmorProf(List<AvailableArmor> armors) { _character.AddArmorProf(armors); }
     }

@@ -31,6 +31,10 @@ namespace _5ECharacterBuilder
 
         }
 
+        public int GetArmorClass()
+        {
+            return _character.ArmorClass;
+        }
         public int ArmorClass { get { return _character.ArmorClass; } }
         public ReadOnlyCollection<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public CharacterAttributes Attributes { get { return _character.Attributes; } set { _character.Attributes = value; } }
@@ -38,7 +42,7 @@ namespace _5ECharacterBuilder
         public string Class {get { return _character.Class; } }
         public int ClassSkillCount { get { return _character.ClassSkillCount; } }
         public Currency Currency { get { return _character.Currency; } }
-        public Armor EquippedArmor { get { return _character.EquippedArmor; } }
+        public Armor EquippedArmor { get { return _character.EquippedArmor; } set { _character.EquippedArmor = value; } }
         public bool HasShieldEquipped {get { return _character.HasSheild; } set { _character.HasSheild = value; }}
         public List<int> HitDice { get { return _character.HitDice; } }
         public int Initiative { get { return _character.Initiative; } }
@@ -47,6 +51,7 @@ namespace _5ECharacterBuilder
         public int MaxHp { get { return _character.MaxHp; } }
         public string Name { get { return _character.Name; } set { _character.Name = value; } }
         public string Race{get { return _character.Race; } }
+        public List<string> RuleIssues { get { return _character.RuleIssues; } }
         public ReadOnlyCollection<SavingThrow> SavingThrowProficiencies { get { return _character.SavingThrowProficiencies; } }
         public string Size { get { return _character.Size; } }
         public ReadOnlyCollection<AvailableSkill> SkillProficiencies { get { return _character.SkillProficiencies; } }
@@ -55,9 +60,14 @@ namespace _5ECharacterBuilder
         public ReadOnlyCollection<AvailableTool> ToolProficiencies { get { return _character.ToolProficiencies; } }
         public ReadOnlyCollection<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
 
-        public void AddSkills(List<AvailableSkill> skillList)
+        public void PickSkill(AvailableSkill skill)
         {
-            _character.AddClassSkills(skillList);
+            _character.PickSkill(skill);
+        }
+
+        public void AddClassSkills(List<AvailableSkill> skillList)
+        {
+            _character.PickSkills(skillList);
         }
 
         public void AddInstrumentProfs(List<AvailableInstrument> instrument)
@@ -74,27 +84,10 @@ namespace _5ECharacterBuilder
         {
             _character.AddLanguages(languages);
         }
-        
+
         public void EquipArmor(AvailableArmor armor)
         {
             _character.EquipArmor(armor);
-        }
-
-        public List<string> RuleIssues
-        {
-            get
-            {
-                var currentIssues = _character.RuleIssues;
-
-                if (!ArmorProficiencies.Contains((AvailableArmor)Enum.Parse(typeof(AvailableArmor), EquippedArmor.Name)))
-                    currentIssues.Add(String.Format("Character is not proficient with {0} Armor. Penalties will apply.", EquippedArmor.Name));
-
-                if(HasShieldEquipped)
-                    if (!ArmorProficiencies.Contains(AvailableArmor.Shield))
-                        currentIssues.Add("Character is not proficient with Shields. Penalties will apply.");
-                    
-                return currentIssues;
-            }
         }
     }
 
@@ -109,7 +102,7 @@ namespace _5ECharacterBuilder
         int ClassSkillCount { get; }
         Currency Currency { get; }
         ReadOnlyCollection<AvailableSkill> ClassSkills { get; }
-        Armor EquippedArmor { get; }
+        Armor EquippedArmor { get; set; }
         bool HasSheild { get; set; }
         List<int> HitDice { get; }
         int Initiative { get; }
@@ -125,6 +118,7 @@ namespace _5ECharacterBuilder
         int Speed { get; }
         ReadOnlyCollection<AvailableTool> ToolProficiencies { get; set; }
         ReadOnlyCollection<AvailableWeapon> WeaponProficiencies { get; }
+        void PickSkill(AvailableSkill skill);
 
         void AddArmorProf(List<AvailableArmor> armors);
         void AddBackgroundSkills(List<AvailableSkill> skillList);
@@ -132,7 +126,7 @@ namespace _5ECharacterBuilder
         void AddSavingThrows(List<SavingThrow> savingThrows);
         void AddInstrumentProfs(List<AvailableInstrument> instruments);
         void AddLanguages(List<AvailableLanguages> languages);
-        void AddClassSkills(List<AvailableSkill> skillList);
+        void PickSkills(List<AvailableSkill> skillList);
         void AddToolProfs(List<AvailableTool> tools);
         void AddWeaponProfs(List<AvailableWeapon> weaponList);
         void SetAttributes(CharacterAttributes characterAttributes);
@@ -155,7 +149,6 @@ namespace _5ECharacterBuilder
             Name = name;
             Attributes = new CharacterAttributes(attributeScores);
             HitDice = new List<int>(new int[0]);
-            RuleIssues = new List<string>();
             Currency = new Currency();
             Languages = new ReadOnlyCollection<AvailableLanguages>(new List<AvailableLanguages>());
         }
@@ -174,7 +167,6 @@ namespace _5ECharacterBuilder
         public ReadOnlyCollection<AvailableSkill> SkillProficiencies { get; set; }
         public ReadOnlyCollection<AvailableArmor> ArmorProficiencies { get; private set; }
         public ReadOnlyCollection<AvailableWeapon> WeaponProficiencies { get; private set; }
-        public List<string> RuleIssues { get; private set; }
         public ReadOnlyCollection<AvailableTool> ToolProficiencies { get; set; }
         public ReadOnlyCollection<AvailableInstrument> InstrumentProficiencies { get; private set; }
         public ReadOnlyCollection<SavingThrow> SavingThrowProficiencies { get; private set; }
@@ -196,7 +188,29 @@ namespace _5ECharacterBuilder
             }
         }
 
-        public void AddClassSkills(List<AvailableSkill> skillList)
+        public List<string> RuleIssues
+        {
+            get
+            {
+                var currentIssues = new List<string>();
+
+                if (!ArmorProficiencies.Contains((AvailableArmor)Enum.Parse(typeof(AvailableArmor), EquippedArmor.Name)))
+                    currentIssues.Add(String.Format("Character is not proficient with {0} Armor. Penalties will apply.", EquippedArmor.Name));
+
+                if (HasSheild)
+                    if (!ArmorProficiencies.Contains(AvailableArmor.Shield))
+                        currentIssues.Add("Character is not proficient with Shields. Penalties will apply.");
+
+                return currentIssues;
+            }
+        }
+
+        public void PickSkill(AvailableSkill skill)
+        {
+            PickSkills(new List<AvailableSkill>{skill});
+        }
+
+        public void PickSkills(List<AvailableSkill> skillList)
         {
             var currentSkills = SkillProficiencies.ToList();
             currentSkills.AddRange(skillList);

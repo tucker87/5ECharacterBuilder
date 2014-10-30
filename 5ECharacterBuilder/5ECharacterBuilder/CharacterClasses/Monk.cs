@@ -15,7 +15,7 @@ namespace _5ECharacterBuilder.CharacterClasses
 
             AddSavingThrows(new List<SavingThrow> {SavingThrow.Strength, SavingThrow.Dexterity});
             if(skillList != null)
-                AddClassSkills(skillList);
+                PickSkills(skillList);
         }
         
         public override void AddToolProfs(List<AvailableTool> tools)
@@ -43,7 +43,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         {
             get
             {
-                if (EquippedArmor.Name == AvailableArmor.Cloth.ToString())
+                if (EquippedArmor.Name == AvailableArmor.Cloth.ToString() && !HasSheild)
                     return 10 + Attributes.Dexterity.Modifier + Attributes.Wisdom.Modifier;
 
                 return base.ArmorClass;
