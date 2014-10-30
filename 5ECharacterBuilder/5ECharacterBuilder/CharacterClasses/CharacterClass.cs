@@ -47,7 +47,7 @@ namespace _5ECharacterBuilder.CharacterClasses
                 
                     var ruleIssues = _character.RuleIssues;
 
-                    if (ClassSkills.ToList().Count > ClassSkillCount)
+                    if (SkillProficiencies.ToList().Count > ClassSkillCount)
                         ruleIssues.Add(String.Format("{0}s can only choose {1} skills from their list.", Class,
                             ClassSkillCount));
 

@@ -167,7 +167,7 @@ namespace SimpleExampleFrontEnd
         private static void EquipArmor()
         {
             var chosenArmor = Generics.AskFor<AvailableArmor>();
-            _character.EquippedArmor = chosenArmor;
+            _character.EquipArmor(chosenArmor);
         }
 
         private static void ToggleShield()

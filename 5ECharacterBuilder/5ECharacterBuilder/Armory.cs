@@ -42,8 +42,21 @@ namespace _5ECharacterBuilder
             Armors = new List<Armor>
             {
                 new Armor("Cloth", 0, 10, false, 0),
-                new Armor("Plate", 1500, 18, true, 65, 15,0),
 
+                new Armor("Padded", 5, 11, false, 10),
+                new Armor("Leather", 10, 11, true, 8),
+                new Armor("Studded Leather", 45, 12, false, 13),
+
+                new Armor("Hide", 10, 12, false, 12, maxDexBonus: 2),
+                new Armor("Chain Shirt", 50, 13, false, 20, maxDexBonus: 2),
+                new Armor("Scale Mail", 50, 14, true, 45, maxDexBonus: 2),
+                new Armor("Breastplate", 400, 14, false, 20, maxDexBonus: 2),
+                new Armor("Half Plate", 750, 15, true, 40, maxDexBonus: 2),
+                
+                new Armor("Ring Mail", 30, 14, true, 40, maxDexBonus: 0),
+                new Armor("Chain Mail", 75, 16, true, 55, 13, 0),
+                new Armor("Splint", 200, 17, true, 60, 15, 0),
+                new Armor("Plate", 1500, 18, true, 65, 15, 0)
             };
         }
 

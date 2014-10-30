@@ -42,7 +42,7 @@ namespace _5ECharacterBuilder
         public string Class {get { return _character.Class; } }
         public int ClassSkillCount { get { return _character.ClassSkillCount; } }
         public Currency Currency { get { return _character.Currency; } }
-        public Armor EquippedArmor { get { return _character.EquippedArmor; } set { _character.EquippedArmor = value; } }
+        public Armor EquippedArmor { get { return _character.EquippedArmor; } }
         public bool HasShieldEquipped {get { return _character.HasSheild; } set { _character.HasSheild = value; }}
         public List<int> HitDice { get { return _character.HitDice; } }
         public int Initiative { get { return _character.Initiative; } }
@@ -102,7 +102,7 @@ namespace _5ECharacterBuilder
         int ClassSkillCount { get; }
         Currency Currency { get; }
         ReadOnlyCollection<AvailableSkill> ClassSkills { get; }
-        Armor EquippedArmor { get; set; }
+        Armor EquippedArmor { get; }
         bool HasSheild { get; set; }
         List<int> HitDice { get; }
         int Initiative { get; }
@@ -161,7 +161,7 @@ namespace _5ECharacterBuilder
         public ReadOnlyCollection<AvailableSkill> BackgroundSkills { get; private set; }
         public List<int> HitDice { get; private set; }
         public string Class { get; private set; }
-        public Armor EquippedArmor { get; private set; }
+        public Armor EquippedArmor { get; set; }
         public int MaxHp { get { return CalculateMaxHp(HitDice, Attributes.Constitution.Modifier); } }
         public string Name { get; set; }
         public ReadOnlyCollection<AvailableSkill> SkillProficiencies { get; set; }
@@ -194,8 +194,9 @@ namespace _5ECharacterBuilder
             {
                 var currentIssues = new List<string>();
 
-                if (!ArmorProficiencies.Contains((AvailableArmor)Enum.Parse(typeof(AvailableArmor), EquippedArmor.Name)))
-                    currentIssues.Add(String.Format("Character is not proficient with {0} Armor. Penalties will apply.", EquippedArmor.Name));
+                if (EquippedArmor.Name != AvailableArmor.Cloth.ToString())
+                    if (!ArmorProficiencies.Contains((AvailableArmor)Enum.Parse(typeof(AvailableArmor), EquippedArmor.Name)))
+                        currentIssues.Add(String.Format("Character is not proficient with {0} Armor. Penalties will apply.", EquippedArmor.Name));
 
                 if (HasSheild)
                     if (!ArmorProficiencies.Contains(AvailableArmor.Shield))
