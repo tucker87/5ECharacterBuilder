@@ -1,8 +1,8 @@
 ﻿<Window x:Class="ExampleFrontEnd.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="460.864" Width="525" Loaded="OnLoad">
-    <Grid>
+        Title="MainWindow" Height="553.401" Width="696.642" Loaded="OnLoad">
+    <UniformGrid Columns="4">
         <StackPanel>
             <Label Content="Class"/>
             <ComboBox Name="ClassBox" HorizontalAlignment="Left" Margin="10,0,0,0" Width="120" SelectionChanged="RaceClassBox_SelectionChanged"/>
@@ -15,6 +15,7 @@
                 <TextBox Name="StrengthRacialTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2" IsEnabled="False"/>
                 <TextBox Name="StrengthModTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
             </StackPanel>
+            
             <Label Content="Dexterity" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
             <StackPanel Orientation="Horizontal">
                 <TextBox Name="DexterityScoreTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="14" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"/>
@@ -46,5 +47,27 @@
                 <TextBox Name="CharismaModTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
             </StackPanel>
         </StackPanel>
-    </Grid>
+        <StackPanel>
+            <Label Content="AC" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="AcTextBox" TextWrapping="Wrap"/>
+            <Label Content="Size" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="SizeTextBox" TextWrapping="Wrap"/>
+            <Label Content="Speed" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="SpeedTextBox" TextWrapping="Wrap"/>
+            <Label Content="Initiative" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="InitiativeTextBox" TextWrapping="Wrap"/>
+            <Label Content="Armor Proficiencies" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <ListBox Name="ArmorProfListBox" Height="87"/>
+            <Label Content="Equipped Armor" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="EquippedArmorTextBox" TextWrapping="Wrap"/>
+            <Label Content="Skill Proficiencies" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <ListBox Name="SkillProfListBox" Height="87"/>
+        </StackPanel>
+        <StackPanel>
+            <Label Content="Hit Points" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="HpTextBox" TextWrapping="Wrap"/>
+            <Label Content="Hit Dice" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="HdTextBox" TextWrapping="Wrap"/>
+        </StackPanel>
+    </UniformGrid>
 </Window>

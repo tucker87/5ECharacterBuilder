@@ -23,11 +23,12 @@ namespace _5ECharacterBuilder.CharacterRaces
         public virtual int ClassSkillCount { get { return _character.ClassSkillCount; } }
         public virtual Currency Currency { get { return _character.Currency; } }
         public virtual ReadOnlyCollection<AvailableLanguages> Languages { get { return _character.Languages; } }
-        public virtual bool HasSheild { get { return _character.HasSheild; } set { _character.HasSheild = value; } }
+        public virtual bool HasShield { get { return _character.HasShield; } set { _character.HasShield = value; } }
 
         public virtual Armor EquippedArmor { get { return _character.EquippedArmor; } }
         public virtual ReadOnlyCollection<AvailableSkill> ClassSkills { get { return _character.ClassSkills; } }
-        public virtual ReadOnlyCollection<AvailableSkill> SkillProficiencies { get { return _character.SkillProficiencies; } set { _character.SkillProficiencies = value; } }
+        public virtual ReadOnlyCollection<AvailableSkill> Skills { get { return _character.Skills; } }
+        public virtual ReadOnlyCollection<AvailableSkill> TrainedSkills { get { return _character.TrainedSkills; } set { _character.TrainedSkills = value; } }
         public virtual ReadOnlyCollection<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public virtual ReadOnlyCollection<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
 
@@ -49,7 +50,7 @@ namespace _5ECharacterBuilder.CharacterRaces
         public void AddInstrumentProfs(List<AvailableInstrument> instruments)  {  _character.AddInstrumentProfs(instruments); }
 
         public void SetAttributes(CharacterAttributes characterAttributes) { _character.SetAttributes(characterAttributes); }
-
+        public void AddClassSkills(List<AvailableSkill> classSkills) { _character.AddClassSkills(classSkills); }
         public void AddLanguages(List<AvailableLanguages> languages) { _character.AddLanguages(languages); }
 
         public void AddBackgroundSkills(List<AvailableSkill> skillList) { _character.AddBackgroundSkills(skillList); }

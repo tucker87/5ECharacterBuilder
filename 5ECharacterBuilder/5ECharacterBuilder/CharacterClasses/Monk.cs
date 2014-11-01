@@ -4,46 +4,35 @@ using System.Linq;
 
 namespace _5ECharacterBuilder.CharacterClasses
 {
-    sealed class Monk : CharacterClass
+    internal sealed class Monk : CharacterClass
     {
         public Monk(ICharacter character, List<AvailableSkill> skillList = null) : base(character)
         {
             HitDice.Add(8);
 
             AddWeaponProfs(Armory.SimpleWeapons);
-            AddWeaponProfs(new List<AvailableWeapon>{AvailableWeapon.ShortSword});
+            AddWeaponProfs(new List<AvailableWeapon> {AvailableWeapon.ShortSword});
 
             AddSavingThrows(new List<SavingThrow> {SavingThrow.Strength, SavingThrow.Dexterity});
-            if(skillList != null)
+            if (skillList != null)
                 PickSkills(skillList);
         }
-        
-        public override void AddToolProfs(List<AvailableTool> tools)
+
+        public override string Class
         {
-            base.AddToolProfs(tools);
-            CheckMonkToolIntrumentProf();
+            get { return "Monk"; }
         }
 
-        public override void AddInstrumentProfs(List<AvailableInstrument> instrument)
+        public override int ClassSkillCount
         {
-            base.AddInstrumentProfs(instrument);
-            CheckMonkToolIntrumentProf();
+            get { return 2; }
         }
-
-        private void CheckMonkToolIntrumentProf()
-        {
-            if (ToolProficiencies.Count > 0 && InstrumentProficiencies.Count > 0)
-                RuleIssues.Add("Monks can only choose an instrument or a Tool");
-        }
-
-        public override string Class { get { return "Monk"; } }
-        public override int ClassSkillCount { get { return 2; } }
 
         public override int ArmorClass
         {
             get
             {
-                if (EquippedArmor.Name == AvailableArmor.Cloth.ToString() && !HasSheild)
+                if (EquippedArmor.Name == AvailableArmor.Cloth.ToString() && !HasShield)
                     return 10 + Attributes.Dexterity.Modifier + Attributes.Wisdom.Modifier;
 
                 return base.ArmorClass;
@@ -52,16 +41,32 @@ namespace _5ECharacterBuilder.CharacterClasses
 
         public override ReadOnlyCollection<AvailableSkill> ClassSkills
         {
-            get { return new ReadOnlyCollection<AvailableSkill>(new[]
-                    {
-                        AvailableSkill.Acrobatics, 
-                        AvailableSkill.Athletics, 
-                        AvailableSkill.History,
-                        AvailableSkill.Insight, 
-                        AvailableSkill.Religion, 
-                        AvailableSkill.Stealth
-                    });
+            get
+            {
+                return new ReadOnlyCollection<AvailableSkill>(new[]
+                {
+                    AvailableSkill.Acrobatics,
+                    AvailableSkill.Athletics,
+                    AvailableSkill.History,
+                    AvailableSkill.Insight,
+                    AvailableSkill.Religion,
+                    AvailableSkill.Stealth
+                });
             }
         }
+
+        public override List<string> RuleIssues
+        {
+            get
+            {
+                var currentIssues = base.RuleIssues;
+                if (ToolProficiencies.Count > 0 && InstrumentProficiencies.Count > 0)
+                    currentIssues.Add("Monks can only choose an instrument or a Tool");
+
+                return currentIssues;
+            }
+        }
+
     }
 }
+

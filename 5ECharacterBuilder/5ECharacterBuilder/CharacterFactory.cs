@@ -7,9 +7,9 @@ using _5ECharacterBuilder.CharacterRaces;
 
 namespace _5ECharacterBuilder
 {
-    class CharacterFactory
+    public class CharacterFactory
     {
-        public ICharacter BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground)
+        public static ICharacter BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground)
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
             var characterClass = currentAssembly.GetTypes()
@@ -34,7 +34,17 @@ namespace _5ECharacterBuilder
             return newCharacter;
         }
 
-        public ICharacter AddClass(ICharacter character, AvailableClasses characterClass)
+
+        public static ICharacter BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground, int level)
+        {
+            var character = BuildACharacter(selectedRace, selectedClass, selectedBackground);
+            for (var l = 1; l < level; l++)
+                character = AddClass(character, selectedClass);
+
+            return character;
+        }
+
+        private static ICharacter AddClass(ICharacter character, AvailableClasses characterClass)
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
             var characterClasses = currentAssembly.GetTypes()

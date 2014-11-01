@@ -17,7 +17,7 @@ namespace _5ECharacterBuilder.CharacterClasses
                 PickSkills(skillList);
         }
 
-        public override string Class { get { return "Fighter"; } }
+        public override string Class { get { return "Fighter"; } } 
         public override string Name { get; set; }
         public override int ClassSkillCount { get { return 2; } }
         public override ReadOnlyCollection<AvailableSkill> ClassSkills

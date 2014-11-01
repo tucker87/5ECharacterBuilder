@@ -7,11 +7,11 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
     [TestClass]
     public class FighterTests
     {
-        private Character _fighter;
+        private ICharacter _fighter;
         [TestInitialize]
         public void Setup()
         {
-            _fighter = new Character(AvailableRaces.Human, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
+            _fighter = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
         }
 
         [TestMethod]

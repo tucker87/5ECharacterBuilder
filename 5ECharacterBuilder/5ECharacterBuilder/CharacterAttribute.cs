@@ -63,6 +63,16 @@ namespace _5ECharacterBuilder
             Charisma = attributes.Charisma;
         }
 
+        public CharacterAttributes(int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma)
+        {
+            Strength = new CharacterAttribute(strength);
+            Dexterity = new CharacterAttribute(dexterity);
+            Constitution = new CharacterAttribute(constitution);
+            Intelligence = new CharacterAttribute(intelligence);
+            Wisdom = new CharacterAttribute(wisdom);
+            Charisma = new CharacterAttribute(charisma);
+        }
+
         public CharacterAttributes(CharacterAttributeScores attributeScores)
         {
             Strength = new CharacterAttribute(attributeScores.Strength);

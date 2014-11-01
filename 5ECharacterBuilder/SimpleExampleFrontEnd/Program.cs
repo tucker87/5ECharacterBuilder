@@ -32,16 +32,16 @@ namespace SimpleExampleFrontEnd
             }
         }
         
-        private static Character CreateCharacter(AvailableRaces characterRace, AvailableClasses characterClass,
+        private static ICharacter CreateCharacter(AvailableRaces characterRace, AvailableClasses characterClass,
             AvailableBackgrounds characterBackground)
         {
-            var character = new Character(characterRace, characterClass, characterBackground,
-                new CharacterAttributeScores(11, 11, 11, 11, 11, 11));
+            var character = CharacterFactory.BuildACharacter(characterRace, characterClass, characterBackground);
+            character.Attributes = new CharacterAttributes(11, 11, 11, 11, 11, 11);
             
             return character;
         }
 
-        private static void WriteCharacter(Character character)
+        private static void WriteCharacter(ICharacter character)
         {
             Console.WriteLine(character.Race + ", " + character.Class + ", " + character.Background);
             Console.Write("Hit Dice:");
@@ -61,7 +61,7 @@ namespace SimpleExampleFrontEnd
 
 
             Console.WriteLine();
-            Console.WriteLine("Has Shield: " + (character.HasShieldEquipped ? "Yes" : "No"));
+            Console.WriteLine("Has Shield: " + (character.HasShield ? "Yes" : "No"));
 
             Console.WriteLine("Armor Class: " + character.ArmorClass);
             Console.WriteLine("Initiative: " + character.Initiative);
@@ -89,7 +89,7 @@ namespace SimpleExampleFrontEnd
 
             Console.WriteLine();
             Console.WriteLine();
-            Console.Write("Class Skill Proficiencies:");
+            Console.Write("Available Skill Proficiencies:");
             foreach (var skill in character.Skills)
                 Console.Write(" " + skill);
 
@@ -97,7 +97,7 @@ namespace SimpleExampleFrontEnd
             Console.WriteLine("Class Skill Count: " + character.ClassSkillCount);
 
             Console.Write("Choosen Skill Proficiencies:");
-            foreach (var skill in character.SkillProficiencies)
+            foreach (var skill in character.TrainedSkills)
                 Console.Write(" " + skill);
 
             Console.WriteLine();
@@ -140,7 +140,7 @@ namespace SimpleExampleFrontEnd
 
     public class Menu
     {
-        private static Character _character;
+        private static ICharacter _character;
         private static int _result;
 
         public Dictionary<MenuOptions, Action> SystemDetailsProcessDictionary
@@ -172,7 +172,7 @@ namespace SimpleExampleFrontEnd
 
         private static void ToggleShield()
         {
-            _character.HasShieldEquipped = !_character.HasShieldEquipped;
+            _character.HasShield = !_character.HasShield;
         }
 
         private static void LearnSkill()
@@ -206,7 +206,7 @@ namespace SimpleExampleFrontEnd
             Exit
         }
 
-        public static int RunSelectedAction(MenuOptions option, ref Character character)
+        public static int RunSelectedAction(MenuOptions option, ref ICharacter character)
         {
             _character = character;
             new Menu().SystemDetailsProcessDictionary[option]();

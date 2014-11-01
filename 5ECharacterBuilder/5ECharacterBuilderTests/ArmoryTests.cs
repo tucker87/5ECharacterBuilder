@@ -6,12 +6,12 @@ namespace _5ECharacterBuilderTests
     [TestClass]
     public class ArmoryTests
     {
-        private Character _character;
+        private ICharacter _character;
         private Armory _armory;
         [TestInitialize]
         public void Setup()
         {
-            _character = new Character(AvailableRaces.Human, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
+            _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
             _armory = new Armory();
         }
 
@@ -35,7 +35,7 @@ namespace _5ECharacterBuilderTests
         public void ShieldsGive2AcOnTopOfDex()
         {
             _character.Attributes = new CharacterAttributes(new CharacterAttributeScores(dexterity: 20));
-            _character.HasShieldEquipped = true;
+            _character.HasShield = true;
             Assert.AreEqual(17, _character.ArmorClass);
         }
 
@@ -44,7 +44,7 @@ namespace _5ECharacterBuilderTests
         {
             _character.Attributes = new CharacterAttributes(new CharacterAttributeScores(dexterity: 20));
             _character.EquipArmor(AvailableArmor.Plate);
-            _character.HasShieldEquipped = true;
+            _character.HasShield = true;
             Assert.AreEqual(20, _character.ArmorClass);
         }
     }

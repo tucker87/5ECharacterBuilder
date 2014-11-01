@@ -7,12 +7,12 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
     [TestClass]
     public class MonkClassTests
     {
-        private static Character _monk;
+        private static ICharacter _monk;
 
         [TestInitialize]
         public static void Setup()
         {
-            _monk = new Character(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
+            _monk =CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
         }
         
         [TestMethod]
@@ -25,7 +25,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void MonksCannotChooseMoreThanTwoSkills()
         {
             var skillList = new List<AvailableSkill>{AvailableSkill.Acrobatics, AvailableSkill.Religion, AvailableSkill.Stealth };
-            _monk.AddClassSkills(skillList);
+            _monk.PickSkills(skillList);
             Assert.IsTrue(_monk.RuleIssues.Contains("Monks can only choose 2 skills from their list."));
         }
 
@@ -33,16 +33,16 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void MonksCanChooseTwoKillsFromTheirProficiencyList()
         {
             var skillList = new List<AvailableSkill>{AvailableSkill.Acrobatics, AvailableSkill.Religion};
-            _monk.AddClassSkills(skillList);
-            Assert.IsTrue(_monk.SkillProficiencies.Contains(AvailableSkill.Acrobatics));
-            Assert.IsTrue(_monk.SkillProficiencies.Contains(AvailableSkill.Religion));
+            _monk.PickSkills(skillList);
+            Assert.IsTrue(_monk.TrainedSkills.Contains(AvailableSkill.Acrobatics));
+            Assert.IsTrue(_monk.TrainedSkills.Contains(AvailableSkill.Religion));
         }
 
         [TestMethod]
         public void MonkCanNotChooseASkillThatIsNotOnTheirProficiencyList()
         {
             var skillList = new List<AvailableSkill>{ AvailableSkill.Acrobatics, AvailableSkill.Arcana };
-            _monk.AddClassSkills(skillList);
+            _monk.PickSkills(skillList);
             Assert.IsTrue(_monk.RuleIssues.Contains("Arcana is not a skill available to this class."));
         }
 
@@ -71,7 +71,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             _monk.AddToolProfs(new List<AvailableTool>{AvailableTool.AlchemistsSupplies});
             Assert.IsTrue(_monk.ToolProficiencies.Contains(AvailableTool.AlchemistsSupplies));
-            _monk = new Character(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
+            _monk = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
             _monk.AddInstrumentProfs(new List<AvailableInstrument> {AvailableInstrument.Lute});
             Assert.AreEqual(_monk.InstrumentProficiencies[0], AvailableInstrument.Lute);
         }

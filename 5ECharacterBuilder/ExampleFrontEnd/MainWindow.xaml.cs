@@ -8,7 +8,7 @@ namespace ExampleFrontEnd
 {
     public partial class MainWindow
     {
-        private Character _character;
+        private ICharacter _character;
         
         public MainWindow()
         {
@@ -38,14 +38,23 @@ namespace ExampleFrontEnd
         }
 
         private void MakeNewCharacter()
-        {   
-            _character = LevelBox.Text == "1'" ?
-                new Character((AvailableRaces)RaceBox.SelectedValue, (AvailableClasses)ClassBox.SelectedValue, AvailableBackgrounds.Criminal) :
-                new Character((AvailableRaces)RaceBox.SelectedValue, (AvailableClasses)ClassBox.SelectedValue, AvailableBackgrounds.Criminal, Convert.ToInt32(LevelBox.Text));
+        {
+            if (RaceBox.SelectedIndex < 0 || ClassBox.SelectedIndex < 0) return;
+            var selectedRace = (AvailableRaces) RaceBox.SelectedIndex;
+            var selectedClass = (AvailableClasses) ClassBox.SelectedIndex;
+            _character = LevelBox.Text == "1"
+                ? CharacterFactory.BuildACharacter(selectedRace, selectedClass, AvailableBackgrounds.Criminal)
+                : CharacterFactory.BuildACharacter(selectedRace, selectedClass, AvailableBackgrounds.Criminal, Convert.ToInt32(LevelBox.Text));
 
             SetChracterScores();
+            UpdateAll();
+        }
+
+        private void UpdateAll()
+        {
             UpdateCharacterRacialBonuses();
             UpdateCharacterModifiers();
+            UpdateBasicStats();
         }
 
         private void SetChracterScores()
@@ -83,6 +92,19 @@ namespace ExampleFrontEnd
             CharismaModTextBox.Text = "" + (_character.Attributes.Charisma.Modifier + _character.Attributes.Charisma.RacialBonus);
         }
 
+        private void UpdateBasicStats()
+        {
+            AcTextBox.Text = "" + _character.ArmorClass;
+            SizeTextBox.Text = "" + _character.Size;
+            SpeedTextBox.Text = "" + _character.Speed;
+            InitiativeTextBox.Text = "" + _character.Initiative;
+            EquippedArmorTextBox.Text = "" + _character.EquippedArmor.Name;
+            HpTextBox.Text = "" + _character.MaxHp;
+            HdTextBox.Text = "1d" + string.Join(" 1d", _character.HitDice);
+
+            ArmorProfListBox.ItemsSource = _character.ArmorProficiencies;
+            SkillProfListBox.ItemsSource = _character.Skills;
+        }
 
         private void ScoreTextBox_OnLostFocus(object sender, RoutedEventArgs e)
         {

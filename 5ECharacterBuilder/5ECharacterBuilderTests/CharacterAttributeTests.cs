@@ -7,14 +7,14 @@ namespace _5ECharacterBuilderTests
     [TestClass]
     class CharacterAttributeTests
     {
-        private static Character _character;
+        private static ICharacter _character;
         private static CharacterAttributeScores _characterAttributeScrores;
 
         [TestInitialize]
         public static void Setup()
         {
             _characterAttributeScrores = new CharacterAttributeScores();
-            _character = new Character(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
+            _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
         }
         [TestMethod]
         [ExpectedException(typeof(Exception))]

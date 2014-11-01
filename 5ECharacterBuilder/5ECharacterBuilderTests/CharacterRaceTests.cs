@@ -6,12 +6,12 @@ namespace _5ECharacterBuilderTests
     [TestClass]
     public class CharacterRaceTests
     {
-        private static Character _character;
+        private static ICharacter _character;
 
         [TestInitialize]
         public static void Setup()
         {
-            _character = new Character(AvailableRaces.Human, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
+            _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
         }
 
         [TestMethod]

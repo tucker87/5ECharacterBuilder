@@ -6,12 +6,12 @@ namespace _5ECharacterBuilderTests
     [TestClass]
     public class CharacterBaseTests
     {
-        private static Character _character;
+        private static ICharacter _character;
 
         [TestInitialize]
         public static void Setup()
         {
-            _character = new Character(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
+            _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
         }
         [TestMethod]
         public void CharactersCanHaveNames()
@@ -23,14 +23,14 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void CharactersMaxHpIsBasedOnMaxOfFirstHitDice()
         {
-            var characterWithHitDice = new Character(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
+            var characterWithHitDice = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
             Assert.AreEqual(8, characterWithHitDice.MaxHp);
         }
 
         [TestMethod]
         public void CharactersMaxHpIsBasedOnMaxOfFirstPlusAverageOfRemainingHitDice()
         {
-            var characterWithMultipleHitDice = new Character(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal, 2);
+            var characterWithMultipleHitDice = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal, 2);
             Assert.AreEqual(13, characterWithMultipleHitDice.MaxHp);
         }
 
@@ -38,7 +38,8 @@ namespace _5ECharacterBuilderTests
         public void CharactersMaxHpIsBoostedByConstitutionModifier()
         {
             var highCon = new CharacterAttributeScores(constitution: 14);
-            var characterWithHitDiceAndCon = new Character(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal, highCon);
+            var characterWithHitDiceAndCon = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
+            characterWithHitDiceAndCon.Attributes = new CharacterAttributes(highCon);
             Assert.AreEqual(10, characterWithHitDiceAndCon.MaxHp);
         }
 
