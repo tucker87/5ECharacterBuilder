@@ -9,7 +9,7 @@ namespace _5ECharacterBuilder
 {
     public class CharacterFactory
     {
-        public static ICharacter BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground)
+        public static Character BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground)
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
             var characterClass = currentAssembly.GetTypes()
@@ -18,16 +18,22 @@ namespace _5ECharacterBuilder
                 .First(t => typeof(CharacterRace).IsAssignableFrom(t) && t.Name == selectedRace.ToString());
             var characterBackground = currentAssembly.GetTypes()
                 .First(t => typeof(CharacterBackground).IsAssignableFrom(t) && t.Name == selectedBackground.ToString());
+
+            var character = new CharacterBase();
+            var monk = new Monk(character);
+            var fighter = new Fighter(character);
+
             
-            var newCharacter = (ICharacter)Activator.CreateInstance(characterRace,
+
+            var newCharacter = (Character)Activator.CreateInstance(characterRace,
                 BindingFlags.OptionalParamBinding,
                 null, new object[] { new CharacterBase() }, null);
 
-            newCharacter = (ICharacter)Activator.CreateInstance(characterClass, 
+            newCharacter = (Character)Activator.CreateInstance(characterClass, 
                 BindingFlags.OptionalParamBinding,
                 null, new object[] { newCharacter }, null);
 
-            newCharacter = (ICharacter)Activator.CreateInstance(characterBackground,
+            newCharacter = (Character)Activator.CreateInstance(characterBackground,
                 BindingFlags.OptionalParamBinding,
                 null, new object[] { newCharacter }, null);
 
@@ -35,7 +41,7 @@ namespace _5ECharacterBuilder
         }
 
 
-        public static ICharacter BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground, int level)
+        public static Character BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground, int level)
         {
             var character = BuildACharacter(selectedRace, selectedClass, selectedBackground);
             for (var l = 1; l < level; l++)
@@ -44,13 +50,13 @@ namespace _5ECharacterBuilder
             return character;
         }
 
-        private static ICharacter AddClass(ICharacter character, AvailableClasses characterClass)
+        private static Character AddClass(Character character, AvailableClasses characterClass)
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
             var characterClasses = currentAssembly.GetTypes()
                 .First(t => typeof(CharacterClass).IsAssignableFrom(t) && t.Name == characterClass.ToString());
 
-            character = (ICharacter)Activator.CreateInstance(characterClasses,
+            character = (Character)Activator.CreateInstance(characterClasses,
                 BindingFlags.OptionalParamBinding,
                 null, new object[] { character }, null);
 

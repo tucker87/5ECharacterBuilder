@@ -1,111 +1,95 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
+using _5ECharacterBuilder.CharacterClasses;
 
 namespace _5ECharacterBuilder
 {
-    public interface ICharacter
+    public abstract class Character
     {
-        int ArmorClass { get; }
-        ReadOnlyCollection<AvailableArmor> ArmorProficiencies { get; }
-        CharacterAttributes Attributes { get; set; }
-        string Background { get; }
-        ReadOnlyCollection<AvailableSkill> BackgroundSkills { get; }
-        string Class { get; }
-        int ClassSkillCount { get; }
-        Currency Currency { get; }
-        ReadOnlyCollection<AvailableSkill> ClassSkills { get; }
-        Armor EquippedArmor { get; }
-        bool HasShield { get; set; }
-        List<int> HitDice { get; }
-        int Initiative { get; }
-        ReadOnlyCollection<AvailableInstrument> InstrumentProficiencies { get; }
-        ReadOnlyCollection<AvailableLanguages> Languages { get; }
-        int MaxHp { get; }
-        string Name { get; set; }
-        string Race { get; }
-        List<string> RuleIssues { get; }
-        ReadOnlyCollection<SavingThrow> SavingThrowProficiencies { get; }
-        string Size { get; }
-        ReadOnlyCollection<AvailableSkill> Skills { get; }
-        ReadOnlyCollection<AvailableSkill> TrainedSkills { get; set; }
-        int Speed { get; }
-        ReadOnlyCollection<AvailableTool> ToolProficiencies { get; set; }
-        ReadOnlyCollection<AvailableWeapon> WeaponProficiencies { get; }
-        void PickSkill(AvailableSkill skill);
+        public abstract int ArmorClass { get; }
+        public abstract List<AvailableArmor> ArmorProficiencies { get; internal set; }
+        public abstract CharacterAttributes Attributes { get; set; }
+        public abstract string Background { get; internal set; }
+        public abstract List<AvailableLanguages> BackgroundLanguages { get; internal set; }
+        public abstract int BackgroundLanguageCount { get; internal set; }
+        public abstract List<AvailableSkill> BackgroundSkills { get; internal set; }
+        internal abstract string Class { get; set; }
+        public abstract List<string> Classes { get; } 
+        public abstract int ClassSkillCount { get; internal set; }
+        public abstract Currency Currency { get; internal set; }
+        public abstract List<AvailableSkill> ClassSkills { get; internal set; }
+        public abstract Armor EquippedArmor { get; internal set; }
+        public abstract bool HasShield { get; set; }
+        public abstract List<int> HitDice { get; internal set; }
+        public abstract int Initiative { get; }
+        public abstract List<AvailableInstrument> InstrumentProficiencies { get; internal set; }
+        public abstract List<AvailableLanguages> Languages { get; internal set; }
+        public abstract int MaxHp { get; }
+        public abstract string Name { get; set; }
+        public abstract string Race { get; internal set; }
+        public abstract List<AvailableLanguages> RaceLanguages { get; internal set; }
+        public abstract int RaceLanguageCount { get; internal set; }
+        public abstract List<string> RuleIssues { get; }
+        public abstract List<SavingThrow> SavingThrowProficiencies { get; internal set; }
+        public abstract string Size { get; internal set; }
+        public abstract List<AvailableSkill> Skills { get; internal set; }
+        public abstract List<AvailableSkill> TrainedSkills { get; internal set; }
+        public abstract int Speed { get; internal set; }
+        public abstract List<AvailableTool> ToolProficiencies { get; internal set; }
+        public abstract List<AvailableWeapon> WeaponProficiencies { get; internal set; }
 
-        void AddArmorProf(List<AvailableArmor> armors);
-        void AddBackgroundSkills(List<AvailableSkill> skillList);
-        void EquipArmor(AvailableArmor armor);
-        void AddSavingThrows(List<SavingThrow> savingThrows);
-        void AddInstrumentProfs(List<AvailableInstrument> instruments);
-        void AddLanguages(List<AvailableLanguages> languages);
-        void PickSkills(List<AvailableSkill> skillList);
-        void AddToolProfs(List<AvailableTool> tools);
-        void AddWeaponProfs(List<AvailableWeapon> weaponList);
-        void SetAttributes(CharacterAttributes characterAttributes);
-        void AddClassSkills(List<AvailableSkill> classSkills);
+        public abstract void EquipArmor(AvailableArmor armor);
     }
 
-    internal class CharacterBase : ICharacter
+    internal sealed class CharacterBase : Character
     {
         public CharacterBase(CharacterAttributeScores attributeScores = null, string name = "")
         {
             EquipArmor(AvailableArmor.Cloth);
             attributeScores = attributeScores ?? new CharacterAttributeScores();
-            ArmorProficiencies = new ReadOnlyCollection<AvailableArmor>(new List<AvailableArmor>());
-            //BackgroundSkills = new ReadOnlyCollection<AvailableSkill>(new List<AvailableSkill>());
-            TrainedSkills = new ReadOnlyCollection<AvailableSkill>(new List<AvailableSkill>());
-            ToolProficiencies = new ReadOnlyCollection<AvailableTool>(new List<AvailableTool>());
-            InstrumentProficiencies = new ReadOnlyCollection<AvailableInstrument>(new List<AvailableInstrument>());
-            WeaponProficiencies = new ReadOnlyCollection<AvailableWeapon>(new List<AvailableWeapon>());
-            SavingThrowProficiencies = new ReadOnlyCollection<SavingThrow>(new List<SavingThrow>());
-            //ClassSkills = new ReadOnlyCollection<AvailableSkill>(new List<AvailableSkill>());
-            Name = name;
             Attributes = new CharacterAttributes(attributeScores);
+            ArmorProficiencies = new List<AvailableArmor>(new List<AvailableArmor>());
+            BackgroundLanguages = new List<AvailableLanguages>();
+            BackgroundSkills = new List<AvailableSkill>(new List<AvailableSkill>());
+            TrainedSkills = new List<AvailableSkill>(new List<AvailableSkill>());
+            ToolProficiencies = new List<AvailableTool>(new List<AvailableTool>());
+            InstrumentProficiencies = new List<AvailableInstrument>(new List<AvailableInstrument>());
+            WeaponProficiencies = new List<AvailableWeapon>(new List<AvailableWeapon>());
+            SavingThrowProficiencies = new List<SavingThrow>(new List<SavingThrow>());
+            ClassSkills = new List<AvailableSkill>(new List<AvailableSkill>());
+            Name = name;
             HitDice = new List<int>(new int[0]);
             Currency = new Currency();
-            Languages = new ReadOnlyCollection<AvailableLanguages>(new List<AvailableLanguages>());
-            //Skills = new ReadOnlyCollection<AvailableSkill>(new AvailableSkill[] {});
+            RaceLanguages = new List<AvailableLanguages>(new List<AvailableLanguages>());
         }
 
-        public CharacterAttributes Attributes { get; set; }
-        public string Background { get; private set; }
-        public ReadOnlyCollection<AvailableSkill> BackgroundSkills { get; private set; }
-        public List<int> HitDice { get; private set; }
-        public string Class { get; private set; }
-        public int ClassSkillCount { get; private set; }
-        public ReadOnlyCollection<AvailableSkill> ClassSkills { get; private set; }
-        public Currency Currency { get; private set; }
-        public Armor EquippedArmor { get; set; }
-        public int MaxHp { get { return CalculateMaxHp(HitDice, Attributes.Constitution.Modifier); } }
-        public string Name { get; set; }
-        public ReadOnlyCollection<AvailableSkill> TrainedSkills { get; set; }
-        public ReadOnlyCollection<AvailableArmor> ArmorProficiencies { get; private set; }
-        public ReadOnlyCollection<AvailableWeapon> WeaponProficiencies { get; private set; }
-        public ReadOnlyCollection<AvailableTool> ToolProficiencies { get; set; }
-        public ReadOnlyCollection<AvailableInstrument> InstrumentProficiencies { get; private set; }
-        public ReadOnlyCollection<SavingThrow> SavingThrowProficiencies { get; private set; }
-        public int ShieldBonus { get { return HasShield ? 2 : 0; } }
-        public ReadOnlyCollection<AvailableSkill> Skills { get; private set; } 
-        public string Race { get; private set; }
-        public int Initiative { get { return Attributes.Dexterity.Modifier; } }
-        public int TrainedSkillsCount { get { return TrainedSkills.Count; } }
-        public int Speed { get; private set; }
-        public ReadOnlyCollection<AvailableLanguages> Languages { get; private set; }
-        public bool HasShield { get; set; }
-        public string Size { get; private set; }
+        public override int ArmorClass { get {  return GetArmorClassBonus(EquippedArmor, Attributes.Dexterity.Modifier) + ShieldBonus; } }
+        public override List<AvailableArmor> ArmorProficiencies { get; internal set; }
+        public override string Background { get; internal set; }
+        internal override string Class { get; set; }
+        public override List<string> Classes { get { return new List<string>(); } }
+        public override Currency Currency { get; internal set; }
+        public override int MaxHp { get { return CalculateMaxHp(HitDice, Attributes.Constitution.Modifier); } }
+        public override List<int> HitDice { get; internal set; }
+        public override List<AvailableInstrument> InstrumentProficiencies { get; internal set; }
+        public override int Initiative { get { return Attributes.Dexterity.Modifier; } }
+        public override List<AvailableLanguages> Languages { get; internal set; }
+        public override string Name { get; set; }
+        public override string Race { get; internal set; }
+        public override List<AvailableLanguages> RaceLanguages { get; internal set; }
+        public override int RaceLanguageCount { get; internal set; }
+        private int ShieldBonus { get { return HasShield ? 2 : 0; } }
+        public override CharacterAttributes Attributes { get; set; }
+        public override List<AvailableLanguages> BackgroundLanguages { get; internal set; }
+        public override int BackgroundLanguageCount { get; internal set; }
+        public override List<AvailableSkill> BackgroundSkills { get; internal set; }
+        public override int ClassSkillCount { get; internal set; }
+        public override List<AvailableSkill> ClassSkills { get; internal set; }
+        public override Armor EquippedArmor { get; internal set; }
+        public override bool HasShield { get; set; }
 
-        public int ArmorClass
-        {
-            get
-            {
-                return GetArmorClassBonus(EquippedArmor, Attributes.Dexterity.Modifier) + ShieldBonus;
-            }
-        }
-
-        public List<string> RuleIssues
+        public override List<string> RuleIssues
         {
             get
             {
@@ -115,56 +99,23 @@ namespace _5ECharacterBuilder
                     if (!ArmorProficiencies.Contains((AvailableArmor)Enum.Parse(typeof(AvailableArmor), EquippedArmor.Name)))
                         currentIssues.Add(String.Format("Character is not proficient with {0} Armor. Penalties will apply.", EquippedArmor.Name));
 
-                if (HasShield)
-                    if (!ArmorProficiencies.Contains(AvailableArmor.Shield))
+                if (HasShield && !ArmorProficiencies.Contains(AvailableArmor.Shield))
                         currentIssues.Add("Character is not proficient with Shields. Penalties will apply.");
 
                 return currentIssues;
             }
         }
 
-        public void PickSkill(AvailableSkill skill)
-        {
-            PickSkills(new List<AvailableSkill>{skill});
-        }
+        public override List<SavingThrow> SavingThrowProficiencies { get; internal set; }
+        public override string Size { get; internal set; }
+        public override List<AvailableSkill> Skills { get; internal set; }
+        public override List<AvailableSkill> TrainedSkills { get; internal set; }
+        public override int Speed { get; internal set; }
+        public override List<AvailableTool> ToolProficiencies { get; internal set; }
+        public override List<AvailableWeapon> WeaponProficiencies { get; internal set; }
 
-        public void PickSkills(List<AvailableSkill> skillList)
-        {
-            var currentSkills = TrainedSkills.ToList();
-            currentSkills.AddRange(skillList);
-            TrainedSkills = new ReadOnlyCollection<AvailableSkill>(currentSkills);
-        }
-
-        public void AddWeaponProfs(List<AvailableWeapon> weaponList)
-        {
-            var currentWeapons = WeaponProficiencies.ToList();
-            currentWeapons.AddRange(weaponList);
-            WeaponProficiencies = new ReadOnlyCollection<AvailableWeapon>(currentWeapons);
-        }
-
-        public void EquipArmor(AvailableArmor armor) { EquippedArmor = Armory.GetArmor(armor); }
-
-        public void AddSavingThrows(List<SavingThrow> savingThrows)
-        {
-            var currentSavingThrows = SavingThrowProficiencies.ToList();
-            currentSavingThrows.AddRange(savingThrows);
-            SavingThrowProficiencies = new ReadOnlyCollection<SavingThrow>(currentSavingThrows);
-        }
-
-        public void AddToolProfs(List<AvailableTool> tools)
-        {
-            var currentTools = ToolProficiencies.ToList();
-            currentTools.AddRange(tools);
-            ToolProficiencies = new ReadOnlyCollection<AvailableTool>(currentTools);
-        }
-
-        public void AddInstrumentProfs(List<AvailableInstrument> instruments)
-        {
-            var currentInstruments = InstrumentProficiencies.ToList();
-            currentInstruments.AddRange(instruments);
-            InstrumentProficiencies = new ReadOnlyCollection<AvailableInstrument>(currentInstruments);
-        }
-
+        public override void EquipArmor(AvailableArmor armor) { EquippedArmor = Armory.GetArmor(armor); }
+        
         public void SetAttributes(CharacterAttributes characterAttributes)
         {
             var racialBonuses = new RacialBonuses(
@@ -175,39 +126,6 @@ namespace _5ECharacterBuilder
                 Attributes.Wisdom.RacialBonus,
                 Attributes.Charisma.RacialBonus);
             Attributes = new CharacterAttributes(characterAttributes, racialBonuses);
-        }
-
-        public void AddClassSkills(List<AvailableSkill> classSkills)
-        {
-            var currentClassSkills = ClassSkills.ToList();
-            currentClassSkills.AddRange(classSkills);
-            ClassSkills = new ReadOnlyCollection<AvailableSkill>(currentClassSkills);
-        }
-
-        public void AddLanguages(List<AvailableLanguages> languages)
-        {
-            var currentLanguages = Languages.ToList();
-            currentLanguages.AddRange(languages);
-            Languages = new ReadOnlyCollection<AvailableLanguages>(currentLanguages);
-        }
-
-        public void AddBackgroundSkills(List<AvailableSkill> skillList)
-        {
-            var currentBackgroundSkills = BackgroundSkills.ToList();
-            currentBackgroundSkills.AddRange(skillList);
-            BackgroundSkills = new ReadOnlyCollection<AvailableSkill>(currentBackgroundSkills);
-        }
-
-        public void EquipArmor(Armor armor)
-        {
-            EquippedArmor = armor;
-        }
-
-        public void AddArmorProf(List<AvailableArmor> armors)
-        {
-            var currentArmor = ArmorProficiencies.ToList();
-            currentArmor.AddRange(armors);
-            ArmorProficiencies = new ReadOnlyCollection<AvailableArmor>(currentArmor);
         }
 
         private static int GetArmorClassBonus(Armor armor, int dex)

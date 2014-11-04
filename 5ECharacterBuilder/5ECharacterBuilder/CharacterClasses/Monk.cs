@@ -1,31 +1,27 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace _5ECharacterBuilder.CharacterClasses
 {
     internal sealed class Monk : CharacterClass
     {
-        public Monk(ICharacter character, List<AvailableSkill> skillList = null) : base(character)
+        public Monk(Character character, List<AvailableSkill> skillList = null): base(character)
         {
             HitDice.Add(8);
+            
+            WeaponProficiencies.AddRange(new List<AvailableWeapon>( Armory.SimpleWeapons){ AvailableWeapon.ShortSword });
 
-            AddWeaponProfs(Armory.SimpleWeapons);
-            AddWeaponProfs(new List<AvailableWeapon> {AvailableWeapon.ShortSword});
+            SavingThrowProficiencies.AddRange(new List<SavingThrow> {SavingThrow.Strength, SavingThrow.Dexterity});
 
-            AddSavingThrows(new List<SavingThrow> {SavingThrow.Strength, SavingThrow.Dexterity});
-            if (skillList != null)
-                PickSkills(skillList);
-        }
-
-        public override string Class
-        {
-            get { return "Monk"; }
-        }
-
-        public override int ClassSkillCount
-        {
-            get { return 2; }
+            Class += "Monk";
+            ClassSkillCount = 2;
+            ClassSkills.AddRange(new List<AvailableSkill>{ 
+                    AvailableSkill.Acrobatics,
+                    AvailableSkill.Athletics,
+                    AvailableSkill.History,
+                    AvailableSkill.Insight,
+                    AvailableSkill.Religion,
+                    AvailableSkill.Stealth
+                });
         }
 
         public override int ArmorClass
@@ -38,35 +34,17 @@ namespace _5ECharacterBuilder.CharacterClasses
                 return base.ArmorClass;
             }
         }
-
-        public override ReadOnlyCollection<AvailableSkill> ClassSkills
-        {
-            get
-            {
-                return new ReadOnlyCollection<AvailableSkill>(new[]
-                {
-                    AvailableSkill.Acrobatics,
-                    AvailableSkill.Athletics,
-                    AvailableSkill.History,
-                    AvailableSkill.Insight,
-                    AvailableSkill.Religion,
-                    AvailableSkill.Stealth
-                });
-            }
-        }
-
         public override List<string> RuleIssues
         {
             get
             {
                 var currentIssues = base.RuleIssues;
                 if (ToolProficiencies.Count > 0 && InstrumentProficiencies.Count > 0)
-                    currentIssues.Add("Monks can only choose an instrument or a Tool");
+                    currentIssues.Add("Monks can only choose an Instrument or a Tool");
 
                 return currentIssues;
             }
         }
-
     }
 }
 

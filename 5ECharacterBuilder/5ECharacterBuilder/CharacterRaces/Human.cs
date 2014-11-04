@@ -1,14 +1,21 @@
+using System.Collections.Generic;
+
 namespace _5ECharacterBuilder.CharacterRaces
 {
-    class Human : CharacterRace
+    sealed class Human : CharacterRace
     {
-        public Human(ICharacter character) : base(character)
+        public Human(Character character) : base(character)
         {
-            character.Attributes = new CharacterAttributes(character.Attributes, new RacialBonuses(1, 1, 1, 1, 1, 1));
-        }
+            foreach (var attribute in Attributes)
+                attribute.RacialBonus = 1;
 
-        public override string Race { get { return "Human"; } }
-        public override int Speed { get { return 30; } }
-        public override string Size { get { return "Medium";} }
+            Race = "Human";
+            RaceLanguageCount = 2;
+
+            Speed = 30;
+            Size = "Medium";
+
+            RaceLanguages.AddRange(new List<AvailableLanguages>(RaceLanguages) { AvailableLanguages.Common });
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace _5ECharacterBuilderTests
     [TestClass]
     public class CharacterBaseTests
     {
-        private static ICharacter _character;
+        private static Character _character;
 
         [TestInitialize]
         public static void Setup()

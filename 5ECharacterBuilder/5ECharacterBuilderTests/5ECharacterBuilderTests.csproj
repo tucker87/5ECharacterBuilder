@@ -57,6 +57,7 @@
     <Compile Include="CharacterRaceTests.cs" />
     <Compile Include="CharacterBaseTests.cs" />
     <Compile Include="CharacterValidationTests.cs" />
+    <Compile Include="CharacterBackgroundTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

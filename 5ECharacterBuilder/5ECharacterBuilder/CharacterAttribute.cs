@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace _5ECharacterBuilder
 {
@@ -46,12 +49,9 @@ namespace _5ECharacterBuilder
         }
     }
 
-    public class CharacterAttributes
+    public class CharacterAttributes : IEnumerable
     {
-        public CharacterAttributes()
-        {
-            
-        }
+        public CharacterAttributes() { }
 
         public CharacterAttributes(CharacterAttributes attributes)
         {
@@ -99,12 +99,30 @@ namespace _5ECharacterBuilder
             Charisma.RacialBonus = racialBonuses.Charisma;
         }
 
+        private IEnumerable<CharacterAttribute> Attributes
+        {
+            get
+            {
+                return new List<CharacterAttribute> {Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma};
+            }
+        }
+
         public CharacterAttribute Strength { get; private set; }
         public CharacterAttribute Dexterity { get; private set; }
         public CharacterAttribute Constitution { get; private set; }
         public CharacterAttribute Intelligence { get; private set; }
         public CharacterAttribute Wisdom { get; private set; }
         public CharacterAttribute Charisma { get; private set; }
+
+        public IEnumerator<CharacterAttribute> GetEnumerator()
+        {
+            return Attributes.TakeWhile(o => o != null).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 
     public class CharacterAttribute

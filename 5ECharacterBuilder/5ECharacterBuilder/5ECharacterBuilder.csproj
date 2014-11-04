@@ -42,6 +42,7 @@
     <Compile Include="Armory.cs" />
     <Compile Include="AvailableEnums.cs" />
     <Compile Include="CharacterBackgrounds\CharacterBackground.cs" />
+    <Compile Include="CharacterBackgrounds\Acolyte.cs" />
     <Compile Include="CharacterBackgrounds\Criminal.cs" />
     <Compile Include="CharacterBase.cs" />
     <Compile Include="CharacterAttribute.cs" />

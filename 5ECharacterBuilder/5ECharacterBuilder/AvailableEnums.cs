@@ -2,7 +2,7 @@
 {
     public enum AvailableRaces { Human }
     public enum AvailableClasses { Monk, Fighter }
-    public enum AvailableBackgrounds { Criminal }
+    public enum AvailableBackgrounds { Acolyte, Criminal }
     public enum AvailableArmor { Cloth, Leather, Hide, ChainMail, Plate, Shield }
     public enum AvailableSkill { 
         Acrobatics, 

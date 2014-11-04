@@ -6,7 +6,7 @@ namespace _5ECharacterBuilderTests
     [TestClass]
     public class ArmoryTests
     {
-        private ICharacter _character;
+        private Character _character;
         private Armory _armory;
         [TestInitialize]
         public void Setup()
@@ -21,6 +21,14 @@ namespace _5ECharacterBuilderTests
             _character.Attributes = new CharacterAttributes(new CharacterAttributeScores(dexterity:20));
             _character.EquipArmor(AvailableArmor.Cloth);
             Assert.AreEqual(15, _character.ArmorClass);
+        }
+
+        [TestMethod]
+        public void LeatherArmorGivesMax2DexBonus()
+        {
+            _character.Attributes = new CharacterAttributes(new CharacterAttributeScores(dexterity: 20));
+            _character.EquipArmor(AvailableArmor.Hide);
+            Assert.AreEqual(14, _character.ArmorClass);
         }
 
         [TestMethod]

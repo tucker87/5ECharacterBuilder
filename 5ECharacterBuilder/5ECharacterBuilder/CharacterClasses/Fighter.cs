@@ -1,30 +1,22 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace _5ECharacterBuilder.CharacterClasses
 {
     sealed class Fighter : CharacterClass
     {
-        public Fighter(ICharacter character, List<AvailableSkill> skillList = null) : base(character)
+        public Fighter(Character character, List<AvailableSkill> skillList = null) : base(character)
         {
             HitDice.Add(10);
-            AddArmorProf(new List<AvailableArmor>(Armory.AllArmor) {AvailableArmor.Shield});
+            ArmorProficiencies.AddRange(new List<AvailableArmor>(Armory.AllArmor) {AvailableArmor.Shield});
             var fighterWeapons = new List<AvailableWeapon>(Armory.SimpleWeapons);
             fighterWeapons.AddRange(Armory.MartialWeapons);
-            AddWeaponProfs(fighterWeapons);
-            AddSavingThrows(new List<SavingThrow>{SavingThrow.Strength, SavingThrow.Constitution});
-            if (skillList != null)
-                PickSkills(skillList);
-        }
+            WeaponProficiencies.AddRange(fighterWeapons);
+            SavingThrowProficiencies.AddRange(new List<SavingThrow>{SavingThrow.Strength, SavingThrow.Constitution});
 
-        public override string Class { get { return "Fighter"; } } 
-        public override string Name { get; set; }
-        public override int ClassSkillCount { get { return 2; } }
-        public override ReadOnlyCollection<AvailableSkill> ClassSkills
-        {
-            get
-            {
-                return new ReadOnlyCollection<AvailableSkill>(new[]
+            Class += "Fighter";
+            ClassSkillCount = 2;
+            
+            ClassSkills.AddRange(new List<AvailableSkill>
                     {
                         AvailableSkill.Acrobatics,
                         AvailableSkill.AnimalHandling,
@@ -35,7 +27,6 @@ namespace _5ECharacterBuilder.CharacterClasses
                         AvailableSkill.Perception,
                         AvailableSkill.Survival
                     });
-            }
         }
     }
 }

@@ -7,7 +7,7 @@ namespace _5ECharacterBuilderTests
     [TestClass]
     class CharacterAttributeTests
     {
-        private static ICharacter _character;
+        private static Character _character;
         private static CharacterAttributeScores _characterAttributeScrores;
 
         [TestInitialize]

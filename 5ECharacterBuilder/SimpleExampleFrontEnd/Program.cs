@@ -31,8 +31,8 @@ namespace SimpleExampleFrontEnd
                 
             }
         }
-        
-        private static ICharacter CreateCharacter(AvailableRaces characterRace, AvailableClasses characterClass,
+
+        private static Character CreateCharacter(AvailableRaces characterRace, AvailableClasses characterClass,
             AvailableBackgrounds characterBackground)
         {
             var character = CharacterFactory.BuildACharacter(characterRace, characterClass, characterBackground);
@@ -41,7 +41,7 @@ namespace SimpleExampleFrontEnd
             return character;
         }
 
-        private static void WriteCharacter(ICharacter character)
+        private static void WriteCharacter(Character character)
         {
             Console.WriteLine(character.Race + ", " + character.Class + ", " + character.Background);
             Console.Write("Hit Dice:");
@@ -119,7 +119,7 @@ namespace SimpleExampleFrontEnd
 
             Console.WriteLine();
             Console.Write("Languagues:");
-            foreach (var language in character.Languages)
+            foreach (var language in character.RaceLanguages)
             {
                 Console.Write(" " + language);
             }
@@ -140,7 +140,7 @@ namespace SimpleExampleFrontEnd
 
     public class Menu
     {
-        private static ICharacter _character;
+        private static Character _character;
         private static int _result;
 
         public Dictionary<MenuOptions, Action> SystemDetailsProcessDictionary
@@ -178,7 +178,7 @@ namespace SimpleExampleFrontEnd
         private static void LearnSkill()
         {
             var chosenSkill = Generics.AskFor<AvailableSkill>();
-            _character.PickSkill(chosenSkill);
+            _character.Skills.Add(chosenSkill);
         }
 
         private static void LearnTool()
@@ -206,7 +206,7 @@ namespace SimpleExampleFrontEnd
             Exit
         }
 
-        public static int RunSelectedAction(MenuOptions option, ref ICharacter character)
+        public static int RunSelectedAction(MenuOptions option, ref Character character)
         {
             _character = character;
             new Menu().SystemDetailsProcessDictionary[option]();

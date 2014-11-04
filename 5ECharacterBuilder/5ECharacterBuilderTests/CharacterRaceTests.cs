@@ -6,23 +6,54 @@ namespace _5ECharacterBuilderTests
     [TestClass]
     public class CharacterRaceTests
     {
-        private static ICharacter _character;
-
-        [TestInitialize]
-        public static void Setup()
+        [TestClass]
+        public class HumanTests
         {
-            _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
-        }
+            private static Character _character;
 
-        [TestMethod]
-        public void HumansGetPlusOneToAllAttributeScores()
-        {
-            Assert.AreEqual(11, _character.Attributes.Strength.Score);
-            Assert.AreEqual(11, _character.Attributes.Constitution.Score);
-            Assert.AreEqual(11, _character.Attributes.Dexterity.Score);
-            Assert.AreEqual(11, _character.Attributes.Intelligence.Score);
-            Assert.AreEqual(11, _character.Attributes.Wisdom.Score);
-            Assert.AreEqual(11, _character.Attributes.Charisma.Score);
+            [TestInitialize]
+            public static void Setup()
+            {
+                _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
+            }
+
+            [TestMethod]
+            public void HumansGetPlusOneToAllAttributeScores()
+            {
+                Assert.AreEqual(11, _character.Attributes.Strength.Score);
+                Assert.AreEqual(11, _character.Attributes.Constitution.Score);
+                Assert.AreEqual(11, _character.Attributes.Dexterity.Score);
+                Assert.AreEqual(11, _character.Attributes.Intelligence.Score);
+                Assert.AreEqual(11, _character.Attributes.Wisdom.Score);
+                Assert.AreEqual(11, _character.Attributes.Charisma.Score);
+            }
+
+            [TestMethod]
+            public void HumansSpeakCommon()
+            {
+                Assert.IsTrue(_character.RaceLanguages.Contains(AvailableLanguages.Common));
+            }
+
+            [TestMethod]
+            public void HumansCanSpeakOneOtherLanguage()
+            {
+                _character.RaceLanguages.Add(AvailableLanguages.Draconic);
+                Assert.IsTrue(_character.RaceLanguages.Contains(AvailableLanguages.Draconic));
+            }
+
+            [TestMethod]
+            public void HumansCannotSpeakMoreThanOneOtherLanguage()
+            {
+                _character.RaceLanguages.Add(AvailableLanguages.Dwarven);
+                _character.RaceLanguages.Add(AvailableLanguages.Draconic);
+                Assert.IsTrue(_character.RuleIssues.Contains("Humans can only choose 2 RaceLanguages."));
+            }
+
+            [TestMethod]
+            public void MyTestMethod()
+            {
+                
+            }
         }
     }
 }
