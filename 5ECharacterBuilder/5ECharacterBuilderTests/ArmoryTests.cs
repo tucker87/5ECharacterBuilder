@@ -6,7 +6,7 @@ namespace _5ECharacterBuilderTests
     [TestClass]
     public class ArmoryTests
     {
-        private Character _character;
+        private ICharacter _character;
         private Armory _armory;
         [TestInitialize]
         public void Setup()
@@ -18,7 +18,7 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void ClothArmorGivesFullDexBonus()
         {
-            _character.Attributes = new CharacterAttributes(new CharacterAttributeScores(dexterity:20));
+            _character.SetAttributes(new CharacterAttributes(new CharacterAttributeScores(dexterity:20)));
             _character.EquipArmor(AvailableArmor.Cloth);
             Assert.AreEqual(15, _character.ArmorClass);
         }
@@ -26,7 +26,7 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void LeatherArmorGivesMax2DexBonus()
         {
-            _character.Attributes = new CharacterAttributes(new CharacterAttributeScores(dexterity: 20));
+            _character.SetAttributes(new CharacterAttributes(new CharacterAttributeScores(dexterity: 20)));
             _character.EquipArmor(AvailableArmor.Hide);
             Assert.AreEqual(14, _character.ArmorClass);
         }
@@ -34,7 +34,7 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void PlateArmorGiveNoDexBonus()
         {
-            _character.Attributes = new CharacterAttributes(new CharacterAttributeScores(dexterity: 20));
+            _character.SetAttributes(new CharacterAttributes(new CharacterAttributeScores(dexterity: 20)));
             _character.EquipArmor(AvailableArmor.Plate);
             Assert.AreEqual(18, _character.ArmorClass);
         }
@@ -42,17 +42,17 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void ShieldsGive2AcOnTopOfDex()
         {
-            _character.Attributes = new CharacterAttributes(new CharacterAttributeScores(dexterity: 20));
-            _character.HasShield = true;
+            _character.SetAttributes(new CharacterAttributes(new CharacterAttributeScores(dexterity: 20)));
+            _character.ToggleShield();
             Assert.AreEqual(17, _character.ArmorClass);
         }
 
         [TestMethod]
         public void ShieldsGive2AcOnTopOfArmor()
         {
-            _character.Attributes = new CharacterAttributes(new CharacterAttributeScores(dexterity: 20));
+            _character.SetAttributes(new CharacterAttributes(new CharacterAttributeScores(dexterity: 20)));
             _character.EquipArmor(AvailableArmor.Plate);
-            _character.HasShield = true;
+            _character.ToggleShield();
             Assert.AreEqual(20, _character.ArmorClass);
         }
     }

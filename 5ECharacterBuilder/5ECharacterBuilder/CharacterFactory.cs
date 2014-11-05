@@ -9,7 +9,7 @@ namespace _5ECharacterBuilder
 {
     public class CharacterFactory
     {
-        public static Character BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground)
+        public static ICharacter BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground)
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
             var characterClass = currentAssembly.GetTypes()
@@ -25,15 +25,15 @@ namespace _5ECharacterBuilder
 
             
 
-            var newCharacter = (Character)Activator.CreateInstance(characterRace,
+            var newCharacter = (ICharacter)Activator.CreateInstance(characterRace,
                 BindingFlags.OptionalParamBinding,
                 null, new object[] { new CharacterBase() }, null);
 
-            newCharacter = (Character)Activator.CreateInstance(characterClass, 
+            newCharacter = (ICharacter)Activator.CreateInstance(characterClass, 
                 BindingFlags.OptionalParamBinding,
                 null, new object[] { newCharacter }, null);
 
-            newCharacter = (Character)Activator.CreateInstance(characterBackground,
+            newCharacter = (ICharacter)Activator.CreateInstance(characterBackground,
                 BindingFlags.OptionalParamBinding,
                 null, new object[] { newCharacter }, null);
 
@@ -41,22 +41,22 @@ namespace _5ECharacterBuilder
         }
 
 
-        public static Character BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground, int level)
+        public static ICharacter BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground, int level)
         {
             var character = BuildACharacter(selectedRace, selectedClass, selectedBackground);
             for (var l = 1; l < level; l++)
-                character = AddClass(character, selectedClass);
+                character = LevelUp(character, selectedClass);
 
             return character;
         }
 
-        private static Character AddClass(Character character, AvailableClasses characterClass)
+        public static ICharacter LevelUp(ICharacter character, AvailableClasses characterClass)
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
             var characterClasses = currentAssembly.GetTypes()
                 .First(t => typeof(CharacterClass).IsAssignableFrom(t) && t.Name == characterClass.ToString());
 
-            character = (Character)Activator.CreateInstance(characterClasses,
+            character = (ICharacter)Activator.CreateInstance(characterClasses,
                 BindingFlags.OptionalParamBinding,
                 null, new object[] { character }, null);
 

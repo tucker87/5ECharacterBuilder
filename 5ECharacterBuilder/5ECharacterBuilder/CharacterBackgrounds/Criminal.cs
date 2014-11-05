@@ -4,7 +4,7 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
 {
     sealed class Criminal : CharacterBackground
     {
-        public Criminal(Character character) : base(character)
+        public Criminal(ICharacter character) : base(character)
         {
             BackgroundSkills.AddRange(new List<AvailableSkill>{AvailableSkill.Deception, AvailableSkill.Stealth});
             ToolProficiencies.Add(AvailableTool.ThievesTools);

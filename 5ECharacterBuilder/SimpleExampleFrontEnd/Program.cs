@@ -32,18 +32,18 @@ namespace SimpleExampleFrontEnd
             }
         }
 
-        private static Character CreateCharacter(AvailableRaces characterRace, AvailableClasses characterClass,
+        private static ICharacter CreateCharacter(AvailableRaces characterRace, AvailableClasses characterClass,
             AvailableBackgrounds characterBackground)
         {
             var character = CharacterFactory.BuildACharacter(characterRace, characterClass, characterBackground);
-            character.Attributes = new CharacterAttributes(11, 11, 11, 11, 11, 11);
+            character.SetAttributes(new CharacterAttributes(11, 11, 11, 11, 11, 11));
             
             return character;
         }
 
-        private static void WriteCharacter(Character character)
+        private static void WriteCharacter(ICharacter character)
         {
-            Console.WriteLine(character.Race + ", " + character.Class + ", " + character.Background);
+            Console.WriteLine(character.Race + "," + character.ClassesString + ", " + character.Background);
             Console.Write("Hit Dice:");
             foreach (var hitDie in character.HitDice)
                 Console.Write(" 1d" + hitDie);
@@ -140,7 +140,7 @@ namespace SimpleExampleFrontEnd
 
     public class Menu
     {
-        private static Character _character;
+        private static ICharacter _character;
         private static int _result;
 
         public Dictionary<MenuOptions, Action> SystemDetailsProcessDictionary
@@ -154,6 +154,7 @@ namespace SimpleExampleFrontEnd
                     {MenuOptions.LearnSkill, LearnSkill},
                     {MenuOptions.LearnTool, LearnTool},
                     {MenuOptions.LearnInstrument, LearnInstrument},
+                    {MenuOptions.LevelUp, LevelUp},
                     {MenuOptions.Exit, Exit}
                 };
             }
@@ -172,7 +173,7 @@ namespace SimpleExampleFrontEnd
 
         private static void ToggleShield()
         {
-            _character.HasShield = !_character.HasShield;
+            _character.ToggleShield();
         }
 
         private static void LearnSkill()
@@ -191,6 +192,12 @@ namespace SimpleExampleFrontEnd
             throw new NotImplementedException();
         }
 
+        private static void LevelUp()
+        {
+            var chosenClass = Generics.AskFor<AvailableClasses>();
+            CharacterFactory.LevelUp(_character, chosenClass);
+        }
+
         private static void Exit()
         {
             _result = -1;
@@ -203,10 +210,11 @@ namespace SimpleExampleFrontEnd
             LearnSkill,
             LearnTool,
             LearnInstrument,
-            Exit
+            Exit,
+            LevelUp
         }
 
-        public static int RunSelectedAction(MenuOptions option, ref Character character)
+        public static int RunSelectedAction(MenuOptions option, ref ICharacter character)
         {
             _character = character;
             new Menu().SystemDetailsProcessDictionary[option]();

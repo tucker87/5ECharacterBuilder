@@ -1,48 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using _5ECharacterBuilder.CharacterClasses;
 
 namespace _5ECharacterBuilder
 {
-    public abstract class Character
+    public interface ICharacter
     {
-        public abstract int ArmorClass { get; }
-        public abstract List<AvailableArmor> ArmorProficiencies { get; internal set; }
-        public abstract CharacterAttributes Attributes { get; set; }
-        public abstract string Background { get; internal set; }
-        public abstract List<AvailableLanguages> BackgroundLanguages { get; internal set; }
-        public abstract int BackgroundLanguageCount { get; internal set; }
-        public abstract List<AvailableSkill> BackgroundSkills { get; internal set; }
-        internal abstract string Class { get; set; }
-        public abstract List<string> Classes { get; } 
-        public abstract int ClassSkillCount { get; internal set; }
-        public abstract Currency Currency { get; internal set; }
-        public abstract List<AvailableSkill> ClassSkills { get; internal set; }
-        public abstract Armor EquippedArmor { get; internal set; }
-        public abstract bool HasShield { get; set; }
-        public abstract List<int> HitDice { get; internal set; }
-        public abstract int Initiative { get; }
-        public abstract List<AvailableInstrument> InstrumentProficiencies { get; internal set; }
-        public abstract List<AvailableLanguages> Languages { get; internal set; }
-        public abstract int MaxHp { get; }
-        public abstract string Name { get; set; }
-        public abstract string Race { get; internal set; }
-        public abstract List<AvailableLanguages> RaceLanguages { get; internal set; }
-        public abstract int RaceLanguageCount { get; internal set; }
-        public abstract List<string> RuleIssues { get; }
-        public abstract List<SavingThrow> SavingThrowProficiencies { get; internal set; }
-        public abstract string Size { get; internal set; }
-        public abstract List<AvailableSkill> Skills { get; internal set; }
-        public abstract List<AvailableSkill> TrainedSkills { get; internal set; }
-        public abstract int Speed { get; internal set; }
-        public abstract List<AvailableTool> ToolProficiencies { get; internal set; }
-        public abstract List<AvailableWeapon> WeaponProficiencies { get; internal set; }
+        int ArmorClass { get; }
+        List<AvailableArmor> ArmorProficiencies { get; }
+        CharacterAttributes Attributes { get; }
+        string Background { get; }
+        List<AvailableLanguages> BackgroundLanguages { get; }
+        int BackgroundLanguageCount { get; }
+        List<AvailableSkill> BackgroundSkills { get;}
+        List<string> Classes { get; }
+        string ClassesString { get; }
+        int ClassSkillCount { get; }
+        Currency Currency { get; }
+        List<AvailableSkill> ClassSkills { get; }
+        Armor EquippedArmor { get; }
+        bool HasShield { get; }
+        List<int> HitDice { get; }
+        int Initiative { get; }
+        List<AvailableInstrument> InstrumentProficiencies { get; }
+        List<AvailableLanguages> Languages { get; }
+        int MaxHp { get; }
+        string Name { get; }
+        string Race { get; }
+        List<AvailableLanguages> RaceLanguages { get; }
+        int RaceLanguageCount { get; }
+        List<string> RuleIssues { get; }
+        List<SavingThrow> SavingThrowProficiencies { get; }
+        string Size { get; }
+        List<AvailableSkill> Skills { get; }
+        List<AvailableSkill> TrainedSkills { get; }
+        int Speed { get; }
+        List<AvailableTool> ToolProficiencies { get; }
+        List<AvailableWeapon> WeaponProficiencies { get; }
 
-        public abstract void EquipArmor(AvailableArmor armor);
+        void EquipArmor(AvailableArmor armor);
+        void SetAttributes(CharacterAttributes characterAttributes);
+        void ToggleShield();
+        void SetName(string name);
     }
 
-    internal sealed class CharacterBase : Character
+    class CharacterBase : ICharacter
     {
         public CharacterBase(CharacterAttributeScores attributeScores = null, string name = "")
         {
@@ -62,34 +64,37 @@ namespace _5ECharacterBuilder
             HitDice = new List<int>(new int[0]);
             Currency = new Currency();
             RaceLanguages = new List<AvailableLanguages>(new List<AvailableLanguages>());
+            _classes = new List<string>();
         }
 
-        public override int ArmorClass { get {  return GetArmorClassBonus(EquippedArmor, Attributes.Dexterity.Modifier) + ShieldBonus; } }
-        public override List<AvailableArmor> ArmorProficiencies { get; internal set; }
-        public override string Background { get; internal set; }
-        internal override string Class { get; set; }
-        public override List<string> Classes { get { return new List<string>(); } }
-        public override Currency Currency { get; internal set; }
-        public override int MaxHp { get { return CalculateMaxHp(HitDice, Attributes.Constitution.Modifier); } }
-        public override List<int> HitDice { get; internal set; }
-        public override List<AvailableInstrument> InstrumentProficiencies { get; internal set; }
-        public override int Initiative { get { return Attributes.Dexterity.Modifier; } }
-        public override List<AvailableLanguages> Languages { get; internal set; }
-        public override string Name { get; set; }
-        public override string Race { get; internal set; }
-        public override List<AvailableLanguages> RaceLanguages { get; internal set; }
-        public override int RaceLanguageCount { get; internal set; }
         private int ShieldBonus { get { return HasShield ? 2 : 0; } }
-        public override CharacterAttributes Attributes { get; set; }
-        public override List<AvailableLanguages> BackgroundLanguages { get; internal set; }
-        public override int BackgroundLanguageCount { get; internal set; }
-        public override List<AvailableSkill> BackgroundSkills { get; internal set; }
-        public override int ClassSkillCount { get; internal set; }
-        public override List<AvailableSkill> ClassSkills { get; internal set; }
-        public override Armor EquippedArmor { get; internal set; }
-        public override bool HasShield { get; set; }
 
-        public override List<string> RuleIssues
+        public int ArmorClass { get {  return GetArmorClassBonus(EquippedArmor, Attributes.Dexterity.Modifier) + ShieldBonus; } }
+        public List<AvailableArmor> ArmorProficiencies { get; internal set; }
+        public string Background { get; internal set; }
+        private readonly List<string> _classes;
+        public List<string> Classes { get { return _classes; } }
+        public string ClassesString { get { return ""; } }
+        public Currency Currency { get; internal set; }
+        public int MaxHp { get { return CalculateMaxHp(HitDice, Attributes.Constitution.Modifier); } }
+        public List<int> HitDice { get; internal set; }
+        public List<AvailableInstrument> InstrumentProficiencies { get; internal set; }
+        public int Initiative { get { return Attributes.Dexterity.Modifier; } }
+        public List<AvailableLanguages> Languages { get; internal set; }
+        public string Name { get; set; }
+        public string Race { get; internal set; }
+        public List<AvailableLanguages> RaceLanguages { get; internal set; }
+        public int RaceLanguageCount { get; internal set; }
+        public CharacterAttributes Attributes { get; set; }
+        public List<AvailableLanguages> BackgroundLanguages { get; internal set; }
+        public int BackgroundLanguageCount { get; internal set; }
+        public List<AvailableSkill> BackgroundSkills { get; internal set; }
+        public int ClassSkillCount { get; internal set; }
+        public List<AvailableSkill> ClassSkills { get; internal set; }
+        public Armor EquippedArmor { get; internal set; }
+        public bool HasShield { get; set; }
+
+        public List<string> RuleIssues
         {
             get
             {
@@ -106,15 +111,15 @@ namespace _5ECharacterBuilder
             }
         }
 
-        public override List<SavingThrow> SavingThrowProficiencies { get; internal set; }
-        public override string Size { get; internal set; }
-        public override List<AvailableSkill> Skills { get; internal set; }
-        public override List<AvailableSkill> TrainedSkills { get; internal set; }
-        public override int Speed { get; internal set; }
-        public override List<AvailableTool> ToolProficiencies { get; internal set; }
-        public override List<AvailableWeapon> WeaponProficiencies { get; internal set; }
+        public List<SavingThrow> SavingThrowProficiencies { get; internal set; }
+        public string Size { get; internal set; }
+        public List<AvailableSkill> Skills { get; internal set; }
+        public List<AvailableSkill> TrainedSkills { get; internal set; }
+        public int Speed { get; internal set; }
+        public List<AvailableTool> ToolProficiencies { get; internal set; }
+        public List<AvailableWeapon> WeaponProficiencies { get; internal set; }
 
-        public override void EquipArmor(AvailableArmor armor) { EquippedArmor = Armory.GetArmor(armor); }
+        public void EquipArmor(AvailableArmor armor) { EquippedArmor = Armory.GetArmor(armor); }
         
         public void SetAttributes(CharacterAttributes characterAttributes)
         {
@@ -126,6 +131,16 @@ namespace _5ECharacterBuilder
                 Attributes.Wisdom.RacialBonus,
                 Attributes.Charisma.RacialBonus);
             Attributes = new CharacterAttributes(characterAttributes, racialBonuses);
+        }
+
+        public void ToggleShield()
+        {
+            HasShield = !HasShield;
+        }
+
+        public void SetName(string name)
+        {
+            Name = name;
         }
 
         private static int GetArmorClassBonus(Armor armor, int dex)

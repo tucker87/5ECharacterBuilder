@@ -9,7 +9,7 @@ namespace _5ECharacterBuilderTests
         [TestClass]
         public class CriminalTests
         {
-            private static Character _character;
+            private static ICharacter _character;
 
             [TestInitialize]
             public static void Setup()

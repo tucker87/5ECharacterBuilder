@@ -7,7 +7,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
     [TestClass]
     public class FighterTests
     {
-        private Character _fighter;
+        private ICharacter _fighter;
         [TestInitialize]
         public void Setup()
         {

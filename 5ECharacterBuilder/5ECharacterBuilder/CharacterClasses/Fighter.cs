@@ -4,7 +4,7 @@ namespace _5ECharacterBuilder.CharacterClasses
 {
     sealed class Fighter : CharacterClass
     {
-        public Fighter(Character character, List<AvailableSkill> skillList = null) : base(character)
+        public Fighter(ICharacter character) : base(character)
         {
             HitDice.Add(10);
             ArmorProficiencies.AddRange(new List<AvailableArmor>(Armory.AllArmor) {AvailableArmor.Shield});
@@ -13,8 +13,7 @@ namespace _5ECharacterBuilder.CharacterClasses
             WeaponProficiencies.AddRange(fighterWeapons);
             SavingThrowProficiencies.AddRange(new List<SavingThrow>{SavingThrow.Strength, SavingThrow.Constitution});
 
-            Class += "Fighter";
-            ClassSkillCount = 2;
+            Classes.Add("Fighter");
             
             ClassSkills.AddRange(new List<AvailableSkill>
                     {
@@ -27,6 +26,14 @@ namespace _5ECharacterBuilder.CharacterClasses
                         AvailableSkill.Perception,
                         AvailableSkill.Survival
                     });
+        }
+
+        public override int ClassSkillCount
+        {
+            get
+            {
+                return 2;
+            }
         }
     }
 }

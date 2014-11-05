@@ -8,7 +8,7 @@ namespace ExampleFrontEnd
 {
     public partial class MainWindow
     {
-        private Character _character;
+        private ICharacter _character;
         
         public MainWindow()
         {

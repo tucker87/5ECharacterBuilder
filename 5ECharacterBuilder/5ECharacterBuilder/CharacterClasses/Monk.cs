@@ -4,7 +4,7 @@ namespace _5ECharacterBuilder.CharacterClasses
 {
     internal sealed class Monk : CharacterClass
     {
-        public Monk(Character character, List<AvailableSkill> skillList = null): base(character)
+        public Monk(ICharacter character): base(character)
         {
             HitDice.Add(8);
             
@@ -12,8 +12,7 @@ namespace _5ECharacterBuilder.CharacterClasses
 
             SavingThrowProficiencies.AddRange(new List<SavingThrow> {SavingThrow.Strength, SavingThrow.Dexterity});
 
-            Class += "Monk";
-            ClassSkillCount = 2;
+            Classes.Add("Monk");
             ClassSkills.AddRange(new List<AvailableSkill>{ 
                     AvailableSkill.Acrobatics,
                     AvailableSkill.Athletics,
@@ -34,6 +33,15 @@ namespace _5ECharacterBuilder.CharacterClasses
                 return base.ArmorClass;
             }
         }
+
+        public override int ClassSkillCount
+        {
+            get
+            {
+                return 2;
+            }
+        }
+
         public override List<string> RuleIssues
         {
             get

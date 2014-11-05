@@ -6,7 +6,7 @@ namespace _5ECharacterBuilderTests
     [TestClass]
     public class CharacterBaseTests
     {
-        private static Character _character;
+        private static ICharacter _character;
 
         [TestInitialize]
         public static void Setup()
@@ -16,7 +16,7 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void CharactersCanHaveNames()
         {
-            _character.Name = "John";
+            _character.SetName("John");
             Assert.AreEqual("John", _character.Name);
         }
 
@@ -39,7 +39,7 @@ namespace _5ECharacterBuilderTests
         {
             var highCon = new CharacterAttributeScores(constitution: 14);
             var characterWithHitDiceAndCon = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
-            characterWithHitDiceAndCon.Attributes = new CharacterAttributes(highCon);
+            characterWithHitDiceAndCon.SetAttributes(new CharacterAttributes(highCon));
             Assert.AreEqual(10, characterWithHitDiceAndCon.MaxHp);
         }
 

@@ -7,7 +7,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
     [TestClass]
     public class MonkClassTests
     {
-        private static Character _monk;
+        private static ICharacter _monk;
 
         [TestInitialize]
         public static void Setup()
