@@ -2,7 +2,7 @@
 
 namespace _5ECharacterBuilder.CharacterClasses
 {
-    sealed class Fighter : CharacterClass
+    class Fighter : CharacterClass
     {
         public Fighter(ICharacter character) : base(character)
         {
@@ -15,7 +15,7 @@ namespace _5ECharacterBuilder.CharacterClasses
 
             Classes.Add("Fighter");
             
-            ClassSkills.AddRange(new List<AvailableSkill>
+            AvailableSkills.AddRange(new List<AvailableSkill>
                     {
                         AvailableSkill.Acrobatics,
                         AvailableSkill.AnimalHandling,
@@ -28,7 +28,7 @@ namespace _5ECharacterBuilder.CharacterClasses
                     });
         }
 
-        public override int ClassSkillCount
+        public override int SkillCount
         {
             get
             {

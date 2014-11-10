@@ -42,11 +42,6 @@ namespace _5ECharacterBuilderTests
             characterWithHitDiceAndCon.SetAttributes(new CharacterAttributes(highCon));
             Assert.AreEqual(10, characterWithHitDiceAndCon.MaxHp);
         }
-
-        [TestMethod]
-        public void MyTestMethod()
-        {
-            
-        }
+        
     }
 }

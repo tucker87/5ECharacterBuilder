@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace _5ECharacterBuilder.CharacterClasses
 {
-    internal sealed class Monk : CharacterClass
+    class Monk : CharacterClass
     {
         public Monk(ICharacter character): base(character)
         {
@@ -13,7 +13,7 @@ namespace _5ECharacterBuilder.CharacterClasses
             SavingThrowProficiencies.AddRange(new List<SavingThrow> {SavingThrow.Strength, SavingThrow.Dexterity});
 
             Classes.Add("Monk");
-            ClassSkills.AddRange(new List<AvailableSkill>{ 
+            AvailableSkills.AddRange(new List<AvailableSkill>{ 
                     AvailableSkill.Acrobatics,
                     AvailableSkill.Athletics,
                     AvailableSkill.History,
@@ -34,12 +34,9 @@ namespace _5ECharacterBuilder.CharacterClasses
             }
         }
 
-        public override int ClassSkillCount
+        public override int SkillCount
         {
-            get
-            {
-                return 2;
-            }
+            get { return 2; }
         }
 
         public override List<string> RuleIssues
@@ -47,7 +44,10 @@ namespace _5ECharacterBuilder.CharacterClasses
             get
             {
                 var currentIssues = base.RuleIssues;
-                if (ToolProficiencies.Count > 0 && InstrumentProficiencies.Count > 0)
+                if (AvailableToolProficiencies.Count == 0 && AvailableInstrumentProficiencies.Count == 0)
+                    currentIssues.Add("Has not chosen a Monk Tool or Instrument");
+
+                if (AvailableToolProficiencies.Count > 0 && AvailableInstrumentProficiencies.Count > 0)
                     currentIssues.Add("Monks can only choose an Instrument or a Tool");
 
                 return currentIssues;

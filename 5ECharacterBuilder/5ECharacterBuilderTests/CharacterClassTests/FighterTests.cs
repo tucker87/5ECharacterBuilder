@@ -48,14 +48,14 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void FighterClassSkills()
         {
-            Assert.IsTrue(_fighter.Skills.Contains(AvailableSkill.Acrobatics));
-            Assert.IsTrue(_fighter.Skills.Contains(AvailableSkill.AnimalHandling));
-            Assert.IsTrue(_fighter.Skills.Contains(AvailableSkill.Athletics));
-            Assert.IsTrue(_fighter.Skills.Contains(AvailableSkill.History));
-            Assert.IsTrue(_fighter.Skills.Contains(AvailableSkill.Insight));
-            Assert.IsTrue(_fighter.Skills.Contains(AvailableSkill.Intimidation));
-            Assert.IsTrue(_fighter.Skills.Contains(AvailableSkill.Perception));
-            Assert.IsTrue(_fighter.Skills.Contains(AvailableSkill.Survival));
+            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.Acrobatics));
+            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.AnimalHandling));
+            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.Athletics));
+            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.History));
+            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.Insight));
+            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.Intimidation));
+            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.Perception));
+            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.Survival));
         }
     }
 }

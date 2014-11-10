@@ -6,8 +6,9 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
     {
         public Criminal(ICharacter character) : base(character)
         {
-            BackgroundSkills.AddRange(new List<AvailableSkill>{AvailableSkill.Deception, AvailableSkill.Stealth});
-            ToolProficiencies.Add(AvailableTool.ThievesTools);
+            AvailableSkills.AddRange(new List<AvailableSkill>{AvailableSkill.Deception, AvailableSkill.Stealth});
+            TrainedSkills.AddRange(new List<AvailableSkill>{AvailableSkill.Deception, AvailableSkill.Stealth});
+            AvailableToolProficiencies.Add(AvailableTool.ThievesTools);
         }
 
         public override string Background

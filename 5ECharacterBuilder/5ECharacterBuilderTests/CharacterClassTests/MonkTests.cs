@@ -26,11 +26,11 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             var skillList = new List<AvailableSkill>{AvailableSkill.Acrobatics, AvailableSkill.Religion, AvailableSkill.Stealth };
             _monk.TrainedSkills.AddRange(skillList);
-            Assert.IsTrue(_monk.RuleIssues.Contains("Monks can only choose 2 skills from their list."));
+            Assert.IsTrue(_monk.RuleIssues.Contains("Character can only choose 2 skills from their list."));
         }
 
         [TestMethod]
-        public void MonksCanChooseTwoKillsFromTheirProficiencyList()
+        public void MonksCanChooseTwoSkillsFromTheirProficiencyList()
         {
             var skillList = new List<AvailableSkill>{AvailableSkill.Acrobatics, AvailableSkill.Religion};
             _monk.TrainedSkills.AddRange(skillList);
@@ -43,7 +43,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             var skillList = new List<AvailableSkill>{ AvailableSkill.Acrobatics, AvailableSkill.Arcana };
             _monk.TrainedSkills.AddRange(skillList);
-            Assert.IsTrue(_monk.RuleIssues.Contains("Arcana is not a skill available to this class."));
+            Assert.IsTrue(_monk.RuleIssues.Contains("Arcana is not a skill available to this character."));
         }
 
         [TestMethod]
@@ -66,29 +66,35 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
                 Assert.IsTrue(_monk.WeaponProficiencies.Contains(weapon));
             }
         }
+
+        [TestMethod]
+        public void MonksAreToldTheyHaveNotChosenAToolOrMusicalInstrument()
+        {
+            Assert.IsTrue(_monk.RuleIssues.Contains("Has not chosen a Monk Tool or Instrument"));
+        }
+
         [TestMethod]
         public void MonksAreProficientWithOneToolOrMusicalInstrument()
         {
-            _monk.ToolProficiencies.Add(AvailableTool.AlchemistsSupplies);
-            Assert.IsTrue(_monk.ToolProficiencies.Contains(AvailableTool.AlchemistsSupplies));
+            _monk.AvailableToolProficiencies.Add(AvailableTool.AlchemistsSupplies);
+            Assert.IsTrue(_monk.AvailableToolProficiencies.Contains(AvailableTool.AlchemistsSupplies));
             _monk = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
-            _monk.InstrumentProficiencies.Add(AvailableInstrument.Lute);
-            Assert.AreEqual(_monk.InstrumentProficiencies[0], AvailableInstrument.Lute);
+            _monk.AvailableInstrumentProficiencies.Add(AvailableInstrument.Lute);
+            Assert.AreEqual(_monk.AvailableInstrumentProficiencies[0], AvailableInstrument.Lute);
         }
 
         [TestMethod]
         public void MonksCanPickAnArtisanToolOrAnInstrument()
         {
-            _monk.InstrumentProficiencies.Add(AvailableInstrument.Lute);
+            _monk.AvailableInstrumentProficiencies.Add(AvailableInstrument.Lute);
             Assert.IsFalse(_monk.RuleIssues.Contains("Instrument"));
-            
         }
 
         [TestMethod]
         public void MonksCannotPickBothAToolAndInstrument()
         {
-            _monk.ToolProficiencies.Add(AvailableTool.AlchemistsSupplies);
-            _monk.InstrumentProficiencies.Add(AvailableInstrument.Lute);
+            _monk.AvailableToolProficiencies.Add(AvailableTool.AlchemistsSupplies);
+            _monk.AvailableInstrumentProficiencies.Add(AvailableInstrument.Lute);
             Assert.AreEqual("Monks can only choose an Instrument or a Tool", _monk.RuleIssues[0]);
         }
 

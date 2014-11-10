@@ -103,7 +103,7 @@ namespace ExampleFrontEnd
             HdTextBox.Text = "1d" + string.Join(" 1d", _character.HitDice);
 
             ArmorProfListBox.ItemsSource = _character.ArmorProficiencies;
-            SkillProfListBox.ItemsSource = _character.Skills;
+            SkillProfListBox.ItemsSource = _character.AvailableSkills;
         }
 
         private void ScoreTextBox_OnLostFocus(object sender, RoutedEventArgs e)

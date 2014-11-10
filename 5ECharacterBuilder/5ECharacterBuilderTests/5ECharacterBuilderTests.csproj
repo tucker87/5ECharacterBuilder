@@ -55,8 +55,9 @@
     <Compile Include="CharacterAttributeTests.cs" />
     <Compile Include="CharacterClassTests\FighterTests.cs" />
     <Compile Include="CharacterClassTests\MonkTests.cs" />
-    <Compile Include="CharacterRaceTests.cs" />
     <Compile Include="CharacterBaseTests.cs" />
+    <Compile Include="CharacterRaceTests\HillDwarfTests.cs" />
+    <Compile Include="CharacterRaceTests\HumanTests.cs" />
     <Compile Include="CharacterValidationTests.cs" />
     <Compile Include="CharacterBackgroundTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

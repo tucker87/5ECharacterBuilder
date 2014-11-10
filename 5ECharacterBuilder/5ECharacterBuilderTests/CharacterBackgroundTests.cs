@@ -24,16 +24,18 @@ namespace _5ECharacterBuilderTests
             }
 
             [TestMethod]
-            public void CriminalsHaveDeceptionAndStealthSkillProfs()
+            public void CriminalsHaveDeceptionAndStealthSkillProfsAvailableAndTrained()
             {
-                Assert.IsTrue(_character.Skills.Contains(AvailableSkill.Deception));
-                Assert.IsTrue(_character.Skills.Contains(AvailableSkill.Stealth));
+                Assert.IsTrue(_character.AvailableSkills.Contains(AvailableSkill.Deception));
+                Assert.IsTrue(_character.TrainedSkills.Contains(AvailableSkill.Deception));
+                Assert.IsTrue(_character.AvailableSkills.Contains(AvailableSkill.Stealth));
+                Assert.IsTrue(_character.TrainedSkills.Contains(AvailableSkill.Stealth));
             }
 
             [TestMethod]
             public void CriminalsHaveThievesToolsProf()
             {
-                Assert.IsTrue(_character.ToolProficiencies.Contains(AvailableTool.ThievesTools));
+                Assert.IsTrue(_character.AvailableToolProficiencies.Contains(AvailableTool.ThievesTools));
             }
         }
     }

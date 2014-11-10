@@ -51,6 +51,8 @@
     <Compile Include="CharacterClasses\Monk.cs" />
     <Compile Include="CharacterFactory.cs" />
     <Compile Include="CharacterRaces\CharacterRace.cs" />
+    <Compile Include="CharacterRaces\Dwarf.cs" />
+    <Compile Include="CharacterRaces\HillDwarf.cs" />
     <Compile Include="CharacterRaces\Human.cs" />
     <Compile Include="Currency.cs" />
     <Compile Include="Properties\Annotations.cs" />

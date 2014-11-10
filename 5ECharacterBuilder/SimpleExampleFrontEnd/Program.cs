@@ -90,7 +90,7 @@ namespace SimpleExampleFrontEnd
             Console.WriteLine();
             Console.WriteLine();
             Console.Write("Available Skill Proficiencies:");
-            foreach (var skill in character.Skills)
+            foreach (var skill in character.AvailableSkills)
                 Console.Write(" " + skill);
 
             Console.WriteLine();
@@ -104,14 +104,14 @@ namespace SimpleExampleFrontEnd
             Console.WriteLine();
 
             Console.Write("Tool Proficiencies:");
-            foreach (var tool in character.ToolProficiencies)
+            foreach (var tool in character.AvailableToolProficiencies)
                 Console.Write(" " + tool);
 
             Console.WriteLine();
             Console.WriteLine();
 
             Console.Write("Instrument Proficiencies:");
-            foreach (var instrument in character.InstrumentProficiencies)
+            foreach (var instrument in character.AvailableInstrumentProficiencies)
                 Console.Write(" " + instrument);
 
             Console.WriteLine();
@@ -119,7 +119,7 @@ namespace SimpleExampleFrontEnd
 
             Console.WriteLine();
             Console.Write("Languagues:");
-            foreach (var language in character.RaceLanguages)
+            foreach (var language in character.ChosenLanguages)
             {
                 Console.Write(" " + language);
             }
@@ -179,12 +179,13 @@ namespace SimpleExampleFrontEnd
         private static void LearnSkill()
         {
             var chosenSkill = Generics.AskFor<AvailableSkill>();
-            _character.Skills.Add(chosenSkill);
+            _character.LearnSkill(chosenSkill);
         }
 
         private static void LearnTool()
         {
-            throw new NotImplementedException();
+            var chosenTool = Generics.AskFor<AvailableTool>();
+            _character.LearnTool(chosenTool);
         }
 
         private static void LearnInstrument()
@@ -210,8 +211,9 @@ namespace SimpleExampleFrontEnd
             LearnSkill,
             LearnTool,
             LearnInstrument,
-            Exit,
-            LevelUp
+            LevelUp,
+            Exit
+            
         }
 
         public static int RunSelectedAction(MenuOptions option, ref ICharacter character)

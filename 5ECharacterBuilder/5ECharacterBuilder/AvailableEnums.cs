@@ -1,6 +1,10 @@
 ﻿namespace _5ECharacterBuilder
 {
-    public enum AvailableRaces { Human }
+    public enum AvailableRaces { 
+        Human,
+        HillDwarf,
+        MountainDwarf
+    }
     public enum AvailableClasses { Monk, Fighter }
     public enum AvailableBackgrounds { Acolyte, Criminal }
     public enum AvailableArmor { Cloth, Leather, Hide, ChainMail, Plate, Shield }
@@ -28,6 +32,6 @@
         ThreeDragonAnteSet
     }
     public enum AvailableInstrument { Lute }
-    public enum AvailableLanguages { Common, Elven, Sylvan, Goblin, Draconic, Gnomish, Dwarven }
+    public enum AvailableLanguages { Common, Elven, Sylvan, Goblin, Draconic, Gnomish, Dwarvish }
     public enum SavingThrow { Strength, Constitution, Dexterity, Intelligence, Wisdom, Charisma }
 }

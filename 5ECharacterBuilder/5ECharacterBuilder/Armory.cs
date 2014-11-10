@@ -109,6 +109,10 @@ namespace _5ECharacterBuilder
         ShortSword,
         Club,
         Dagger,
-        GreatSword
+        GreatSword,
+        BattleAxe,
+        HandAxe,
+        ThrowingHammer,
+        WarHammer
     }
 }
