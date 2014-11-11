@@ -27,8 +27,8 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             _monk.LearnSkill(AvailableSkill.Acrobatics);
             _monk.LearnSkill(AvailableSkill.Religion);
-            Assert.IsTrue(_monk.TrainedSkills.Contains(AvailableSkill.Acrobatics));
-            Assert.IsTrue(_monk.TrainedSkills.Contains(AvailableSkill.Religion));
+            Assert.IsTrue(_monk.ChosenSkills.Contains(AvailableSkill.Acrobatics));
+            Assert.IsTrue(_monk.ChosenSkills.Contains(AvailableSkill.Religion));
         }
         
         [TestMethod]

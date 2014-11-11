@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace _5ECharacterBuilder
+namespace CharacterBuilderDataBase
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -22,7 +22,6 @@ namespace _5ECharacterBuilder
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="CharacterBuilder")]
 	public partial class CharacterBuilderDB : System.Data.Linq.DataContext
 	{
 		
@@ -36,7 +35,7 @@ namespace _5ECharacterBuilder
     #endregion
 		
 		public CharacterBuilderDB() : 
-				base(global::_5ECharacterBuilder.Properties.Settings.Default.CharacterBuilderConnectionString1, mappingSource)
+				base(global::CharacterBuilderDataBase.Properties.Settings.Default.CharacterBuilderDBConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -82,7 +81,7 @@ namespace _5ECharacterBuilder
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Armor")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Armors")]
 	public partial class Armor : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -336,7 +335,7 @@ namespace _5ECharacterBuilder
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Feature")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Features")]
 	public partial class Feature
 	{
 		

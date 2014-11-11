@@ -9,8 +9,8 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
             AvailableSkills.Add(AvailableSkill.Deception);
             AvailableSkills.Add(AvailableSkill.Stealth);
 
-            TrainedSkills.Add(AvailableSkill.Deception);
-            TrainedSkills.Add(AvailableSkill.Stealth);
+            ChosenSkills.Add(AvailableSkill.Deception);
+            ChosenSkills.Add(AvailableSkill.Stealth);
 
             AvailableToolProficiencies.Add(AvailableTool.ThievesTools);
             ChosenToolProficiencies.Add(AvailableTool.ThievesTools);

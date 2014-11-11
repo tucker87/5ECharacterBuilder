@@ -14,5 +14,10 @@ namespace _5ECharacterBuilder.CharacterRaces
             using (var db = new CharacterBuilderDB())
                 Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Dwarven Armor Training"));
         }
+
+        public override string Race
+        {
+            get { return "Mountain Dwarf"; }
+        }
     }
 }

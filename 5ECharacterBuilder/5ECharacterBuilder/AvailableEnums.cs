@@ -3,7 +3,8 @@
     public enum AvailableRaces { 
         Human,
         HillDwarf,
-        MountainDwarf
+        MountainDwarf,
+        HighElf
     }
     public enum AvailableClasses { Monk, Fighter }
     public enum AvailableBackgrounds { Acolyte, Criminal }
@@ -35,6 +36,6 @@
         MasonsTools
     }
     public enum AvailableInstrument { Lute }
-    public enum AvailableLanguages { Common, Elven, Sylvan, Goblin, Draconic, Gnomish, Dwarvish }
+    public enum AvailableLanguages { Common, Elvish, Sylvan, Goblin, Draconic, Gnomish, Dwarvish }
     public enum SavingThrow { Strength, Constitution, Dexterity, Intelligence, Wisdom, Charisma }
 }

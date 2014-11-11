@@ -20,11 +20,6 @@ namespace _5ECharacterBuilder.CharacterRaces
             get { return 2; }
         }
 
-        public override string Size
-        {
-            get { return "Medium"; }
-        }
-
         public override int Speed
         {
             get { return 30; }

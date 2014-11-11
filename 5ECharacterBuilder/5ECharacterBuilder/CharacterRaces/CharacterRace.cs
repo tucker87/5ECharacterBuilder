@@ -22,8 +22,8 @@ namespace _5ECharacterBuilder.CharacterRaces
         public virtual int MaxHp { get { return _character.MaxHp; } }
         public string Name { get { return _character.Name; } }
         public virtual string Race { get { return _character.Race; } }
-        public virtual int Speed { get { return _character.Speed; } }
-        public SortedSet<AvailableSkill> TrainedSkills { get { return _character.TrainedSkills; } }
+        public virtual int Speed { get { return 30; } }
+        public SortedSet<AvailableSkill> ChosenSkills { get { return _character.ChosenSkills; } }
         public SortedSet<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public SortedSet<AvailableTool> ChosenToolProficiencies { get { return _character.ChosenToolProficiencies; } }
         public SortedSet<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
@@ -35,7 +35,7 @@ namespace _5ECharacterBuilder.CharacterRaces
         public SortedSet<AvailableTool> AvailableToolProficiencies { get { return _character.AvailableToolProficiencies; } }
         public SortedSet<AvailableInstrument> AvailableInstrumentProficiencies { get { return _character.AvailableInstrumentProficiencies; } }
         public SortedSet<SavingThrow> SavingThrowProficiencies { get { return _character.SavingThrowProficiencies; } }
-        public virtual string Size { get { return _character.Size; } }
+        public virtual string Size { get { return "Medium"; } }
         public SortedSet<AvailableSkill> AvailableSkills { get { return _character.AvailableSkills; } }
 
         public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }

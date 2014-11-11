@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CharacterBuilder" Class="CharacterBuilderDB" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=W7-2014-DEV02\MSSQLSERVER2012;Initial Catalog=CharacterBuilder;Integrated Security=True" SettingsObjectName="_5ECharacterBuilder.Properties.Settings" SettingsPropertyName="CharacterBuilderConnectionString1" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Armor" Member="Armors">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CharacterBuilderDB" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\CharacterBuilderDB.mdf;Integrated Security=True" SettingsObjectName="CharacterBuilderDataBase.Properties.Settings" SettingsPropertyName="CharacterBuilderDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Armors" Member="Armors">
     <Type Name="Armor">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
@@ -13,7 +13,7 @@
       <Column Name="Category" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.Feature" Member="Features">
+  <Table Name="dbo.Features" Member="Features">
     <Type Name="Feature">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
