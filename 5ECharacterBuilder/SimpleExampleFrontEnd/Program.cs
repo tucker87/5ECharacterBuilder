@@ -76,7 +76,7 @@ namespace SimpleExampleFrontEnd
             Console.WriteLine("Charisma: {0} Modifier: {1}", character.Attributes.Charisma.Score, character.Attributes.Charisma.Modifier);
             Console.WriteLine();
             Console.WriteLine("Feats: TODO"); //TODO
-            Console.WriteLine("Features: TODO"); //TODO
+            Console.WriteLine("AllFeatures: TODO"); //TODO
             Console.Write("Weapon Proficiencies:");
             foreach (var weapon in character.WeaponProficiencies)
                 Console.Write(" " + weapon);
@@ -128,12 +128,7 @@ namespace SimpleExampleFrontEnd
             Console.WriteLine("Gold: " + character.Currency.Gold);
             Console.WriteLine("Silver: " + character.Currency.Silver);
             Console.WriteLine("Copper: " + character.Currency.Copper);
-
-            Console.WriteLine();
-            Console.WriteLine("Issues: ");
-            foreach (var ruleIssue in character.RuleIssues)
-                Console.WriteLine(ruleIssue);
-
+            
             Console.WriteLine();
         }
     }

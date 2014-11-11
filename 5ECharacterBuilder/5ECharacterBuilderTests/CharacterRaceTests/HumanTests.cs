@@ -38,14 +38,5 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
             _character.ChosenLanguages.Add(AvailableLanguages.Draconic);
             Assert.IsTrue(_character.ChosenLanguages.Contains(AvailableLanguages.Draconic));
         }
-
-        [TestMethod]
-        public void HumansCannotSpeakMoreThanOneOtherLanguage()
-        {
-            _character.ChosenLanguages.Add(AvailableLanguages.Dwarvish);
-            _character.ChosenLanguages.Add(AvailableLanguages.Draconic);
-            Assert.IsTrue(_character.RuleIssues.Contains("Humans can only choose 2 RaceLanguages."));
-
-        }
     }
 }

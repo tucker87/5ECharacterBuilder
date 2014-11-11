@@ -75,21 +75,21 @@ namespace ExampleFrontEnd
         private void UpdateCharacterRacialBonuses()
         {
             StrengthRacialTextBox.Text = _character.Attributes.Strength.RacialBonus.ToString(CultureInfo.InvariantCulture);
-            DexterityRacialTextBox.Text = _character.Attributes.Strength.RacialBonus.ToString(CultureInfo.InvariantCulture);
-            ConstitutionRacialTextBox.Text = _character.Attributes.Strength.RacialBonus.ToString(CultureInfo.InvariantCulture);
-            IntelligenceRacialTextBox.Text = _character.Attributes.Strength.RacialBonus.ToString(CultureInfo.InvariantCulture);
-            WisdomRacialTextBox.Text = _character.Attributes.Strength.RacialBonus.ToString(CultureInfo.InvariantCulture);
-            CharismaRacialTextBox.Text = _character.Attributes.Strength.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            DexterityRacialTextBox.Text = _character.Attributes.Dexterity.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            ConstitutionRacialTextBox.Text = _character.Attributes.Constitution.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            IntelligenceRacialTextBox.Text = _character.Attributes.Intelligence.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            WisdomRacialTextBox.Text = _character.Attributes.Wisdom.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            CharismaRacialTextBox.Text = _character.Attributes.Charisma.RacialBonus.ToString(CultureInfo.InvariantCulture);
         }
 
         private void UpdateCharacterModifiers()
         {
-            StrengthModTextBox.Text = "" + (_character.Attributes.Strength.Modifier + _character.Attributes.Strength.RacialBonus);
-            DexterityModTextBox.Text = "" + (_character.Attributes.Dexterity.Modifier + _character.Attributes.Dexterity.RacialBonus);
-            ConstitutionModTextBox.Text = "" + (_character.Attributes.Constitution.Modifier + _character.Attributes.Constitution.RacialBonus);
-            IntelligenceModTextBox.Text = "" + (_character.Attributes.Intelligence.Modifier + _character.Attributes.Intelligence.RacialBonus);
-            WisdomModTextBox.Text = "" + (_character.Attributes.Wisdom.Modifier + _character.Attributes.Wisdom.RacialBonus);
-            CharismaModTextBox.Text = "" + (_character.Attributes.Charisma.Modifier + _character.Attributes.Charisma.RacialBonus);
+            StrengthModTextBox.Text = "" + (_character.Attributes.Strength.Modifier);
+            DexterityModTextBox.Text = "" + (_character.Attributes.Dexterity.Modifier);
+            ConstitutionModTextBox.Text = "" + (_character.Attributes.Constitution.Modifier);
+            IntelligenceModTextBox.Text = "" + (_character.Attributes.Intelligence.Modifier);
+            WisdomModTextBox.Text = "" + (_character.Attributes.Wisdom.Modifier);
+            CharismaModTextBox.Text = "" + (_character.Attributes.Charisma.Modifier);
         }
 
         private void UpdateBasicStats()

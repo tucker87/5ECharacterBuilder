@@ -4,8 +4,10 @@
     {
         public Acolyte(ICharacter character) : base(character)
         {
-           TrainedSkills.AddRange(new[] {AvailableSkill.Insight, AvailableSkill.Religion});
-           AvailableSkills.AddRange(new[] {AvailableSkill.Insight, AvailableSkill.Religion});
+           AvailableSkills.Add(AvailableSkill.Insight);
+           AvailableSkills.Add(AvailableSkill.Religion);
+           TrainedSkills.Add(AvailableSkill.Insight);
+           TrainedSkills.Add(AvailableSkill.Religion);
         }
 
         public override string Background

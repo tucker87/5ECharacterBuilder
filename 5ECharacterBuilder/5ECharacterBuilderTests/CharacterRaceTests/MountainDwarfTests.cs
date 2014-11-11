@@ -5,44 +5,36 @@ using _5ECharacterBuilder;
 namespace _5ECharacterBuilderTests.CharacterRaceTests
 {
     [TestClass]
-    public class HillDwarfTests
+    public class MountainDwarfTests
     {
         private static ICharacter _character;
 
         [TestInitialize]
         public static void Setup()
         {
-            _character = CharacterFactory.BuildACharacter(AvailableRaces.HillDwarf, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
+            _character = CharacterFactory.BuildACharacter(AvailableRaces.MountainDwarf, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
         }
 
         [TestMethod]
-        public void HillDwarvesConstitutionIsRaisedBy2()
+        public void MountainDwarvesConstitutionIsRaisedBy2()
         {
             Assert.AreEqual(12, _character.Attributes.Constitution.Score);
         }
 
         [TestMethod]
-        public void HillDwarvesWisdomIsRaisedBy1()
+        public void MountainDwarvesStrengthIsRaisedBy2()
         {
-            Assert.AreEqual(11, _character.Attributes.Wisdom.Score);
+            Assert.AreEqual(12, _character.Attributes.Strength.Score);
         }
 
         [TestMethod]
-        public void HillDwarvesHitPointsAreRaisedBy1PerLevel()
-        {
-            Assert.AreEqual(12, _character.MaxHp);
-            CharacterFactory.LevelUp(_character, AvailableClasses.Fighter);
-            Assert.AreEqual(19, _character.MaxHp);
-        }
-
-        [TestMethod]
-        public void HillDwarvesAreMedium()
+        public void MountainDwarvesAreMedium()
         {
             Assert.AreEqual("Medium", _character.Size);
         }
 
         [TestMethod]
-        public void HillDwavesHaveDwarvenCombatTraining()
+        public void MountainDwavesHaveDwarvenCombatTraining()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Dwarven Combat Training"));
             Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.BattleAxe));
@@ -52,7 +44,7 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         }
 
         [TestMethod]
-        public void HillDwarvesCanBeProfienctDwarvenTools()
+        public void MountainDwarvesCanBeProfienctDwarvenTools()
         {
             Assert.IsTrue(_character.AvailableToolProficiencies.Contains(AvailableTool.SmithsTools));
             Assert.IsTrue(_character.AvailableToolProficiencies.Contains(AvailableTool.BrewersSupplies));
@@ -60,21 +52,29 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         }
 
         [TestMethod]
-        public void HillDwavesHaveDarkVision()
+        public void MountainDwavesHaveDarkVision()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Darkvision"));
         }
 
         [TestMethod]
-        public void HillDwavesHaveDwarvenResilience()
+        public void MountainDwavesHaveDwarvenResilience()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Dwarven Resilience"));
         }
 
         [TestMethod]
-        public void HillDwavesHaveStoneCunning()
+        public void MountainDwavesHaveStoneCunning()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Stonecunning"));
+        }
+
+        [TestMethod]
+        public void MountainDwarvesHaveDwarvenArmorTraining()
+        {
+            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Dwarven Armor Training"));
+            Assert.IsTrue(_character.ArmorProficiencies.Contains(AvailableArmor.Leather));
+            Assert.IsTrue(_character.ArmorProficiencies.Contains(AvailableArmor.Hide));
         }
     }
 }

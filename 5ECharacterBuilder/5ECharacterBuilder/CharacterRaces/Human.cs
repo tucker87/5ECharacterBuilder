@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace _5ECharacterBuilder.CharacterRaces
 {
     class Human : CharacterRace
@@ -9,7 +7,7 @@ namespace _5ECharacterBuilder.CharacterRaces
             foreach (var attribute in Attributes)
                 attribute.RacialBonus = 1;
 
-            ChosenLanguages.AddRange(new List<AvailableLanguages>(ChosenLanguages) { AvailableLanguages.Common });
+            ChosenLanguages.Add(AvailableLanguages.Common);
         }
 
         public override string Race

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Linq;
 
 namespace _5ECharacterBuilder.CharacterRaces
 {
@@ -8,11 +8,25 @@ namespace _5ECharacterBuilder.CharacterRaces
         {
             Attributes.Constitution.RacialBonus = 2;
 
-            ChosenLanguages.AddRange(new List<AvailableLanguages>(ChosenLanguages) { AvailableLanguages.Common, AvailableLanguages.Dwarvish });
-            WeaponProficiencies.AddRange(new List<AvailableWeapon>(WeaponProficiencies) {AvailableWeapon.BattleAxe});
-            WeaponProficiencies.AddRange(new List<AvailableWeapon>(WeaponProficiencies) {AvailableWeapon.HandAxe});
-            WeaponProficiencies.AddRange(new List<AvailableWeapon>(WeaponProficiencies) {AvailableWeapon.ThrowingHammer});
-            WeaponProficiencies.AddRange(new List<AvailableWeapon>(WeaponProficiencies) {AvailableWeapon.WarHammer});
+            ChosenLanguages.Add(AvailableLanguages.Common);
+            ChosenLanguages.Add(AvailableLanguages.Dwarvish);
+
+            WeaponProficiencies.Add(AvailableWeapon.BattleAxe);
+            WeaponProficiencies.Add(AvailableWeapon.HandAxe);
+            WeaponProficiencies.Add(AvailableWeapon.ThrowingHammer);
+            WeaponProficiencies.Add(AvailableWeapon.WarHammer);
+
+            AvailableToolProficiencies.Add(AvailableTool.SmithsTools);
+            AvailableToolProficiencies.Add(AvailableTool.BrewersSupplies);
+            AvailableToolProficiencies.Add(AvailableTool.MasonsTools);
+
+            using (var db = new CharacterBuilderDB())
+            {
+                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Darkvision"));
+                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Dwarven Resilience"));
+                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Dwarven Combat Training"));
+                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Stonecunning"));
+            }
         }
 
         public override int LanguageCount

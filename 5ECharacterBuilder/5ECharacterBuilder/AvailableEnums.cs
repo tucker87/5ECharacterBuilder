@@ -7,7 +7,7 @@
     }
     public enum AvailableClasses { Monk, Fighter }
     public enum AvailableBackgrounds { Acolyte, Criminal }
-    public enum AvailableArmor { Cloth, Leather, Hide, ChainMail, Plate, Shield }
+    public enum AvailableArmor { Cloth, Padded, Leather, StuddedLeather, Hide, ChainShirt, ScaleMail, Breastplate, HalfPlate, RingMail, ChainMail, Splint, Plate, Shield }
     public enum AvailableSkill { 
         Acrobatics, 
         Arcana, 
@@ -29,7 +29,10 @@
         DiceSet,
         DragonchessSet,
         PlayingCardSet,
-        ThreeDragonAnteSet
+        ThreeDragonAnteSet,
+        SmithsTools,
+        BrewersSupplies,
+        MasonsTools
     }
     public enum AvailableInstrument { Lute }
     public enum AvailableLanguages { Common, Elven, Sylvan, Goblin, Draconic, Gnomish, Dwarvish }

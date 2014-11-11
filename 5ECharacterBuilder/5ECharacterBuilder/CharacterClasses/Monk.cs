@@ -7,20 +7,29 @@ namespace _5ECharacterBuilder.CharacterClasses
         public Monk(ICharacter character): base(character)
         {
             HitDice.Add(8);
-            
-            WeaponProficiencies.AddRange(new List<AvailableWeapon>( Armory.SimpleWeapons){ AvailableWeapon.ShortSword });
 
-            SavingThrowProficiencies.AddRange(new List<SavingThrow> {SavingThrow.Strength, SavingThrow.Dexterity});
+            foreach (var weapon in Armory.SimpleWeapons)
+                WeaponProficiencies.Add(weapon);
+
+            WeaponProficiencies.Add(AvailableWeapon.ShortSword);
+
+            SavingThrowProficiencies.Add(SavingThrow.Strength);
+            SavingThrowProficiencies.Add(SavingThrow.Dexterity);
 
             Classes.Add("Monk");
-            AvailableSkills.AddRange(new List<AvailableSkill>{ 
-                    AvailableSkill.Acrobatics,
-                    AvailableSkill.Athletics,
-                    AvailableSkill.History,
-                    AvailableSkill.Insight,
-                    AvailableSkill.Religion,
-                    AvailableSkill.Stealth
-                });
+            var skillList = new List<AvailableSkill>
+            {
+                AvailableSkill.Acrobatics,
+                AvailableSkill.Athletics,
+                AvailableSkill.History,
+                AvailableSkill.Insight,
+                AvailableSkill.Religion,
+                AvailableSkill.Stealth
+            };
+            foreach (var availableSkill in skillList)
+                if (!AvailableSkills.Contains(availableSkill))
+                    AvailableSkills.Add(availableSkill);
+            
         }
 
         public override int ArmorClass
@@ -39,19 +48,9 @@ namespace _5ECharacterBuilder.CharacterClasses
             get { return 2; }
         }
 
-        public override List<string> RuleIssues
+        public override int ToolProficiencyCount
         {
-            get
-            {
-                var currentIssues = base.RuleIssues;
-                if (AvailableToolProficiencies.Count == 0 && AvailableInstrumentProficiencies.Count == 0)
-                    currentIssues.Add("Has not chosen a Monk Tool or Instrument");
-
-                if (AvailableToolProficiencies.Count > 0 && AvailableInstrumentProficiencies.Count > 0)
-                    currentIssues.Add("Monks can only choose an Instrument or a Tool");
-
-                return currentIssues;
-            }
+            get { return base.ToolProficiencyCount + 1; }
         }
     }
 }
