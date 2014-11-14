@@ -71,7 +71,7 @@
     <Compile Include="CharacterClasses\Fighter.cs" />
     <Compile Include="CharacterClasses\Monk.cs" />
     <Compile Include="CharacterFactory.cs" />
-    <Compile Include="CharacterFeatures.cs" />
+    <Compile Include="CharacterTypes.cs" />
     <Compile Include="CharacterRaces\CharacterRace.cs" />
     <Compile Include="CharacterRaces\Elf.cs" />
     <Compile Include="CharacterRaces\Dwarf.cs" />

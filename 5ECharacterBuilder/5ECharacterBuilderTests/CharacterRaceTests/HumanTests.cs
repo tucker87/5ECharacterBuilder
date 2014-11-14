@@ -47,14 +47,14 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [TestMethod]
         public void HumansSpeakCommon()
         {
-            Assert.IsTrue(_character.ChosenLanguages.Contains(AvailableLanguages.Common));
+            Assert.IsTrue(_character.Languages.Chosen.Contains(AvailableLanguages.Common));
         }
 
         [TestMethod]
         public void HumansCanSpeakOneOtherLanguage()
         {
-            _character.ChosenLanguages.Add(AvailableLanguages.Draconic);
-            Assert.IsTrue(_character.ChosenLanguages.Contains(AvailableLanguages.Draconic));
+            _character.LearnLanguage(AvailableLanguages.Draconic);
+            Assert.IsTrue(_character.Languages.Chosen.Contains(AvailableLanguages.Draconic));
         }
     }
 }

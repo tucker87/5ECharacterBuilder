@@ -41,21 +41,21 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void FightersSavingThrowsAreStrengthAndConstitution()
         {
-            Assert.IsTrue(_fighter.SavingThrowProficiencies.Contains(SavingThrow.Strength));
-            Assert.IsTrue(_fighter.SavingThrowProficiencies.Contains(SavingThrow.Constitution));
+            Assert.IsTrue(_fighter.SavingThrows.Contains(SavingThrow.Strength));
+            Assert.IsTrue(_fighter.SavingThrows.Contains(SavingThrow.Constitution));
         }
 
         [TestMethod]
         public void FighterClassSkills()
         {
-            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.Acrobatics));
-            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.AnimalHandling));
-            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.Athletics));
-            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.History));
-            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.Insight));
-            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.Intimidation));
-            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.Perception));
-            Assert.IsTrue(_fighter.AvailableSkills.Contains(AvailableSkill.Survival));
+            Assert.IsTrue(_fighter.Skills.Available.Contains(AvailableSkill.Acrobatics));
+            Assert.IsTrue(_fighter.Skills.Available.Contains(AvailableSkill.AnimalHandling));
+            Assert.IsTrue(_fighter.Skills.Available.Contains(AvailableSkill.Athletics));
+            Assert.IsTrue(_fighter.Skills.Available.Contains(AvailableSkill.History));
+            Assert.IsTrue(_fighter.Skills.Available.Contains(AvailableSkill.Insight));
+            Assert.IsTrue(_fighter.Skills.Available.Contains(AvailableSkill.Intimidation));
+            Assert.IsTrue(_fighter.Skills.Available.Contains(AvailableSkill.Perception));
+            Assert.IsTrue(_fighter.Skills.Available.Contains(AvailableSkill.Survival));
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
 namespace _5ECharacterBuilder
@@ -17,23 +16,17 @@ namespace _5ECharacterBuilder
         bool HasShield { get; }
         List<int> HitDice { get; }
         int Initiative { get; }
-        SortedSet<AvailableInstrument> AvailableInstrumentProficiencies { get; }
-        SortedSet<AvailableInstrument> ChosenInstrumentProficiencies { get; }
+        Proficiencies<AvailableInstrument> Instruments { get; }
         int MaxHp { get; }
         string Name { get; }
         string Race { get; }
-        SortedSet<AvailableLanguages> ChosenLanguages { get; }
-        SortedSet<SavingThrow> SavingThrowProficiencies { get; }
+        Languages Languages { get; }
+        SortedSet<SavingThrow> SavingThrows { get; }
         string Size { get; }
-        SortedSet<AvailableSkill> AvailableSkills { get; }
-        SortedSet<AvailableSkill> ChosenSkills { get; }
+        Proficiencies<AvailableSkill> Skills { get; }
         int Speed { get; }
-        SortedSet<AvailableTool> AvailableToolProficiencies { get; }
-        SortedSet<AvailableTool> ChosenToolProficiencies { get; }
+        Proficiencies<AvailableTool> Tools { get; }
         SortedSet<AvailableWeapon> WeaponProficiencies { get; }
-        int ClassSkillCount { get; }
-        int LanguageCount { get; }
-        int ToolProficiencyCount { get; }
         CharacterFeatures Features { get; }
 
         void EquipArmor(AvailableArmor armor);
@@ -42,66 +35,58 @@ namespace _5ECharacterBuilder
         void SetName(string name);
         void LearnSkill(AvailableSkill chosenSkill);
         void LearnTool(AvailableTool chosenTool);
+        void LearnInstrument(AvailableInstrument chosenInstrument);
+        void LearnLanguage(AvailableLanguages chosenLanguage);
     }
-
+    
     class CharacterBase : ICharacter
     {
         public CharacterBase(CharacterAttributeScores attributeScores = null, string name = "")
         {
-            AvailableSkills = new SortedSet<AvailableSkill>();
-            ChosenLanguages = new SortedSet<AvailableLanguages>();
+            Name = name;
+
             EquipArmor(AvailableArmor.Cloth);
+            
             attributeScores = attributeScores ?? new CharacterAttributeScores();
             Attributes = new CharacterAttributes(attributeScores);
             ArmorProficiencies = new SortedSet<AvailableArmor>(new List<AvailableArmor>());
-            ChosenSkills = new SortedSet<AvailableSkill>(new List<AvailableSkill>());
-            AvailableToolProficiencies = new SortedSet<AvailableTool>(new List<AvailableTool>());
-            AvailableInstrumentProficiencies = new SortedSet<AvailableInstrument>(new List<AvailableInstrument>());
+            Instruments = new Proficiencies<AvailableInstrument>();
+            Languages = new Languages();
+            Tools = new Proficiencies<AvailableTool>();
+            Skills = new Proficiencies<AvailableSkill>();
             WeaponProficiencies = new SortedSet<AvailableWeapon>(new List<AvailableWeapon>());
-            SavingThrowProficiencies = new SortedSet<SavingThrow>(new List<SavingThrow>());
-            ChosenInstrumentProficiencies = new SortedSet<AvailableInstrument>();
-            ChosenToolProficiencies = new SortedSet<AvailableTool>();
+            SavingThrows = new SortedSet<SavingThrow>(new List<SavingThrow>());
             Features = new CharacterFeatures();
-            Name = name;
             HitDice = new List<int>(new int[0]);
             Currency = new Currency();
-            _classes = new List<string>();
+            Classes = new List<string>();
         }
 
         private int ShieldBonus { get { return HasShield ? 2 : 0; } }
 
-        public int ArmorClass { get {  return GetArmorClassBonus(EquippedArmor, Attributes.Dexterity.Modifier) + ShieldBonus; } }
-        public SortedSet<AvailableArmor> ArmorProficiencies { get; internal set; }
-        public string Background { get; internal set; }
-        private readonly List<string> _classes;
-        public List<string> Classes { get { return _classes; } }
-        public string ClassesString { get { return null; } }
-        public Currency Currency { get; internal set; }
+        public int ArmorClass { get { return GetArmorClassBonus(EquippedArmor, Attributes.Dexterity.Modifier) + ShieldBonus; } }
+        public SortedSet<AvailableArmor> ArmorProficiencies { get; private set; }
+        public CharacterAttributes Attributes { get; private set; }
+        public string Background { get; private set; }
+        public List<string> Classes { get; private set; }
+        public string ClassesString { get; private set; }
+        public Currency Currency { get; private set; }
+        public Armor EquippedArmor { get; private set; }
+        public bool HasShield { get; private set; }
+        public List<int> HitDice { get; private set; }
+        public int Initiative { get; private set; }
+        public Proficiencies<AvailableInstrument> Instruments { get; private set; }
         public int MaxHp { get { return CalculateMaxHp(HitDice, Attributes.Constitution.Modifier); } }
-        public List<int> HitDice { get; internal set; }
-        public SortedSet<AvailableInstrument> AvailableInstrumentProficiencies { get; internal set; }
-        public SortedSet<AvailableInstrument> ChosenInstrumentProficiencies { get; private set; }
-        public int Initiative { get { return Attributes.Dexterity.Modifier; } }
-        public SortedSet<AvailableLanguages> ChosenLanguages { get; internal set; }
-        public string Name { get; set; }
-        public string Race { get; internal set; }
-        public CharacterAttributes Attributes { get; set; }
-        public int ClassSkillCount { get; internal set; }
-        public int LanguageCount { get; internal set; }
-        public int ToolProficiencyCount { get; internal set; }
-        public CharacterFeatures Features { get; internal set; }
-        public int SkillCount { get; internal set; }
-        public Armor EquippedArmor { get; internal set; }
-        public bool HasShield { get; set; }
-        public SortedSet<SavingThrow> SavingThrowProficiencies { get; internal set; }
-        public string Size { get; internal set; }
-        public SortedSet<AvailableSkill> AvailableSkills { get; internal set; }
-        public SortedSet<AvailableSkill> ChosenSkills { get; internal set; }
-        public int Speed { get; internal set; }
-        public SortedSet<AvailableTool> AvailableToolProficiencies { get; internal set; }
-        public SortedSet<AvailableTool> ChosenToolProficiencies { get; private set; }
-        public SortedSet<AvailableWeapon> WeaponProficiencies { get; internal set; }
-
+        public string Name { get; private set; }
+        public string Race { get; private set; }
+        public Languages Languages { get; private set; }
+        public SortedSet<SavingThrow> SavingThrows { get; private set; }
+        public string Size { get; private set; }
+        public Proficiencies<AvailableSkill> Skills { get; private set; }
+        public int Speed { get; private set; }
+        public Proficiencies<AvailableTool> Tools { get; private set; }
+        public SortedSet<AvailableWeapon> WeaponProficiencies { get; private set; }
+        public CharacterFeatures Features { get; private set; }
         public void EquipArmor(AvailableArmor armor) { EquippedArmor = Armory.GetArmor(armor); }
         
         public void SetAttributes(CharacterAttributes characterAttributes)
@@ -128,12 +113,23 @@ namespace _5ECharacterBuilder
 
         public void LearnSkill(AvailableSkill chosenSkill)
         {
-            ChosenSkills.Add(chosenSkill);
+            if (Skills.Available.Contains(chosenSkill) && Skills.Chosen.Count < Skills.Max)
+                Skills.Chosen.Add(chosenSkill);
         }
 
         public void LearnTool(AvailableTool chosenTool)
         {
-            ChosenToolProficiencies.Add(chosenTool);
+            Tools.Chosen.Add(chosenTool);
+        }
+
+        public void LearnInstrument(AvailableInstrument chosenInstrument)
+        {
+            Instruments.Chosen.Add(chosenInstrument);
+        }
+
+        public void LearnLanguage(AvailableLanguages chosenLanguage)
+        {
+            Languages.Chosen.Add(chosenLanguage);
         }
 
         private static int GetArmorClassBonus(Armor armor, int dex)
@@ -147,7 +143,7 @@ namespace _5ECharacterBuilder
             return armor.BaseArmor + dex;
         }
 
-        public static int CalculateMaxHp(List<int> hitDice, int constitutionMod)
+        private static int CalculateMaxHp(List<int> hitDice, int constitutionMod)
         {
             return hitDice[0] + hitDice.GetRange(1, hitDice.Count - 1).Sum(hitDie => (hitDie / 2) + 1) + constitutionMod;
         }

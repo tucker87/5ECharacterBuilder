@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using _5ECharacterBuilder;
 
@@ -27,8 +26,8 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             _monk.LearnSkill(AvailableSkill.Acrobatics);
             _monk.LearnSkill(AvailableSkill.Religion);
-            Assert.IsTrue(_monk.ChosenSkills.Contains(AvailableSkill.Acrobatics));
-            Assert.IsTrue(_monk.ChosenSkills.Contains(AvailableSkill.Religion));
+            Assert.IsTrue(_monk.Skills.Chosen.Contains(AvailableSkill.Acrobatics));
+            Assert.IsTrue(_monk.Skills.Chosen.Contains(AvailableSkill.Religion));
         }
         
         [TestMethod]
@@ -54,23 +53,23 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void MonksAreProficientWithOneToolOrMusicalInstrument()
         {
-            _monk.AvailableToolProficiencies.Add(AvailableTool.AlchemistsSupplies);
-            Assert.IsTrue(_monk.AvailableToolProficiencies.Contains(AvailableTool.AlchemistsSupplies));
+            _monk.LearnTool(AvailableTool.AlchemistsSupplies);
+            Assert.IsTrue(_monk.Tools.Chosen.Contains(AvailableTool.AlchemistsSupplies));
             _monk = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
-            _monk.AvailableInstrumentProficiencies.Add(AvailableInstrument.Lute);
-            Assert.AreEqual(_monk.AvailableInstrumentProficiencies.First(), AvailableInstrument.Lute);
+            _monk.LearnInstrument(AvailableInstrument.Lute);
+            Assert.AreEqual(_monk.Instruments.Chosen.First(), AvailableInstrument.Lute);
         }
 
         [TestMethod]
         public void MonksAreProficientInStrengthSavingThrows()
         {
-            Assert.IsTrue(_monk.SavingThrowProficiencies.Contains(SavingThrow.Strength));
+            Assert.IsTrue(_monk.SavingThrows.Contains(SavingThrow.Strength));
         }
 
         [TestMethod]
         public void MonkAreProficientInDexteritySavingThrows()
         {
-            Assert.IsTrue(_monk.SavingThrowProficiencies.Contains(SavingThrow.Dexterity));
+            Assert.IsTrue(_monk.SavingThrows.Contains(SavingThrow.Dexterity));
         }
     }
 }

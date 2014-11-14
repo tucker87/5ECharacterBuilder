@@ -13,8 +13,8 @@ namespace _5ECharacterBuilder.CharacterClasses
 
             WeaponProficiencies.Add(AvailableWeapon.ShortSword);
 
-            SavingThrowProficiencies.Add(SavingThrow.Strength);
-            SavingThrowProficiencies.Add(SavingThrow.Dexterity);
+            SavingThrows.Add(SavingThrow.Strength);
+            SavingThrows.Add(SavingThrow.Dexterity);
 
             Classes.Add("Monk");
             var skillList = new List<AvailableSkill>
@@ -26,10 +26,10 @@ namespace _5ECharacterBuilder.CharacterClasses
                 AvailableSkill.Religion,
                 AvailableSkill.Stealth
             };
-            foreach (var availableSkill in skillList)
-                if (!AvailableSkills.Contains(availableSkill))
-                    AvailableSkills.Add(availableSkill);
-            
+            foreach (var skill in skillList)
+                Skills.Available.Add(skill);
+
+            Skills.Max += 2;
         }
 
         public override int ArmorClass
@@ -42,16 +42,5 @@ namespace _5ECharacterBuilder.CharacterClasses
                 return base.ArmorClass;
             }
         }
-
-        public override int SkillCount
-        {
-            get { return 2; }
-        }
-
-        public override int ToolProficiencyCount
-        {
-            get { return base.ToolProficiencyCount + 1; }
-        }
     }
 }
-

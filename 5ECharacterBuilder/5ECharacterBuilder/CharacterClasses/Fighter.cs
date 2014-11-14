@@ -15,19 +15,19 @@ namespace _5ECharacterBuilder.CharacterClasses
             foreach (var weapon in Armory.SimpleWeapons.Concat(Armory.MartialWeapons))
                 WeaponProficiencies.Add(weapon);
             
-            SavingThrowProficiencies.Add(SavingThrow.Strength);
-            SavingThrowProficiencies.Add( SavingThrow.Constitution);
+            SavingThrows.Add(SavingThrow.Strength);
+            SavingThrows.Add( SavingThrow.Constitution);
 
             Classes.Add("Fighter");
 
-            AvailableSkills.Add(AvailableSkill.Acrobatics);
-            AvailableSkills.Add(AvailableSkill.AnimalHandling);
-            AvailableSkills.Add(AvailableSkill.Athletics);
-            AvailableSkills.Add(AvailableSkill.History);
-            AvailableSkills.Add(AvailableSkill.Insight);
-            AvailableSkills.Add(AvailableSkill.Intimidation);
-            AvailableSkills.Add(AvailableSkill.Perception);
-            AvailableSkills.Add(AvailableSkill.Survival);
+            Skills.Available.Add(AvailableSkill.Acrobatics);
+            Skills.Available.Add(AvailableSkill.AnimalHandling);
+            Skills.Available.Add(AvailableSkill.Athletics);
+            Skills.Available.Add(AvailableSkill.History);
+            Skills.Available.Add(AvailableSkill.Insight);
+            Skills.Available.Add(AvailableSkill.Intimidation);
+            Skills.Available.Add(AvailableSkill.Perception);
+            Skills.Available.Add(AvailableSkill.Survival);
         }
 
         public override int SkillCount

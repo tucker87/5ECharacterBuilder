@@ -16,24 +16,18 @@ namespace _5ECharacterBuilder.CharacterClasses
         public bool HasShield { get { return _character.HasShield; } }
         public List<int> HitDice { get { return _character.HitDice; } }
         public int Initiative { get { return _character.Initiative; } }
-        public SortedSet<AvailableInstrument> ChosenInstrumentProficiencies { get { return _character.ChosenInstrumentProficiencies; } }
+        public Proficiencies<AvailableInstrument> Instruments { get { return _character.Instruments; } } 
         public int MaxHp { get { return _character.MaxHp; } }
         public string Name { get { return _character.Name; } }
         public string Race { get { return _character.Race; } }
-        public SortedSet<AvailableLanguages> ChosenLanguages { get { return _character.ChosenLanguages; } }
+        public Languages Languages { get { return _character.Languages; } }
+        public SortedSet<SavingThrow> SavingThrows { get { return _character.SavingThrows; } } 
+        public Proficiencies<AvailableSkill> Skills { get { return _character.Skills; } } 
         public int Speed { get { return _character.Speed; } }
-        public SortedSet<AvailableSkill> ChosenSkills { get { return _character.ChosenSkills; } }
+        public Proficiencies<AvailableTool> Tools { get { return _character.Tools; } } 
+        public SortedSet<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } } 
         public SortedSet<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
-        public SortedSet<AvailableTool> ChosenToolProficiencies { get { return _character.ChosenToolProficiencies; } }
-        public SortedSet<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
-        public int ClassSkillCount { get { return _character.ClassSkillCount; } }
-        public int LanguageCount { get { return _character.LanguageCount; } }
-        public SortedSet<AvailableTool> AvailableToolProficiencies { get { return _character.AvailableToolProficiencies; } }
-        public SortedSet<AvailableInstrument> AvailableInstrumentProficiencies { get { return _character.AvailableInstrumentProficiencies; } }
-        public SortedSet<SavingThrow> SavingThrowProficiencies { get { return _character.SavingThrowProficiencies; } }
         public string Size { get { return _character.Size; } }
-        public SortedSet<AvailableSkill> AvailableSkills { get { return _character.AvailableSkills; } }
-        public virtual int ToolProficiencyCount { get { return _character.ToolProficiencyCount; } }
         public CharacterFeatures Features { get { return _character.Features; } }
 
         public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }
@@ -42,6 +36,8 @@ namespace _5ECharacterBuilder.CharacterClasses
         public void SetName(string name) { _character.SetName(name); }
         public void LearnSkill(AvailableSkill chosenSkill) { _character.LearnSkill(chosenSkill); }
         public void LearnTool(AvailableTool chosenTool) { _character.LearnTool(chosenTool); }
+        public void LearnInstrument(AvailableInstrument chosenInstrument) { _character.LearnInstrument(chosenInstrument); }
+        public void LearnLanguage(AvailableLanguages chosenLanguage) { _character.LearnLanguage(chosenLanguage); }
 
         public string ClassesString
         {

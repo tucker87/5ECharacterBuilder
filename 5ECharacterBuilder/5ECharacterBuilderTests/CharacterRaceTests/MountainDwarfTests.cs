@@ -58,15 +58,15 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
             Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.BattleAxe));
             Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.HandAxe));
             Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.ThrowingHammer));
-            Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.WarHammer));
+            Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.Warhammer));
         }
 
         [TestMethod]
         public void MountainDwarvesCanBeProfienctDwarvenTools()
         {
-            Assert.IsTrue(_character.AvailableToolProficiencies.Contains(AvailableTool.SmithsTools));
-            Assert.IsTrue(_character.AvailableToolProficiencies.Contains(AvailableTool.BrewersSupplies));
-            Assert.IsTrue(_character.AvailableToolProficiencies.Contains(AvailableTool.MasonsTools));
+            Assert.IsTrue(_character.Tools.Available.Contains(AvailableTool.SmithsTools));
+            Assert.IsTrue(_character.Tools.Available.Contains(AvailableTool.BrewersSupplies));
+            Assert.IsTrue(_character.Tools.Available.Contains(AvailableTool.MasonsTools));
         }
 
         [TestMethod]

@@ -58,8 +58,8 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         public void HighElvesHaveKeenSenses()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Keen Senses"));
-            Assert.IsTrue(_character.AvailableSkills.Contains(AvailableSkill.Perception));
-            Assert.IsTrue(_character.ChosenSkills.Contains(AvailableSkill.Perception));
+            Assert.IsTrue(_character.Skills.Available.Contains(AvailableSkill.Perception));
+            Assert.IsTrue(_character.Skills.Chosen.Contains(AvailableSkill.Perception));
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         public void HighElvesHaveExtraLanguage()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Extra Language"));
-            Assert.AreEqual(3, _character.LanguageCount);
+            Assert.AreEqual(3, _character.Languages.Max);
         }
     }
 }

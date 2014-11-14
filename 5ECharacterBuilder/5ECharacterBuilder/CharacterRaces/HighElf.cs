@@ -24,16 +24,13 @@ namespace _5ECharacterBuilder.CharacterRaces
                 Description =
                     "You know one cantrip of your choice from the wizard spell list. Intelligence is your spellcasting ability for it."
             });
+
+            Languages.Max += 1;
         }
 
         public override string Race
         {
             get { return "High Elf"; }
-        }
-
-        public override int LanguageCount
-        {
-            get { return base.LanguageCount + 1; }
         }
     }
 }

@@ -76,11 +76,10 @@ namespace SimpleExampleFrontEnd
             Console.WriteLine("Charisma: {0} Modifier: {1}", character.Attributes.Charisma.Score, character.Attributes.Charisma.Modifier);
             Console.WriteLine();
             Console.WriteLine("Feats: TODO"); //TODO
-            //Console.WriteLine("AllFeatures: ");
-            //foreach (var feature in character.Features)
-            //    Console.WriteLine(" " + feature);
+            Console.WriteLine("AllFeatures: ");
+            foreach (var feature in character.Features.AlFeatures)
+                Console.WriteLine(" " + feature);
 
-            Console.WriteLine(character.Features);
 
             Console.Write("Weapon Proficiencies:");
             foreach (var weapon in character.WeaponProficiencies)
@@ -88,35 +87,32 @@ namespace SimpleExampleFrontEnd
 
             Console.WriteLine();
             Console.Write("Saving Throw Proficiencies:");
-            foreach (var savingThrowProficiency in character.SavingThrowProficiencies)
+            foreach (var savingThrowProficiency in character.SavingThrows)
                 Console.Write(" " + savingThrowProficiency);
 
 
             Console.WriteLine();
             Console.WriteLine();
             Console.Write("Available Skill Proficiencies:");
-            foreach (var skill in character.AvailableSkills)
+            foreach (var skill in character.Skills.Available)
                 Console.Write(" " + skill);
-
-            Console.WriteLine();
-            Console.WriteLine("Class Skill Count: " + character.ClassSkillCount);
-
+            
             Console.Write("Choosen Skill Proficiencies:");
-            foreach (var skill in character.ChosenSkills)
+            foreach (var skill in character.Skills.Chosen)
                 Console.Write(" " + skill);
 
             Console.WriteLine();
             Console.WriteLine();
 
             Console.Write("Tool Proficiencies:");
-            foreach (var tool in character.AvailableToolProficiencies)
+            foreach (var tool in character.Tools.Chosen)
                 Console.Write(" " + tool);
 
             Console.WriteLine();
             Console.WriteLine();
 
             Console.Write("Instrument Proficiencies:");
-            foreach (var instrument in character.AvailableInstrumentProficiencies)
+            foreach (var instrument in character.Instruments.Chosen)
                 Console.Write(" " + instrument);
 
             Console.WriteLine();
@@ -124,7 +120,7 @@ namespace SimpleExampleFrontEnd
 
             Console.WriteLine();
             Console.Write("Languagues:");
-            foreach (var language in character.ChosenLanguages)
+            foreach (var language in character.Languages.Chosen)
             {
                 Console.Write(" " + language);
             }
@@ -155,6 +151,7 @@ namespace SimpleExampleFrontEnd
                     {MenuOptions.LearnTool, LearnTool},
                     {MenuOptions.LearnInstrument, LearnInstrument},
                     {MenuOptions.LevelUp, LevelUp},
+                    {MenuOptions.ShowFeatures, ShowFeatures},
                     {MenuOptions.Exit, Exit}
                 };
             }
@@ -190,13 +187,25 @@ namespace SimpleExampleFrontEnd
 
         private static void LearnInstrument()
         {
-            throw new NotImplementedException();
+            var chosenInstrument = Generics.AskFor<AvailableInstrument>();
+            _character.LearnInstrument(chosenInstrument);
         }
 
         private static void LevelUp()
         {
             var chosenClass = Generics.AskFor<AvailableClasses>();
             CharacterFactory.LevelUp(_character, chosenClass);
+        }
+
+        private static void ShowFeatures()
+        {
+            Console.Clear();
+            foreach (var feature in _character.Features.AlFeatures)
+                Console.WriteLine(feature.Name + " - " + feature.Description + "\r\n");
+             
+            Console.WriteLine("Press any key to return to Character");
+            Console.ReadLine();
+
         }
 
         private static void Exit()
@@ -212,6 +221,7 @@ namespace SimpleExampleFrontEnd
             LearnTool,
             LearnInstrument,
             LevelUp,
+            ShowFeatures,
             Exit
             
         }

@@ -8,16 +8,49 @@ namespace _5ECharacterBuilder
     {
         static Armory()
         {
-            SimpleWeapons = new List<AvailableWeapon>
+            SimpleWeapons = new SortedSet<AvailableWeapon>
             {
                 AvailableWeapon.Club,
                 AvailableWeapon.Dagger,
-                AvailableWeapon.ShortSword
+                AvailableWeapon.Greatclub,
+                AvailableWeapon.Handaxe,
+                AvailableWeapon.Javelin,
+                AvailableWeapon.LightHammer,
+                AvailableWeapon.Mace,
+                AvailableWeapon.Quarterstaff,
+                AvailableWeapon.Sickle,
+                AvailableWeapon.Spear,
+                AvailableWeapon.UnarmedStrike
             };
 
-            MartialWeapons = new List<AvailableWeapon>
+            SimpleRangedWeapons = new SortedSet<AvailableWeapon>
             {
-                AvailableWeapon.GreatSword
+                AvailableWeapon.CrossbowLight,
+                AvailableWeapon.Dart,
+                AvailableWeapon.ShortBow,
+                AvailableWeapon.Sling
+            };
+
+            MartialWeapons = new SortedSet<AvailableWeapon>
+            {
+                AvailableWeapon.BattleAxe,
+                AvailableWeapon.Flail,
+                AvailableWeapon.Glaive,
+                AvailableWeapon.Greataxe,
+                AvailableWeapon.GreatSword,
+                AvailableWeapon.Halberd,
+                AvailableWeapon.Lance,
+                AvailableWeapon.LongSword,
+                AvailableWeapon.Maul,
+                AvailableWeapon.Morningstar,
+                AvailableWeapon.Pike,
+                AvailableWeapon.Rapier,
+                AvailableWeapon.Scimitar,
+                AvailableWeapon.ShortSword,
+                AvailableWeapon.Trident,
+                AvailableWeapon.WarPick,
+                AvailableWeapon.Warhammer,
+                AvailableWeapon.Whip
             };
 
             using (var db = new CharacterBuilderDB())
@@ -35,6 +68,8 @@ namespace _5ECharacterBuilder
             AllArmor.AddRange(HeavyArmor);
         }
 
+        public static SortedSet<AvailableWeapon> SimpleRangedWeapons { get; set; }
+
         private static IEnumerable<AvailableArmor> GetArmorsByCategory(CharacterBuilderDB db, string category)
         {
                 return db.Armors.Where(a => a.Category == category).Select(a => (AvailableArmor) Enum.Parse(typeof(AvailableArmor), a.Name.Replace(" ", string.Empty))).ToList();
@@ -46,8 +81,8 @@ namespace _5ECharacterBuilder
         public static List<AvailableArmor> AllArmor { get; private set; }
         public static List<Armor> ArmorData { get; private set; } 
 
-        public static List<AvailableWeapon> SimpleWeapons { get; private set; }
-        public static List<AvailableWeapon> MartialWeapons { get; set; }
+        public static SortedSet<AvailableWeapon> SimpleWeapons { get; private set; }
+        public static SortedSet<AvailableWeapon> MartialWeapons { get; set; }
         
         public static Armor GetArmor(AvailableArmor armorName)
         {
@@ -71,11 +106,35 @@ namespace _5ECharacterBuilder
         BattleAxe,
         HandAxe,
         ThrowingHammer,
-        WarHammer,
+        Warhammer,
         LongSword,
         ShortBow,
         LongBow,
         HandCrossbows,
-        Rapier
+        Rapier,
+        Greatclub,
+        Handaxe,
+        Javelin,
+        LightHammer,
+        Mace,
+        Quarterstaff,
+        Sickle,
+        Spear,
+        UnarmedStrike,
+        CrossbowLight,
+        Dart,
+        Sling,
+        Flail,
+        Glaive,
+        Greataxe,
+        Halberd,
+        Lance,
+        Maul,
+        Morningstar,
+        Pike,
+        Scimitar,
+        Trident,
+        WarPick,
+        Whip
     }
 }

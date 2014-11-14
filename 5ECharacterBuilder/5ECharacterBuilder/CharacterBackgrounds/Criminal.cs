@@ -6,14 +6,16 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
     {
         public Criminal(ICharacter character) : base(character)
         {
-            AvailableSkills.Add(AvailableSkill.Deception);
-            AvailableSkills.Add(AvailableSkill.Stealth);
+            Skills.Available.Add(AvailableSkill.Deception);
+            Skills.Available.Add(AvailableSkill.Stealth);
 
-            ChosenSkills.Add(AvailableSkill.Deception);
-            ChosenSkills.Add(AvailableSkill.Stealth);
+            Skills.Chosen.Add(AvailableSkill.Deception);
+            Skills.Chosen.Add(AvailableSkill.Stealth);
 
-            AvailableToolProficiencies.Add(AvailableTool.ThievesTools);
-            ChosenToolProficiencies.Add(AvailableTool.ThievesTools);
+            Skills.Max += 2;
+
+            Tools.Available.Add(AvailableTool.ThievesTools);
+            Tools.Chosen.Add(AvailableTool.ThievesTools);
         }
 
         public override string Background

@@ -4,20 +4,17 @@
     {
         public Acolyte(ICharacter character) : base(character)
         {
-           AvailableSkills.Add(AvailableSkill.Insight);
-           AvailableSkills.Add(AvailableSkill.Religion);
-           ChosenSkills.Add(AvailableSkill.Insight);
-           ChosenSkills.Add(AvailableSkill.Religion);
+           Skills.Available.Add(AvailableSkill.Insight);
+           Skills.Available.Add(AvailableSkill.Religion);
+           Skills.Chosen.Add(AvailableSkill.Insight);
+           Skills.Chosen.Add(AvailableSkill.Religion);
+
+            Languages.Max += 2;
         }
 
         public override string Background
         {
             get { return "Acolyte"; }
-        }
-
-        public override int LanguageCount
-        {
-            get { return 2; }
         }
     }
 }

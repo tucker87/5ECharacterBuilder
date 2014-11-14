@@ -8,11 +8,11 @@ namespace _5ECharacterBuilder.CharacterRaces
         {
             Attributes.Dexterity.RacialBonus = 2;
 
-            ChosenLanguages.Add(AvailableLanguages.Common);
-            ChosenLanguages.Add(AvailableLanguages.Elvish);
+            Languages.Chosen.Add(AvailableLanguages.Common);
+            Languages.Chosen.Add(AvailableLanguages.Elvish);
 
-            AvailableSkills.Add(AvailableSkill.Perception);
-            ChosenSkills.Add(AvailableSkill.Perception);
+            Skills.Available.Add(AvailableSkill.Perception);
+            Skills.Chosen.Add(AvailableSkill.Perception);
 
             using (var db = new CharacterBuilderDB())
             {
@@ -21,11 +21,8 @@ namespace _5ECharacterBuilder.CharacterRaces
                 Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Fey Ancestry"));
                 Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Trance"));
             }
-        }
 
-        public override int LanguageCount
-        {
-            get { return 2; }
+            Languages.Max += 2;
         }
     }
 }
