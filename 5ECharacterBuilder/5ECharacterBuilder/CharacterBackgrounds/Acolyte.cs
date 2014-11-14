@@ -6,8 +6,8 @@
         {
            AvailableSkills.Add(AvailableSkill.Insight);
            AvailableSkills.Add(AvailableSkill.Religion);
-           TrainedSkills.Add(AvailableSkill.Insight);
-           TrainedSkills.Add(AvailableSkill.Religion);
+           ChosenSkills.Add(AvailableSkill.Insight);
+           ChosenSkills.Add(AvailableSkill.Religion);
         }
 
         public override string Background

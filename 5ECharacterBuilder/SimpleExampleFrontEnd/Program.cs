@@ -76,7 +76,12 @@ namespace SimpleExampleFrontEnd
             Console.WriteLine("Charisma: {0} Modifier: {1}", character.Attributes.Charisma.Score, character.Attributes.Charisma.Modifier);
             Console.WriteLine();
             Console.WriteLine("Feats: TODO"); //TODO
-            Console.WriteLine("AllFeatures: TODO"); //TODO
+            //Console.WriteLine("AllFeatures: ");
+            //foreach (var feature in character.Features)
+            //    Console.WriteLine(" " + feature);
+
+            Console.WriteLine(character.Features);
+
             Console.Write("Weapon Proficiencies:");
             foreach (var weapon in character.WeaponProficiencies)
                 Console.Write(" " + weapon);
@@ -97,7 +102,7 @@ namespace SimpleExampleFrontEnd
             Console.WriteLine("Class Skill Count: " + character.ClassSkillCount);
 
             Console.Write("Choosen Skill Proficiencies:");
-            foreach (var skill in character.TrainedSkills)
+            foreach (var skill in character.ChosenSkills)
                 Console.Write(" " + skill);
 
             Console.WriteLine();

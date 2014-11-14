@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using _5ECharacterBuilder;
 
 namespace _5ECharacterBuilderTests
@@ -42,6 +44,5 @@ namespace _5ECharacterBuilderTests
             characterWithHitDiceAndCon.SetAttributes(new CharacterAttributes(highCon));
             Assert.AreEqual(10, characterWithHitDiceAndCon.MaxHp);
         }
-        
     }
 }

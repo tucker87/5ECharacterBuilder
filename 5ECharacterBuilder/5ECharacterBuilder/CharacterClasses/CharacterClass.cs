@@ -22,7 +22,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         public string Race { get { return _character.Race; } }
         public SortedSet<AvailableLanguages> ChosenLanguages { get { return _character.ChosenLanguages; } }
         public int Speed { get { return _character.Speed; } }
-        public SortedSet<AvailableSkill> TrainedSkills { get { return _character.TrainedSkills; } }
+        public SortedSet<AvailableSkill> ChosenSkills { get { return _character.ChosenSkills; } }
         public SortedSet<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public SortedSet<AvailableTool> ChosenToolProficiencies { get { return _character.ChosenToolProficiencies; } }
         public SortedSet<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } }

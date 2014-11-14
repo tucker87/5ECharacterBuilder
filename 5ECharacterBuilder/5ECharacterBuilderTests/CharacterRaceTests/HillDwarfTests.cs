@@ -16,6 +16,18 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         }
 
         [TestMethod]
+        public void MountainDwarvesSizeIsMedium()
+        {
+            Assert.AreEqual("Medium", _character.Size);
+        }
+
+        [TestMethod]
+        public void MountainDwarvesSpeedIs25()
+        {
+            Assert.AreEqual(25, _character.Speed);
+        }
+
+        [TestMethod]
         public void RaceNameIsSet()
         {
             Assert.AreEqual("Hill Dwarf", _character.Race);

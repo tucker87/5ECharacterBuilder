@@ -19,10 +19,5 @@ namespace _5ECharacterBuilder.CharacterRaces
         {
             get { return 2; }
         }
-
-        public override int Speed
-        {
-            get { return 30; }
-        }
     }
 }

@@ -4,7 +4,9 @@
         Human,
         HillDwarf,
         MountainDwarf,
-        HighElf
+        HighElf,
+        WoodElf,
+        DarkElf
     }
     public enum AvailableClasses { Monk, Fighter }
     public enum AvailableBackgrounds { Acolyte, Criminal }

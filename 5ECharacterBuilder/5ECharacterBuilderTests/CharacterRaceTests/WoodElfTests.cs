@@ -5,41 +5,41 @@ using _5ECharacterBuilder;
 namespace _5ECharacterBuilderTests.CharacterRaceTests
 {
     [TestClass]
-    public class HighElfTests
+    public class WoodElfTests
     {
         private static ICharacter _character;
 
         [TestInitialize]
         public static void Setup()
         {
-            _character = CharacterFactory.BuildACharacter(AvailableRaces.HighElf, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
+            _character = CharacterFactory.BuildACharacter(AvailableRaces.WoodElf, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
         }
 
         [TestMethod]
         public void RaceNameIsSet()
         {
-            Assert.AreEqual("High Elf", _character.Race);
+            Assert.AreEqual("Wood Elf", _character.Race);
         }
 
         [TestMethod]
-        public void HighElvesDexterityIsRaisedBy2()
+        public void WoodElvesDexterityIsRaisedBy2()
         {
             Assert.AreEqual(12, _character.Attributes.Dexterity.Score);
         }
 
         [TestMethod]
-        public void HighElvesIntelligenceIsRaisedBy1()
+        public void WoodElvesWisdomIsRaisedBy1()
         {
-            Assert.AreEqual(11, _character.Attributes.Intelligence.Score);
+            Assert.AreEqual(11, _character.Attributes.Wisdom.Score);
         }
         [TestMethod]
-        public void HighElvesAreMedium()
+        public void WoodElvesAreMedium()
         {
             Assert.AreEqual("Medium", _character.Size);
         }
 
         [TestMethod]
-        public void HighElvesHaveElvenCombatTraining()
+        public void WoodElvesHaveElvenCombatTraining()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Elf Weapon Training"));
             Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.LongSword));
@@ -49,13 +49,13 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         }
         
         [TestMethod]
-        public void HighElvesHaveDarkVision()
+        public void WoodElvesHaveDarkVision()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Darkvision"));
         }
 
         [TestMethod]
-        public void HighElvesHaveKeenSenses()
+        public void WoodElvesHaveKeenSenses()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Keen Senses"));
             Assert.IsTrue(_character.AvailableSkills.Contains(AvailableSkill.Perception));
@@ -63,28 +63,28 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         }
 
         [TestMethod]
-        public void HighElvesHaveFeyAncestry()
+        public void WoodElvesHaveFeyAncestry()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Fey Ancestry"));
         }
 
         [TestMethod]
-        public void HighElvesHaveTrance()
+        public void WoodElvesHaveTrance()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Trance"));
         }
 
         [TestMethod]
-        public void HighElvesHaveCantrip()
+        public void WoodElvesHaveFleetOfFoot()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Cantrip"));
+            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Fleet of Foot"));
+            Assert.AreEqual(35, _character.Speed);
         }
 
         [TestMethod]
-        public void HighElvesHaveExtraLanguage()
+        public void WoodElvesHaveMaskOfTheWild()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Extra Language"));
-            Assert.AreEqual(3, _character.LanguageCount);
+            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Mask of the Wild"));
         }
     }
 }

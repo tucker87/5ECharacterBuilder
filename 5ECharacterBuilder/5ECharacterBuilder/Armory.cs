@@ -71,6 +71,11 @@ namespace _5ECharacterBuilder
         BattleAxe,
         HandAxe,
         ThrowingHammer,
-        WarHammer
+        WarHammer,
+        LongSword,
+        ShortBow,
+        LongBow,
+        HandCrossbows,
+        Rapier
     }
 }

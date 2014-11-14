@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace _5ECharacterBuilder
@@ -25,7 +26,7 @@ namespace _5ECharacterBuilder
         SortedSet<SavingThrow> SavingThrowProficiencies { get; }
         string Size { get; }
         SortedSet<AvailableSkill> AvailableSkills { get; }
-        SortedSet<AvailableSkill> TrainedSkills { get; }
+        SortedSet<AvailableSkill> ChosenSkills { get; }
         int Speed { get; }
         SortedSet<AvailableTool> AvailableToolProficiencies { get; }
         SortedSet<AvailableTool> ChosenToolProficiencies { get; }
@@ -53,7 +54,7 @@ namespace _5ECharacterBuilder
             attributeScores = attributeScores ?? new CharacterAttributeScores();
             Attributes = new CharacterAttributes(attributeScores);
             ArmorProficiencies = new SortedSet<AvailableArmor>(new List<AvailableArmor>());
-            TrainedSkills = new SortedSet<AvailableSkill>(new List<AvailableSkill>());
+            ChosenSkills = new SortedSet<AvailableSkill>(new List<AvailableSkill>());
             AvailableToolProficiencies = new SortedSet<AvailableTool>(new List<AvailableTool>());
             AvailableInstrumentProficiencies = new SortedSet<AvailableInstrument>(new List<AvailableInstrument>());
             WeaponProficiencies = new SortedSet<AvailableWeapon>(new List<AvailableWeapon>());
@@ -95,7 +96,7 @@ namespace _5ECharacterBuilder
         public SortedSet<SavingThrow> SavingThrowProficiencies { get; internal set; }
         public string Size { get; internal set; }
         public SortedSet<AvailableSkill> AvailableSkills { get; internal set; }
-        public SortedSet<AvailableSkill> TrainedSkills { get; internal set; }
+        public SortedSet<AvailableSkill> ChosenSkills { get; internal set; }
         public int Speed { get; internal set; }
         public SortedSet<AvailableTool> AvailableToolProficiencies { get; internal set; }
         public SortedSet<AvailableTool> ChosenToolProficiencies { get; private set; }
@@ -127,7 +128,7 @@ namespace _5ECharacterBuilder
 
         public void LearnSkill(AvailableSkill chosenSkill)
         {
-            TrainedSkills.Add(chosenSkill);
+            ChosenSkills.Add(chosenSkill);
         }
 
         public void LearnTool(AvailableTool chosenTool)
