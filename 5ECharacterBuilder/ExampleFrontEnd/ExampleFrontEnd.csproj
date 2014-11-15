@@ -100,10 +100,6 @@
       <Project>{d14d1121-065d-470d-9605-8d3370b4046e}</Project>
       <Name>5ECharacterBuilder</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CharacterBuilderDataBase\CharacterBuilderDataBase.csproj">
-      <Project>{77FE2217-8A58-4542-AA85-8004A04B2792}</Project>
-      <Name>CharacterBuilderDataBase</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

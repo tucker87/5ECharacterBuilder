@@ -53,14 +53,32 @@ namespace _5ECharacterBuilder
                 AvailableWeapon.Whip
             };
 
-            using (var db = new CharacterBuilderDB())
+            LightArmor = new SortedSet<AvailableArmor>
             {
-                LightArmor = new List<AvailableArmor>(GetArmorsByCategory(db, "Light"));
-                MediumArmor = new List<AvailableArmor>(GetArmorsByCategory(db, "Medium"));
-                HeavyArmor = new List<AvailableArmor>(GetArmorsByCategory(db, "Heavy"));
+                AvailableArmor.Padded,
+                AvailableArmor.Leather,
+                AvailableArmor.StuddedLeather
+            };
 
+            MediumArmor = new SortedSet<AvailableArmor>
+            {
+                AvailableArmor.Hide,
+                AvailableArmor.ChainShirt,
+                AvailableArmor.ScaleMail,
+                AvailableArmor.Breastplate,
+                AvailableArmor.HalfPlate
+            };
+
+            HeavyArmor = new SortedSet<AvailableArmor>
+            {
+                AvailableArmor.RingMail,
+                AvailableArmor.ChainMail,
+                AvailableArmor.Splint,
+                AvailableArmor.Plate
+            };
+
+            using (var db = new CharacterBuilderDB())
                 ArmorData = db.Armors.ToList();
-            }
 
             AllArmor = new List<AvailableArmor> { AvailableArmor.Cloth };
             AllArmor.AddRange(LightArmor);
@@ -70,14 +88,9 @@ namespace _5ECharacterBuilder
 
         public static SortedSet<AvailableWeapon> SimpleRangedWeapons { get; set; }
 
-        private static IEnumerable<AvailableArmor> GetArmorsByCategory(CharacterBuilderDB db, string category)
-        {
-                return db.Armors.Where(a => a.Category == category).Select(a => (AvailableArmor) Enum.Parse(typeof(AvailableArmor), a.Name.Replace(" ", string.Empty))).ToList();
-        }
-
-        public static List<AvailableArmor> LightArmor { get; set; }
-        public static List<AvailableArmor> MediumArmor { get; set; }
-        public static List<AvailableArmor> HeavyArmor { get; set; }
+        public static SortedSet<AvailableArmor> LightArmor { get; set; }
+        public static SortedSet<AvailableArmor> MediumArmor { get; set; }
+        public static SortedSet<AvailableArmor> HeavyArmor { get; set; }
         public static List<AvailableArmor> AllArmor { get; private set; }
         public static List<Armor> ArmorData { get; private set; } 
 
