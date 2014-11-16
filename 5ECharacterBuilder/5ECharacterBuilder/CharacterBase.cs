@@ -17,8 +17,10 @@ namespace _5ECharacterBuilder
         List<int> HitDice { get; }
         int Initiative { get; }
         Proficiencies<AvailableInstrument> Instruments { get; }
+        int Level { get; }
         int MaxHp { get; }
         string Name { get; }
+        int ProficiencyBonus { get; }
         string Race { get; }
         Languages Languages { get; }
         SortedSet<SavingThrow> SavingThrows { get; }
@@ -28,6 +30,8 @@ namespace _5ECharacterBuilder
         Proficiencies<AvailableTool> Tools { get; }
         SortedSet<AvailableWeapon> WeaponProficiencies { get; }
         CharacterFeatures Features { get; }
+        int KiPoints { get; }
+        int MartialArts { get; }
 
         void EquipArmor(AvailableArmor armor);
         void SetAttributes(CharacterAttributes characterAttributes);
@@ -76,8 +80,30 @@ namespace _5ECharacterBuilder
         public List<int> HitDice { get; private set; }
         public int Initiative { get; private set; }
         public Proficiencies<AvailableInstrument> Instruments { get; private set; }
+        public int Level { get { return Classes.Count; } }
         public int MaxHp { get { return CalculateMaxHp(HitDice, Attributes.Constitution.Modifier); } }
         public string Name { get; private set; }
+
+        public int ProficiencyBonus
+        {
+            get
+            {
+                if (Level >= 17)
+                    return 6;
+
+                if (Level >= 13)
+                    return 5;
+
+                if (Level >= 9)
+                    return 4;
+
+                if (Level >= 5)
+                    return 3;
+
+                return 2;
+            }
+        }
+
         public string Race { get; private set; }
         public Languages Languages { get; private set; }
         public SortedSet<SavingThrow> SavingThrows { get; private set; }
@@ -87,6 +113,8 @@ namespace _5ECharacterBuilder
         public Proficiencies<AvailableTool> Tools { get; private set; }
         public SortedSet<AvailableWeapon> WeaponProficiencies { get; private set; }
         public CharacterFeatures Features { get; private set; }
+        public int KiPoints { get; private set; }
+        public int MartialArts { get; private set; }
         public void EquipArmor(AvailableArmor armor) { EquippedArmor = Armory.GetArmor(armor); }
         
         public void SetAttributes(CharacterAttributes characterAttributes)

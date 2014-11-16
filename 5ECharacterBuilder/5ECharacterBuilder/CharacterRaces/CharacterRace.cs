@@ -18,8 +18,10 @@ namespace _5ECharacterBuilder.CharacterRaces
         public List<int> HitDice { get { return _character.HitDice; } }
         public int Initiative { get { return _character.Initiative; } }
         public Proficiencies<AvailableInstrument> Instruments { get { return _character.Instruments; } }
+        public int Level { get { return _character.Level; } }
         public virtual int MaxHp { get { return _character.MaxHp; } }
         public string Name { get { return _character.Name; } }
+        public int ProficiencyBonus { get { return _character.ProficiencyBonus; } }
         public virtual string Race { get { return _character.Race; } }
         public Languages Languages { get { return _character.Languages; } }
         public SortedSet<SavingThrow> SavingThrows { get { return _character.SavingThrows; } } 
@@ -29,6 +31,8 @@ namespace _5ECharacterBuilder.CharacterRaces
         public SortedSet<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
         public SortedSet<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public CharacterFeatures Features { get { return _character.Features; } }
+        public int KiPoints { get { return _character.KiPoints; } }
+        public int MartialArts { get { return _character.MartialArts; } }
         public virtual string Size { get { return "Medium"; } }
 
         public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }

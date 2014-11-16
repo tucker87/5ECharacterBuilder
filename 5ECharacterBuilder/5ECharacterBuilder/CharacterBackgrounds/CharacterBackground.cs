@@ -17,9 +17,11 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         public bool HasShield { get { return _character.HasShield; } }
         public List<int> HitDice { get { return _character.HitDice; } }
         public int Initiative { get { return _character.Initiative; } }
-        public Proficiencies<AvailableInstrument> Instruments { get { return _character.Instruments; } } 
+        public Proficiencies<AvailableInstrument> Instruments { get { return _character.Instruments; } }
+        public int Level { get { return _character.Level; } }
         public int MaxHp { get { return _character.MaxHp; } }
         public string Name { get { return _character.Name; } }
+        public int ProficiencyBonus { get { return _character.ProficiencyBonus; } }
         public string Race { get { return _character.Race; } }
         public Languages Languages { get { return _character.Languages; } }
         public SortedSet<SavingThrow> SavingThrows { get { return _character.SavingThrows; } } 
@@ -30,6 +32,8 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         public SortedSet<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public string Size { get { return _character.Size; } }
         public CharacterFeatures Features { get { return _character.Features; } }
+        public int KiPoints { get { return _character.KiPoints; } }
+        public int MartialArts { get { return _character.MartialArts; } }
 
         public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }
         public void SetAttributes(CharacterAttributes characterAttributes) { _character.SetAttributes(characterAttributes); }

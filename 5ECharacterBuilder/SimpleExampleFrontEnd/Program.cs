@@ -77,7 +77,7 @@ namespace SimpleExampleFrontEnd
             Console.WriteLine();
             Console.WriteLine("Feats: TODO"); //TODO
             Console.WriteLine("AllFeatures: ");
-            foreach (var feature in character.Features.AlFeatures)
+            foreach (var feature in character.Features.AllFeatures)
                 Console.WriteLine(" " + feature);
 
 
@@ -200,7 +200,7 @@ namespace SimpleExampleFrontEnd
         private static void ShowFeatures()
         {
             Console.Clear();
-            foreach (var feature in _character.Features.AlFeatures)
+            foreach (var feature in _character.Features.AllFeatures)
                 Console.WriteLine(feature.Name + " - " + feature.Description + "\r\n");
              
             Console.WriteLine("Press any key to return to Character");

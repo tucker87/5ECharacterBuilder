@@ -12,7 +12,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestInitialize]
         public static void Setup()
         {
-            _monk =CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
+            _monk = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
         }
         
         [TestMethod]
@@ -70,6 +70,109 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void MonkAreProficientInDexteritySavingThrows()
         {
             Assert.IsTrue(_monk.SavingThrows.Contains(SavingThrow.Dexterity));
+        }
+
+        [TestMethod]
+        public void MonksGetUnarmoredDefenseAndMartialArtsAtFirstLevel()
+        {
+            Assert.IsTrue(_monk.Features.ClassFeatures.Any(f => f.Name == "Unarmored Defense"));
+            Assert.IsTrue(_monk.Features.ClassFeatures.Any(f => f.Name == "Martial Arts"));
+        }
+
+        [TestMethod]
+        public void MonksAtFirstLevelDoNotGetKi()
+        {
+            Assert.IsFalse(_monk.Features.ClassFeatures.Any(f => f.Name == "Ki"));
+        }
+
+        [TestMethod]
+        public void MonksGetOneKiPointPerLevelWhileTheyHaveKi()
+        {
+            Assert.AreEqual(0, _monk.KiPoints);
+            for (var i = 2; i <= 20; i++)
+            {
+                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+                Assert.AreEqual(i, _monk.KiPoints);
+            }
+        }
+
+        [TestMethod]
+        public void MonksGetKiAndUnarmoredMovementAtSecondLevel()
+        {
+            CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            Assert.IsTrue(_monk.Features.ClassFeatures.Any(f => f.Name == "Ki"));
+            Assert.IsTrue(_monk.Features.ClassFeatures.Any(f => f.Name == "Unarmored Movement"));
+            
+        }
+
+        [TestMethod]
+        public void UnarmoredMovementGives10SpeedAt2()
+        {
+            Assert.AreEqual(30, _monk.Speed);
+            CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            Assert.AreEqual(40, _monk.Speed);
+        }
+
+        [TestMethod]
+        public void UnarmoredMovementGives15SpeedAt6()
+        {
+            for(var i=1;i<6;i++)
+                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            Assert.AreEqual(45, _monk.Speed);
+        }
+
+        [TestMethod]
+        public void UnarmoredMovementGives20SpeedAt10()
+        {
+            for (var i = 1; i < 10; i++)
+                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            Assert.AreEqual(50, _monk.Speed);
+        }
+
+        [TestMethod]
+        public void UnarmoredMovementGives25SpeedAt14()
+        {
+            for (var i = 1; i < 14; i++)
+                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            Assert.AreEqual(55, _monk.Speed);
+        }
+
+        [TestMethod]
+        public void UnarmoredMovementGives30SpeedAt18()
+        {
+            for (var i = 1; i < 18; i++)
+                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            Assert.AreEqual(60, _monk.Speed);
+        }
+
+        [TestMethod]
+        public void MonksMartialArtsDamageAtLevel1Is4()
+        {
+            Assert.AreEqual(4, _monk.MartialArts);
+        }
+
+        [TestMethod]
+        public void MonksMartialArtsDamageAtLevel5Is6()
+        {
+            for (var i = 1; i < 6; i++)
+                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            Assert.AreEqual(6, _monk.MartialArts);
+        }
+
+        [TestMethod]
+        public void MonksMartialArtsDamageAtLevel11Is8()
+        {
+            for (var i = 1; i < 11; i++)
+                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            Assert.AreEqual(8, _monk.MartialArts);
+        }
+
+        [TestMethod]
+        public void MonksMartialArtsDamageAtLevel17Is10()
+        {
+            for (var i = 1; i < 17; i++)
+                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            Assert.AreEqual(10, _monk.MartialArts);
         }
     }
 }

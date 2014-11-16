@@ -44,5 +44,43 @@ namespace _5ECharacterBuilderTests
             characterWithHitDiceAndCon.SetAttributes(new CharacterAttributes(highCon));
             Assert.AreEqual(10, characterWithHitDiceAndCon.MaxHp);
         }
+
+        [TestMethod]
+        public void Level1CharactersHaveAProficiencyBonusOf2()
+        {
+            Assert.AreEqual(2, _character.ProficiencyBonus);
+        }
+
+        [TestMethod]
+        public void Level5CharactersHaveAProficiencyBonusOf3()
+        {
+            for (var i = 1; i < 5; i++)
+                CharacterFactory.LevelUp(_character, AvailableClasses.Monk);
+            Assert.AreEqual(3, _character.ProficiencyBonus);
+        }
+
+        [TestMethod]
+        public void Level9CharactersHaveAProficiencyBonusOf4()
+        {
+            for (var i = 1; i < 9; i++)
+                CharacterFactory.LevelUp(_character, AvailableClasses.Monk);
+            Assert.AreEqual(4, _character.ProficiencyBonus);
+        }
+
+        [TestMethod]
+        public void Level13CharactersHaveAProficiencyBonusOf5()
+        {
+            for (var i = 1; i < 13; i++)
+                CharacterFactory.LevelUp(_character, AvailableClasses.Monk);
+            Assert.AreEqual(5, _character.ProficiencyBonus);
+        }
+
+        [TestMethod]
+        public void Level17CharactersHaveAProficiencyBonusOf6()
+        {
+            for (var i = 1; i < 17; i++)
+                CharacterFactory.LevelUp(_character, AvailableClasses.Monk);
+            Assert.AreEqual(6, _character.ProficiencyBonus);
+        }
     }
 }
