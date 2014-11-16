@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace _5ECharacterBuilder
 {
@@ -76,9 +75,6 @@ namespace _5ECharacterBuilder
                 AvailableArmor.Plate
             };
 
-            using (var db = new CharacterBuilderDB())
-                ArmorData = db.Armors.ToList();
-
             AllArmor = new List<AvailableArmor> { AvailableArmor.Cloth };
             AllArmor.AddRange(LightArmor);
             AllArmor.AddRange(MediumArmor);
@@ -91,14 +87,13 @@ namespace _5ECharacterBuilder
         public static SortedSet<AvailableArmor> MediumArmor { get; set; }
         public static SortedSet<AvailableArmor> HeavyArmor { get; set; }
         public static List<AvailableArmor> AllArmor { get; private set; }
-        public static List<Armor> ArmorData { get; private set; } 
 
         public static SortedSet<AvailableWeapon> SimpleWeapons { get; private set; }
         public static SortedSet<AvailableWeapon> MartialWeapons { get; set; }
         
         public static Armor GetArmor(AvailableArmor armorName)
         {
-            var armor = ArmorData.Find(a => a.Name == armorName.ToString()) ?? ArmorData[0];
+            var armor = CharacterData.ArmorData.Find(a => a.Name == armorName.ToString()) ?? CharacterData.ArmorData[0];
             return armor;
 
         }
@@ -107,6 +102,38 @@ namespace _5ECharacterBuilder
         {
             return new List<AvailableTool>{AvailableTool.DiceSet, AvailableTool.DragonchessSet, AvailableTool.PlayingCardSet, AvailableTool.ThreeDragonAnteSet};
         }
+    }
+
+    public class Armor
+    {
+        public Armor(string name, int cost, int baseArmor, int weight, ArmorCategory category, int maxDexBonus = -1, int requiredStrength = 0, bool stealthDisadvantage = false)
+        {
+            Name = name;
+            Cost = cost;
+            BaseArmor = baseArmor;
+            MaxDexBonus = maxDexBonus;
+            Weight = weight;
+            Category = category;
+            RequiredStrength = requiredStrength;
+            StealthDisadvantage = stealthDisadvantage;
+        }
+
+        public string Name { get; set; }
+        public int Cost { get; set; }
+        public int BaseArmor { get; set; }
+        public int MaxDexBonus { get; set; }
+        public int RequiredStrength { get; set; }
+        public bool StealthDisadvantage { get; set; }
+        public int Weight { get; set; }
+        public ArmorCategory Category { get; set; }
+    }
+
+    public enum ArmorCategory
+    {
+        None,
+        Light,
+        Medium,
+        Heavy
     }
 
     public enum AvailableWeapon

@@ -17,6 +17,18 @@ namespace _5ECharacterBuilder
         //public List<Feature> BackgroundFeatures { get; internal set; } 
     }
 
+    public class Feature
+    {
+        public Feature(string name, string description)
+        {
+            Name = name;
+            Description = description;
+        }
+
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
+
     public class Proficiencies<T>
     {
         public Proficiencies()

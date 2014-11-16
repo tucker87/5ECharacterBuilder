@@ -8,13 +8,11 @@ namespace _5ECharacterBuilder.CharacterRaces
         {
             Attributes.Charisma.RacialBonus = 1;
 
-            using (var db = new CharacterBuilderDB())
-            {
-                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Superior Darkvision"));
-                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Sunlight Sensitivity"));
-                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Drow Magic"));
-                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Drow Weapon Training"));
-            }
+            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Superior Darkvision"));
+            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Sunlight Sensitivity"));
+            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Drow Magic"));
+            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Drow Weapon Training"));
+            
 
             WeaponProficiencies.Add(AvailableWeapon.Rapier);
             WeaponProficiencies.Add(AvailableWeapon.ShortSword);

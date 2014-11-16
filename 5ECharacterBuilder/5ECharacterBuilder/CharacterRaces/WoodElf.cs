@@ -8,12 +8,10 @@ namespace _5ECharacterBuilder.CharacterRaces
         {
             Attributes.Wisdom.RacialBonus = 1;
 
-            using (var db = new CharacterBuilderDB())
-            {
-                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Elf Weapon Training"));
-                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Mask of the Wild"));
-                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Fleet of Foot"));
-            }
+            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Elf Weapon Training"));
+            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Mask of the Wild"));
+            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Fleet of Foot"));
+            
 
             WeaponProficiencies.Add(AvailableWeapon.LongSword);
             WeaponProficiencies.Add(AvailableWeapon.ShortSword);

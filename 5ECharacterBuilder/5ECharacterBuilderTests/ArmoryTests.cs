@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using _5ECharacterBuilder;
 
 namespace _5ECharacterBuilderTests
@@ -24,7 +23,7 @@ namespace _5ECharacterBuilderTests
         }
 
         [TestMethod]
-        public void LeatherArmorGivesMax2DexBonus()
+        public void HideArmorGivesMax2DexBonus()
         {
             _character.SetAttributes(new CharacterAttributes(new CharacterAttributeScores(dexterity: 20)));
             _character.EquipArmor(AvailableArmor.Hide);

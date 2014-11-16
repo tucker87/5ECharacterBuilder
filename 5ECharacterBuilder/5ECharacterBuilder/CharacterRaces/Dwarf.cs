@@ -20,14 +20,11 @@ namespace _5ECharacterBuilder.CharacterRaces
             Tools.Available.Add(AvailableTool.BrewersSupplies);
             Tools.Available.Add(AvailableTool.MasonsTools);
 
-            using (var db = new CharacterBuilderDB())
-            {
-                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Darkvision"));
-                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Dwarven Resilience"));
-                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Dwarven Combat Training"));
-                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Stonecunning"));
-            }
-
+            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Darkvision"));
+            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Dwarven Resilience"));
+            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Dwarven Combat Training"));
+            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Stonecunning"));
+            
             Languages.Max += 2;
         }
         

@@ -10,9 +10,8 @@ namespace _5ECharacterBuilder.CharacterRaces
 
             foreach (var armor in Armory.LightArmor.Concat(Armory.MediumArmor))
                 ArmorProficiencies.Add(armor);
-            
-            using (var db = new CharacterBuilderDB())
-                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Dwarven Armor Training"));
+
+            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Dwarven Armor Training"));
         }
 
         public override string Race

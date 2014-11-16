@@ -5,7 +5,7 @@ using _5ECharacterBuilder;
 namespace _5ECharacterBuilderTests.CharacterRaceTests
 {
     [TestClass]
-    public class DElfTests
+    public class DarkElfTests
     {
         private static ICharacter _character;
 
@@ -28,7 +28,7 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         }
 
         [TestMethod]
-        public void DarkElveCharismaIsRaisedBy1()
+        public void DarkElvesCharismaIsRaisedBy1()
         {
             Assert.AreEqual(11, _character.Attributes.Charisma.Score);
         }

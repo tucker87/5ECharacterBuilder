@@ -8,8 +8,7 @@ namespace _5ECharacterBuilder.CharacterRaces
         {
             Attributes.Wisdom.RacialBonus = 1;
 
-            using (var db = new CharacterBuilderDB())
-                Features.RaceFeatures.Add(db.Features.Single(f => f.Name == "Dwarven Toughness"));
+            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Dwarven Toughness"));
         }
 
         public override string Race
