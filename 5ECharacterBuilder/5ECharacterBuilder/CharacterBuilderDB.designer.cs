@@ -22,7 +22,6 @@ namespace _5ECharacterBuilder
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="CharacterBuilder")]
 	public partial class CharacterBuilderDB : System.Data.Linq.DataContext
 	{
 		
@@ -30,13 +29,10 @@ namespace _5ECharacterBuilder
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertArmor(Armor instance);
-    partial void UpdateArmor(Armor instance);
-    partial void DeleteArmor(Armor instance);
     #endregion
 		
 		public CharacterBuilderDB() : 
-				base(global::_5ECharacterBuilder.Properties.Settings.Default.CharacterBuilderConnectionString1, mappingSource)
+				base(global::_5ECharacterBuilder.Properties.Settings.Default.CharacterBuilderConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -82,11 +78,9 @@ namespace _5ECharacterBuilder
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Armor")]
-	public partial class Armor : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Armors")]
+	public partial class Armor
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _Id;
 		
@@ -106,36 +100,11 @@ namespace _5ECharacterBuilder
 		
 		private string _Category;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnCostChanging(int value);
-    partial void OnCostChanged();
-    partial void OnBaseArmorChanging(int value);
-    partial void OnBaseArmorChanged();
-    partial void OnMaxDexBonusChanging(int value);
-    partial void OnMaxDexBonusChanged();
-    partial void OnRequiredStrengthChanging(int value);
-    partial void OnRequiredStrengthChanged();
-    partial void OnStealthDisadvantageChanging(bool value);
-    partial void OnStealthDisadvantageChanged();
-    partial void OnWeightChanging(int value);
-    partial void OnWeightChanged();
-    partial void OnCategoryChanging(string value);
-    partial void OnCategoryChanged();
-    #endregion
-		
 		public Armor()
 		{
-			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
 		public int Id
 		{
 			get
@@ -146,16 +115,12 @@ namespace _5ECharacterBuilder
 			{
 				if ((this._Id != value))
 				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
 					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
 		public string Name
 		{
 			get
@@ -166,11 +131,7 @@ namespace _5ECharacterBuilder
 			{
 				if ((this._Name != value))
 				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
 					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
 				}
 			}
 		}
@@ -186,11 +147,7 @@ namespace _5ECharacterBuilder
 			{
 				if ((this._Cost != value))
 				{
-					this.OnCostChanging(value);
-					this.SendPropertyChanging();
 					this._Cost = value;
-					this.SendPropertyChanged("Cost");
-					this.OnCostChanged();
 				}
 			}
 		}
@@ -206,11 +163,7 @@ namespace _5ECharacterBuilder
 			{
 				if ((this._BaseArmor != value))
 				{
-					this.OnBaseArmorChanging(value);
-					this.SendPropertyChanging();
 					this._BaseArmor = value;
-					this.SendPropertyChanged("BaseArmor");
-					this.OnBaseArmorChanged();
 				}
 			}
 		}
@@ -226,11 +179,7 @@ namespace _5ECharacterBuilder
 			{
 				if ((this._MaxDexBonus != value))
 				{
-					this.OnMaxDexBonusChanging(value);
-					this.SendPropertyChanging();
 					this._MaxDexBonus = value;
-					this.SendPropertyChanged("MaxDexBonus");
-					this.OnMaxDexBonusChanged();
 				}
 			}
 		}
@@ -246,11 +195,7 @@ namespace _5ECharacterBuilder
 			{
 				if ((this._RequiredStrength != value))
 				{
-					this.OnRequiredStrengthChanging(value);
-					this.SendPropertyChanging();
 					this._RequiredStrength = value;
-					this.SendPropertyChanged("RequiredStrength");
-					this.OnRequiredStrengthChanged();
 				}
 			}
 		}
@@ -266,11 +211,7 @@ namespace _5ECharacterBuilder
 			{
 				if ((this._StealthDisadvantage != value))
 				{
-					this.OnStealthDisadvantageChanging(value);
-					this.SendPropertyChanging();
 					this._StealthDisadvantage = value;
-					this.SendPropertyChanged("StealthDisadvantage");
-					this.OnStealthDisadvantageChanged();
 				}
 			}
 		}
@@ -286,16 +227,12 @@ namespace _5ECharacterBuilder
 			{
 				if ((this._Weight != value))
 				{
-					this.OnWeightChanging(value);
-					this.SendPropertyChanging();
 					this._Weight = value;
-					this.SendPropertyChanged("Weight");
-					this.OnWeightChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="VarChar(15) NOT NULL", CanBeNull=false)]
 		public string Category
 		{
 			get
@@ -306,41 +243,17 @@ namespace _5ECharacterBuilder
 			{
 				if ((this._Category != value))
 				{
-					this.OnCategoryChanging(value);
-					this.SendPropertyChanging();
 					this._Category = value;
-					this.SendPropertyChanged("Category");
-					this.OnCategoryChanged();
 				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Feature")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Features")]
 	public partial class Feature
 	{
 		
-		private int _id;
+		private int _Id;
 		
 		private string _Name;
 		
@@ -350,23 +263,23 @@ namespace _5ECharacterBuilder
 		{
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
-		public int id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int Id
 		{
 			get
 			{
-				return this._id;
+				return this._Id;
 			}
 			set
 			{
-				if ((this._id != value))
+				if ((this._Id != value))
 				{
-					this._id = value;
+					this._Id = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
 		public string Name
 		{
 			get

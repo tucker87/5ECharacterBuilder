@@ -8,12 +8,11 @@ namespace _5ECharacterBuilderTests
     public class ArmoryTests
     {
         private ICharacter _character;
-        private Armory _armory;
         [TestInitialize]
         public void Setup()
         {
             _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
-            _armory = new Armory();
+            
         }
 
         [TestMethod]
