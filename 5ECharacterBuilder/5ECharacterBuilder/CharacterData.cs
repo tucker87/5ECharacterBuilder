@@ -64,9 +64,18 @@ namespace _5ECharacterBuilder
                 {
                     {"Unarmored Defense", "Beginning at 1st level, while you are wearing no armor and not wielding a shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier."},
                     {"Martial Arts", "You gain the following benefits while you are unarmed or wielding only monk weapons and you aren’t wearing armor or wielding a shield: You can use Dexterity instead of Strength for the attack and damage rolls of your unarmed strikes and monk weapons. You can roll a d4 in place of the normal damage of your unarmed strike or monk weapon. This die changes as you gain monk levels, as shown in the Martial Arts column of the Monk table. When you use the Attack action with an unarmed strike or a monk weapon on your turn, you can make one unarmed strike as a bonus action. For example, if you take the Attack action and attack with a quarter- staff, you can also make an unarmed strike as a bonus action, assuming you haven't already taken a bonus action this turn."},
-                    {"Ki", "THIS THING IS LONG!"},
+                    {"Ki", "See PHB"},
                     {"Unarmored Movement", "Starting at 2nd level, your speed increases by 10 feet while you are not wearing armor or wielding a shield. This bonus increases when you reach certain monk levels, as shown in the Monk table. At 9th level, you gain the ability to move along vertical surfaces and across liquids on your turn without falling during the move."},
-                    {"Open Hand Technique", "Whenever you hit a creature with one of the attacks granted by your Flurry of Blows, you can impose one of the following effects on that target: • It must succeed on a Dexterity saving throw or be knocked prone. • It must make a Strength saving throw. If it fails, you can push it up to 15 feet away from you. • It can’t take reactions until the end of your next turn."} 
+                    {"Open Hand Technique", "Whenever you hit a creature with one of the attacks granted by your Flurry of Blows, you can impose one of the following effects on that target: • It must succeed on a Dexterity saving throw or be knocked prone. • It must make a Strength saving throw. If it fails, you can push it up to 15 feet away from you. • It can’t take reactions until the end of your next turn."},
+                    { "Shadow Arts", "You can use your ki to duplicate the effects of certain spells. As an action, you can spend 2 ki points to cast  darkness, darkvision, pass without trace, or  silence, without providing material components. Additionally, you gain the  minor illusion cantrip if you don’t already know it." },
+                    { "Wholeness Of Body", "You gain the ability to heal yourself. As an action, you can regain hit points equal to three times, your monk level. You must finish a long rest before you can use this feature again."},
+                    {"Tranquility", "You can enter a special meditation that surrounds you with an aura of peace. At the end of a long rest, you gain the effect of a  sanctuary spell that lasts until the start of your next long rest (the spell can end early as normal). The saving throw DC for the spell equals 8 + your Wisdom modifier + your proficiency bonus."},
+                    {"Quivering Palm", "You gain the ability to set up lethal vibrations in someone’s body. When you hit a creature with an unarmed strike, you can spend 3 ki points to start these imperceptible vibrations, which last for a number of days equal to your monk level. The vibrations are harmless unless you use your action to end them. To do so, you and the target must be on the same plane of existence. When you use this action, the creature must make a Constitution saving throw. If it fails, it is reduced to 0 hit points. If it succeeds, it takes 10d10 necrotic damage. You can have only one creature under the effect of this feature at a time. You can choose to end the vibrations harmlessly without using an action."},
+                    {"Shadow Step", "You gain the ability to step from one shadow into another. When you are in dim light or darkness, as a bonus action you can teleport up to 60 feet to an unoccupied space you can see that is also in dim light or darkness. You then have advantage on the first melee attack you make before the end of the turn."},
+                    {"Cloak Of Shadows", "You have learned to become one with the shadows. When you are in an area of dim light or darkness, you can use your action to become invisible. You remain invisible until you make an attack, cast a spell, or are in an area of bright light."},
+                    {"Opportunist", "You can exploit a creature's momentary distraction when it is hit by an attack. Whenever a creature within 5 feet of you is hit by an attack made by a creature other than you, you can use your reaction to make a melee attack against that creature."},
+                    {"Disciple Of The Elements", "See PHB"},
+                    {"Deflect Missiles", "You can use your reaction to deflect or catch the missile when you are hit by a ranged weapon attack. When you do so, the damage you take from the attack is reduced by 1d10 + your Dexterity modifier + your monk level. If you reduce the damage to 0, you can catch the missile if it is small enough for you to hold in one hand and you have at least one hand free. If you catch a missile in this way, you can spend 1 ki point to make a ranged attack with the weapon or piece of ammunition you just caught, as part of the same reaction. You make this attack with proficiency, regardless of your weapon proficiencies, and the missile counts as a monk weapon for the attack."},
                 };
             }
         }
@@ -82,18 +91,41 @@ namespace _5ECharacterBuilder
             };
         }
 
-        internal static class MonkPathFeatures
+        public static Dictionary<string, string> GetMonkPathFeatures(AvailablePaths path, int level)
         {
-            public static Dictionary<string, string> WayOfTheOpenPalm
+            var features = new Dictionary<string, string>();
+
+            if (path == AvailablePaths.WayOfTheOpenHand)
             {
-                get
-                {
-                    return new Dictionary<string, string>
-                    {
-                        {"Open Hand Technique", MonkFeatures["Open Hand Technique"]}
-                    };
-                }
+                features.Add("Open Hand Technique", MonkFeatures["Open Hand Technique"]);
+                if (level >= 6)
+                    features.Add("Wholeness Of Body", MonkFeatures["Wholeness Of Body"]);
+
+                if(level >= 11)
+                    features.Add("Tranquility", MonkFeatures["Tranquility"]);
+
+                if(level >= 17)
+                    features.Add("Quivering Palm", MonkFeatures["Quivering Palm"]);
+                    
             }
+            if (path == AvailablePaths.WayOfShadow)
+            {
+                features.Add("Shadow Arts", MonkFeatures["Shadow Arts"]);
+                if (level >= 6)
+                    features.Add("Shadow Step", MonkFeatures["Shadow Step"]);
+
+                if (level >= 11)
+                    features.Add("Cloak Of Shadows", MonkFeatures["Cloak Of Shadows"]);
+
+                if (level >= 17)
+                    features.Add("Opportunist", MonkFeatures["Opportunist"]);
+            }
+            if (path == AvailablePaths.WayOfTheFourElements)
+            {
+                features.Add("Disciple Of The Elements", MonkFeatures["Disciple Of The Elements"]);
+            }
+            return features;
+
         }
     }
 }

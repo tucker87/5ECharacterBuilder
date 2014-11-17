@@ -5,10 +5,38 @@ namespace _5ECharacterBuilder.CharacterClasses
     class CharacterClass : ICharacter
     {
         private readonly ICharacter _character;
-        protected CharacterClass(ICharacter character) { _character = character; }
+
+        protected CharacterClass(ICharacter character)
+        {
+            _character = character;
+            Abilities.ImprovementPoints = GetImprovementPoints();
+        }
+
+        private int GetImprovementPoints()
+        {
+            {
+                var level = Level + 1;
+                if (level >= 19)
+                    return 10;
+
+                if (level >= 16)
+                    return 8;
+
+                if (level >= 12)
+                    return 6;
+
+                if (level >= 8)
+                    return 4;
+
+                if (level >= 4)
+                    return 2;
+
+                return 0;
+            }
+        }
 
         public virtual int ArmorClass { get { return _character.ArmorClass; } }
-        public CharacterAttributes Attributes { get { return _character.Attributes; } }
+        public CharacterAbilities Abilities { get { return _character.Abilities; } }
         public string Background { get { return _character.Background; } }
         public List<string> Classes { get { return _character.Classes; } }
         public ClassPath ClassPath { get { return _character.ClassPath; } }
@@ -34,9 +62,8 @@ namespace _5ECharacterBuilder.CharacterClasses
         public virtual CharacterFeatures Features { get { return _character.Features; } }
         public virtual int KiPoints { get { return _character.KiPoints; } }
         public virtual int MartialArts { get { return _character.MartialArts; } }
-
         public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }
-        public void SetAttributes(CharacterAttributes characterAttributes) { _character.SetAttributes(characterAttributes); }
+        public void SetAttributes(CharacterAbilities characterAbilities) { _character.SetAttributes(characterAbilities); }
         public void ToggleShield() { _character.ToggleShield(); }
         public void SetName(string name) { _character.SetName(name); }
         public void LearnSkill(AvailableSkills chosenSkill) { _character.LearnSkill(chosenSkill); }
@@ -44,6 +71,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         public void LearnInstrument(AvailableInstrument chosenInstrument) { _character.LearnInstrument(chosenInstrument); }
         public void LearnLanguage(AvailableLanguages chosenLanguage) { _character.LearnLanguage(chosenLanguage); }
         public void ChosePath(AvailablePaths chosenPath) { _character.ChosePath(chosenPath); }
+        public void ImproveAbility(string ability)  { _character.ImproveAbility(ability); }
 
         internal void AddClassPaths(List<AvailablePaths> paths)
         {

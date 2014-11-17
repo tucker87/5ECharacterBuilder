@@ -36,13 +36,13 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [TestMethod]
         public void HillDwarvesConstitutionIsRaisedBy2()
         {
-            Assert.AreEqual(12, _character.Attributes.Constitution.Score);
+            Assert.AreEqual(12, _character.Abilities.Constitution.Score);
         }
 
         [TestMethod]
         public void HillDwarvesWisdomIsRaisedBy1()
         {
-            Assert.AreEqual(11, _character.Attributes.Wisdom.Score);
+            Assert.AreEqual(11, _character.Abilities.Wisdom.Score);
         }
 
         [TestMethod]

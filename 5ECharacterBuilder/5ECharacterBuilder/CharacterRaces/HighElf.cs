@@ -4,7 +4,7 @@
     {
         public HighElf(ICharacter character) : base(character)
         {
-            Attributes.Intelligence.RacialBonus = 1;
+            Abilities.Intelligence.RacialBonus = 1;
 
             AddRaceFeature("Elf Weapon Training");
             AddRaceFeature("Extra Language");

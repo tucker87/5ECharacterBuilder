@@ -4,7 +4,7 @@
     {
         public Drow(ICharacter character) : base(character)
         {
-            Attributes.Charisma.RacialBonus = 1;
+            Abilities.Charisma.RacialBonus = 1;
 
             AddRaceFeature("Superior Darkvision");
             AddRaceFeature("Sunlight Sensitivity");

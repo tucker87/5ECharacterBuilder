@@ -7,7 +7,7 @@ namespace _5ECharacterBuilder
     {
         int ArmorClass { get; }
         SortedSet<AvailableArmor> ArmorProficiencies { get; }
-        CharacterAttributes Attributes { get; }
+        CharacterAbilities Abilities { get; }
         string Background { get; }
         List<string> Classes { get; }
         ClassPath ClassPath { get; } 
@@ -33,9 +33,8 @@ namespace _5ECharacterBuilder
         CharacterFeatures Features { get; }
         int KiPoints { get; }
         int MartialArts { get; }
-
         void EquipArmor(AvailableArmor armor);
-        void SetAttributes(CharacterAttributes characterAttributes);
+        void SetAttributes(CharacterAbilities characterAbilities);
         void ToggleShield();
         void SetName(string name);
         void LearnSkill(AvailableSkills chosenSkill);
@@ -43,18 +42,19 @@ namespace _5ECharacterBuilder
         void LearnInstrument(AvailableInstrument chosenInstrument);
         void LearnLanguage(AvailableLanguages chosenLanguage);
         void ChosePath(AvailablePaths chosenPath);
+        void ImproveAbility(string ability);
     }
     
     class CharacterBase : ICharacter
     {
-        public CharacterBase(CharacterAttributeScores attributeScores = null, string name = "")
+        public CharacterBase(CharacterAbilityScores abilityScores = null, string name = "")
         {
             Name = name;
 
             EquipArmor(AvailableArmor.Cloth);
             
-            attributeScores = attributeScores ?? new CharacterAttributeScores();
-            Attributes = new CharacterAttributes(attributeScores);
+            abilityScores = abilityScores ?? new CharacterAbilityScores();
+            Abilities = new CharacterAbilities(abilityScores);
             ArmorProficiencies = new SortedSet<AvailableArmor>(new List<AvailableArmor>());
             ClassPath = new ClassPath();
             Instruments = new Proficiencies<AvailableInstrument>();
@@ -71,9 +71,9 @@ namespace _5ECharacterBuilder
 
         private int ShieldBonus { get { return HasShield ? 2 : 0; } }
 
-        public int ArmorClass { get { return GetArmorClassBonus(EquippedArmor, Attributes.Dexterity.Modifier) + ShieldBonus; } }
+        public int ArmorClass { get { return GetArmorClassBonus(EquippedArmor, Abilities.Dexterity.Modifier) + ShieldBonus; } }
         public SortedSet<AvailableArmor> ArmorProficiencies { get; private set; }
-        public CharacterAttributes Attributes { get; private set; }
+        public CharacterAbilities Abilities { get; private set; }
         public string Background { get; private set; }
         public List<string> Classes { get; private set; }
         public ClassPath ClassPath { get; private set; }
@@ -85,7 +85,7 @@ namespace _5ECharacterBuilder
         public int Initiative { get; private set; }
         public Proficiencies<AvailableInstrument> Instruments { get; private set; }
         public int Level { get { return Classes.Count; } }
-        public int MaxHp { get { return CalculateMaxHp(HitDice, Attributes.Constitution.Modifier); } }
+        public int MaxHp { get { return CalculateMaxHp(HitDice, Abilities.Constitution.Modifier); } }
         public string Name { get; private set; }
 
         public int ProficiencyBonus
@@ -119,18 +119,19 @@ namespace _5ECharacterBuilder
         public CharacterFeatures Features { get; private set; }
         public int KiPoints { get; private set; }
         public int MartialArts { get; private set; }
+        
         public void EquipArmor(AvailableArmor armor) { EquippedArmor = Armory.GetArmor(armor); }
 
-        public void SetAttributes(CharacterAttributes characterAttributes)
+        public void SetAttributes(CharacterAbilities characterAbilities)
         {
             var racialBonuses = new RacialBonuses(
-                Attributes.Strength.RacialBonus,
-                Attributes.Dexterity.RacialBonus,
-                Attributes.Constitution.RacialBonus,
-                Attributes.Intelligence.RacialBonus,
-                Attributes.Wisdom.RacialBonus,
-                Attributes.Charisma.RacialBonus);
-            Attributes = new CharacterAttributes(characterAttributes, racialBonuses);
+                Abilities.Strength.RacialBonus,
+                Abilities.Dexterity.RacialBonus,
+                Abilities.Constitution.RacialBonus,
+                Abilities.Intelligence.RacialBonus,
+                Abilities.Wisdom.RacialBonus,
+                Abilities.Charisma.RacialBonus);
+            Abilities = new CharacterAbilities(characterAbilities, racialBonuses);
         }
 
         public void ToggleShield()
@@ -167,6 +168,13 @@ namespace _5ECharacterBuilder
         public void ChosePath(AvailablePaths chosenPath)
         {
             ClassPath.Chosen = chosenPath;
+        }
+
+        public void ImproveAbility(string abilityName)
+        {
+            if (Abilities.ImprovementPoints <= Abilities.SpentAbilityImprovementPoints) return;
+            var ability = (CharacterAbility) Abilities.GetType().GetProperty(abilityName).GetValue(Abilities);
+            ability.ImprovementBonus += 1;
         }
 
         private static int GetArmorClassBonus(Armor armor, int dex)

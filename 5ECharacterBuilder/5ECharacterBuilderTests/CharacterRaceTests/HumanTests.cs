@@ -36,12 +36,12 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [TestMethod]
         public void HumansGetPlusOneToAllAttributeScores()
         {
-            Assert.AreEqual(11, _character.Attributes.Strength.Score);
-            Assert.AreEqual(11, _character.Attributes.Constitution.Score);
-            Assert.AreEqual(11, _character.Attributes.Dexterity.Score);
-            Assert.AreEqual(11, _character.Attributes.Intelligence.Score);
-            Assert.AreEqual(11, _character.Attributes.Wisdom.Score);
-            Assert.AreEqual(11, _character.Attributes.Charisma.Score);
+            Assert.AreEqual(11, _character.Abilities.Strength.Score);
+            Assert.AreEqual(11, _character.Abilities.Constitution.Score);
+            Assert.AreEqual(11, _character.Abilities.Dexterity.Score);
+            Assert.AreEqual(11, _character.Abilities.Intelligence.Score);
+            Assert.AreEqual(11, _character.Abilities.Wisdom.Score);
+            Assert.AreEqual(11, _character.Abilities.Charisma.Score);
         }
 
         [TestMethod]

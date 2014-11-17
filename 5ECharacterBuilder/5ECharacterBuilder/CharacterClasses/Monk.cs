@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 
 namespace _5ECharacterBuilder.CharacterClasses
 {
@@ -45,8 +44,7 @@ namespace _5ECharacterBuilder.CharacterClasses
                     break;
                 case 3:
                     AddClassPaths(CharacterData.GetMonkPaths());
-                    if(ClassPath.Chosen != null)
-                        AddPathFeatures((AvailablePaths) ClassPath.Chosen);
+                    AddMonkFeature("Deflect Missiles");
                     break;
             }
         }
@@ -56,20 +54,15 @@ namespace _5ECharacterBuilder.CharacterClasses
             Features.ClassFeatures.Add(feature, CharacterData.MonkFeatures[feature]);
         }
 
-
-
-        private void AddPathFeatures(AvailablePaths feature)
-        {
-
-             = new Dictionary<string, string>(CharacterData.MonkPathFeatures.WayOfTheOpenPalm);
-        }
-
         public override CharacterFeatures Features
         {
             get
             {
                 var features = base.Features;
-                features.ClassPathFeatures = new Dictionary<string, string>(CharacterData.MonkPathFeatures.GetType().GetProperty());
+                if (ClassPath.Chosen != null)
+                    features.ClassPathFeatures = new Dictionary<string, string>(CharacterData.GetMonkPathFeatures((AvailablePaths) ClassPath.Chosen, Level));
+
+                return features;
             }
         }
 
@@ -78,7 +71,7 @@ namespace _5ECharacterBuilder.CharacterClasses
             get
             {
                 if (EquippedArmor.Name == AvailableArmor.Cloth.ToString() && !HasShield)
-                    return 10 + Attributes.Dexterity.Modifier + Attributes.Wisdom.Modifier;
+                    return 10 + Abilities.Dexterity.Modifier + Abilities.Wisdom.Modifier;
 
                 return base.ArmorClass;
             }

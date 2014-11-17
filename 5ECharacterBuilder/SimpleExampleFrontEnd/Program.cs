@@ -36,7 +36,7 @@ namespace SimpleExampleFrontEnd
             AvailableBackgrounds characterBackground)
         {
             var character = CharacterFactory.BuildACharacter(characterRace, characterClass, characterBackground);
-            character.SetAttributes(new CharacterAttributes(11, 11, 11, 11, 11, 11));
+            character.SetAttributes(new CharacterAbilities(11, 11, 11, 11, 11, 11));
             
             return character;
         }
@@ -68,12 +68,12 @@ namespace SimpleExampleFrontEnd
             Console.WriteLine("Size: " + character.Size);
             Console.WriteLine("Speed: " + character.Speed);
             Console.WriteLine();
-            Console.WriteLine("Strength: {0} Modifier: {1}", character.Attributes.Strength.Score, character.Attributes.Strength.Modifier);
-            Console.WriteLine("Dexterity: {0} Modifier: {1}", character.Attributes.Dexterity.Score, character.Attributes.Dexterity.Modifier);
-            Console.WriteLine("Constitution: {0} Modifier: {1}", character.Attributes.Constitution.Score, character.Attributes.Constitution.Modifier);
-            Console.WriteLine("Intelligence: {0} Modifier: {1}", character.Attributes.Intelligence.Score, character.Attributes.Intelligence.Modifier);
-            Console.WriteLine("Wisdom: {0} Modifier: {1}", character.Attributes.Wisdom.Score, character.Attributes.Wisdom.Modifier);
-            Console.WriteLine("Charisma: {0} Modifier: {1}", character.Attributes.Charisma.Score, character.Attributes.Charisma.Modifier);
+            Console.WriteLine("Strength: {0} Modifier: {1}", character.Abilities.Strength.Score, character.Abilities.Strength.Modifier);
+            Console.WriteLine("Dexterity: {0} Modifier: {1}", character.Abilities.Dexterity.Score, character.Abilities.Dexterity.Modifier);
+            Console.WriteLine("Constitution: {0} Modifier: {1}", character.Abilities.Constitution.Score, character.Abilities.Constitution.Modifier);
+            Console.WriteLine("Intelligence: {0} Modifier: {1}", character.Abilities.Intelligence.Score, character.Abilities.Intelligence.Modifier);
+            Console.WriteLine("Wisdom: {0} Modifier: {1}", character.Abilities.Wisdom.Score, character.Abilities.Wisdom.Modifier);
+            Console.WriteLine("Charisma: {0} Modifier: {1}", character.Abilities.Charisma.Score, character.Abilities.Charisma.Modifier);
             Console.WriteLine();
             Console.WriteLine("Feats: TODO"); //TODO
             Console.WriteLine("AllFeatures: ");

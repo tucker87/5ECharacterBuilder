@@ -24,13 +24,13 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [TestMethod]
         public void WoodElvesDexterityIsRaisedBy2()
         {
-            Assert.AreEqual(12, _character.Attributes.Dexterity.Score);
+            Assert.AreEqual(12, _character.Abilities.Dexterity.Score);
         }
 
         [TestMethod]
         public void WoodElvesWisdomIsRaisedBy1()
         {
-            Assert.AreEqual(11, _character.Attributes.Wisdom.Score);
+            Assert.AreEqual(11, _character.Abilities.Wisdom.Score);
         }
         [TestMethod]
         public void WoodElvesAreMedium()

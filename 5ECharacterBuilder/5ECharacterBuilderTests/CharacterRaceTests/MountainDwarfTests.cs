@@ -36,13 +36,13 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [TestMethod]
         public void MountainDwarvesConstitutionIsRaisedBy2()
         {
-            Assert.AreEqual(12, _character.Attributes.Constitution.Score);
+            Assert.AreEqual(12, _character.Abilities.Constitution.Score);
         }
 
         [TestMethod]
         public void MountainDwarvesStrengthIsRaisedBy2()
         {
-            Assert.AreEqual(12, _character.Attributes.Strength.Score);
+            Assert.AreEqual(12, _character.Abilities.Strength.Score);
         }
 
         [TestMethod]

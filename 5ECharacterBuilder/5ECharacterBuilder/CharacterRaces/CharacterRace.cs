@@ -8,7 +8,7 @@ namespace _5ECharacterBuilder.CharacterRaces
         protected CharacterRace(ICharacter character) { _character = character; }
 
         public int ArmorClass { get { return _character.ArmorClass; } }
-        public CharacterAttributes Attributes { get { return _character.Attributes; } }
+        public CharacterAbilities Abilities { get { return _character.Abilities; } }
         public string Background { get { return _character.Background; } }
         public List<string> Classes { get { return _character.Classes; } }
         public ClassPath ClassPath { get { return _character.ClassPath; } } 
@@ -37,7 +37,7 @@ namespace _5ECharacterBuilder.CharacterRaces
         public virtual string Size { get { return "Medium"; } }
 
         public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }
-        public void SetAttributes(CharacterAttributes characterAttributes) { _character.SetAttributes(characterAttributes); }
+        public void SetAttributes(CharacterAbilities characterAbilities) { _character.SetAttributes(characterAbilities); }
         public void ToggleShield()  { _character.ToggleShield(); }
         public void SetName(string name) { _character.SetName(name); }
         public void LearnSkill(AvailableSkills chosenSkill) { _character.LearnSkill(chosenSkill); }
@@ -45,6 +45,8 @@ namespace _5ECharacterBuilder.CharacterRaces
         public void LearnInstrument(AvailableInstrument chosenInstrument) { _character.LearnInstrument(chosenInstrument); }
         public void LearnLanguage(AvailableLanguages chosenLanguage) { _character.LearnLanguage(chosenLanguage); }
         public void ChosePath(AvailablePaths chosenPath) { _character.ChosePath(chosenPath); }
+        public void ImproveAbility(string ability) { _character.ImproveAbility(ability); }
+
         internal void AddRaceFeature(string feature) { Features.RaceFeatures.Add(feature, CharacterData.FeatureData[feature]); }
     }
 }

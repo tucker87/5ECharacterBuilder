@@ -59,12 +59,12 @@ namespace ExampleFrontEnd
 
         private void SetChracterScores()
         {
-            _character.Attributes.Strength.Score = GetAttributeScore(StrengthScoreTextBox);
-            _character.Attributes.Dexterity.Score = GetAttributeScore(DexterityScoreTextBox);
-            _character.Attributes.Constitution.Score = GetAttributeScore(ConstitutionScoreTextBox);
-            _character.Attributes.Intelligence.Score = GetAttributeScore(IntelligenceScoreTextBox);
-            _character.Attributes.Wisdom.Score = GetAttributeScore(WisdomScoreTextBox);
-            _character.Attributes.Charisma.Score = GetAttributeScore(CharismaScoreTextBox);
+            _character.Abilities.Strength.Score = GetAttributeScore(StrengthScoreTextBox);
+            _character.Abilities.Dexterity.Score = GetAttributeScore(DexterityScoreTextBox);
+            _character.Abilities.Constitution.Score = GetAttributeScore(ConstitutionScoreTextBox);
+            _character.Abilities.Intelligence.Score = GetAttributeScore(IntelligenceScoreTextBox);
+            _character.Abilities.Wisdom.Score = GetAttributeScore(WisdomScoreTextBox);
+            _character.Abilities.Charisma.Score = GetAttributeScore(CharismaScoreTextBox);
         }
         
         private static int GetAttributeScore(TextBox textBox)
@@ -74,22 +74,22 @@ namespace ExampleFrontEnd
 
         private void UpdateCharacterRacialBonuses()
         {
-            StrengthRacialTextBox.Text = _character.Attributes.Strength.RacialBonus.ToString(CultureInfo.InvariantCulture);
-            DexterityRacialTextBox.Text = _character.Attributes.Dexterity.RacialBonus.ToString(CultureInfo.InvariantCulture);
-            ConstitutionRacialTextBox.Text = _character.Attributes.Constitution.RacialBonus.ToString(CultureInfo.InvariantCulture);
-            IntelligenceRacialTextBox.Text = _character.Attributes.Intelligence.RacialBonus.ToString(CultureInfo.InvariantCulture);
-            WisdomRacialTextBox.Text = _character.Attributes.Wisdom.RacialBonus.ToString(CultureInfo.InvariantCulture);
-            CharismaRacialTextBox.Text = _character.Attributes.Charisma.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            StrengthRacialTextBox.Text = _character.Abilities.Strength.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            DexterityRacialTextBox.Text = _character.Abilities.Dexterity.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            ConstitutionRacialTextBox.Text = _character.Abilities.Constitution.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            IntelligenceRacialTextBox.Text = _character.Abilities.Intelligence.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            WisdomRacialTextBox.Text = _character.Abilities.Wisdom.RacialBonus.ToString(CultureInfo.InvariantCulture);
+            CharismaRacialTextBox.Text = _character.Abilities.Charisma.RacialBonus.ToString(CultureInfo.InvariantCulture);
         }
 
         private void UpdateCharacterModifiers()
         {
-            StrengthModTextBox.Text = "" + (_character.Attributes.Strength.Modifier);
-            DexterityModTextBox.Text = "" + (_character.Attributes.Dexterity.Modifier);
-            ConstitutionModTextBox.Text = "" + (_character.Attributes.Constitution.Modifier);
-            IntelligenceModTextBox.Text = "" + (_character.Attributes.Intelligence.Modifier);
-            WisdomModTextBox.Text = "" + (_character.Attributes.Wisdom.Modifier);
-            CharismaModTextBox.Text = "" + (_character.Attributes.Charisma.Modifier);
+            StrengthModTextBox.Text = "" + (_character.Abilities.Strength.Modifier);
+            DexterityModTextBox.Text = "" + (_character.Abilities.Dexterity.Modifier);
+            ConstitutionModTextBox.Text = "" + (_character.Abilities.Constitution.Modifier);
+            IntelligenceModTextBox.Text = "" + (_character.Abilities.Intelligence.Modifier);
+            WisdomModTextBox.Text = "" + (_character.Abilities.Wisdom.Modifier);
+            CharismaModTextBox.Text = "" + (_character.Abilities.Charisma.Modifier);
         }
 
         private void UpdateBasicStats()

@@ -61,7 +61,7 @@
     <Compile Include="CharacterBackgrounds\Acolyte.cs" />
     <Compile Include="CharacterBackgrounds\Criminal.cs" />
     <Compile Include="CharacterBase.cs" />
-    <Compile Include="CharacterAttribute.cs" />
+    <Compile Include="CharacterAbility.cs" />
     <Compile Include="CharacterClasses\CharacterClass.cs" />
     <Compile Include="CharacterClasses\Fighter.cs" />
     <Compile Include="CharacterClasses\Monk.cs" />

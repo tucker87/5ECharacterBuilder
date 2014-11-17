@@ -4,7 +4,7 @@
     {
         public WoodElf(ICharacter character) : base(character)
         {
-            Attributes.Wisdom.RacialBonus = 1;
+            Abilities.Wisdom.RacialBonus = 1;
 
             AddRaceFeature("Elf Weapon Training");
             AddRaceFeature("Mask of the Wild");

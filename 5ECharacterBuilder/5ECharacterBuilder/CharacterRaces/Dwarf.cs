@@ -4,7 +4,7 @@ namespace _5ECharacterBuilder.CharacterRaces
     {
         public Dwarf(ICharacter character) : base(character)
         {
-            Attributes.Constitution.RacialBonus = 2;
+            Abilities.Constitution.RacialBonus = 2;
 
             Languages.Chosen.Add(AvailableLanguages.Common);
             Languages.Chosen.Add(AvailableLanguages.Dwarvish);

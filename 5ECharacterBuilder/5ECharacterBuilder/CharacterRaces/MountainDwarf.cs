@@ -6,7 +6,7 @@ namespace _5ECharacterBuilder.CharacterRaces
     {
         public MountainDwarf(ICharacter character) : base(character)
         {
-            Attributes.Strength.RacialBonus = 2;
+            Abilities.Strength.RacialBonus = 2;
 
             foreach (var armor in Armory.LightArmor.Concat(Armory.MediumArmor))
                 ArmorProficiencies.Add(armor);

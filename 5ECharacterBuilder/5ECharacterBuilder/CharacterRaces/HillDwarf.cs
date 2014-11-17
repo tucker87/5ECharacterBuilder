@@ -4,7 +4,7 @@
     {
         public HillDwarf(ICharacter character) : base(character)
         {
-            Attributes.Wisdom.RacialBonus = 1;
+            Abilities.Wisdom.RacialBonus = 1;
 
             AddRaceFeature("Dwarven Toughness");
         }

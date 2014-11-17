@@ -24,13 +24,13 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [TestMethod]
         public void DarkElvesDexterityIsRaisedBy2()
         {
-            Assert.AreEqual(12, _character.Attributes.Dexterity.Score);
+            Assert.AreEqual(12, _character.Abilities.Dexterity.Score);
         }
 
         [TestMethod]
         public void DarkElvesCharismaIsRaisedBy1()
         {
-            Assert.AreEqual(11, _character.Attributes.Charisma.Score);
+            Assert.AreEqual(11, _character.Abilities.Charisma.Score);
         }
         [TestMethod]
         public void DarkElvesAreMedium()

@@ -4,7 +4,7 @@ namespace _5ECharacterBuilder.CharacterRaces
     {
         public Elf(ICharacter character): base(character)
         {
-            Attributes.Dexterity.RacialBonus = 2;
+            Abilities.Dexterity.RacialBonus = 2;
 
             Languages.Chosen.Add(AvailableLanguages.Common);
             Languages.Chosen.Add(AvailableLanguages.Elvish);

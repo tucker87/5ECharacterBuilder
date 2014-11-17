@@ -17,7 +17,7 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void ClothArmorGivesFullDexBonus()
         {
-            _character.SetAttributes(new CharacterAttributes(new CharacterAttributeScores(dexterity:20)));
+            _character.SetAttributes(new CharacterAbilities(new CharacterAbilityScores(dexterity:20)));
             _character.EquipArmor(AvailableArmor.Cloth);
             Assert.AreEqual(15, _character.ArmorClass);
         }
@@ -25,7 +25,7 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void HideArmorGivesMax2DexBonus()
         {
-            _character.SetAttributes(new CharacterAttributes(new CharacterAttributeScores(dexterity: 20)));
+            _character.SetAttributes(new CharacterAbilities(new CharacterAbilityScores(dexterity: 20)));
             _character.EquipArmor(AvailableArmor.Hide);
             Assert.AreEqual(14, _character.ArmorClass);
         }
@@ -33,7 +33,7 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void PlateArmorGiveNoDexBonus()
         {
-            _character.SetAttributes(new CharacterAttributes(new CharacterAttributeScores(dexterity: 20)));
+            _character.SetAttributes(new CharacterAbilities(new CharacterAbilityScores(dexterity: 20)));
             _character.EquipArmor(AvailableArmor.Plate);
             Assert.AreEqual(18, _character.ArmorClass);
         }
@@ -41,7 +41,7 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void ShieldsGive2AcOnTopOfDex()
         {
-            _character.SetAttributes(new CharacterAttributes(new CharacterAttributeScores(dexterity: 20)));
+            _character.SetAttributes(new CharacterAbilities(new CharacterAbilityScores(dexterity: 20)));
             _character.ToggleShield();
             Assert.AreEqual(17, _character.ArmorClass);
         }
@@ -49,7 +49,7 @@ namespace _5ECharacterBuilderTests
         [TestMethod]
         public void ShieldsGive2AcOnTopOfArmor()
         {
-            _character.SetAttributes(new CharacterAttributes(new CharacterAttributeScores(dexterity: 20)));
+            _character.SetAttributes(new CharacterAbilities(new CharacterAbilityScores(dexterity: 20)));
             _character.EquipArmor(AvailableArmor.Plate);
             _character.ToggleShield();
             Assert.AreEqual(20, _character.ArmorClass);
