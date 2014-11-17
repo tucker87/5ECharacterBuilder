@@ -26,10 +26,10 @@ namespace _5ECharacterBuilderTests
             [TestMethod]
             public void CriminalsHaveDeceptionAndStealthSkillProfsAvailableAndTrained()
             {
-                Assert.IsTrue(_character.Skills.Available.Contains(AvailableSkill.Deception));
-                Assert.IsTrue(_character.Skills.Chosen.Contains(AvailableSkill.Deception));
-                Assert.IsTrue(_character.Skills.Available.Contains(AvailableSkill.Stealth));
-                Assert.IsTrue(_character.Skills.Chosen.Contains(AvailableSkill.Stealth));
+                Assert.IsTrue(_character.Skills.Available.Contains(AvailableSkills.Deception));
+                Assert.IsTrue(_character.Skills.Chosen.Contains(AvailableSkills.Deception));
+                Assert.IsTrue(_character.Skills.Available.Contains(AvailableSkills.Stealth));
+                Assert.IsTrue(_character.Skills.Chosen.Contains(AvailableSkills.Stealth));
             }
 
             [TestMethod]

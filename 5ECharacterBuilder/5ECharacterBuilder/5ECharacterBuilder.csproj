@@ -70,7 +70,7 @@
     <Compile Include="CharacterRaces\CharacterRace.cs" />
     <Compile Include="CharacterRaces\Elf.cs" />
     <Compile Include="CharacterRaces\Dwarf.cs" />
-    <Compile Include="CharacterRaces\DarkElf.cs" />
+    <Compile Include="CharacterRaces\Drow.cs" />
     <Compile Include="CharacterRaces\WoodElf.cs" />
     <Compile Include="CharacterRaces\HighElf.cs" />
     <Compile Include="CharacterRaces\MountainDwarf.cs" />

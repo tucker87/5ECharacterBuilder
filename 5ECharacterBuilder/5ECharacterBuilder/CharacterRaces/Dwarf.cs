@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace _5ECharacterBuilder.CharacterRaces
 {
     class Dwarf : CharacterRace
@@ -20,10 +18,10 @@ namespace _5ECharacterBuilder.CharacterRaces
             Tools.Available.Add(AvailableTool.BrewersSupplies);
             Tools.Available.Add(AvailableTool.MasonsTools);
 
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Darkvision"));
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Dwarven Resilience"));
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Dwarven Combat Training"));
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Stonecunning"));
+            AddRaceFeature("Darkvision");
+            AddRaceFeature("Dwarven Resilience");
+            AddRaceFeature("Dwarven Combat Training");
+            AddRaceFeature("Stonecunning");
             
             Languages.Max += 2;
         }

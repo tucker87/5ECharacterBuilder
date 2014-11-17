@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace _5ECharacterBuilder.CharacterRaces
 {
     class Elf : CharacterRace
@@ -11,14 +9,13 @@ namespace _5ECharacterBuilder.CharacterRaces
             Languages.Chosen.Add(AvailableLanguages.Common);
             Languages.Chosen.Add(AvailableLanguages.Elvish);
 
-            Skills.Available.Add(AvailableSkill.Perception);
-            Skills.Chosen.Add(AvailableSkill.Perception);
+            Skills.Available.Add(_5ECharacterBuilder.AvailableSkills.Perception);
+            Skills.Chosen.Add(_5ECharacterBuilder.AvailableSkills.Perception);
 
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Darkvision"));
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Keen Senses"));
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Fey Ancestry"));
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Trance"));
-            
+            AddRaceFeature("Darkvision");
+            AddRaceFeature("Keen Senses");
+            AddRaceFeature("Fey Ancestry");
+            AddRaceFeature("Trance");
 
             Languages.Max += 2;
         }

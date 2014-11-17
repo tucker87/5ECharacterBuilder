@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace _5ECharacterBuilder.CharacterRaces
+﻿namespace _5ECharacterBuilder.CharacterRaces
 {
     class HighElf : Elf
     {
@@ -8,15 +6,15 @@ namespace _5ECharacterBuilder.CharacterRaces
         {
             Attributes.Intelligence.RacialBonus = 1;
 
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Elf Weapon Training"));
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Extra Language"));
+            AddRaceFeature("Elf Weapon Training");
+            AddRaceFeature("Extra Language");
 
             WeaponProficiencies.Add(AvailableWeapon.LongSword);
             WeaponProficiencies.Add(AvailableWeapon.ShortSword);
             WeaponProficiencies.Add(AvailableWeapon.ShortBow);
             WeaponProficiencies.Add(AvailableWeapon.LongBow);
 
-            Features.RaceFeatures.Add(new Feature("Cantrip", "You know one cantrip of your choice from the wizard spell list. Intelligence is your spellcasting ability for it."));
+            Features.RaceFeatures.Add("Cantrip", "You know one cantrip of your choice from the wizard spell list. Intelligence is your spellcasting ability for it.");
             
             Languages.Max += 1;
         }

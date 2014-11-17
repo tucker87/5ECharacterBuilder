@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace _5ECharacterBuilder.CharacterRaces
+﻿namespace _5ECharacterBuilder.CharacterRaces
 {
     class WoodElf : Elf
     {
@@ -8,10 +6,9 @@ namespace _5ECharacterBuilder.CharacterRaces
         {
             Attributes.Wisdom.RacialBonus = 1;
 
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Elf Weapon Training"));
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Mask of the Wild"));
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Fleet of Foot"));
-            
+            AddRaceFeature("Elf Weapon Training");
+            AddRaceFeature("Mask of the Wild");
+            AddRaceFeature("Fleet of Foot");
 
             WeaponProficiencies.Add(AvailableWeapon.LongSword);
             WeaponProficiencies.Add(AvailableWeapon.ShortSword);

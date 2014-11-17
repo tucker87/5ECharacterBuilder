@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace _5ECharacterBuilder.CharacterRaces
+﻿namespace _5ECharacterBuilder.CharacterRaces
 {
     class HillDwarf : Dwarf
     {
@@ -8,7 +6,7 @@ namespace _5ECharacterBuilder.CharacterRaces
         {
             Attributes.Wisdom.RacialBonus = 1;
 
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Dwarven Toughness"));
+            AddRaceFeature("Dwarven Toughness");
         }
 
         public override string Race

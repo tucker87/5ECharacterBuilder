@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace _5ECharacterBuilder.CharacterClasses
 {
@@ -16,14 +17,14 @@ namespace _5ECharacterBuilder.CharacterClasses
             SavingThrows.Add(SavingThrow.Strength);
             SavingThrows.Add(SavingThrow.Dexterity);
 
-            var skillList = new List<AvailableSkill>
+            var skillList = new List<AvailableSkills>
             {
-                AvailableSkill.Acrobatics,
-                AvailableSkill.Athletics,
-                AvailableSkill.History,
-                AvailableSkill.Insight,
-                AvailableSkill.Religion,
-                AvailableSkill.Stealth
+                AvailableSkills.Acrobatics,
+                AvailableSkills.Athletics,
+                AvailableSkills.History,
+                AvailableSkills.Insight,
+                AvailableSkills.Religion,
+                AvailableSkills.Stealth
             };
 
             foreach (var skill in skillList)
@@ -35,19 +36,41 @@ namespace _5ECharacterBuilder.CharacterClasses
             switch (Level)
             {
                 case 1:
-                    AddClassFeature("Unarmored Defense");
-                    AddClassFeature("Martial Arts");
+                    AddMonkFeature("Unarmored Defense");
+                    AddMonkFeature("Martial Arts");
                     break;
                 case 2:
-                    AddClassFeature("Ki");
-                    AddClassFeature("Unarmored Movement");
+                    AddMonkFeature("Ki");
+                    AddMonkFeature("Unarmored Movement");
+                    break;
+                case 3:
+                    AddClassPaths(CharacterData.GetMonkPaths());
+                    if(ClassPath.Chosen != null)
+                        AddPathFeatures((AvailablePaths) ClassPath.Chosen);
                     break;
             }
         }
 
-        private void AddClassFeature(string feature)
+        private void AddMonkFeature(string feature)
         {
-            Features.ClassFeatures.Add(MonkFeatures.Find(f => f.Name == feature));
+            Features.ClassFeatures.Add(feature, CharacterData.MonkFeatures[feature]);
+        }
+
+
+
+        private void AddPathFeatures(AvailablePaths feature)
+        {
+
+             = new Dictionary<string, string>(CharacterData.MonkPathFeatures.WayOfTheOpenPalm);
+        }
+
+        public override CharacterFeatures Features
+        {
+            get
+            {
+                var features = base.Features;
+                features.ClassPathFeatures = new Dictionary<string, string>(CharacterData.MonkPathFeatures.GetType().GetProperty());
+            }
         }
 
         public override int ArmorClass
@@ -102,25 +125,6 @@ namespace _5ECharacterBuilder.CharacterClasses
                     return base.Speed + 10;
 
                 return base.Speed;
-            }
-        }
-
-        private static List<Feature> MonkFeatures
-        {
-            get
-            {
-                return new List<Feature>
-                {
-                    new Feature("Unarmored Defense",
-                        "Beginning at 1st level, while you are wearing no armor and not wielding a shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier."),
-                    new Feature("Martial Arts",
-                        "You gain the following benefits while you are unarmed or wielding only monk weapons and you aren’t wearing armor or wielding a shield: You can use Dexterity instead of Strength for the attack and damage rolls of your unarmed strikes and monk weapons. You can roll a d4 in place of the normal damage of your unarmed strike or monk weapon. This die changes as you gain monk levels, as shown in the Martial Arts column of the Monk table. When you use the Attack action with an unarmed strike or a monk weapon on your turn, you can make one unarmed strike as a bonus action. For example, if you take the Attack action and attack with a quarter- staff, you can also make an unarmed strike as a bonus action, assuming you haven't already taken a bonus action this turn."),
-                    new Feature("Ki",
-                        "THIS THING IS LONG!"),
-                    new Feature("Unarmored Movement",
-                        "Starting at 2nd level, your speed increases by 10 feet while you are not wearing armor or wielding a shield. This bonus increases when you reach certain monk levels, as shown in the Monk table. At 9th level, you gain the ability to move along vertical surfaces and across liquids on your turn without falling during the move."),
-                            
-                };
             }
         }
     }

@@ -11,9 +11,9 @@ namespace _5ECharacterBuilder.CharacterRaces
             foreach (var armor in Armory.LightArmor.Concat(Armory.MediumArmor))
                 ArmorProficiencies.Add(armor);
 
-            Features.RaceFeatures.Add(CharacterData.FeatureData.Single(f => f.Name == "Dwarven Armor Training"));
+            AddRaceFeature("Dwarven Armor Training");
         }
-
+        
         public override string Race
         {
             get { return "Mountain Dwarf"; }

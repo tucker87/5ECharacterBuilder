@@ -24,10 +24,10 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void MonksCanChooseTwoSkillsFromTheirProficiencyList()
         {
-            _monk.LearnSkill(AvailableSkill.Acrobatics);
-            _monk.LearnSkill(AvailableSkill.Religion);
-            Assert.IsTrue(_monk.Skills.Chosen.Contains(AvailableSkill.Acrobatics));
-            Assert.IsTrue(_monk.Skills.Chosen.Contains(AvailableSkill.Religion));
+            _monk.LearnSkill(AvailableSkills.Acrobatics);
+            _monk.LearnSkill(AvailableSkills.Religion);
+            Assert.IsTrue(_monk.Skills.Chosen.Contains(AvailableSkills.Acrobatics));
+            Assert.IsTrue(_monk.Skills.Chosen.Contains(AvailableSkills.Religion));
         }
         
         [TestMethod]
@@ -75,14 +75,14 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void MonksGetUnarmoredDefenseAndMartialArtsAtFirstLevel()
         {
-            Assert.IsTrue(_monk.Features.ClassFeatures.Any(f => f.Name == "Unarmored Defense"));
-            Assert.IsTrue(_monk.Features.ClassFeatures.Any(f => f.Name == "Martial Arts"));
+            Assert.IsTrue(_monk.Features.ClassFeatures.ContainsKey("Unarmored Defense"));
+            Assert.IsTrue(_monk.Features.ClassFeatures.ContainsKey("Martial Arts"));
         }
 
         [TestMethod]
         public void MonksAtFirstLevelDoNotGetKi()
         {
-            Assert.IsFalse(_monk.Features.ClassFeatures.Any(f => f.Name == "Ki"));
+            Assert.IsFalse(_monk.Features.ClassFeatures.ContainsKey("Ki"));
         }
 
         [TestMethod]
@@ -100,8 +100,8 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void MonksGetKiAndUnarmoredMovementAtSecondLevel()
         {
             CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
-            Assert.IsTrue(_monk.Features.ClassFeatures.Any(f => f.Name == "Ki"));
-            Assert.IsTrue(_monk.Features.ClassFeatures.Any(f => f.Name == "Unarmored Movement"));
+            Assert.IsTrue(_monk.Features.ClassFeatures.Any(f => f.Key == "Ki"));
+            Assert.IsTrue(_monk.Features.ClassFeatures.Any(f => f.Key == "Unarmored Movement"));
             
         }
 
@@ -116,32 +116,28 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void UnarmoredMovementGives15SpeedAt6()
         {
-            for(var i=1;i<6;i++)
-                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            LevelTo(_monk, 6, AvailableClasses.Monk);
             Assert.AreEqual(45, _monk.Speed);
         }
 
         [TestMethod]
         public void UnarmoredMovementGives20SpeedAt10()
         {
-            for (var i = 1; i < 10; i++)
-                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            LevelTo(_monk, 10, AvailableClasses.Monk);
             Assert.AreEqual(50, _monk.Speed);
         }
 
         [TestMethod]
         public void UnarmoredMovementGives25SpeedAt14()
         {
-            for (var i = 1; i < 14; i++)
-                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            LevelTo(_monk, 14, AvailableClasses.Monk);
             Assert.AreEqual(55, _monk.Speed);
         }
 
         [TestMethod]
         public void UnarmoredMovementGives30SpeedAt18()
         {
-            for (var i = 1; i < 18; i++)
-                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            LevelTo(_monk, 18, AvailableClasses.Monk);
             Assert.AreEqual(60, _monk.Speed);
         }
 
@@ -154,25 +150,69 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void MonksMartialArtsDamageAtLevel5Is6()
         {
-            for (var i = 1; i < 6; i++)
-                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            LevelTo(_monk, 6, AvailableClasses.Monk);
             Assert.AreEqual(6, _monk.MartialArts);
         }
 
         [TestMethod]
         public void MonksMartialArtsDamageAtLevel11Is8()
         {
-            for (var i = 1; i < 11; i++)
-                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            LevelTo(_monk, 11, AvailableClasses.Monk);
             Assert.AreEqual(8, _monk.MartialArts);
         }
 
         [TestMethod]
         public void MonksMartialArtsDamageAtLevel17Is10()
         {
-            for (var i = 1; i < 17; i++)
-                CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
+            LevelTo(_monk, 17, AvailableClasses.Monk);
             Assert.AreEqual(10, _monk.MartialArts);
+        }
+
+        [TestMethod]
+        public void MonksHaveAChoiceOf3PathsAtLevel3()
+        {
+            LevelTo(_monk, 3, AvailableClasses.Monk);
+
+            Assert.IsTrue(_monk.ClassPath.Available.Contains(AvailablePaths.WayOfShadow));
+            Assert.IsTrue(_monk.ClassPath.Available.Contains(AvailablePaths.WayOfTheFourElements));
+            Assert.IsTrue(_monk.ClassPath.Available.Contains(AvailablePaths.WayOfTheOpenHand));
+        }
+
+        [TestMethod]
+        public void MonksCanChoseAPath()
+        {
+            LevelTo(_monk, 3, AvailableClasses.Monk);
+
+            _monk.ChosePath(AvailablePaths.WayOfShadow);
+
+            Assert.IsTrue(_monk.ClassPath.Chosen == AvailablePaths.WayOfShadow);
+        }
+
+        [TestMethod]
+        public void MonksWithWayOfTheOpenHandGainTheOpenHandTechnique()
+        {
+            LevelTo(_monk, 3, AvailableClasses.Monk);
+
+            _monk.ChosePath(AvailablePaths.WayOfTheOpenHand);
+
+            Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Open Hand Technique"));
+        }
+
+        [TestMethod]
+        public void MonksCanChangePaths()
+        {
+            LevelTo(_monk, 3, AvailableClasses.Monk);
+
+            _monk.ChosePath(AvailablePaths.WayOfTheOpenHand);
+            _monk.ChosePath(AvailablePaths.WayOfShadow);
+
+            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Open Hand Technique"));
+        }
+
+        private static void LevelTo(ICharacter monk, int target, AvailableClasses cclass)
+        {
+            for (var i = monk.Level; i < target; i++)
+                CharacterFactory.LevelUp(monk, cclass);
         }
     }
 }

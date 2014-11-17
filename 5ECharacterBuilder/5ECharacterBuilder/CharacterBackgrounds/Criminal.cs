@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace _5ECharacterBuilder.CharacterBackgrounds
+﻿namespace _5ECharacterBuilder.CharacterBackgrounds
 {
     sealed class Criminal : CharacterBackground
     {
         public Criminal(ICharacter character) : base(character)
         {
-            Skills.Available.Add(AvailableSkill.Deception);
-            Skills.Available.Add(AvailableSkill.Stealth);
+            Skills.Available.Add(_5ECharacterBuilder.AvailableSkills.Deception);
+            Skills.Available.Add(_5ECharacterBuilder.AvailableSkills.Stealth);
 
-            Skills.Chosen.Add(AvailableSkill.Deception);
-            Skills.Chosen.Add(AvailableSkill.Stealth);
+            Skills.Chosen.Add(_5ECharacterBuilder.AvailableSkills.Deception);
+            Skills.Chosen.Add(_5ECharacterBuilder.AvailableSkills.Stealth);
 
             Skills.Max += 2;
 

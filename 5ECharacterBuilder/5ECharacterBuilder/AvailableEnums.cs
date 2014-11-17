@@ -6,12 +6,12 @@
         MountainDwarf,
         HighElf,
         WoodElf,
-        DarkElf
+        Drow
     }
     public enum AvailableClasses { Monk, Fighter }
     public enum AvailableBackgrounds { Acolyte, Criminal }
     public enum AvailableArmor { Cloth, Padded, Leather, StuddedLeather, Hide, ChainShirt, ScaleMail, Breastplate, HalfPlate, RingMail, ChainMail, Splint, Plate, Shield }
-    public enum AvailableSkill { 
+    public enum AvailableSkills { 
         Acrobatics, 
         Arcana, 
         Athletics, 
@@ -39,5 +39,6 @@
     }
     public enum AvailableInstrument { Lute }
     public enum AvailableLanguages { Common, Elvish, Sylvan, Goblin, Draconic, Gnomish, Dwarvish }
+    public enum AvailablePaths { WayOfTheOpenHand, WayOfShadow, WayOfTheFourElements }
     public enum SavingThrow { Strength, Constitution, Dexterity, Intelligence, Wisdom, Charisma }
 }

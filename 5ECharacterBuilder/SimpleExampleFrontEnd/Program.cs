@@ -175,7 +175,7 @@ namespace SimpleExampleFrontEnd
 
         private static void LearnSkill()
         {
-            var chosenSkill = Generics.AskFor<AvailableSkill>();
+            var chosenSkill = Generics.AskFor<AvailableSkills>();
             _character.LearnSkill(chosenSkill);
         }
 
@@ -201,7 +201,7 @@ namespace SimpleExampleFrontEnd
         {
             Console.Clear();
             foreach (var feature in _character.Features.AllFeatures)
-                Console.WriteLine(feature.Name + " - " + feature.Description + "\r\n");
+                Console.WriteLine(feature.Key + " - " + feature.Value + "\r\n");
              
             Console.WriteLine("Press any key to return to Character");
             Console.ReadLine();

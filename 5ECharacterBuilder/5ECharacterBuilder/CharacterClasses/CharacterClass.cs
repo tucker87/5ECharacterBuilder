@@ -10,7 +10,8 @@ namespace _5ECharacterBuilder.CharacterClasses
         public virtual int ArmorClass { get { return _character.ArmorClass; } }
         public CharacterAttributes Attributes { get { return _character.Attributes; } }
         public string Background { get { return _character.Background; } }
-        public List<string> Classes { get { return _character.Classes; } } 
+        public List<string> Classes { get { return _character.Classes; } }
+        public ClassPath ClassPath { get { return _character.ClassPath; } }
         public Currency Currency { get { return _character.Currency; } }
         public Armor EquippedArmor { get { return _character.EquippedArmor; } }
         public bool HasShield { get { return _character.HasShield; } }
@@ -24,13 +25,13 @@ namespace _5ECharacterBuilder.CharacterClasses
         public string Race { get { return _character.Race; } }
         public Languages Languages { get { return _character.Languages; } }
         public SortedSet<SavingThrow> SavingThrows { get { return _character.SavingThrows; } } 
-        public Proficiencies<AvailableSkill> Skills { get { return _character.Skills; } } 
+        public Proficiencies<AvailableSkills> Skills { get { return _character.Skills; } } 
         public virtual int Speed { get { return _character.Speed; } }
         public Proficiencies<AvailableTool> Tools { get { return _character.Tools; } } 
         public SortedSet<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } } 
         public SortedSet<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public string Size { get { return _character.Size; } }
-        public CharacterFeatures Features { get { return _character.Features; } }
+        public virtual CharacterFeatures Features { get { return _character.Features; } }
         public virtual int KiPoints { get { return _character.KiPoints; } }
         public virtual int MartialArts { get { return _character.MartialArts; } }
 
@@ -38,10 +39,17 @@ namespace _5ECharacterBuilder.CharacterClasses
         public void SetAttributes(CharacterAttributes characterAttributes) { _character.SetAttributes(characterAttributes); }
         public void ToggleShield() { _character.ToggleShield(); }
         public void SetName(string name) { _character.SetName(name); }
-        public void LearnSkill(AvailableSkill chosenSkill) { _character.LearnSkill(chosenSkill); }
+        public void LearnSkill(AvailableSkills chosenSkill) { _character.LearnSkill(chosenSkill); }
         public void LearnTool(AvailableTool chosenTool) { _character.LearnTool(chosenTool); }
         public void LearnInstrument(AvailableInstrument chosenInstrument) { _character.LearnInstrument(chosenInstrument); }
         public void LearnLanguage(AvailableLanguages chosenLanguage) { _character.LearnLanguage(chosenLanguage); }
+        public void ChosePath(AvailablePaths chosenPath) { _character.ChosePath(chosenPath); }
+
+        internal void AddClassPaths(List<AvailablePaths> paths)
+        {
+            foreach (var path in paths)
+                ClassPath.Available.Add(path);
+        }
 
         public string ClassesString
         {
@@ -64,9 +72,5 @@ namespace _5ECharacterBuilder.CharacterClasses
             }
         }
 
-        public virtual int SkillCount
-        {
-            get { throw new System.NotImplementedException(); }
-        }
     }
 }

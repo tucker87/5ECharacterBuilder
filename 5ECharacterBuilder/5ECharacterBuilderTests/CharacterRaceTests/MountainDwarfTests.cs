@@ -54,7 +54,7 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [TestMethod]
         public void MountainDwavesHaveDwarvenCombatTraining()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Dwarven Combat Training"));
+            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Dwarven Combat Training"));
             Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.BattleAxe));
             Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.HandAxe));
             Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.ThrowingHammer));
@@ -72,25 +72,25 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [TestMethod]
         public void MountainDwavesHaveDarkVision()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Darkvision"));
+            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Darkvision"));
         }
 
         [TestMethod]
         public void MountainDwavesHaveDwarvenResilience()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Dwarven Resilience"));
+            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Dwarven Resilience"));
         }
 
         [TestMethod]
         public void MountainDwavesHaveStoneCunning()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Stonecunning"));
+            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Stonecunning"));
         }
 
         [TestMethod]
         public void MountainDwarvesHaveDwarvenArmorTraining()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Name == "Dwarven Armor Training"));
+            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Dwarven Armor Training"));
             Assert.IsTrue(_character.ArmorProficiencies.Contains(AvailableArmor.Leather));
             Assert.IsTrue(_character.ArmorProficiencies.Contains(AvailableArmor.Hide));
         }
