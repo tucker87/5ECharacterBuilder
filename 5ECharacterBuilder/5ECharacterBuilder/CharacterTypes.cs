@@ -30,6 +30,35 @@ namespace _5ECharacterBuilder
         public int Max { get; internal set; }
     }
 
+    public class Tools
+    {
+        public Tools()
+        {
+            Available = new SortedSet<AvailableTool>();
+            Chosen = new SortedSet<AvailableTool>();
+            Expertise = new SortedSet<AvailableTool>();
+        }
+        public SortedSet<AvailableTool> Available { get; internal set; }
+        public SortedSet<AvailableTool> Chosen { get; internal set; }
+        public SortedSet<AvailableTool> Expertise { get; internal set; }
+        public int Max { get; internal set; }
+    }
+
+    public class Skills
+    {
+        public Skills()
+        {
+            Available = new SortedSet<AvailableSkill>();
+            Chosen = new SortedSet<AvailableSkill>();
+            Expertise = new SortedSet<AvailableSkill>();
+        }
+        public SortedSet<AvailableSkill> Available { get; internal set; }
+        public SortedSet<AvailableSkill> Chosen { get; internal set; }
+        public SortedSet<AvailableSkill> Expertise { get; internal set; } 
+        public int Max { get; internal set; }
+        public int MaxExpertise { get; internal set; }
+    }
+
     public class ClassPath
     {
         public ClassPath()

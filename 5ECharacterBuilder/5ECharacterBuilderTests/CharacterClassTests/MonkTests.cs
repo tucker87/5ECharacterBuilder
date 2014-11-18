@@ -24,10 +24,10 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void MonksCanChooseTwoSkillsFromTheirProficiencyList()
         {
-            _monk.LearnSkill(AvailableSkills.Acrobatics);
-            _monk.LearnSkill(AvailableSkills.Religion);
-            Assert.IsTrue(_monk.Skills.Chosen.Contains(AvailableSkills.Acrobatics));
-            Assert.IsTrue(_monk.Skills.Chosen.Contains(AvailableSkills.Religion));
+            _monk.ChooseSkill(AvailableSkill.Acrobatics);
+            _monk.ChooseSkill(AvailableSkill.Religion);
+            Assert.IsTrue(_monk.Skills.Chosen.Contains(AvailableSkill.Acrobatics));
+            Assert.IsTrue(_monk.Skills.Chosen.Contains(AvailableSkill.Religion));
         }
         
         [TestMethod]
@@ -305,6 +305,107 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Deflect Missiles"));
+        }
+
+        [TestMethod]
+        public void MonksGetSlowFallAtLevel4()
+        {
+            TestingUtility.LevelTo(_monk, 4, AvailableClasses.Monk);
+            Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Slow Fall"));
+        }
+
+        [TestMethod]
+        public void MonksGetAnExtraAttackAtLevel5()
+        {
+            Assert.AreEqual(1, _monk.AttacksPerTurn);
+            TestingUtility.LevelTo(_monk, 5, AvailableClasses.Monk);
+            Assert.AreEqual(2, _monk.AttacksPerTurn);
+        }
+
+        [TestMethod]
+        public void MonksGetKiEmpoweredStrikesAtLevel6()
+        {
+            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Ki-Empowered Strikes"));
+            TestingUtility.LevelTo(_monk, 6, AvailableClasses.Monk);
+            Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Ki-Empowered Strikes"));
+        }
+
+        [TestMethod]
+        public void MonksGetEvasionAtLevel7()
+        {
+            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Evasion"));
+            TestingUtility.LevelTo(_monk, 7, AvailableClasses.Monk);
+            Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Evasion"));
+        }
+
+        [TestMethod]
+        public void MonksGetStillnessOfMindAtLevel7()
+        {
+            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Stillness Of Mind"));
+            TestingUtility.LevelTo(_monk, 7, AvailableClasses.Monk);
+            Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Stillness Of Mind"));
+        }
+
+        [TestMethod]
+        public void MonksGetPurityOfBodyAtLevel10()
+        {
+            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Purity Of Body"));
+            TestingUtility.LevelTo(_monk, 10, AvailableClasses.Monk);
+            Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Purity Of Body"));
+        }
+
+        [TestMethod]
+        public void MonksGetToungeOfTheSunAndMoonAtLevel13()
+        {
+            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Tounge Of The Sun And Moon"));
+            TestingUtility.LevelTo(_monk, 13, AvailableClasses.Monk);
+            Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Tounge Of The Sun And Moon"));
+        }
+
+        [TestMethod]
+        public void MonksGetDiamondSoulAtLevel14()
+        {
+            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Diamond Soul"));
+            Assert.IsTrue(_monk.SavingThrows.Contains(SavingThrow.Strength));
+            Assert.IsTrue(_monk.SavingThrows.Contains(SavingThrow.Dexterity));
+            Assert.IsFalse(_monk.SavingThrows.Contains(SavingThrow.Constitution));
+            Assert.IsFalse(_monk.SavingThrows.Contains(SavingThrow.Intelligence));
+            Assert.IsFalse(_monk.SavingThrows.Contains(SavingThrow.Wisdom));
+            Assert.IsFalse(_monk.SavingThrows.Contains(SavingThrow.Charisma));
+
+            TestingUtility.LevelTo(_monk, 14, AvailableClasses.Monk);
+
+            Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Diamond Soul"));
+            Assert.IsTrue(_monk.SavingThrows.Contains(SavingThrow.Strength));
+            Assert.IsTrue(_monk.SavingThrows.Contains(SavingThrow.Dexterity));
+            Assert.IsTrue(_monk.SavingThrows.Contains(SavingThrow.Constitution));
+            Assert.IsTrue(_monk.SavingThrows.Contains(SavingThrow.Intelligence));
+            Assert.IsTrue(_monk.SavingThrows.Contains(SavingThrow.Wisdom));
+            Assert.IsTrue(_monk.SavingThrows.Contains(SavingThrow.Charisma));
+        }
+
+        [TestMethod]
+        public void MonksGetTimelessBodyAtLevel15()
+        {
+            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Timeless Body"));
+            TestingUtility.LevelTo(_monk, 15, AvailableClasses.Monk);
+            Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Timeless Body"));
+        }
+
+        [TestMethod]
+        public void MonksGetEmptyBodyAtLevel18()
+        {
+            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Empty Body"));
+            TestingUtility.LevelTo(_monk, 18, AvailableClasses.Monk);
+            Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Empty Body"));
+        }
+
+        [TestMethod]
+        public void MonksGetPerfectSelfAtLevel20()
+        {
+            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Perfect Self"));
+            TestingUtility.LevelTo(_monk, 20, AvailableClasses.Monk);
+            Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Perfect Self"));
         }
     }
 }

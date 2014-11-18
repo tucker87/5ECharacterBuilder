@@ -9,8 +9,8 @@ namespace _5ECharacterBuilder.CharacterRaces
             Languages.Chosen.Add(AvailableLanguages.Common);
             Languages.Chosen.Add(AvailableLanguages.Elvish);
 
-            Skills.Available.Add(AvailableSkills.Perception);
-            Skills.Chosen.Add(AvailableSkills.Perception);
+            Skills.Available.Add(AvailableSkill.Perception);
+            Skills.Chosen.Add(AvailableSkill.Perception);
 
             AddRaceFeature("Darkvision");
             AddRaceFeature("Keen Senses");

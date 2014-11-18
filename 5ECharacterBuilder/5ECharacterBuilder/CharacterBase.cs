@@ -26,23 +26,27 @@ namespace _5ECharacterBuilder
         Languages Languages { get; }
         SortedSet<SavingThrow> SavingThrows { get; }
         string Size { get; }
-        Proficiencies<AvailableSkills> Skills { get; }
+        Skills Skills { get; }
         int Speed { get; }
-        Proficiencies<AvailableTool> Tools { get; }
+        Tools Tools { get; }
         SortedSet<AvailableWeapon> WeaponProficiencies { get; }
         CharacterFeatures Features { get; }
         int KiPoints { get; }
         int MartialArts { get; }
+        int AttacksPerTurn { get; }
+        int SneakAttackDice { get; }
         void EquipArmor(AvailableArmor armor);
         void SetAttributes(CharacterAbilities characterAbilities);
         void ToggleShield();
         void SetName(string name);
-        void LearnSkill(AvailableSkills chosenSkill);
+        void ChooseSkill(AvailableSkill chosenSkill);
         void LearnTool(AvailableTool chosenTool);
         void LearnInstrument(AvailableInstrument chosenInstrument);
         void LearnLanguage(AvailableLanguages chosenLanguage);
         void ChosePath(AvailablePaths chosenPath);
         void ImproveAbility(string ability);
+        void ChooseExpertise(AvailableSkill skill);
+        void ChooseExpertise(AvailableTool tool);
     }
     
     class CharacterBase : ICharacter
@@ -50,17 +54,20 @@ namespace _5ECharacterBuilder
         public CharacterBase(CharacterAbilityScores abilityScores = null, string name = "")
         {
             Name = name;
+            abilityScores = abilityScores ?? new CharacterAbilityScores();
 
             EquipArmor(AvailableArmor.Cloth);
+
+            AttacksPerTurn = 1;
             
-            abilityScores = abilityScores ?? new CharacterAbilityScores();
+            
             Abilities = new CharacterAbilities(abilityScores);
             ArmorProficiencies = new SortedSet<AvailableArmor>(new List<AvailableArmor>());
             ClassPath = new ClassPath();
             Instruments = new Proficiencies<AvailableInstrument>();
             Languages = new Languages();
-            Tools = new Proficiencies<AvailableTool>();
-            Skills = new Proficiencies<AvailableSkills>();
+            Tools = new Tools();
+            Skills = new Skills();
             WeaponProficiencies = new SortedSet<AvailableWeapon>(new List<AvailableWeapon>());
             SavingThrows = new SortedSet<SavingThrow>(new List<SavingThrow>());
             Features = new CharacterFeatures();
@@ -112,14 +119,16 @@ namespace _5ECharacterBuilder
         public Languages Languages { get; private set; }
         public SortedSet<SavingThrow> SavingThrows { get; private set; }
         public string Size { get; private set; }
-        public Proficiencies<AvailableSkills> Skills { get; private set; }
+        public Skills Skills { get; private set; }
         public int Speed { get; private set; }
-        public Proficiencies<AvailableTool> Tools { get; private set; }
+        public Tools Tools { get; private set; }
         public SortedSet<AvailableWeapon> WeaponProficiencies { get; private set; }
         public CharacterFeatures Features { get; private set; }
         public int KiPoints { get; private set; }
         public int MartialArts { get; private set; }
-        
+        public int AttacksPerTurn { get; private set; }
+        public int SneakAttackDice { get; private set; }
+
         public void EquipArmor(AvailableArmor armor) { EquippedArmor = Armory.GetArmor(armor); }
 
         public void SetAttributes(CharacterAbilities characterAbilities)
@@ -144,7 +153,7 @@ namespace _5ECharacterBuilder
             Name = name;
         }
 
-        public void LearnSkill(AvailableSkills chosenSkill)
+        public void ChooseSkill(AvailableSkill chosenSkill)
         {
             if (Skills.Available.Contains(chosenSkill) && Skills.Chosen.Count < Skills.Max)
                 Skills.Chosen.Add(chosenSkill);
@@ -175,6 +184,20 @@ namespace _5ECharacterBuilder
             if (Abilities.ImprovementPoints <= Abilities.SpentAbilityImprovementPoints) return;
             var ability = (CharacterAbility) Abilities.GetType().GetProperty(abilityName).GetValue(Abilities);
             ability.ImprovementBonus += 1;
+        }
+
+        public void ChooseExpertise(AvailableSkill skill)
+        {
+            if(Skills.Expertise.Count + Tools.Expertise.Count < Skills.MaxExpertise)
+                if(Skills.Chosen.Contains(skill))
+                    Skills.Expertise.Add(skill);
+        }
+
+        public void ChooseExpertise(AvailableTool tool)
+        {
+            if (Skills.Expertise.Count + Tools.Expertise.Count < Skills.MaxExpertise)
+                if (Tools.Chosen.Contains(tool))
+                    Tools.Expertise.Add(tool);
         }
 
         private static int GetArmorClassBonus(Armor armor, int dex)

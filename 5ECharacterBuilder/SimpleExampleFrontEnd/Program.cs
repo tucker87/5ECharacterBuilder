@@ -175,8 +175,8 @@ namespace SimpleExampleFrontEnd
 
         private static void LearnSkill()
         {
-            var chosenSkill = Generics.AskFor<AvailableSkills>();
-            _character.LearnSkill(chosenSkill);
+            var chosenSkill = Generics.AskFor<AvailableSkill>();
+            _character.ChooseSkill(chosenSkill);
         }
 
         private static void LearnTool()

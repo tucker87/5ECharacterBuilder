@@ -58,8 +58,8 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         public void HighElvesHaveKeenSenses()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Keen Senses"));
-            Assert.IsTrue(_character.Skills.Available.Contains(AvailableSkills.Perception));
-            Assert.IsTrue(_character.Skills.Chosen.Contains(AvailableSkills.Perception));
+            Assert.IsTrue(_character.Skills.Available.Contains(AvailableSkill.Perception));
+            Assert.IsTrue(_character.Skills.Chosen.Contains(AvailableSkill.Perception));
         }
 
         [TestMethod]

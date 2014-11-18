@@ -29,10 +29,22 @@ namespace _5ECharacterBuilder
             }
         }
 
-        public static Dictionary<string, string> FeatureData
+        public static Dictionary<string, string> ClassFeatures
         {
             get 
             { 
+                return new Dictionary<string, string>
+                {
+                    {"Extra Attack",  "You can attack twice, instead of once, whenever you take the Attack action on your turn."},
+                    {"Evasion", "Your instinctive agility lets you dodge out of the way of certain area effects, such as a blue dragon’s lightning breath or a  fireball spell. When you are subjected to an effect that allows you to make a Dexterity saving throw to take only half damage, you instead take no damage if you succeed on the saving throw, and only half damage if you fail."},
+                }; 
+            }
+        }
+
+        public static Dictionary<string, string> RaceFeatures
+        {
+            get
+            {
                 return new Dictionary<string, string>
                 {
                     {"Darkvision", "Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray."},
@@ -52,9 +64,10 @@ namespace _5ECharacterBuilder
                     {"Dwarven Armor Training", "You have proficiency with light and medium armor."},
                     {"Mask of the Wild", "You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena."},
                     {"Fleet of Foot", "Your base walking speed increases to 35 feet."},
-                }; 
+                    {"Ability Score Increase", "Your ability scores each increase by 1."},
+                };
             }
-        }
+        } 
 
         public static Dictionary<string,string> MonkFeatures
         {
@@ -67,8 +80,8 @@ namespace _5ECharacterBuilder
                     {"Ki", "See PHB"},
                     {"Unarmored Movement", "Starting at 2nd level, your speed increases by 10 feet while you are not wearing armor or wielding a shield. This bonus increases when you reach certain monk levels, as shown in the Monk table. At 9th level, you gain the ability to move along vertical surfaces and across liquids on your turn without falling during the move."},
                     {"Open Hand Technique", "Whenever you hit a creature with one of the attacks granted by your Flurry of Blows, you can impose one of the following effects on that target: • It must succeed on a Dexterity saving throw or be knocked prone. • It must make a Strength saving throw. If it fails, you can push it up to 15 feet away from you. • It can’t take reactions until the end of your next turn."},
-                    { "Shadow Arts", "You can use your ki to duplicate the effects of certain spells. As an action, you can spend 2 ki points to cast  darkness, darkvision, pass without trace, or  silence, without providing material components. Additionally, you gain the  minor illusion cantrip if you don’t already know it." },
-                    { "Wholeness Of Body", "You gain the ability to heal yourself. As an action, you can regain hit points equal to three times, your monk level. You must finish a long rest before you can use this feature again."},
+                    {"Shadow Arts", "You can use your ki to duplicate the effects of certain spells. As an action, you can spend 2 ki points to cast  darkness, darkvision, pass without trace, or  silence, without providing material components. Additionally, you gain the  minor illusion cantrip if you don’t already know it." },
+                    {"Wholeness Of Body", "You gain the ability to heal yourself. As an action, you can regain hit points equal to three times, your monk level. You must finish a long rest before you can use this feature again."},
                     {"Tranquility", "You can enter a special meditation that surrounds you with an aura of peace. At the end of a long rest, you gain the effect of a  sanctuary spell that lasts until the start of your next long rest (the spell can end early as normal). The saving throw DC for the spell equals 8 + your Wisdom modifier + your proficiency bonus."},
                     {"Quivering Palm", "You gain the ability to set up lethal vibrations in someone’s body. When you hit a creature with an unarmed strike, you can spend 3 ki points to start these imperceptible vibrations, which last for a number of days equal to your monk level. The vibrations are harmless unless you use your action to end them. To do so, you and the target must be on the same plane of existence. When you use this action, the creature must make a Constitution saving throw. If it fails, it is reduced to 0 hit points. If it succeeds, it takes 10d10 necrotic damage. You can have only one creature under the effect of this feature at a time. You can choose to end the vibrations harmlessly without using an action."},
                     {"Shadow Step", "You gain the ability to step from one shadow into another. When you are in dim light or darkness, as a bonus action you can teleport up to 60 feet to an unoccupied space you can see that is also in dim light or darkness. You then have advantage on the first melee attack you make before the end of the turn."},
@@ -76,9 +89,32 @@ namespace _5ECharacterBuilder
                     {"Opportunist", "You can exploit a creature's momentary distraction when it is hit by an attack. Whenever a creature within 5 feet of you is hit by an attack made by a creature other than you, you can use your reaction to make a melee attack against that creature."},
                     {"Disciple Of The Elements", "See PHB"},
                     {"Deflect Missiles", "You can use your reaction to deflect or catch the missile when you are hit by a ranged weapon attack. When you do so, the damage you take from the attack is reduced by 1d10 + your Dexterity modifier + your monk level. If you reduce the damage to 0, you can catch the missile if it is small enough for you to hold in one hand and you have at least one hand free. If you catch a missile in this way, you can spend 1 ki point to make a ranged attack with the weapon or piece of ammunition you just caught, as part of the same reaction. You make this attack with proficiency, regardless of your weapon proficiencies, and the missile counts as a monk weapon for the attack."},
+                    {"Slow Fall", "You can use your reaction when you fall to reduce any falling damage you take by an amount equal to five times your monk level."},
+                    {"Stunning Strike", "You can interfere with the flow of ki in an opponent’s body. When you hit another creature with a melee weapon attack, you can spend 1 ki point to attempt a stunning strike. The target must succeed on a Constitution saving throw or be stunned until the end of your next turn."},
+                    {"Ki-Empowered Strikes", "Your unarmed strikes count as magical for the purpose of overcoming resistance and immunity to nonmagical attacks and damage."},
+                    {"Stillness Of Mind", "You can use your action to end one effect on yourself that is causing you to be charmed or frightened."},
+                    {"Purity Of Body", "Your mastery of the ki flowing through you makes you immune to disease and poison."},
+                    {"Tounge Of The Sun And Moon", "You learn to touch the ki of other minds so that you understand all spoken languages. Moreover, any creature that can understand a language can understand what you say."},
+                    {"Diamond Soul", "Your mastery of ki grants you proficiency in all saving throws. Additionally, whenever you make a saving throw and fail, you can spend 1 ki point to reroll it and take the second result."},
+                    {"Timeless Body", "Your ki sustains you so that you suffer none of the frailty of old age, and you can't be aged magically. You can still die of old age, however. In addition, you no longer need food or water."},
+                    {"Empty Body", "You can use your action to spend 4 ki points to become invisible for 1 minute. During that time, you also have resistance to all damage but force damage. Additionally, you can spend 8 ki points to cast the astral projection spell, without needing material components. When you do so, you can’t take any other creatures with you."},
+                    {"Perfect Self", "When you roll for initiative and have no ki points remaining, you regain 4 ki points."}
                 };
             }
         }
+
+        public static Dictionary<string, string> RogueFeatures
+        {
+            get
+            {
+                return new Dictionary<string, string>
+                {
+                    {"Expertise", "Choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves’ tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies. At 6th level, you can choose two more of your proficiencies (in skills or with thieves’ tools) to gain this benefit."},
+                    {"Sneak Attack", "you know how to strike subtly and exploit a foe’s distraction. Once per turn, you can deal an extra 1d6 damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon. You don’t need advantage on the attack roll if another enemy of the target is within 5 feet of it, that enemy isn’t incapacitated, and you don’t have disadvantage on the attack roll."},
+
+                };
+            }
+        } 
         
         public static List<AvailablePaths> GetMonkPaths()
         {

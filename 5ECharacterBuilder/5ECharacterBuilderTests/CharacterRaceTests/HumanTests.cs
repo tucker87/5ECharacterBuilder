@@ -36,6 +36,7 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [TestMethod]
         public void HumansGetPlusOneToAllAttributeScores()
         {
+            Assert.IsTrue(_character.Features.AllFeatures.ContainsKey("Ability Score Increase"));
             Assert.AreEqual(11, _character.Abilities.Strength.Score);
             Assert.AreEqual(11, _character.Abilities.Constitution.Score);
             Assert.AreEqual(11, _character.Abilities.Dexterity.Score);

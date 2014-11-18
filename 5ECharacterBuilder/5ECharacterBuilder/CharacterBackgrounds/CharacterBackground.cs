@@ -25,25 +25,30 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         public int ProficiencyBonus { get { return _character.ProficiencyBonus; } }
         public string Race { get { return _character.Race; } }
         public Languages Languages { get { return _character.Languages; } }
-        public SortedSet<SavingThrow> SavingThrows { get { return _character.SavingThrows; } } 
-        public Proficiencies<AvailableSkills> Skills { get { return _character.Skills; } }
+        public SortedSet<SavingThrow> SavingThrows { get { return _character.SavingThrows; } }
+        public Skills Skills { get { return _character.Skills; } }
         public int Speed { get { return _character.Speed; } }
-        public Proficiencies<AvailableTool> Tools { get { return _character.Tools; } } 
+        public Tools Tools { get { return _character.Tools; } } 
         public SortedSet<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
         public SortedSet<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public string Size { get { return _character.Size; } }
         public CharacterFeatures Features { get { return _character.Features; } }
         public int KiPoints { get { return _character.KiPoints; } }
         public int MartialArts { get { return _character.MartialArts; } }
+        public int AttacksPerTurn { get { return _character.AttacksPerTurn; } }
+        public int SneakAttackDice { get { return _character.SneakAttackDice; } }
+
         public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }
         public void SetAttributes(CharacterAbilities characterAbilities) { _character.SetAttributes(characterAbilities); }
         public void ToggleShield() { _character.ToggleShield(); }
         public void SetName(string name) { _character.SetName(name); }
-        public void LearnSkill(AvailableSkills chosenSkill) { _character.LearnSkill(chosenSkill); }
+        public void ChooseSkill(AvailableSkill chosenSkill) { _character.ChooseSkill(chosenSkill); }
         public void LearnTool(AvailableTool chosenTool) { _character.LearnTool(chosenTool); }
         public void LearnInstrument(AvailableInstrument chosenInstrument) { _character.LearnInstrument(chosenInstrument); }
         public void LearnLanguage(AvailableLanguages chosenLanguage) { _character.LearnLanguage(chosenLanguage); }
         public void ChosePath(AvailablePaths chosenPath) { _character.ChosePath(chosenPath); }
         public void ImproveAbility(string ability) { _character.ImproveAbility(ability); }
+        public void ChooseExpertise(AvailableSkill skill) { _character.ChooseExpertise(skill); }
+        public void ChooseExpertise(AvailableTool tool) { _character.ChooseExpertise(tool); }
     }
 }

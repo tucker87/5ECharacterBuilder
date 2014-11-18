@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ArmoryTests.cs" />
+    <Compile Include="CharacterClassTests\RogueTests.cs" />
     <Compile Include="CharacterMulticlassTests.cs" />
     <Compile Include="CharacterAttributeTests.cs" />
     <Compile Include="CharacterClassTests\FighterTests.cs" />

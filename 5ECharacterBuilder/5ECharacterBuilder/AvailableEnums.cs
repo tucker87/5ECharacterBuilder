@@ -8,10 +8,10 @@
         WoodElf,
         Drow
     }
-    public enum AvailableClasses { Monk, Fighter }
+    public enum AvailableClasses { Monk, Fighter, Rogue }
     public enum AvailableBackgrounds { Acolyte, Criminal }
     public enum AvailableArmor { Cloth, Padded, Leather, StuddedLeather, Hide, ChainShirt, ScaleMail, Breastplate, HalfPlate, RingMail, ChainMail, Splint, Plate, Shield }
-    public enum AvailableSkills { 
+    public enum AvailableSkill { 
         Acrobatics, 
         Arcana, 
         Athletics, 
@@ -24,7 +24,11 @@
         Religion, 
         Stealth,
         Intimidation,
-        Survival
+        Survival,
+        Investigation,
+        Performance,
+        Persuasion,
+        SleightOfHand
     }
     public enum AvailableTool { 
         AlchemistsSupplies,

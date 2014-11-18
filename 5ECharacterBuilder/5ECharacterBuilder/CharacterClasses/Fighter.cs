@@ -19,14 +19,14 @@ namespace _5ECharacterBuilder.CharacterClasses
 
             Classes.Add("Fighter");
 
-            Skills.Available.Add(AvailableSkills.Acrobatics);
-            Skills.Available.Add(AvailableSkills.AnimalHandling);
-            Skills.Available.Add(AvailableSkills.Athletics);
-            Skills.Available.Add(AvailableSkills.History);
-            Skills.Available.Add(AvailableSkills.Insight);
-            Skills.Available.Add(AvailableSkills.Intimidation);
-            Skills.Available.Add(AvailableSkills.Perception);
-            Skills.Available.Add(AvailableSkills.Survival);
+            Skills.Available.Add(AvailableSkill.Acrobatics);
+            Skills.Available.Add(AvailableSkill.AnimalHandling);
+            Skills.Available.Add(AvailableSkill.Athletics);
+            Skills.Available.Add(AvailableSkill.History);
+            Skills.Available.Add(AvailableSkill.Insight);
+            Skills.Available.Add(AvailableSkill.Intimidation);
+            Skills.Available.Add(AvailableSkill.Perception);
+            Skills.Available.Add(AvailableSkill.Survival);
 
             Skills.Max = 2;
         }

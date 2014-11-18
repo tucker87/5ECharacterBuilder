@@ -9,6 +9,8 @@ namespace _5ECharacterBuilder.CharacterRaces
 
             Languages.Chosen.Add(AvailableLanguages.Common);
             Languages.Max += 2;
+
+            AddRaceFeature("Ability Score Increase");
         }
 
         public override string Race

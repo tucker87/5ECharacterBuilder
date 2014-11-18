@@ -4,10 +4,10 @@ namespace _5ECharacterBuilderTests
 {
     class TestingUtility
     {
-        public static void LevelTo(ICharacter monk, int target, AvailableClasses cclass)
+        public static void LevelTo(ICharacter character, int targetLevel, AvailableClasses cclass)
         {
-            for (var i = monk.Level; i < target; i++)
-                CharacterFactory.LevelUp(monk, cclass);
+            for (var i = character.Level; i < targetLevel; i++)
+                CharacterFactory.LevelUp(character, cclass);
         }
     }
 }

@@ -8,26 +8,22 @@ namespace _5ECharacterBuilder.CharacterClasses
         {
             HitDice.Add(8);
 
-            foreach (var weapon in Armory.SimpleWeapons)
-                WeaponProficiencies.Add(weapon);
+            WeaponProficiencies.UnionWith(Armory.SimpleWeapons);
 
             WeaponProficiencies.Add(AvailableWeapon.ShortSword);
 
             SavingThrows.Add(SavingThrow.Strength);
             SavingThrows.Add(SavingThrow.Dexterity);
-
-            var skillList = new List<AvailableSkills>
+            
+            Skills.Available.UnionWith(new[]
             {
-                AvailableSkills.Acrobatics,
-                AvailableSkills.Athletics,
-                AvailableSkills.History,
-                AvailableSkills.Insight,
-                AvailableSkills.Religion,
-                AvailableSkills.Stealth
-            };
-
-            foreach (var skill in skillList)
-                Skills.Available.Add(skill);
+                AvailableSkill.Acrobatics,
+                AvailableSkill.Athletics,
+                AvailableSkill.History,
+                AvailableSkill.Insight,
+                AvailableSkill.Religion,
+                AvailableSkill.Stealth
+            });
 
             Skills.Max += 2;
 
@@ -45,6 +41,42 @@ namespace _5ECharacterBuilder.CharacterClasses
                 case 3:
                     AddClassPaths(CharacterData.GetMonkPaths());
                     AddMonkFeature("Deflect Missiles");
+                    break;
+                case 4:
+                    AddMonkFeature("Slow Fall");
+                    break;
+                case 5:
+                    AddClassFeature("Extra Attack");
+                    AddMonkFeature("Stunning Strike");
+                    break;
+                case 6:
+                    AddMonkFeature("Ki-Empowered Strikes");
+                    break;
+                case 7:
+                    AddClassFeature("Evasion");
+                    AddMonkFeature("Stillness Of Mind");
+                    break;
+                case 10:
+                    AddMonkFeature("Purity Of Body");
+                    break;
+                case 13:
+                    AddMonkFeature("Tounge Of The Sun And Moon");
+                    break;
+                case 14:
+                    AddMonkFeature("Diamond Soul");
+                    SavingThrows.Add(SavingThrow.Constitution);
+                    SavingThrows.Add(SavingThrow.Intelligence);
+                    SavingThrows.Add(SavingThrow.Wisdom);
+                    SavingThrows.Add(SavingThrow.Charisma);
+                    break;
+                case 15:
+                    AddMonkFeature("Timeless Body");
+                    break;
+                case 18:
+                    AddMonkFeature("Empty Body");
+                    break;
+                case 20:
+                    AddMonkFeature("Perfect Self");
                     break;
             }
         }
@@ -74,6 +106,17 @@ namespace _5ECharacterBuilder.CharacterClasses
                     return 10 + Abilities.Dexterity.Modifier + Abilities.Wisdom.Modifier;
 
                 return base.ArmorClass;
+            }
+        }
+
+        public override int AttacksPerTurn
+        {
+            get
+            {
+                if (Level + 1 >= 5)
+                    return base.AttacksPerTurn + 1;
+
+                return base.AttacksPerTurn;
             }
         }
 

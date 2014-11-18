@@ -65,6 +65,7 @@
     <Compile Include="CharacterClasses\CharacterClass.cs" />
     <Compile Include="CharacterClasses\Fighter.cs" />
     <Compile Include="CharacterClasses\Monk.cs" />
+    <Compile Include="CharacterClasses\Rogue.cs" />
     <Compile Include="CharacterFactory.cs" />
     <Compile Include="CharacterTypes.cs" />
     <Compile Include="CharacterRaces\CharacterRace.cs" />
