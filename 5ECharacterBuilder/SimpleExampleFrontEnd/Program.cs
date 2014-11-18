@@ -78,7 +78,7 @@ namespace SimpleExampleFrontEnd
             Console.WriteLine("Feats: TODO"); //TODO
             Console.WriteLine("AllFeatures: ");
             foreach (var feature in character.Features.AllFeatures)
-                Console.WriteLine(" " + feature);
+                Console.WriteLine(" " + feature.Key);
 
 
             Console.Write("Weapon Proficiencies:");

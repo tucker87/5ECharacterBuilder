@@ -23,7 +23,7 @@ namespace _5ECharacterBuilder
 
                     new Armor("Ring Mail", 30, 14, 40, ArmorCategory.Heavy,	0, stealthDisadvantage:true),
                     new Armor("Chain Mail",	75,	16,55, ArmorCategory.Heavy,	0,	13,	true),
-                    new Armor("Splint",	200,	17,60, ArmorCategory.Heavy,	0,	15,	true),
+                    new Armor("Splint",	200, 17,60, ArmorCategory.Heavy, 0, 15,	true),
                     new Armor("Plate", 0, 18, 0, ArmorCategory.Heavy, 0)
                 };
             }
