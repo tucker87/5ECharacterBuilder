@@ -35,7 +35,9 @@ namespace _5ECharacterBuilder.CharacterRaces
         public int KiPoints { get { return _character.KiPoints; } }
         public int MartialArts { get { return _character.MartialArts; } }
         public int AttacksPerTurn { get { return _character.AttacksPerTurn; } }
-        public int SneakAttackDice { get { return _character.SneakAttackDice; } } 
+        public int SneakAttackDice { get { return _character.SneakAttackDice; } }
+        public SortedSet<SpellcastingClass> SpellcastingClasses { get { return _character.SpellcastingClasses; } }
+
         public virtual string Size { get { return "Medium"; } }
 
         public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }

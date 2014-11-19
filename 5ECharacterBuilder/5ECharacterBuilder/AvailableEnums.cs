@@ -39,10 +39,16 @@
         ThreeDragonAnteSet,
         SmithsTools,
         BrewersSupplies,
-        MasonsTools
+        MasonsTools,
+        DisguiseKit,
+        PoisonersKit
     }
     public enum AvailableInstrument { Lute }
     public enum AvailableLanguages { Common, Elvish, Sylvan, Goblin, Draconic, Gnomish, Dwarvish }
-    public enum AvailablePaths { WayOfTheOpenHand, WayOfShadow, WayOfTheFourElements }
+    public enum AvailablePaths { WayOfTheOpenHand, WayOfShadow, WayOfTheFourElements,
+        Thief,
+        Assassin,
+        ArcaneTrickster
+    }
     public enum SavingThrow { Strength, Constitution, Dexterity, Intelligence, Wisdom, Charisma }
 }

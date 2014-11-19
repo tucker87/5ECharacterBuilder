@@ -35,6 +35,7 @@ namespace _5ECharacterBuilder
         int MartialArts { get; }
         int AttacksPerTurn { get; }
         int SneakAttackDice { get; }
+        SortedSet<SpellcastingClass> SpellcastingClasses { get; }
         void EquipArmor(AvailableArmor armor);
         void SetAttributes(CharacterAbilities characterAbilities);
         void ToggleShield();
@@ -70,6 +71,7 @@ namespace _5ECharacterBuilder
             Skills = new Skills();
             WeaponProficiencies = new SortedSet<AvailableWeapon>(new List<AvailableWeapon>());
             SavingThrows = new SortedSet<SavingThrow>(new List<SavingThrow>());
+            SpellcastingClasses = new SortedSet<SpellcastingClass>();
             Features = new CharacterFeatures();
             HitDice = new List<int>(new int[0]);
             Currency = new Currency();
@@ -128,6 +130,7 @@ namespace _5ECharacterBuilder
         public int MartialArts { get; private set; }
         public int AttacksPerTurn { get; private set; }
         public int SneakAttackDice { get; private set; }
+        public SortedSet<SpellcastingClass> SpellcastingClasses { get; private set; }
 
         public void EquipArmor(AvailableArmor armor) { EquippedArmor = Armory.GetArmor(armor); }
 
@@ -176,7 +179,8 @@ namespace _5ECharacterBuilder
 
         public void ChosePath(AvailablePaths chosenPath)
         {
-            ClassPath.Chosen = chosenPath;
+            if (ClassPath.Available.Contains(chosenPath))
+                ClassPath.Chosen = chosenPath;
         }
 
         public void ImproveAbility(string abilityName)

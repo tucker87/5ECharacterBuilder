@@ -37,6 +37,7 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         public int MartialArts { get { return _character.MartialArts; } }
         public int AttacksPerTurn { get { return _character.AttacksPerTurn; } }
         public int SneakAttackDice { get { return _character.SneakAttackDice; } }
+        public SortedSet<SpellcastingClass> SpellcastingClasses { get { return _character.SpellcastingClasses; } }
 
         public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }
         public void SetAttributes(CharacterAbilities characterAbilities) { _character.SetAttributes(characterAbilities); }

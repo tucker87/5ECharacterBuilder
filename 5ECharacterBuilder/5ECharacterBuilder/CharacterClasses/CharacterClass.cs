@@ -55,7 +55,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         public SortedSet<SavingThrow> SavingThrows { get { return _character.SavingThrows; } }
         public Skills Skills { get { return _character.Skills; } } 
         public virtual int Speed { get { return _character.Speed; } }
-        public Tools Tools { get { return _character.Tools; } } 
+        public virtual Tools Tools { get { return _character.Tools; } } 
         public SortedSet<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } } 
         public SortedSet<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public string Size { get { return _character.Size; } }
@@ -64,6 +64,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         public virtual int MartialArts { get { return _character.MartialArts; } }
         public virtual int AttacksPerTurn { get { return _character.AttacksPerTurn; } }
         public virtual int SneakAttackDice { get { return _character.SneakAttackDice; } }
+        public virtual SortedSet<SpellcastingClass> SpellcastingClasses { get { return _character.SpellcastingClasses; } }
 
         public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }
         public void SetAttributes(CharacterAbilities characterAbilities) { _character.SetAttributes(characterAbilities); }
@@ -78,7 +79,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         public void ChooseExpertise(AvailableSkill skill) { _character.ChooseExpertise(skill); }
         public void ChooseExpertise(AvailableTool tool) { _character.ChooseExpertise(tool); }
 
-        internal void AddClassPaths(List<AvailablePaths> paths)
+        internal void AddClassPaths(AvailablePaths[] paths)
         {
             foreach (var path in paths)
                 ClassPath.Available.Add(path);

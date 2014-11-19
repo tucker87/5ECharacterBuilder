@@ -91,9 +91,40 @@ namespace _5ECharacterBuilder.CharacterClasses
             get
             {
                 var features = base.Features;
+                var classPathFeatures = new Dictionary<string, string>();
                 if (ClassPath.Chosen != null)
-                    features.ClassPathFeatures = new Dictionary<string, string>(CharacterData.GetMonkPathFeatures((AvailablePaths) ClassPath.Chosen, Level));
+                {
+                    if (ClassPath.Chosen == AvailablePaths.WayOfTheOpenHand)
+                    {
+                        classPathFeatures.Add("Open Hand Technique", CharacterData.MonkFeatures["Open Hand Technique"]);
+                        if (Level >= 6)
+                            classPathFeatures.Add("Wholeness Of Body", CharacterData.MonkFeatures["Wholeness Of Body"]);
 
+                        if (Level >= 11)
+                            classPathFeatures.Add("Tranquility", CharacterData.MonkFeatures["Tranquility"]);
+
+                        if (Level >= 17)
+                            classPathFeatures.Add("Quivering Palm", CharacterData.MonkFeatures["Quivering Palm"]);
+
+                    }
+                    if (ClassPath.Chosen == AvailablePaths.WayOfShadow)
+                    {
+                        classPathFeatures.Add("Shadow Arts", CharacterData.MonkFeatures["Shadow Arts"]);
+                        if (Level >= 6)
+                            classPathFeatures.Add("Shadow Step", CharacterData.MonkFeatures["Shadow Step"]);
+
+                        if (Level >= 11)
+                            classPathFeatures.Add("Cloak Of Shadows", CharacterData.MonkFeatures["Cloak Of Shadows"]);
+
+                        if (Level >= 17)
+                            classPathFeatures.Add("Opportunist", CharacterData.MonkFeatures["Opportunist"]);
+                    }
+                    if (ClassPath.Chosen == AvailablePaths.WayOfTheFourElements)
+                    {
+                        classPathFeatures.Add("Disciple Of The Elements", CharacterData.MonkFeatures["Disciple Of The Elements"]);
+                    }
+                }
+                features.ClassPathFeatures = classPathFeatures;
                 return features;
             }
         }

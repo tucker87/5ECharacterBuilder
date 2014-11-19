@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace _5ECharacterBuilder
@@ -78,5 +79,39 @@ namespace _5ECharacterBuilder
         }
         public SortedSet<AvailableLanguages> Chosen { get; internal set; }
         public int Max { get; internal set; }
+    }
+
+    public class SpellcastingClass : IComparable
+    {
+        public SpellcastingClass(string name)
+        {
+            Name = name;
+
+            SpellSlots = new SpellSlots();
+        }
+
+        public string Name { get; internal set; }
+        public int MaxCantrips { get; internal set; }
+        public int MaxSpells { get; internal set; }
+        public SpellSlots SpellSlots { get; private set; }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+
+            var otherSpellcastingClass = obj as SpellcastingClass;
+            if (otherSpellcastingClass != null)
+                return String.Compare(Name, otherSpellcastingClass.Name, StringComparison.Ordinal);
+
+            throw new ArgumentException("Object is not a Temperature");
+        }
+    }
+
+    public class SpellSlots
+    {
+        public int First { get; internal set; }
+        public int Second { get; internal set; }
+        public int Third { get; internal set; }
+        public int Fourth { get; internal set; }
     }
 }

@@ -4,11 +4,11 @@
     {
         public Criminal(ICharacter character) : base(character)
         {
-            Skills.Available.Add(_5ECharacterBuilder.AvailableSkill.Deception);
-            Skills.Available.Add(_5ECharacterBuilder.AvailableSkill.Stealth);
+            Skills.Available.Add(AvailableSkill.Deception);
+            Skills.Available.Add(AvailableSkill.Stealth);
 
-            Skills.Chosen.Add(_5ECharacterBuilder.AvailableSkill.Deception);
-            Skills.Chosen.Add(_5ECharacterBuilder.AvailableSkill.Stealth);
+            Skills.Chosen.Add(AvailableSkill.Deception);
+            Skills.Chosen.Add(AvailableSkill.Stealth);
 
             Skills.Max += 2;
 
