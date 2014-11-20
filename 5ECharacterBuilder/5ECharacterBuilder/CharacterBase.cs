@@ -51,6 +51,7 @@ namespace _5ECharacterBuilder
         void ChooseExpertise(AvailableSkill skill);
         void ChooseExpertise(AvailableTool tool);
         int ClassLevel(string className);
+        int SkillBonus(AvailableSkill skill);
     }
     
     class CharacterBase : ICharacter
@@ -210,6 +211,14 @@ namespace _5ECharacterBuilder
         public int ClassLevel(string className)
         {
             return Classes.Count(x => x == className);
+        }
+
+        public int SkillBonus(AvailableSkill skill)
+        {
+            var ability = (CharacterAbility) Abilities.GetType().GetProperty(CharacterData.SkillMods.First(s => s.Key == skill).Value.ToString()).GetValue(Abilities);
+            var abilityMod = ability.Modifier;
+            var profBonus = Skills.Expertise.Contains(skill) ? ProficiencyBonus*2 : Skills.Chosen.Contains(skill) ? ProficiencyBonus : 0;
+            return abilityMod + profBonus;
         }
 
         private static int GetArmorClassBonus(Armor armor, int dex)

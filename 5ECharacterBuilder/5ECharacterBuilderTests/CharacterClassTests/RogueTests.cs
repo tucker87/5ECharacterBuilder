@@ -726,5 +726,14 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             TestingUtility.LevelTo(_rogue, 5, AvailableClasses.Rogue);
             Assert.AreEqual(4, _rogue.SpellcastingClasses.First().AttackMod); 
         }
+
+        [TestMethod]
+        public void RoguesKeepTheirSkillsWhenTheyLevel()
+        {
+            _rogue.ChooseSkill(AvailableSkill.Acrobatics);
+            Assert.IsTrue(_rogue.Skills.Chosen.Contains(AvailableSkill.Acrobatics));
+            CharacterFactory.LevelUp(_rogue, AvailableClasses.Rogue);
+            Assert.IsTrue(_rogue.Skills.Chosen.Contains(AvailableSkill.Acrobatics));
+        }
     }
 }

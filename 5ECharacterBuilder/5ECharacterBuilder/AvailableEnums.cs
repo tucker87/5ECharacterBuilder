@@ -1,5 +1,14 @@
 ﻿namespace _5ECharacterBuilder
 {
+    public enum AvailableAbility
+    {
+        Strength,
+        Dexterity,
+        Constitution,
+        Intelligence,
+        Wisdom,
+        Charisma
+    }
     public enum AvailableRaces { 
         Human,
         HillDwarf,

@@ -133,5 +133,17 @@ namespace _5ECharacterBuilderTests
             _character.ImproveAbility("Strength");
             Assert.AreEqual(11, _character.Abilities.Strength.Score);
         }
+
+        [TestMethod]
+        public void AcrobaticsSkillBonusIsCalculatedBasedOnProfAndDex()
+        {
+            Assert.AreEqual(0, _character.SkillBonus(AvailableSkill.Acrobatics));
+            _character.ChooseSkill(AvailableSkill.Acrobatics);
+            Assert.AreEqual(2, _character.SkillBonus(AvailableSkill.Acrobatics));
+            TestingUtility.LevelTo(_character, 5, AvailableClasses.Monk);
+            Assert.AreEqual(3, _character.SkillBonus(AvailableSkill.Acrobatics));
+            _character.Abilities.Dexterity.Score = 12;
+            Assert.AreEqual(4, _character.SkillBonus(AvailableSkill.Acrobatics));
+        }
     }
 }

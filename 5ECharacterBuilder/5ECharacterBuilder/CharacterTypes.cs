@@ -49,10 +49,13 @@ namespace _5ECharacterBuilder
     {
         public Skills()
         {
+            AllSkills = (AvailableSkill[]) Enum.GetValues(typeof(AvailableSkill));
             Available = new SortedSet<AvailableSkill>();
             Chosen = new SortedSet<AvailableSkill>();
             Expertise = new SortedSet<AvailableSkill>();
         }
+
+        public AvailableSkill[] AllSkills { get; private set; }
         public SortedSet<AvailableSkill> Available { get; internal set; }
         public SortedSet<AvailableSkill> Chosen { get; internal set; }
         public SortedSet<AvailableSkill> Expertise { get; internal set; } 

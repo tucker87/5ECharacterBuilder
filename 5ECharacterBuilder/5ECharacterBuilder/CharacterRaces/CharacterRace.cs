@@ -53,6 +53,8 @@ namespace _5ECharacterBuilder.CharacterRaces
         public void ChooseExpertise(AvailableSkill skill) { _character.ChooseExpertise(skill); }
         public void ChooseExpertise(AvailableTool tool) { _character.ChooseExpertise(tool); }
         public int ClassLevel(string className) { return _character.ClassLevel(className); }
+        public int SkillBonus(AvailableSkill skill) { return _character.SkillBonus(skill); }
+
         internal void AddRaceFeature(string feature) { Features.RaceFeatures.Add(feature, CharacterData.RaceFeatures[feature]); }
     }
 }

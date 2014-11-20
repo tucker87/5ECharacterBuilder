@@ -13,13 +13,12 @@ namespace _5ECharacterBuilder.CharacterClasses
                 {
                     Skills.Max += 1;
                 }
-                else return;
+                else throw new RequirementsExpection();
             }
             else
             {
                 WeaponProficiencies.UnionWith(Armory.SimpleWeapons);
-
-
+                
                 var extraWeapons = new[]
                 {
                     AvailableWeapon.HandCrossbows,
@@ -34,8 +33,12 @@ namespace _5ECharacterBuilder.CharacterClasses
                 SavingThrows.Add(SavingThrow.Intelligence);
 
                 Skills.Max += 4;
+            }
 
-                Skills.Available.UnionWith(new[]
+            Classes.Add("Rogue");
+            HitDice.Add(8);
+
+            Skills.Available.UnionWith(new[]
                 {
                     AvailableSkill.Acrobatics,
                     AvailableSkill.Athletics,
@@ -49,10 +52,6 @@ namespace _5ECharacterBuilder.CharacterClasses
                     AvailableSkill.SleightOfHand,
                     AvailableSkill.Stealth
                 });
-            }
-
-            Classes.Add("Rogue");
-            HitDice.Add(8);
 
             switch (ClassLevel("Rogue"))
             {
@@ -137,45 +136,46 @@ namespace _5ECharacterBuilder.CharacterClasses
             {
                 var features = base.Features;
                 var classPathFeatures = new Dictionary<string, string>();
+                var classLevel = ClassLevel("Rogue");
                 if (ClassPath.Chosen != null)
                 {
                     if (ClassPath.Chosen == AvailablePaths.Thief)
                     {
                         classPathFeatures.Add("Fast Hands", CharacterData.RogueFeatures["Fast Hands"]);
                         classPathFeatures.Add("Second-Story Work", CharacterData.RogueFeatures["Second-Story Work"]);
-                        if (ClassLevel("Rogue") >= 9)
+                        if (classLevel >= 9)
                             classPathFeatures.Add("Supreme Sneak", CharacterData.RogueFeatures["Supreme Sneak"]);
 
-                        if (ClassLevel("Rogue") >= 12)
+                        if (classLevel >= 12)
                             classPathFeatures.Add("Use Magic Device", CharacterData.RogueFeatures["Use Magic Device"]);
 
-                        if (ClassLevel("Rogue") >= 17)
+                        if (classLevel >= 17)
                             classPathFeatures.Add("Thief's Reflexes", CharacterData.RogueFeatures["Thief's Reflexes"]);
 
                     }
                     if (ClassPath.Chosen == AvailablePaths.Assassin)
                     {
                         classPathFeatures.Add("Assassinate", CharacterData.RogueFeatures["Assassinate"]);
-                        if (ClassLevel("Rogue") >= 9)
+                        if (classLevel >= 9)
                             classPathFeatures.Add("Infiltration Expertise", CharacterData.RogueFeatures["Infiltration Expertise"]);
 
-                        if (ClassLevel("Rogue") >= 13)
+                        if (classLevel >= 13)
                             classPathFeatures.Add("Imposter", CharacterData.RogueFeatures["Imposter"]);
 
-                        if (ClassLevel("Rogue") >= 17)
+                        if (classLevel >= 17)
                             classPathFeatures.Add("Death Strike", CharacterData.RogueFeatures["Death Strike"]);
                     }
                     if (ClassPath.Chosen == AvailablePaths.ArcaneTrickster)
                     {
                         classPathFeatures.Add("Spellcasting", CharacterData.RogueFeatures["Spellcasting"]);
                         classPathFeatures.Add("Mage Hand Legerdemain", CharacterData.RogueFeatures["Mage Hand Legerdemain"]);
-                        if (ClassLevel("Rogue") >= 9)
+                        if (classLevel >= 9)
                             classPathFeatures.Add("Magical Ambush", CharacterData.RogueFeatures["Magical Ambush"]);
 
-                        if (ClassLevel("Rogue") >= 13)
+                        if (classLevel >= 13)
                             classPathFeatures.Add("Versatile Trickster", CharacterData.RogueFeatures["Versatile Trickster"]);
 
-                        if (ClassLevel("Rogue") >= 17)
+                        if (classLevel >= 17)
                             classPathFeatures.Add("Spell Thief", CharacterData.RogueFeatures["Spell Thief"]);
                     }
                 }

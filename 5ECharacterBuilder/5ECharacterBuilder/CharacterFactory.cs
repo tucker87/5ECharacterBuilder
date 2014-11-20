@@ -50,11 +50,12 @@ namespace _5ECharacterBuilder
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
             var characterClasses = currentAssembly.GetTypes()
-                .First(t => typeof(CharacterClass).IsAssignableFrom(t) && t.Name == characterAvailableClass.ToString());
+                .First(
+                    t => typeof (CharacterClass).IsAssignableFrom(t) && t.Name == characterAvailableClass.ToString());
 
-            character = (ICharacter)Activator.CreateInstance(characterClasses,
+            character = (ICharacter) Activator.CreateInstance(characterClasses,
                 BindingFlags.OptionalParamBinding,
-                null, new object[] { character }, null);
+                null, new object[] {character}, null);
 
             return character;
         }

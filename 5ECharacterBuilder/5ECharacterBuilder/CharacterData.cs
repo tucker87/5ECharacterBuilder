@@ -174,6 +174,17 @@ namespace _5ECharacterBuilder
             }
         }
 
+        public static Dictionary<AvailableSkill, AvailableAbility> SkillMods
+        {
+            get
+            {
+                return new Dictionary<AvailableSkill, AvailableAbility>
+                {
+                    {AvailableSkill.Acrobatics, AvailableAbility.Dexterity}
+                };
+            }
+        }
+
         public static AvailablePaths[] GetRoguePaths()
         {
             return new[]

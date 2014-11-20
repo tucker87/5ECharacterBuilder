@@ -97,11 +97,13 @@ namespace SimpleExampleFrontEnd
             foreach (var skill in character.Skills.Available)
                 Console.Write(" " + skill);
             
-            Console.Write("Choosen Skill Proficiencies:");
-            foreach (var skill in character.Skills.Chosen)
-                Console.Write(" " + skill);
-
             Console.WriteLine();
+            Console.WriteLine("Skill Scores:");
+            foreach (var skill in character.Skills.AllSkills)
+            {
+                Console.WriteLine("{0} | {1}", skill, character.SkillBonus(skill));
+            }
+
             Console.WriteLine();
 
             Console.Write("Tool Proficiencies:");

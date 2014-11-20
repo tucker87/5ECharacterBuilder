@@ -65,7 +65,7 @@
     <Compile Include="CharacterRaceTests\HumanTests.cs" />
     <Compile Include="CharacterValidationTests.cs" />
     <Compile Include="CharacterBackgroundTests.cs" />
-    <Compile Include="MulticlassTests\MonkToRogue.cs" />
+    <Compile Include="MulticlassTests\MonkToRogueTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestingUtility.cs" />
   </ItemGroup>
