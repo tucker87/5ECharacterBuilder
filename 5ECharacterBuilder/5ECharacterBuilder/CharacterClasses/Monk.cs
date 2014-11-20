@@ -4,86 +4,104 @@ namespace _5ECharacterBuilder.CharacterClasses
 {
     class Monk : CharacterClass
     {
-        public Monk(ICharacter character): base(character)
+        public Monk(ICharacter character) : base(character)
         {
-            HitDice.Add(8);
-
-            WeaponProficiencies.UnionWith(Armory.SimpleWeapons);
-
-            WeaponProficiencies.Add(AvailableWeapon.ShortSword);
-
-            SavingThrows.Add(SavingThrow.Strength);
-            SavingThrows.Add(SavingThrow.Dexterity);
-            
-            Skills.Available.UnionWith(new[]
+            if (IsMulticlassing())
             {
-                AvailableSkill.Acrobatics,
-                AvailableSkill.Athletics,
-                AvailableSkill.History,
-                AvailableSkill.Insight,
-                AvailableSkill.Religion,
-                AvailableSkill.Stealth
-            });
+                if (MeetsRequirements())
+                {
+                    
+                }
+                else return;
 
-            Skills.Max += 2;
+            }
+            else
+            {
+                Classes.Add("Monk");
 
-            Classes.Add("Monk");
-            switch (Level)
+                HitDice.Add(8);
+
+                WeaponProficiencies.UnionWith(Armory.SimpleWeapons);
+
+                WeaponProficiencies.Add(AvailableWeapon.ShortSword);
+
+                SavingThrows.Add(SavingThrow.Strength);
+                SavingThrows.Add(SavingThrow.Dexterity);
+
+                Skills.Available.UnionWith(new[]
+                {
+                    AvailableSkill.Acrobatics,
+                    AvailableSkill.Athletics,
+                    AvailableSkill.History,
+                    AvailableSkill.Insight,
+                    AvailableSkill.Religion,
+                    AvailableSkill.Stealth
+                });
+
+                Skills.Max += 2;
+            }
+            var classLevel = ClassLevel("Monk");
+            switch (classLevel)
             {
                 case 1:
-                    AddMonkFeature("Unarmored Defense");
-                    AddMonkFeature("Martial Arts");
+                    AddClassFeature("Unarmored Defense");
+                    AddClassFeature("Martial Arts");
                     break;
                 case 2:
-                    AddMonkFeature("Ki");
-                    AddMonkFeature("Unarmored Movement");
+                    AddClassFeature("Ki");
+                    AddClassFeature("Unarmored Movement");
                     break;
                 case 3:
                     AddClassPaths(CharacterData.GetMonkPaths());
-                    AddMonkFeature("Deflect Missiles");
+                    AddClassFeature("Deflect Missiles");
                     break;
                 case 4:
-                    AddMonkFeature("Slow Fall");
+                    AddClassFeature("Slow Fall");
                     break;
                 case 5:
                     AddClassFeature("Extra Attack");
-                    AddMonkFeature("Stunning Strike");
+                    AddClassFeature("Stunning Strike");
                     break;
                 case 6:
-                    AddMonkFeature("Ki-Empowered Strikes");
+                    AddClassFeature("Ki-Empowered Strikes");
                     break;
                 case 7:
                     AddClassFeature("Evasion");
-                    AddMonkFeature("Stillness Of Mind");
+                    AddClassFeature("Stillness Of Mind");
                     break;
                 case 10:
-                    AddMonkFeature("Purity Of Body");
+                    AddClassFeature("Purity Of Body");
                     break;
                 case 13:
-                    AddMonkFeature("Tounge Of The Sun And Moon");
+                    AddClassFeature("Tounge Of The Sun And Moon");
                     break;
                 case 14:
-                    AddMonkFeature("Diamond Soul");
+                    AddClassFeature("Diamond Soul");
                     SavingThrows.Add(SavingThrow.Constitution);
                     SavingThrows.Add(SavingThrow.Intelligence);
                     SavingThrows.Add(SavingThrow.Wisdom);
                     SavingThrows.Add(SavingThrow.Charisma);
                     break;
                 case 15:
-                    AddMonkFeature("Timeless Body");
+                    AddClassFeature("Timeless Body");
                     break;
                 case 18:
-                    AddMonkFeature("Empty Body");
+                    AddClassFeature("Empty Body");
                     break;
                 case 20:
-                    AddMonkFeature("Perfect Self");
+                    AddClassFeature("Perfect Self");
                     break;
             }
         }
 
-        private void AddMonkFeature(string feature)
+        private bool MeetsRequirements()
         {
-            Features.ClassFeatures.Add(feature, CharacterData.MonkFeatures[feature]);
+            return Abilities.Dexterity.Score >= 13 && Abilities.Wisdom.Score >= 13;
+        }
+
+        private bool IsMulticlassing()
+        {
+            return Level > 0 && ClassLevel("Monk") == 0;
         }
 
         public override CharacterFeatures Features

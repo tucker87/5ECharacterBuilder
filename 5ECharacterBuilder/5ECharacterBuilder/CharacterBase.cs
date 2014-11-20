@@ -36,6 +36,8 @@ namespace _5ECharacterBuilder
         int AttacksPerTurn { get; }
         int SneakAttackDice { get; }
         SortedSet<SpellcastingClass> SpellcastingClasses { get; }
+
+
         void EquipArmor(AvailableArmor armor);
         void SetAttributes(CharacterAbilities characterAbilities);
         void ToggleShield();
@@ -48,6 +50,7 @@ namespace _5ECharacterBuilder
         void ImproveAbility(string ability);
         void ChooseExpertise(AvailableSkill skill);
         void ChooseExpertise(AvailableTool tool);
+        int ClassLevel(string className);
     }
     
     class CharacterBase : ICharacter
@@ -202,6 +205,11 @@ namespace _5ECharacterBuilder
             if (Skills.Expertise.Count + Tools.Expertise.Count < Skills.MaxExpertise)
                 if (Tools.Chosen.Contains(tool))
                     Tools.Expertise.Add(tool);
+        }
+
+        public int ClassLevel(string className)
+        {
+            return Classes.Count(x => x == className);
         }
 
         private static int GetArmorClassBonus(Armor armor, int dex)

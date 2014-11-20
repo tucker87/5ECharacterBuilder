@@ -93,7 +93,9 @@ namespace _5ECharacterBuilder
         public string Name { get; internal set; }
         public int MaxCantrips { get; internal set; }
         public int MaxSpells { get; internal set; }
-        public SpellSlots SpellSlots { get; private set; }
+        public SpellSlots SpellSlots { get; internal set; }
+        public int SaveDc { get; internal set; }
+        public int AttackMod { get; internal set; }
 
         public int CompareTo(object obj)
         {

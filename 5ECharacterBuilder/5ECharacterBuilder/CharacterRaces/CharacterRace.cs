@@ -52,7 +52,7 @@ namespace _5ECharacterBuilder.CharacterRaces
         public void ImproveAbility(string ability) { _character.ImproveAbility(ability); }
         public void ChooseExpertise(AvailableSkill skill) { _character.ChooseExpertise(skill); }
         public void ChooseExpertise(AvailableTool tool) { _character.ChooseExpertise(tool); }
-
+        public int ClassLevel(string className) { return _character.ClassLevel(className); }
         internal void AddRaceFeature(string feature) { Features.RaceFeatures.Add(feature, CharacterData.RaceFeatures[feature]); }
     }
 }

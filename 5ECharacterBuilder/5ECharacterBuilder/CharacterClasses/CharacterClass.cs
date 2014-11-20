@@ -78,7 +78,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         public void ImproveAbility(string ability)  { _character.ImproveAbility(ability); }
         public void ChooseExpertise(AvailableSkill skill) { _character.ChooseExpertise(skill); }
         public void ChooseExpertise(AvailableTool tool) { _character.ChooseExpertise(tool); }
-
+        public int ClassLevel(string className) { return _character.ClassLevel(className); }
         internal void AddClassPaths(AvailablePaths[] paths)
         {
             foreach (var path in paths)

@@ -12,7 +12,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestInitialize]
         public static void Setup()
         {
-            _rogue = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Rogue, AvailableBackgrounds.Criminal);
+            _rogue = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Rogue, AvailableBackgrounds.Acolyte);
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void RoguesCanChoose4SkillsFromTheirList()
         {
-            Assert.AreEqual(4, _rogue.Skills.Max - _rogue.Skills.Chosen.Count);
+            Assert.AreEqual(2, _rogue.Skills.Max - _rogue.Skills.Chosen.Count);
 
             Assert.IsTrue(_rogue.Skills.Available.Contains(AvailableSkill.Acrobatics));
             Assert.IsTrue(_rogue.Skills.Available.Contains(AvailableSkill.Athletics));
@@ -169,7 +169,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             TestingUtility.LevelTo(_rogue, 3, AvailableClasses.Rogue);
             Assert.AreEqual(2, _rogue.SneakAttackDice);
         }
-
+        
         [TestMethod]
         public void RougesSneakAttackGoesTo3DiceAtLevel5()
         {
@@ -237,6 +237,15 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             TestingUtility.LevelTo(_rogue, 2, AvailableClasses.Rogue);
             Assert.IsTrue(_rogue.Features.AllFeatures.ContainsKey("Cunning Action"));
+        }
+
+        [TestMethod]
+        public void LevelingInAnotherClassDoesNotCountTowardRogueLevel()
+        {
+            _rogue.Abilities.Wisdom.Score = 13;
+            _rogue.Abilities.Dexterity.Score = 13;
+            TestingUtility.LevelTo(_rogue, 2, AvailableClasses.Monk);
+            Assert.IsFalse(_rogue.Features.AllFeatures.ContainsKey("Cunning Action"));
         }
 
         [TestMethod]
@@ -500,6 +509,17 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         }
 
         [TestMethod]
+        public void ArcaneTricksterDoesNotGetSpellSlotsForLevelsInOtherClasses()
+        {
+            TestingUtility.LevelTo(_rogue, 3, AvailableClasses.Rogue);
+            _rogue.ChosePath(AvailablePaths.ArcaneTrickster);
+            TestingUtility.LevelTo(_rogue, 4, AvailableClasses.Monk);
+            Assert.AreEqual(3, _rogue.SpellcastingClasses.First().MaxCantrips);
+            Assert.AreEqual(3, _rogue.SpellcastingClasses.First().MaxSpells);
+            Assert.AreEqual(2, _rogue.SpellcastingClasses.First().SpellSlots.First);
+        }
+
+        [TestMethod]
         public void ArcaneTrickstersGet3I4I3AtLevel5()
         {
             TestingUtility.LevelTo(_rogue, 5, AvailableClasses.Rogue);
@@ -681,6 +701,30 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.AreEqual(3, _rogue.SpellcastingClasses.First().SpellSlots.Second);
             Assert.AreEqual(3, _rogue.SpellcastingClasses.First().SpellSlots.Third);
             Assert.AreEqual(1, _rogue.SpellcastingClasses.First().SpellSlots.Fourth);
+        }
+
+        [TestMethod]
+        public void ArcaneTricksterSaveDcIsCalculated()
+        {
+            TestingUtility.LevelTo(_rogue, 3, AvailableClasses.Rogue);
+            _rogue.ChosePath(AvailablePaths.ArcaneTrickster);
+            Assert.AreEqual(10, _rogue.SpellcastingClasses.First().SaveDc); //Initial 8+Prof+Int
+            _rogue.Abilities.Intelligence.Score = 12;
+            Assert.AreEqual(11, _rogue.SpellcastingClasses.First().SaveDc); 
+            TestingUtility.LevelTo(_rogue, 5, AvailableClasses.Rogue);
+            Assert.AreEqual(12, _rogue.SpellcastingClasses.First().SaveDc); 
+        }
+
+        [TestMethod]
+        public void SpellAttackModIsCalculated()
+        {
+            TestingUtility.LevelTo(_rogue, 3, AvailableClasses.Rogue);
+            _rogue.ChosePath(AvailablePaths.ArcaneTrickster);
+            Assert.AreEqual(2, _rogue.SpellcastingClasses.First().AttackMod); //Initial Prof+Int
+            _rogue.Abilities.Intelligence.Score = 12;
+            Assert.AreEqual(3, _rogue.SpellcastingClasses.First().AttackMod);
+            TestingUtility.LevelTo(_rogue, 5, AvailableClasses.Rogue);
+            Assert.AreEqual(4, _rogue.SpellcastingClasses.First().AttackMod); 
         }
     }
 }
