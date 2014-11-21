@@ -180,7 +180,24 @@ namespace _5ECharacterBuilder
             {
                 return new Dictionary<AvailableSkill, AvailableAbility>
                 {
-                    {AvailableSkill.Acrobatics, AvailableAbility.Dexterity}
+                    {AvailableSkill.Acrobatics, AvailableAbility.Dexterity},
+                    {AvailableSkill.AnimalHandling, AvailableAbility.Wisdom},
+                    {AvailableSkill.Arcana, AvailableAbility.Intelligence},
+                    {AvailableSkill.Athletics, AvailableAbility.Strength},
+                    {AvailableSkill.Deception, AvailableAbility.Charisma},
+                    {AvailableSkill.History, AvailableAbility.Intelligence},
+                    {AvailableSkill.Insight, AvailableAbility.Wisdom},
+                    {AvailableSkill.Intimidation,AvailableAbility.Charisma},
+                    {AvailableSkill.Investigation, AvailableAbility.Intelligence},
+                    {AvailableSkill.Medicine, AvailableAbility.Wisdom},
+                    {AvailableSkill.Nature, AvailableAbility.Intelligence},
+                    {AvailableSkill.Perception, AvailableAbility.Wisdom},
+                    {AvailableSkill.Performance, AvailableAbility.Charisma},
+                    {AvailableSkill.Persuasion, AvailableAbility.Charisma},
+                    {AvailableSkill.Religion, AvailableAbility.Intelligence},
+                    {AvailableSkill.SleightOfHand, AvailableAbility.Dexterity},
+                    {AvailableSkill.Stealth, AvailableAbility.Dexterity},
+                    {AvailableSkill.Survival,  AvailableAbility.Wisdom}
                 };
             }
         }

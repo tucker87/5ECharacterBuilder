@@ -21,23 +21,24 @@
     public enum AvailableBackgrounds { Acolyte, Criminal }
     public enum AvailableArmor { Cloth, Padded, Leather, StuddedLeather, Hide, ChainShirt, ScaleMail, Breastplate, HalfPlate, RingMail, ChainMail, Splint, Plate, Shield }
     public enum AvailableSkill { 
-        Acrobatics, 
+        Acrobatics,
+        AnimalHandling, 
         Arcana, 
         Athletics, 
-        AnimalHandling, 
         Deception, 
         History, 
-        Insight, 
-        Medicine, 
-        Perception, 
-        Religion, 
-        Stealth,
+        Insight,
         Intimidation,
-        Survival,
         Investigation,
+        Medicine, 
+        Nature,
+        Perception,
         Performance,
         Persuasion,
-        SleightOfHand
+        Religion, 
+        SleightOfHand,
+        Stealth,
+        Survival
     }
     public enum AvailableTool { 
         AlchemistsSupplies,
