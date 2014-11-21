@@ -43,7 +43,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         public Currency Currency { get { return _character.Currency; } }
         public Armor EquippedArmor { get { return _character.EquippedArmor; } }
         public bool HasShield { get { return _character.HasShield; } }
-        public List<int> HitDice { get { return _character.HitDice; } }
+        public HitDice HitDice { get { return _character.HitDice; } }
         public int Initiative { get { return _character.Initiative; } }
         public Proficiencies<AvailableInstrument> Instruments { get { return _character.Instruments; } }
         public int Level { get { return _character.Level; } } 
@@ -80,6 +80,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         public void ChooseExpertise(AvailableTool tool) { _character.ChooseExpertise(tool); }
         public int ClassLevel(string className) { return _character.ClassLevel(className); }
         public int SkillBonus(AvailableSkill skill) { return _character.SkillBonus(skill); }
+        public void LevelUp(AvailableClasses cclass) { _character.LevelUp(cclass); }
 
         internal void AddClassPaths(AvailablePaths[] paths)
         {

@@ -1,73 +1,110 @@
 ﻿<Window x:Class="ExampleFrontEnd.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="553.401" Width="696.642" Loaded="OnLoad">
-    <UniformGrid Columns="4">
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+        Title="MainWindow" Height="553.401" Width="772.642" Loaded="OnLoad" DataContext="">
+    <UniformGrid Columns="4" Margin="0,0,-34,0">
         <StackPanel>
+            <Label Content="Race" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ComboBox Name="RaceBox" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="RaceBox_SelectionChanged"/>
             <Label Content="Class"/>
-            <ComboBox Name="ClassBox" HorizontalAlignment="Left" Margin="10,0,0,0" Width="120" SelectionChanged="RaceClassBox_SelectionChanged"/>
-            <TextBox Name="LevelBox" HorizontalAlignment="Left" Margin="10,0,0,0" Width="120" Text="1"></TextBox>
-            <Label Content="Race" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <ComboBox Name="RaceBox" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="RaceClassBox_SelectionChanged"/>
-            <Label Content="Strength" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Name="StrengthScoreTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="15" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2" LostFocus="ScoreTextBox_OnLostFocus"/>
-                <TextBox Name="StrengthRacialTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2" IsEnabled="False"/>
-                <TextBox Name="StrengthModTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
-            </StackPanel>
+            <ComboBox Name="ClassBox" HorizontalAlignment="Left" Margin="10,0,0,0" Width="120" SelectionChanged="ClassBox_SelectionChanged"/>
+            <Label Content="Background"/>
+            <ComboBox Name="BackgroundBox" HorizontalAlignment="Left" Margin="10,0,0,0" Width="120" SelectionChanged="BackgroundBox_SelectionChanged"/>
+            <UniformGrid Margin="10,10,0,0">
+                <Label Name="LevelLabel" HorizontalAlignment="Left" Width="120" Content="1"/>
+                <Button Name="LevelUpButton" Content="Level Up" Margin="0,0,10,0" Click="LevelUpButton_OnClick"/>
+            </UniformGrid>
             
-            <Label Content="Dexterity" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Name="DexterityScoreTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="14" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"/>
-                <TextBox Name="DexterityRacialTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2" IsEnabled="False"/>
-                <TextBox Name="DexterityModTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
-            </StackPanel>
-            <Label Content="Constitution" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Name="ConstitutionScoreTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="13" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"/>
-                <TextBox Name="ConstitutionRacialTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"  IsEnabled="False"/>
-                <TextBox Name="ConstitutionModTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
-            </StackPanel>
-            <Label Content="Intelligence" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Name="IntelligenceScoreTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="12" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"/>
-                <TextBox Name="IntelligenceRacialTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"  IsEnabled="False"/>
-                <TextBox Name="IntelligenceModTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
-            </StackPanel>
-            <Label Content="Wisdom" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Name="WisdomScoreTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"/>
-                <TextBox Name="WisdomRacialTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"  IsEnabled="False"/>
-                <TextBox Name="WisdomModTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
-            </StackPanel>
-            <Label Content="Charisma" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Name="CharismaScoreTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"/>
-                <TextBox Name="CharismaRacialTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"  IsEnabled="False"/>
-                <TextBox Name="CharismaModTextBox" HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
-            </StackPanel>
+            <UniformGrid Columns="4">
+                <Label Content="Ability" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Content="Score" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top"/>
+                <Label Content="Racial" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top"/>
+                <Label Content="Mod" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top"/>
+            </UniformGrid>
+            <UniformGrid Margin="10,0,0,0" Columns="4">
+                <Label Content="Str" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBox Name="StrengthScoreTextBox" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" TextWrapping="Wrap" Text="15" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2" LostFocus="ScoreTextBox_OnLostFocus"/>
+                <Label Name="StrengthRacialLabel" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" Content="0" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
+                <Label Name="StrengthModLabel" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
+            </UniformGrid>
+
+            <UniformGrid Margin="10,0,0,0" Columns="4">
+                <Label Content="Dex" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBox Name="DexterityScoreTextBox" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" TextWrapping="Wrap" Text="14" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"/>
+                <Label Name="DexterityRacialLabel" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" Content="0" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
+                <Label Name="DexterityModLabel" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0"
+                       VerticalAlignment="Top" Width="35" IsEnabled="False"/>
+            </UniformGrid>
+
+            <UniformGrid Margin="10,0,0,0" Columns="4">
+                <Label Content="Con" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBox Name="ConstitutionScoreTextBox" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" TextWrapping="Wrap" Text="13" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"/>
+                <Label Name="ConstitutionRacialLabel" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" Content="0" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
+                <Label Name="ConstitutionModLabel" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
+            </UniformGrid>
+
+            <UniformGrid Margin="10,0,0,0" Columns="4">
+                <Label Content="Int" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBox Name="IntelligenceScoreTextBox" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" TextWrapping="Wrap" Text="12" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"/>
+                <Label Name="IntelligenceRacialLabel" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" Content="0" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
+                <Label Name="IntelligenceModLabel" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
+            </UniformGrid>
+
+            <UniformGrid Margin="10,0,0,0" Columns="4">
+                <Label Content="Wis" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBox Name="WisdomScoreTextBox" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"/>
+                <Label Name="WisdomRacialLabel" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" Content="0" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
+                <Label Name="WisdomModLabel" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
+            </UniformGrid>
+
+            <UniformGrid Margin="10,0,0,0" Columns="4">
+                <Label Content="Char" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBox Name="CharismaScoreTextBox" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="35" TextChanged="ScoreTextBox_OnChange" MaxLength="2"/>
+                <Label Name="CharismaRacialLabel" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" Content="0" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
+                <Label Name="CharismaModLabel" HorizontalAlignment="Left" Height="23" Margin="5,0,0,0" VerticalAlignment="Top" Width="35" IsEnabled="False"/>
+            </UniformGrid>
         </StackPanel>
         <StackPanel>
-            <Label Content="AC" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Name="AcTextBox" TextWrapping="Wrap"/>
-            <Label Content="Size" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Name="SizeTextBox" TextWrapping="Wrap"/>
-            <Label Content="Speed" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Name="SpeedTextBox" TextWrapping="Wrap"/>
-            <Label Content="Initiative" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Name="InitiativeTextBox" TextWrapping="Wrap"/>
-            <Label Content="Armor Proficiencies" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="AC: " HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Name="AcLabel" Content="" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Size" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Name="SizeLabel"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Speed" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Name="SpeedLabel"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Initiative" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Name="InitiativeLabel" />
+            </StackPanel>
+
+            <Label Content="Armor Proficiencies" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <ListBox Name="ArmorProfListBox" Height="87"/>
-            <Label Content="Equipped Armor" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Name="EquippedArmorTextBox" TextWrapping="Wrap"/>
-            <Label Content="Skill Proficiencies" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <ListBox Name="SkillProfListBox" Height="87"/>
+            <Label Content="Equipped Armor" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Name="EquippedLabel" Content=""/>
         </StackPanel>
         <StackPanel>
-            <Label Content="Hit Points" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Name="HpTextBox" TextWrapping="Wrap"/>
-            <Label Content="Hit Dice" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-            <TextBox Name="HdTextBox" TextWrapping="Wrap"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Name="HpLabel"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Hit Dice" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Name="HdLabel"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel>
+            <Label Content="Available Skill Proficiencies"/>
+            <ListBox Name="AvailableSkillListBox" SelectionChanged="SkillProfListBox_OnSelectionChanged"/>
+            <Label Content="Chosen Skill Proficiencies" />
+            <ListBox Name="ChosenSkillListBox"/>
         </StackPanel>
     </UniformGrid>
 </Window>

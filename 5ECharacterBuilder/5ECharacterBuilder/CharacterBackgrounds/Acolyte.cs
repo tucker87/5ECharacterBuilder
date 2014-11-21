@@ -4,10 +4,10 @@
     {
         public Acolyte(ICharacter character) : base(character)
         {
-           Skills.Available.Add(_5ECharacterBuilder.AvailableSkill.Insight);
-           Skills.Available.Add(_5ECharacterBuilder.AvailableSkill.Religion);
-           Skills.Chosen.Add(_5ECharacterBuilder.AvailableSkill.Insight);
-           Skills.Chosen.Add(_5ECharacterBuilder.AvailableSkill.Religion);
+            Skills.Chosen.Add(AvailableSkill.Insight);
+            Skills.Chosen.Add(AvailableSkill.Religion);
+
+            Skills.Max += 2;
 
             Languages.Max += 2;
         }

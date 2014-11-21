@@ -2,20 +2,15 @@
 
 namespace _5ECharacterBuilder
 {
-    public class RequirementsExpection : Exception
+    public class RequirementsExpection : Exception { }
+
+    public class TooManySkillsException : Exception
     {
-        public RequirementsExpection()
-        {
-        }
+        public TooManySkillsException(AvailableSkill chosenSkill) : base("" + chosenSkill) { }
+    }
 
-        public RequirementsExpection(string message)
-            : base(message)
-        {
-        }
-
-        public RequirementsExpection(string message, Exception inner)
-            : base(message, inner)
-        {
-        }
+    public class SkillNotAvailableException : Exception
+    {
+        public SkillNotAvailableException(AvailableSkill chosenSkill) : base("" + chosenSkill) { }
     }
 }

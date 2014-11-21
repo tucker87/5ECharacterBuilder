@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace _5ECharacterBuilder
@@ -15,7 +16,7 @@ namespace _5ECharacterBuilder
         Currency Currency { get; }
         Armor EquippedArmor { get; }
         bool HasShield { get; }
-        List<int> HitDice { get; }
+        HitDice HitDice { get; }
         int Initiative { get; }
         Proficiencies<AvailableInstrument> Instruments { get; }
         int Level { get; }
@@ -52,8 +53,9 @@ namespace _5ECharacterBuilder
         void ChooseExpertise(AvailableTool tool);
         int ClassLevel(string className);
         int SkillBonus(AvailableSkill skill);
+        void LevelUp(AvailableClasses cclass);
     }
-    
+
     class CharacterBase : ICharacter
     {
         public CharacterBase(CharacterAbilityScores abilityScores = null, string name = "")
@@ -77,7 +79,7 @@ namespace _5ECharacterBuilder
             SavingThrows = new SortedSet<SavingThrow>(new List<SavingThrow>());
             SpellcastingClasses = new SortedSet<SpellcastingClass>();
             Features = new CharacterFeatures();
-            HitDice = new List<int>(new int[0]);
+            HitDice = new HitDice();
             Currency = new Currency();
             Classes = new List<string>();
         }
@@ -94,11 +96,11 @@ namespace _5ECharacterBuilder
         public Currency Currency { get; private set; }
         public Armor EquippedArmor { get; private set; }
         public bool HasShield { get; private set; }
-        public List<int> HitDice { get; private set; }
+        public HitDice HitDice { get; private set; }
         public int Initiative { get; private set; }
         public Proficiencies<AvailableInstrument> Instruments { get; private set; }
         public int Level { get { return Classes.Count; } }
-        public int MaxHp { get { return CalculateMaxHp(HitDice, Abilities.Constitution.Modifier); } }
+        public int MaxHp { get { return CalculateMaxHp(); } }
         public string Name { get; private set; }
 
         public int ProficiencyBonus
@@ -162,8 +164,13 @@ namespace _5ECharacterBuilder
 
         public void ChooseSkill(AvailableSkill chosenSkill)
         {
-            if (Skills.Available.Contains(chosenSkill) && Skills.Chosen.Count < Skills.Max)
-                Skills.Chosen.Add(chosenSkill);
+            if (Skills.Available.Contains(chosenSkill))
+                if (Skills.Chosen.Count < Skills.Max)
+                    Skills.Chosen.Add(chosenSkill);
+                else
+                    throw new TooManySkillsException(chosenSkill);
+            else
+                throw new SkillNotAvailableException(chosenSkill);
         }
 
         public void LearnTool(AvailableTool chosenTool)
@@ -221,6 +228,11 @@ namespace _5ECharacterBuilder
             return abilityMod + profBonus;
         }
 
+        public void LevelUp(AvailableClasses cclass)
+        {
+            CharacterFactory.LevelUp(this, cclass);
+        }
+
         private static int GetArmorClassBonus(Armor armor, int dex)
         {
             if (armor.MaxDexBonus == -1)
@@ -232,9 +244,10 @@ namespace _5ECharacterBuilder
             return armor.BaseArmor + dex;
         }
 
-        private static int CalculateMaxHp(List<int> hitDice, int constitutionMod)
+        private int CalculateMaxHp()
         {
-            return hitDice[0] + hitDice.GetRange(1, hitDice.Count - 1).Sum(hitDie => (hitDie / 2) + 1) + constitutionMod;
+            var halfDie = HitDice.List.GetRange(1, HitDice.List.Count - 1).Sum(hitDie => (hitDie/2) + 1);
+            return HitDice[0] + halfDie + Abilities.Constitution.Modifier;
         }
     }
 }

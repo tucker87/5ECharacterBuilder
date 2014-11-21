@@ -77,7 +77,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void RoguesCanChoose4SkillsFromTheirList()
         {
-            Assert.AreEqual(2, _rogue.Skills.Max - _rogue.Skills.Chosen.Count);
+            Assert.AreEqual(4, _rogue.Skills.Max - _rogue.Skills.Chosen.Count);
 
             Assert.IsTrue(_rogue.Skills.Available.Contains(AvailableSkill.Acrobatics));
             Assert.IsTrue(_rogue.Skills.Available.Contains(AvailableSkill.Athletics));

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -126,5 +127,31 @@ namespace _5ECharacterBuilder
         public int Second { get; internal set; }
         public int Third { get; internal set; }
         public int Fourth { get; internal set; }
+    }
+
+    public class HitDice : IEnumerable
+    {
+        public HitDice() { List = new List<int>(); }
+
+        public List<int> List { get; set; } 
+        
+        public void Add(int hitDice) { List.Add(hitDice); }
+        public int Count { get { return List.Count(); } }
+        public int First() { return List.First(); }
+        public int Last() { return List.Last(); }
+        public int this[int i] { get { return List[i]; } }
+        public IEnumerator GetEnumerator() { return List.GetEnumerator(); }
+
+        public override string ToString()
+        {
+            var dice = new Dictionary<int, int>();
+            foreach (var hitDie in List)
+                if (dice.ContainsKey(hitDie))
+                    dice[hitDie]++;
+                else
+                    dice.Add(hitDie, 1);
+
+            return dice.Aggregate("", (current, die) => current + string.Format("{0}d{1} ", die.Value, die.Key).Trim());
+        }
     }
 }

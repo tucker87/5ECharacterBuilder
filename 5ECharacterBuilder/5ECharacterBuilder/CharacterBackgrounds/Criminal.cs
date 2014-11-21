@@ -4,9 +4,6 @@
     {
         public Criminal(ICharacter character) : base(character)
         {
-            Skills.Available.Add(AvailableSkill.Deception);
-            Skills.Available.Add(AvailableSkill.Stealth);
-
             Skills.Chosen.Add(AvailableSkill.Deception);
             Skills.Chosen.Add(AvailableSkill.Stealth);
 

@@ -44,9 +44,7 @@ namespace SimpleExampleFrontEnd
         private static void WriteCharacter(ICharacter character)
         {
             Console.WriteLine(character.Race + "," + character.ClassesString + ", " + character.Background);
-            Console.Write("Hit Dice:");
-            foreach (var hitDie in character.HitDice)
-                Console.Write(" 1d" + hitDie);
+            Console.Write("Hit Dice: {0}", character.HitDice);
 
             Console.WriteLine();
             Console.WriteLine("Hit Points: " + character.MaxHp);

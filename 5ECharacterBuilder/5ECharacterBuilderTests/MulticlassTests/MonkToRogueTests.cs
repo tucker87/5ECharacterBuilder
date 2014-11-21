@@ -51,7 +51,7 @@ namespace _5ECharacterBuilderTests.MulticlassTests
             foreach (var armor in Armory.LightArmor)
                 Assert.IsTrue(_multiclass.ArmorProficiencies.Contains(armor));
 
-            Assert.AreEqual(3, _multiclass.Skills.Max);
+            Assert.AreEqual(5, _multiclass.Skills.Max);
 
             Assert.IsTrue(_multiclass.Tools.Available.Contains(AvailableTool.ThievesTools));
             Assert.IsTrue(_multiclass.Tools.Chosen.Contains(AvailableTool.ThievesTools));

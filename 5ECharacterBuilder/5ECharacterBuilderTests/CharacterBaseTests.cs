@@ -44,6 +44,14 @@ namespace _5ECharacterBuilderTests
         }
 
         [TestMethod]
+        public void CharactersHitDiceIsOutputProperly()
+        {
+            Assert.AreEqual("1d8", "" +_character.HitDice);
+            CharacterFactory.LevelUp(_character, AvailableClasses.Monk);
+            Assert.AreEqual("2d8", "" + _character.HitDice);
+        }
+
+        [TestMethod]
         public void Level1CharactersHaveAProficiencyBonusOf2()
         {
             Assert.AreEqual(2, _character.ProficiencyBonus);
