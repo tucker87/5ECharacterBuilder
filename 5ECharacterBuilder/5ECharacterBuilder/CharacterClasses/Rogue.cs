@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace _5ECharacterBuilder.CharacterClasses
@@ -118,7 +119,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         {
             get
             {
-                var tools = base.Tools;
+                var tools = new Tools(base.Tools);
                 tools.Available.Add(AvailableTool.ThievesTools);
                 tools.Chosen.Add(AvailableTool.ThievesTools);
                 if (ClassPath.Chosen == AvailablePaths.Assassin)

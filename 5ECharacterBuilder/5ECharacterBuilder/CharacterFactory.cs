@@ -52,11 +52,17 @@ namespace _5ECharacterBuilder
             var characterClasses = currentAssembly.GetTypes()
                 .First(
                     t => typeof (CharacterClass).IsAssignableFrom(t) && t.Name == characterAvailableClass.ToString());
-
-            character = (ICharacter) Activator.CreateInstance(characterClasses,
-                BindingFlags.OptionalParamBinding,
-                null, new object[] {character}, null);
-
+            try
+            {
+                character = (ICharacter) Activator.CreateInstance(characterClasses,
+                    BindingFlags.OptionalParamBinding,
+                    null, new object[] {character}, null);
+            }
+            catch (TargetInvocationException ex)
+            {
+                if (ex.InnerException.GetType() == typeof (RequirementsExpection))
+                    throw ex.InnerException;
+            }
             return character;
         }
 

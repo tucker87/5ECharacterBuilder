@@ -39,6 +39,14 @@ namespace _5ECharacterBuilder
             Chosen = new SortedSet<AvailableTool>();
             Expertise = new SortedSet<AvailableTool>();
         }
+
+        public Tools(Tools tools)
+        {
+            Available = tools.Available;
+            Chosen = tools.Chosen;
+            Expertise = tools.Expertise;
+            Max = tools.Max;
+        }
         public SortedSet<AvailableTool> Available { get; internal set; }
         public SortedSet<AvailableTool> Chosen { get; internal set; }
         public SortedSet<AvailableTool> Expertise { get; internal set; }

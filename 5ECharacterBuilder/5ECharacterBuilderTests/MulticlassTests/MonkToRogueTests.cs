@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using _5ECharacterBuilder;
 
@@ -18,23 +19,11 @@ namespace _5ECharacterBuilderTests.MulticlassTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(RequirementsExpection))]
         public void CannotMulticlassMonkWithout13Dex()
         {
             var monk = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Acolyte);
-            try
-            {
-                CharacterFactory.LevelUp(monk, AvailableClasses.Rogue);
-            }
-            catch (Exception ex)
-            {
-                
-                Assert.IsInstanceOfType(ex, typeof (RequirementsExpection));
-                throw ex;
-            }
-                
-            Assert.IsFalse(monk.Classes.Contains("Rogue"));
-            Assert.AreEqual(1, monk.Level);
+            CharacterFactory.LevelUp(monk, AvailableClasses.Rogue);
         }
 
         [TestMethod]
