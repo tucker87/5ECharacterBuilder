@@ -227,6 +227,13 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         }
 
         [TestMethod]
+        public void FeaturesAreAddedEvenIfLevelIsSkipped()
+        {
+            TestingUtility.LevelTo(_rogue, 2, AvailableClasses.Rogue);
+            Assert.IsTrue(_rogue.Features.AllFeatures.ContainsKey("Thieves' Cant"));
+        }
+
+        [TestMethod]
         public void RoguesGetCunningActionAtLevel2()
         {
             TestingUtility.LevelTo(_rogue, 2, AvailableClasses.Rogue);

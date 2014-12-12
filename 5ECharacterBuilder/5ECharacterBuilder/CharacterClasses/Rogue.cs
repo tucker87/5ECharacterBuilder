@@ -104,41 +104,39 @@ namespace _5ECharacterBuilder.CharacterClasses
                 var features = base.Features;
                 var classLevel = ClassLevel(Class);
 
-                var classFeatures = new Dictionary<string, string>(features.ClassFeatures);
-                switch (classLevel)
-                {
-                    case 1:
-                        classFeatures.Add(GetClassFeature("Expertise"));
-                        classFeatures.Add(GetClassFeature("Sneak Attack"));
-                        classFeatures.Add(GetClassFeature("Thieves' Cant"));
-                        break;
-                    case 2:
-                        classFeatures.Add(GetClassFeature("Cunning Action"));
-                        break;
-                    case 5:
-                        classFeatures.Add(GetClassFeature("Uncanny Dodge"));
-                        break;
-                    case 7:
-                        classFeatures.Add(GetClassFeature("Evasion"));
-                        break;
-                    case 11:
-                        classFeatures.Add(GetClassFeature("Reliable Talent"));
-                        break;
-                    case 14:
-                        classFeatures.Add(GetClassFeature("Blindsense"));
-                        break;
-                    case 15:
-                        classFeatures.Add(GetClassFeature("Slippery Mind"));
-                        break;
-                    case 18:
-                        classFeatures.Add(GetClassFeature("Elusive"));
-                        break;
-                    case 20:
-                        classFeatures.Add(GetClassFeature("Stroke Of Luck"));
-                        break;
-                }
+                var classFeatures = new Dictionary<string, string>();
 
-                var classPathFeatures = new Dictionary<string, string>(features.ClassPathFeatures);
+                classFeatures.Add(GetClassFeature("Expertise"));
+                classFeatures.Add(GetClassFeature("Sneak Attack"));
+                classFeatures.Add(GetClassFeature("Thieves' Cant"));
+
+                if (classLevel >= 2)
+                    classFeatures.Add(GetClassFeature("Cunning Action"));
+                        
+                if (classLevel >= 5)
+                    classFeatures.Add(GetClassFeature("Uncanny Dodge"));
+                        
+                if (classLevel >= 7)
+                    classFeatures.Add(GetClassFeature("Evasion"));
+                        
+                if (classLevel >= 11)
+                    classFeatures.Add(GetClassFeature("Reliable Talent"));
+
+                if (classLevel >= 14)
+                    classFeatures.Add(GetClassFeature("Blindsense"));
+                    
+                if (classLevel >= 15)
+                    classFeatures.Add(GetClassFeature("Slippery Mind"));
+                        
+                if (classLevel >= 18)
+                    classFeatures.Add(GetClassFeature("Elusive"));
+                        
+                if (classLevel >= 20)
+                    classFeatures.Add(GetClassFeature("Stroke Of Luck"));
+
+                features.ClassFeatures = classFeatures.UnionDictionary(features.ClassFeatures);
+
+                var classPathFeatures = new Dictionary<string, string>();
                 if (ClassPath.Chosen != null)
                 {
                     if (ClassPath.Chosen == AvailablePaths.Thief)
@@ -181,8 +179,7 @@ namespace _5ECharacterBuilder.CharacterClasses
                             classPathFeatures.Add("Spell Thief", CharacterData.RogueFeatures["Spell Thief"]);
                     }
                 }
-                features.ClassFeatures = classFeatures;
-                features.ClassPathFeatures = classPathFeatures;
+                features.ClassPathFeatures = classPathFeatures.UnionDictionary(features.ClassPathFeatures);
                 return features;
             }
         }

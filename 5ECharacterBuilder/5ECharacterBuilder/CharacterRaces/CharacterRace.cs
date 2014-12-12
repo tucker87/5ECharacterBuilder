@@ -32,12 +32,11 @@ namespace _5ECharacterBuilder.CharacterRaces
         public SortedSet<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
         public SortedSet<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public CharacterFeatures Features { get { return _character.Features; } }
-        public int KiPoints { get { return _character.KiPoints; } }
         public int MartialArts { get { return _character.MartialArts; } }
         public int AttacksPerTurn { get { return _character.AttacksPerTurn; } }
         public int SneakAttackDice { get { return _character.SneakAttackDice; } }
         public SortedSet<SpellcastingClass> SpellcastingClasses { get { return _character.SpellcastingClasses; } }
-
+        public ClassTraits ClassTraits { get { return _character.ClassTraits; } }
         public virtual string Size { get { return "Medium"; } }
 
         public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }

@@ -75,8 +75,34 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void MonksGetUnarmoredDefenseAndMartialArtsAtFirstLevel()
         {
-            Assert.IsTrue(_monk.Features.ClassFeatures.ContainsKey("Unarmored Defense"));
+            Assert.IsTrue(_monk.Features.ClassFeatures.ContainsKey("Monk Unarmored Defense"));
             Assert.IsTrue(_monk.Features.ClassFeatures.ContainsKey("Martial Arts"));
+        }
+
+        [TestMethod]
+        public void MonksUnarmoredDefenseIs10PlusDexPlusWis()
+        {
+            _monk.Abilities.Dexterity.Score = 13;
+            _monk.Abilities.Wisdom.Score = 13;
+            Assert.AreEqual(14, _monk.ArmorClass);
+        }
+
+        [TestMethod]
+        public void MonksLoseUnarmoredDefenseWhenWearingArmor()
+        {
+            _monk.Abilities.Dexterity.Score = 13;
+            _monk.Abilities.Wisdom.Score = 13;
+            _monk.EquipArmor(AvailableArmor.Leather);
+            Assert.AreEqual(13, _monk.ArmorClass);
+        }
+
+        [TestMethod]
+        public void MonksLoseUnarmoredDefenseWhenWearingAShield()
+        {
+            _monk.Abilities.Dexterity.Score = 13;
+            _monk.Abilities.Wisdom.Score = 13;
+            _monk.ToggleShield();
+            Assert.AreEqual(14, _monk.ArmorClass);
         }
 
         [TestMethod]
@@ -88,11 +114,11 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void MonksGetOneKiPointPerLevelWhileTheyHaveKi()
         {
-            Assert.AreEqual(0, _monk.KiPoints);
+            Assert.AreEqual(0, _monk.ClassTraits.KiPoints);
             for (var i = 2; i <= 20; i++)
             {
                 CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
-                Assert.AreEqual(i, _monk.KiPoints);
+                Assert.AreEqual(i, _monk.ClassTraits.KiPoints);
             }
         }
 
@@ -317,12 +343,17 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void MonksGetAnExtraAttackAtLevel5()
         {
-            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Extra Attack"));
-            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Stunning Strike"));
             Assert.AreEqual(1, _monk.AttacksPerTurn);
             TestingUtility.LevelTo(_monk, 5, AvailableClasses.Monk);
             Assert.AreEqual(2, _monk.AttacksPerTurn);
-            Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Extra Attack"));
+            
+        }
+
+        [TestMethod]
+        public void MonksGetStunningStrikeAtLevel5()
+        {
+            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Stunning Strike"));
+            TestingUtility.LevelTo(_monk, 5, AvailableClasses.Monk);
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Stunning Strike"));
         }
 

@@ -60,7 +60,9 @@
     public enum AvailablePaths { WayOfTheOpenHand, WayOfShadow, WayOfTheFourElements,
         Thief,
         Assassin,
-        ArcaneTrickster
+        ArcaneTrickster,
+        PathOfTheBerserker,
+        PathOfTheTotemWarrior
     }
     public enum SavingThrow { Strength, Constitution, Dexterity, Intelligence, Wisdom, Charisma }
 }

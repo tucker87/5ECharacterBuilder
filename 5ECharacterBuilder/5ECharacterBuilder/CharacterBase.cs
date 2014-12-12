@@ -32,11 +32,11 @@ namespace _5ECharacterBuilder
         Tools Tools { get; }
         SortedSet<AvailableWeapon> WeaponProficiencies { get; }
         CharacterFeatures Features { get; }
-        int KiPoints { get; }
         int MartialArts { get; }
         int AttacksPerTurn { get; }
         int SneakAttackDice { get; }
         SortedSet<SpellcastingClass> SpellcastingClasses { get; }
+        ClassTraits ClassTraits { get; }
 
 
         void EquipArmor(AvailableArmor armor);
@@ -83,6 +83,7 @@ namespace _5ECharacterBuilder
             HitDice = new HitDice();
             Currency = new Currency();
             Classes = new List<string>();
+            ClassTraits = new ClassTraits();
         }
 
         private int ShieldBonus { get { return HasShield ? 2 : 0; } }
@@ -133,11 +134,11 @@ namespace _5ECharacterBuilder
         public Tools Tools { get; private set; }
         public SortedSet<AvailableWeapon> WeaponProficiencies { get; private set; }
         public CharacterFeatures Features { get; private set; }
-        public int KiPoints { get; private set; }
         public int MartialArts { get; private set; }
         public int AttacksPerTurn { get; private set; }
         public int SneakAttackDice { get; private set; }
         public SortedSet<SpellcastingClass> SpellcastingClasses { get; private set; }
+        public ClassTraits ClassTraits { get; private set; }
 
         public void EquipArmor(AvailableArmor armor) { EquippedArmor = Armory.GetArmor(armor); }
 

@@ -181,7 +181,12 @@ namespace _5ECharacterBuilder
 
             return dice.Aggregate("", (current, die) => current + string.Format("{0}d{1} ", die.Value, die.Key).Trim());
         }
+    }
 
-        
+    public class ClassTraits
+    {
+        public int RagesPerDay { get; internal set; }
+        public int KiPoints { get; internal set; }
+        public int RageDamage { get; internal set; }
     }
 }

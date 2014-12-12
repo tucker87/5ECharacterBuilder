@@ -4,7 +4,7 @@ namespace _5ECharacterBuilder.CharacterClasses
 {
     sealed class Monk : CharacterClass
     {
-        private const string Class = "Monk";
+        public const string Class = "Monk";
 
         public Monk(ICharacter character) : base(character)
         {
@@ -51,55 +51,56 @@ namespace _5ECharacterBuilder.CharacterClasses
             {
                 var features = base.Features;
                 var classLevel = ClassLevel(Class);
-                var classFeatures = new Dictionary<string, string>(features.ClassFeatures);
-                switch (classLevel)
-                {
-                    case 1:
-                        classFeatures.Add(GetClassFeature("Unarmored Defense"));
-                        classFeatures.Add(GetClassFeature("Martial Arts"));
-                        break;
-                    case 2:
-                        classFeatures.Add(GetClassFeature("Ki"));
-                        classFeatures.Add(GetClassFeature("Unarmored Movement"));
-                        break;
-                    case 3:
-                        classFeatures.Add(GetClassFeature("Deflect Missiles"));
-                        break;
-                    case 4:
-                        classFeatures.Add(GetClassFeature("Slow Fall"));
-                        break;
-                    case 5:
-                        classFeatures.Add(GetClassFeature("Extra Attack"));
-                        classFeatures.Add(GetClassFeature("Stunning Strike"));
-                        break;
-                    case 6:
-                        classFeatures.Add(GetClassFeature("Ki-Empowered Strikes"));
-                        break;
-                    case 7:
-                        classFeatures.Add(GetClassFeature("Evasion"));
-                        classFeatures.Add(GetClassFeature("Stillness Of Mind"));
-                        break;
-                    case 10:
-                        classFeatures.Add(GetClassFeature("Purity Of Body"));
-                        break;
-                    case 13:
-                        classFeatures.Add(GetClassFeature("Tounge Of The Sun And Moon"));
-                        break;
-                    case 14:
-                        classFeatures.Add(GetClassFeature("Diamond Soul"));
-                        break;
-                    case 15:
-                        classFeatures.Add(GetClassFeature("Timeless Body"));
-                        break;
-                    case 18:
-                        classFeatures.Add(GetClassFeature("Empty Body"));
-                        break;
-                    case 20:
-                        classFeatures.Add(GetClassFeature("Perfect Self"));
-                        break;
-                }
+                var classFeatures = new Dictionary<string, string>();
 
-                var classPathFeatures = new Dictionary<string, string>(features.ClassPathFeatures);
+                classFeatures.Add(GetClassFeature("Monk Unarmored Defense"));
+                classFeatures.Add(GetClassFeature("Martial Arts"));
+
+                if (classLevel >= 2)
+                {
+                    classFeatures.Add(GetClassFeature("Ki"));
+                    classFeatures.Add(GetClassFeature("Unarmored Movement"));
+                }
+                if (classLevel >= 3)
+                    classFeatures.Add(GetClassFeature("Deflect Missiles"));
+
+                if (classLevel >= 4)
+                    classFeatures.Add(GetClassFeature("Slow Fall"));
+
+                if (classLevel >= 5)
+                {
+                    classFeatures.Add(GetClassFeature("Extra Attack"));
+                    classFeatures.Add(GetClassFeature("Stunning Strike"));
+                }
+                if (classLevel >= 6)
+                    classFeatures.Add(GetClassFeature("Ki-Empowered Strikes"));
+
+                if (classLevel >= 7)
+                {
+                    classFeatures.Add(GetClassFeature("Evasion"));
+                    classFeatures.Add(GetClassFeature("Stillness Of Mind"));
+                }
+                if (classLevel >= 10)
+                    classFeatures.Add(GetClassFeature("Purity Of Body"));
+                        
+                if (classLevel >= 13)
+                    classFeatures.Add(GetClassFeature("Tounge Of The Sun And Moon"));
+                        
+                if (classLevel >= 14)
+                    classFeatures.Add(GetClassFeature("Diamond Soul"));
+                        
+                if (classLevel >= 15)
+                    classFeatures.Add(GetClassFeature("Timeless Body"));
+                        
+                if (classLevel >= 18)
+                    classFeatures.Add(GetClassFeature("Empty Body"));
+                        
+                if (classLevel >= 20)
+                    classFeatures.Add(GetClassFeature("Perfect Self"));
+
+                features.ClassFeatures = classFeatures.UnionDictionary(features.ClassFeatures);
+
+                var classPathFeatures = new Dictionary<string, string>();
                 if (ClassPath.Chosen != null)
                 {
                     if (ClassPath.Chosen == AvailablePaths.WayOfTheOpenHand)
@@ -130,9 +131,7 @@ namespace _5ECharacterBuilder.CharacterClasses
                     if (ClassPath.Chosen == AvailablePaths.WayOfTheFourElements)
                         classPathFeatures.Add(GetClassFeature("Disciple Of The Elements"));
                 }
-
-                features.ClassFeatures = classFeatures;
-                features.ClassPathFeatures = classPathFeatures;
+                features.ClassPathFeatures = classPathFeatures.UnionDictionary(features.ClassPathFeatures);
                 return features;
             }
         }
@@ -160,18 +159,20 @@ namespace _5ECharacterBuilder.CharacterClasses
         {
             get
             {
-                if (Level + 1 >= 5)
+                if (ClassLevel(Class) + 1 >= 5)
                     return base.AttacksPerTurn + 1;
 
                 return base.AttacksPerTurn;
             }
         }
 
-        public override int KiPoints 
+        public override ClassTraits ClassTraits
         {
             get
             {
-                return Level >= 2 ? Level : base.KiPoints;
+                var classTraits = base.ClassTraits;
+                classTraits.KiPoints = Level >= 2 ? Level : classTraits.KiPoints;
+                return classTraits;
             }
         }
 
@@ -179,13 +180,14 @@ namespace _5ECharacterBuilder.CharacterClasses
         {
             get
             {
-                if (Level >= 17)
+                var classLevel = ClassLevel(Class);
+                if (classLevel >= 17)
                     return 10;
 
-                if (Level >= 11)
+                if (classLevel >= 11)
                     return 8;
 
-                if (Level >= 5)
+                if (classLevel >= 5)
                     return 6;
 
                 return 4;
@@ -213,15 +215,21 @@ namespace _5ECharacterBuilder.CharacterClasses
         {
             get
             {
-                if (Level >= 18)
+                var classLevel = ClassLevel(Class);
+
+                if (classLevel >= 18)
                     return base.Speed + 30;
-                if (Level >= 14)
+
+                if (classLevel >= 14)
                     return base.Speed + 25;
-                if (Level >= 10)
+
+                if (classLevel >= 10)
                     return base.Speed + 20;
-                if (Level >= 6)
+
+                if (classLevel >= 6)
                     return base.Speed + 15;
-                if (Level >= 2)
+
+                if (classLevel >= 2)
                     return base.Speed + 10;
 
                 return base.Speed;

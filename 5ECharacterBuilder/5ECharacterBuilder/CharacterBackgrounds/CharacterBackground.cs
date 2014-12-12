@@ -33,11 +33,11 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         public SortedSet<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public string Size { get { return _character.Size; } }
         public CharacterFeatures Features { get { return _character.Features; } }
-        public int KiPoints { get { return _character.KiPoints; } }
         public int MartialArts { get { return _character.MartialArts; } }
         public int AttacksPerTurn { get { return _character.AttacksPerTurn; } }
         public int SneakAttackDice { get { return _character.SneakAttackDice; } }
         public SortedSet<SpellcastingClass> SpellcastingClasses { get { return _character.SpellcastingClasses; } }
+        public ClassTraits ClassTraits { get { return _character.ClassTraits; } }
 
         public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }
         public void SetAttributes(CharacterAbilities characterAbilities) { _character.SetAttributes(characterAbilities); }

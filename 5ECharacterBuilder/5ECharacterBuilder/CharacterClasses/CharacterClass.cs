@@ -48,11 +48,11 @@ namespace _5ECharacterBuilder.CharacterClasses
         public SortedSet<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
         public string Size { get { return _character.Size; } }
         public virtual CharacterFeatures Features { get { return _character.Features; } }
-        public virtual int KiPoints { get { return _character.KiPoints; } }
         public virtual int MartialArts { get { return _character.MartialArts; } }
         public virtual int AttacksPerTurn { get { return _character.AttacksPerTurn; } }
         public virtual int SneakAttackDice { get { return _character.SneakAttackDice; } }
         public virtual SortedSet<SpellcastingClass> SpellcastingClasses { get { return _character.SpellcastingClasses; } }
+        public virtual ClassTraits ClassTraits { get { return _character.ClassTraits; } }
 
         public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }
         public void SetAttributes(CharacterAbilities characterAbilities) { _character.SetAttributes(characterAbilities); }
