@@ -64,6 +64,16 @@ namespace _5ECharacterBuilder
             Expertise = new SortedSet<AvailableSkill>();
         }
 
+        public Skills(Skills skills)
+        {
+            AllSkills = skills.AllSkills;
+            Available = skills.Available;
+            Chosen = skills.Chosen;
+            Expertise = skills.Expertise;
+            Max = skills.Max;
+            MaxExpertise = skills.MaxExpertise;
+        }
+
         public AvailableSkill[] AllSkills { get; private set; }
         public SortedSet<AvailableSkill> Available { get; internal set; }
         public SortedSet<AvailableSkill> Chosen { get; internal set; }
@@ -72,15 +82,32 @@ namespace _5ECharacterBuilder
         public int MaxExpertise { get; internal set; }
     }
 
-    public class ClassPath
+    public class ClassPath : IEnumerable
     {
         public ClassPath()
         {
             Available = new SortedSet<AvailablePaths>();
         }
 
+        public ClassPath(ClassPath classPath)
+        {
+            Available = classPath.Available;
+            Chosen = classPath.Chosen;
+        }
+
         public SortedSet<AvailablePaths> Available { get; internal set; }
         public AvailablePaths? Chosen { get; internal set; }
+
+        public void Add(AvailablePaths[] paths)
+        {
+            foreach (var path in paths)
+                Available.Add(path);
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return ((IEnumerable) Available).GetEnumerator();
+        }
     }
 
     public class Languages
@@ -139,6 +166,7 @@ namespace _5ECharacterBuilder
         public int Count { get { return List.Count(); } }
         public int First() { return List.First(); }
         public int Last() { return List.Last(); }
+        public void Remove(int index) { List.Remove(index); }
         public int this[int i] { get { return List[i]; } }
         public IEnumerator GetEnumerator() { return List.GetEnumerator(); }
 
@@ -153,5 +181,7 @@ namespace _5ECharacterBuilder
 
             return dice.Aggregate("", (current, die) => current + string.Format("{0}d{1} ", die.Value, die.Key).Trim());
         }
+
+        
     }
 }

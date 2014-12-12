@@ -54,6 +54,7 @@ namespace _5ECharacterBuilder
         int ClassLevel(string className);
         int SkillBonus(AvailableSkill skill);
         void LevelUp(AvailableClasses cclass);
+        void LevelDown();
     }
 
     class CharacterBase : ICharacter
@@ -164,13 +165,7 @@ namespace _5ECharacterBuilder
 
         public void ChooseSkill(AvailableSkill chosenSkill)
         {
-            if (Skills.Available.Contains(chosenSkill))
-                if (Skills.Chosen.Count < Skills.Max)
-                    Skills.Chosen.Add(chosenSkill);
-                else
-                    throw new TooManySkillsException(chosenSkill);
-            else
-                throw new SkillNotAvailableException(chosenSkill);
+            throw new NotImplementedException();
         }
 
         public void LearnTool(AvailableTool chosenTool)
@@ -190,29 +185,22 @@ namespace _5ECharacterBuilder
 
         public void ChosePath(AvailablePaths chosenPath)
         {
-            if (ClassPath.Available.Contains(chosenPath))
-                ClassPath.Chosen = chosenPath;
+            throw new NotImplementedException();
         }
 
-        public void ImproveAbility(string abilityName)
+        public void ImproveAbility(string ability)
         {
-            if (Abilities.ImprovementPoints <= Abilities.SpentAbilityImprovementPoints) return;
-            var ability = (CharacterAbility) Abilities.GetType().GetProperty(abilityName).GetValue(Abilities);
-            ability.ImprovementBonus += 1;
+            throw new NotImplementedException();
         }
 
         public void ChooseExpertise(AvailableSkill skill)
         {
-            if(Skills.Expertise.Count + Tools.Expertise.Count < Skills.MaxExpertise)
-                if(Skills.Chosen.Contains(skill))
-                    Skills.Expertise.Add(skill);
+            throw new NotImplementedException();
         }
 
         public void ChooseExpertise(AvailableTool tool)
         {
-            if (Skills.Expertise.Count + Tools.Expertise.Count < Skills.MaxExpertise)
-                if (Tools.Chosen.Contains(tool))
-                    Tools.Expertise.Add(tool);
+            throw new NotImplementedException();
         }
 
         public int ClassLevel(string className)
@@ -231,6 +219,11 @@ namespace _5ECharacterBuilder
         public void LevelUp(AvailableClasses cclass)
         {
             CharacterFactory.LevelUp(this, cclass);
+        }
+
+        public void LevelDown()
+        {
+            throw new NotImplementedException();
         }
 
         private static int GetArmorClassBonus(Armor armor, int dex)

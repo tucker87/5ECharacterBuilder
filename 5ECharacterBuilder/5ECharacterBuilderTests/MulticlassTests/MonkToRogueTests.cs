@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using _5ECharacterBuilder;
 
 namespace _5ECharacterBuilderTests.MulticlassTests

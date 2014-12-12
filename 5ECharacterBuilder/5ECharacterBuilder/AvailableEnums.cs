@@ -17,7 +17,9 @@
         WoodElf,
         Drow
     }
-    public enum AvailableClasses { Monk, Fighter, Rogue }
+    public enum AvailableClasses { Monk, Fighter, Rogue,
+        Barbarian
+    }
     public enum AvailableBackgrounds { Acolyte, Criminal }
     public enum AvailableArmor { Cloth, Padded, Leather, StuddedLeather, Hide, ChainShirt, ScaleMail, Breastplate, HalfPlate, RingMail, ChainMail, Splint, Plate, Shield }
     public enum AvailableSkill { 

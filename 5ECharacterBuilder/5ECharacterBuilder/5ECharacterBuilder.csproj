@@ -62,6 +62,7 @@
     <Compile Include="CharacterBackgrounds\Criminal.cs" />
     <Compile Include="CharacterBase.cs" />
     <Compile Include="CharacterAbility.cs" />
+    <Compile Include="CharacterClasses\Barbarian.cs" />
     <Compile Include="CharacterClasses\CharacterClass.cs" />
     <Compile Include="CharacterClasses\Fighter.cs" />
     <Compile Include="CharacterClasses\Monk.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="CharacterRaces\Human.cs" />
     <Compile Include="Currency.cs" />
     <Compile Include="CharacterData.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

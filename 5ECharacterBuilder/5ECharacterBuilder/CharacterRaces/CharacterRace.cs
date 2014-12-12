@@ -55,6 +55,8 @@ namespace _5ECharacterBuilder.CharacterRaces
         public int ClassLevel(string className) { return _character.ClassLevel(className); }
         public int SkillBonus(AvailableSkill skill) { return _character.SkillBonus(skill); }
         public void LevelUp(AvailableClasses cclass) { _character.LevelUp(cclass); }
+        public void LevelDown() { _character.LevelDown(); }
+
         internal void AddRaceFeature(string feature) { Features.RaceFeatures.Add(feature, CharacterData.RaceFeatures[feature]); }
     }
 }

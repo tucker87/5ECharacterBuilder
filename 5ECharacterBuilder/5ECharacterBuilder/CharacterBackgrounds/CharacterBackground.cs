@@ -26,7 +26,7 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         public string Race { get { return _character.Race; } }
         public Languages Languages { get { return _character.Languages; } }
         public SortedSet<SavingThrow> SavingThrows { get { return _character.SavingThrows; } }
-        public Skills Skills { get { return _character.Skills; } }
+        public virtual Skills Skills { get { return _character.Skills; } }
         public int Speed { get { return _character.Speed; } }
         public Tools Tools { get { return _character.Tools; } } 
         public SortedSet<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } }
@@ -54,5 +54,6 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         public int ClassLevel(string className) { return _character.ClassLevel(className); }
         public int SkillBonus(AvailableSkill skill) { return _character.SkillBonus(skill); }
         public void LevelUp(AvailableClasses cclass) { _character.LevelUp( cclass); }
+        public void LevelDown() { _character.LevelDown(); }
     }
 }

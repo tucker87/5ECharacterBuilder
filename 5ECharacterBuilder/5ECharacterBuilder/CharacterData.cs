@@ -102,9 +102,20 @@ namespace _5ECharacterBuilder
         {
             get
             {
-                return new Dictionary<string, string>(MonkFeatures).Union(RogueFeatures).Union(GeneralClassFeatures).ToDictionary(k => k.Key, v => v.Value);
+                return new Dictionary<string, string>(MonkFeatures).Union(RogueFeatures).Union(BarbarianFeatures).Union(GeneralClassFeatures).ToDictionary(k => k.Key, v => v.Value);
             }
-        } 
+        }
+
+        public static Dictionary<string, string> BarbarianFeatures
+        {
+            get
+            {
+                return new Dictionary<string, string>
+                {
+                    {"Rage", ""}
+                };
+            }
+        }
 
         public static Dictionary<string,string> MonkFeatures
         {

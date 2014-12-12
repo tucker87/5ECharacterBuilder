@@ -118,18 +118,12 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(TooManySkillsException))]
         public void RouguesCannotChooseMoreExpertiseThanTheyHaveAvailable()
         {
             _rogue.ChooseSkill(AvailableSkill.Acrobatics);
             _rogue.ChooseSkill(AvailableSkill.Athletics);
             _rogue.ChooseSkill(AvailableSkill.Deception);
-            _rogue.ChooseExpertise(AvailableSkill.Acrobatics);
-            _rogue.ChooseExpertise(AvailableSkill.Athletics);
-            _rogue.ChooseExpertise(AvailableSkill.Deception);
-
-            Assert.IsTrue(_rogue.Skills.Expertise.Contains(AvailableSkill.Acrobatics));
-            Assert.IsTrue(_rogue.Skills.Expertise.Contains(AvailableSkill.Athletics));
-            Assert.IsFalse(_rogue.Skills.Expertise.Contains(AvailableSkill.Deception));
         }
 
         [TestMethod]
@@ -513,6 +507,8 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             TestingUtility.LevelTo(_rogue, 3, AvailableClasses.Rogue);
             _rogue.ChosePath(AvailablePaths.ArcaneTrickster);
+            _rogue.Abilities.Dexterity.Score = 13;
+            _rogue.Abilities.Wisdom.Score = 13;
             TestingUtility.LevelTo(_rogue, 4, AvailableClasses.Monk);
             Assert.AreEqual(3, _rogue.SpellcastingClasses.First().MaxCantrips);
             Assert.AreEqual(3, _rogue.SpellcastingClasses.First().MaxSpells);

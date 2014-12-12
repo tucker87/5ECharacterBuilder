@@ -9,15 +9,15 @@ namespace _5ECharacterBuilder
 {
     public class CharacterFactory
     {
-        public static ICharacter BuildACharacter(AvailableRaces selectedAvailableRace, AvailableClasses selectedAvailableClass, AvailableBackgrounds selectedBackground)
+        public static ICharacter BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground)
         {
             GenerateDictionaries();
 
             var currentAssembly = Assembly.GetExecutingAssembly();
             var characterClass = currentAssembly.GetTypes()
-                .First(t => typeof (CharacterClass).IsAssignableFrom(t) && t.Name == selectedAvailableClass.ToString());
+                .First(t => typeof (CharacterClass).IsAssignableFrom(t) && t.Name == selectedClass.ToString());
             var characterRace = currentAssembly.GetTypes()
-                .First(t => typeof(CharacterRace).IsAssignableFrom(t) && t.Name == selectedAvailableRace.ToString());
+                .First(t => typeof(CharacterRace).IsAssignableFrom(t) && t.Name == selectedRace.ToString());
             var characterBackground = currentAssembly.GetTypes()
                 .First(t => typeof(CharacterBackground).IsAssignableFrom(t) && t.Name == selectedBackground.ToString());
             
@@ -37,21 +37,21 @@ namespace _5ECharacterBuilder
         }
 
 
-        public static ICharacter BuildACharacter(AvailableRaces selectedAvailableRace, AvailableClasses selectedAvailableClass, AvailableBackgrounds selectedBackground, int level)
+        public static ICharacter BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground, int level)
         {
-            var character = BuildACharacter(selectedAvailableRace, selectedAvailableClass, selectedBackground);
+            var character = BuildACharacter(selectedRace, selectedClass, selectedBackground);
             for (var l = 1; l < level; l++)
-                character = LevelUp(character, selectedAvailableClass);
+                character = LevelUp(character, selectedClass);
 
             return character;
         }
 
-        public static ICharacter LevelUp(ICharacter character, AvailableClasses characterAvailableClass)
+        public static ICharacter LevelUp(ICharacter character, AvailableClasses characterClass)
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
             var characterClasses = currentAssembly.GetTypes()
                 .First(
-                    t => typeof (CharacterClass).IsAssignableFrom(t) && t.Name == characterAvailableClass.ToString());
+                    t => typeof (CharacterClass).IsAssignableFrom(t) && t.Name == characterClass.ToString());
             try
             {
                 character = (ICharacter) Activator.CreateInstance(characterClasses,
@@ -64,6 +64,11 @@ namespace _5ECharacterBuilder
                     throw ex.InnerException;
             }
             return character;
+        }
+
+        public static void LevelDown(ICharacter character)
+        {
+            character.LevelDown();
         }
 
         private static void GenerateDictionaries()

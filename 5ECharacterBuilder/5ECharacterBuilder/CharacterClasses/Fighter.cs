@@ -2,7 +2,7 @@
 
 namespace _5ECharacterBuilder.CharacterClasses
 {
-    class Fighter : CharacterClass
+    sealed class Fighter : CharacterClass
     {
         public Fighter(ICharacter character) : base(character)
         {

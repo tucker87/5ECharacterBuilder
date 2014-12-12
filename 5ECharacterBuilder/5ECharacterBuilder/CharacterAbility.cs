@@ -61,6 +61,8 @@ namespace _5ECharacterBuilder
             Intelligence = abilities.Intelligence;
             Wisdom = abilities.Wisdom;
             Charisma = abilities.Charisma;
+
+            ImprovementPoints = abilities.ImprovementPoints;
         }
 
         public CharacterAbilities(int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma)

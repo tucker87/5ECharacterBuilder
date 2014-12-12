@@ -3,39 +3,37 @@ using System.Linq;
 
 namespace _5ECharacterBuilder.CharacterClasses
 {
-    class Rogue : CharacterClass
+    sealed class Rogue : CharacterClass
     {
+        private const string Class = "Rogue";
+
         public Rogue(ICharacter character) : base(character)
         {
-            if (IsMulticlassing())
-            {
-                if (MeetsRequirements())
-                {
-                    Skills.Max += 1;
-                }
-                else throw new RequirementsExpection();
-            }
-            else
-            {
-                WeaponProficiencies.UnionWith(Armory.SimpleWeapons);
-                
-                var extraWeapons = new[]
-                {
-                    AvailableWeapon.HandCrossbows,
-                    AvailableWeapon.LongSword,
-                    AvailableWeapon.Rapier,
-                    AvailableWeapon.ShortSword
-                };
 
+            if (IsMulticlassing() && !MeetsRequirements())
+                throw new RequirementsExpection();
+            
+            ArmorProficiencies.UnionWith(Armory.LightArmor);
+            WeaponProficiencies.UnionWith(Armory.SimpleWeapons);
+            
+            
+            var extraWeapons = new[]
+            {
+                AvailableWeapon.HandCrossbows,
+                AvailableWeapon.LongSword,
+                AvailableWeapon.Rapier,
+                AvailableWeapon.ShortSword
+            };
+
+            if (!IsMulticlassing())
+            {
                 WeaponProficiencies.UnionWith(extraWeapons);
 
                 SavingThrows.Add(SavingThrow.Dexterity);
                 SavingThrows.Add(SavingThrow.Intelligence);
-
-                Skills.Max += 4;
             }
 
-            Classes.Add("Rogue");
+            Classes.Add(Class);
             HitDice.Add(8);
 
             Skills.Available.UnionWith(new[]
@@ -52,51 +50,6 @@ namespace _5ECharacterBuilder.CharacterClasses
                     AvailableSkill.SleightOfHand,
                     AvailableSkill.Stealth
                 });
-
-            switch (ClassLevel("Rogue"))
-            {
-                case 1:
-                    ArmorProficiencies.UnionWith(Armory.LightArmor);
-                    AddClassFeature("Expertise");
-                    AddClassFeature("Sneak Attack");
-                    AddClassFeature("Thieves' Cant");
-                    Skills.MaxExpertise += 2;
-                    break;
-                case 2:
-                    AddClassFeature("Cunning Action");
-                    break;
-                case 3:
-                    AddClassPaths(CharacterData.GetRoguePaths());
-                    break;
-                case 5:
-                    AddClassFeature("Uncanny Dodge");
-                    break;
-                case 6:
-                    Skills.MaxExpertise += 2;
-                    break;
-                case 7:
-                    AddClassFeature("Evasion");
-                    break;
-                case 10:
-                    Abilities.ImprovementPoints += 2;
-                    break;
-                case 11:
-                    AddClassFeature("Reliable Talent");
-                    break;
-                case 14:
-                    AddClassFeature("Blindsense");
-                    break;
-                case 15:
-                    AddClassFeature("Slippery Mind");
-                    SavingThrows.Add(SavingThrow.Wisdom);
-                    break;
-                case 18:
-                    AddClassFeature("Elusive");
-                    break;
-                case 20:
-                    AddClassFeature("Stroke Of Luck");
-                    break;
-            }
         }
 
         private bool MeetsRequirements()
@@ -106,12 +59,26 @@ namespace _5ECharacterBuilder.CharacterClasses
 
         private bool IsMulticlassing()
         {
-            return Level > 0 && ClassLevel("Rogue") == 0;
+            if (Classes.Count == 0)
+                return false;
+
+            return Classes.First() != Class;
+        }
+
+        public override CharacterAbilities Abilities
+        {
+            get
+            {
+                var abilities = new CharacterAbilities(base.Abilities);
+                if (Level >= 10)
+                    abilities.ImprovementPoints += 2;
+                return abilities;
+            }
         }
         
         public override int SneakAttackDice
         {
-            get { return ClassLevel("Rogue")/2+1; }
+            get { return ClassLevel(Class)/2+1; }
         }
 
         public override Tools Tools
@@ -135,8 +102,43 @@ namespace _5ECharacterBuilder.CharacterClasses
             get
             {
                 var features = base.Features;
-                var classPathFeatures = new Dictionary<string, string>();
-                var classLevel = ClassLevel("Rogue");
+                var classLevel = ClassLevel(Class);
+
+                var classFeatures = new Dictionary<string, string>(features.ClassFeatures);
+                switch (classLevel)
+                {
+                    case 1:
+                        classFeatures.Add(GetClassFeature("Expertise"));
+                        classFeatures.Add(GetClassFeature("Sneak Attack"));
+                        classFeatures.Add(GetClassFeature("Thieves' Cant"));
+                        break;
+                    case 2:
+                        classFeatures.Add(GetClassFeature("Cunning Action"));
+                        break;
+                    case 5:
+                        classFeatures.Add(GetClassFeature("Uncanny Dodge"));
+                        break;
+                    case 7:
+                        classFeatures.Add(GetClassFeature("Evasion"));
+                        break;
+                    case 11:
+                        classFeatures.Add(GetClassFeature("Reliable Talent"));
+                        break;
+                    case 14:
+                        classFeatures.Add(GetClassFeature("Blindsense"));
+                        break;
+                    case 15:
+                        classFeatures.Add(GetClassFeature("Slippery Mind"));
+                        break;
+                    case 18:
+                        classFeatures.Add(GetClassFeature("Elusive"));
+                        break;
+                    case 20:
+                        classFeatures.Add(GetClassFeature("Stroke Of Luck"));
+                        break;
+                }
+
+                var classPathFeatures = new Dictionary<string, string>(features.ClassPathFeatures);
                 if (ClassPath.Chosen != null)
                 {
                     if (ClassPath.Chosen == AvailablePaths.Thief)
@@ -179,8 +181,47 @@ namespace _5ECharacterBuilder.CharacterClasses
                             classPathFeatures.Add("Spell Thief", CharacterData.RogueFeatures["Spell Thief"]);
                     }
                 }
+                features.ClassFeatures = classFeatures;
                 features.ClassPathFeatures = classPathFeatures;
                 return features;
+            }
+        }
+
+        public override ClassPath ClassPath
+        {
+            get
+            {
+                return ClassLevel(Class) >= 3 ? new ClassPath(base.ClassPath) { CharacterData.GetRoguePaths() } : base.ClassPath;
+            }
+        }
+
+        public override SortedSet<SavingThrow> SavingThrows
+        {
+            get
+            {
+                return ClassLevel(Class) >= 15 ? new SortedSet<SavingThrow>(base.SavingThrows){SavingThrow.Wisdom} : base.SavingThrows;
+            }
+        }
+
+        public override Skills Skills
+        {
+            get
+            {
+                var skills = new Skills(base.Skills);
+                if (ClassLevel(Class) >= 6)
+                    skills.MaxExpertise += 2;
+
+                if (IsMulticlassing())
+                {
+                    skills.Max += 1;
+                }
+                else
+                {
+                    skills.Max += 4;
+                    skills.MaxExpertise += 2;
+                }
+                
+                return skills;
             }
         }
 
@@ -198,7 +239,7 @@ namespace _5ECharacterBuilder.CharacterClasses
                     AttackMod = ProficiencyBonus + Abilities.Intelligence.Modifier
                 };
 
-                var classLevel = ClassLevel("Rogue");
+                var classLevel = ClassLevel(Class);
 
                 if (classLevel >= 3)
                 {

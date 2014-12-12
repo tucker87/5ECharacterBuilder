@@ -153,5 +153,16 @@ namespace _5ECharacterBuilderTests
             _character.Abilities.Dexterity.Score = 12;
             Assert.AreEqual(4, _character.SkillBonus(AvailableSkill.Acrobatics));
         }
+
+        [TestMethod]
+        public void CharactersCanLevelDown()
+        {
+            Assert.AreEqual(1, _character.Level);
+            _character.LevelUp(AvailableClasses.Monk);
+            Assert.AreEqual(2, _character.Level);
+            _character.LevelDown();
+            Assert.AreEqual(1, _character.Level);
+            Assert.IsFalse(_character.Features.AllFeatures.ContainsKey("Ki"));
+        }
     }
 }

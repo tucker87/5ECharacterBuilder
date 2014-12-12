@@ -317,9 +317,13 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [TestMethod]
         public void MonksGetAnExtraAttackAtLevel5()
         {
+            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Extra Attack"));
+            Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Stunning Strike"));
             Assert.AreEqual(1, _monk.AttacksPerTurn);
             TestingUtility.LevelTo(_monk, 5, AvailableClasses.Monk);
             Assert.AreEqual(2, _monk.AttacksPerTurn);
+            Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Extra Attack"));
+            Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Stunning Strike"));
         }
 
         [TestMethod]
