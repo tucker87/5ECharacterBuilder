@@ -7,6 +7,7 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         private readonly ICharacter _character;
         protected CharacterBackground(ICharacter character) { _character = character; }
 
+        public Alignment Alignment { get { return _character.Alignment; } }
         public int ArmorClass { get { return _character.ArmorClass; } }
         public CharacterAbilities Abilities { get { return _character.Abilities; } }
         public virtual string Background { get { return _character.Background; } }
@@ -47,7 +48,7 @@ namespace _5ECharacterBuilder.CharacterBackgrounds
         public void LearnTool(AvailableTool chosenTool) { _character.LearnTool(chosenTool); }
         public void LearnInstrument(AvailableInstrument chosenInstrument) { _character.LearnInstrument(chosenInstrument); }
         public void LearnLanguage(AvailableLanguages chosenLanguage) { _character.LearnLanguage(chosenLanguage); }
-        public void ChosePath(AvailablePaths chosenPath) { _character.ChosePath(chosenPath); }
+        public void ChoosePath(AvailablePaths chosenPath) { _character.ChoosePath(chosenPath); }
         public void ImproveAbility(string ability) { _character.ImproveAbility(ability); }
         public void ChooseExpertise(AvailableSkill skill) { _character.ChooseExpertise(skill); }
         public void ChooseExpertise(AvailableTool tool) { _character.ChooseExpertise(tool); }

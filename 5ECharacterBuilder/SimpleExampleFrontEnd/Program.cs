@@ -97,10 +97,10 @@ namespace SimpleExampleFrontEnd
             
             Console.WriteLine();
             Console.WriteLine("Skill Scores:");
-            Console.WriteLine("Skill\tScore\tChosen\tExpertise");
+            Console.WriteLine("{0,15}|{1,10}|{2,10}|{3,10}", "Skill", "Score", "Chosen", "Expertise");
             foreach (var skill in character.Skills.AllSkills)
             {
-                Console.WriteLine("{0} | {1} | {2} | {3}", skill, character.SkillBonus(skill), character.Skills.Chosen.Contains(skill) ? "*" : "", character.Skills.Expertise.Contains(skill) ? "*" : "");
+                Console.WriteLine("{0,15}|{1,10}|{2,10}|{3,10}", skill, character.SkillBonus(skill), character.Skills.Chosen.Contains(skill) ? "*" : "", character.Skills.Expertise.Contains(skill) ? "*" : "");
             }
 
             Console.WriteLine();

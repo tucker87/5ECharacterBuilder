@@ -6,6 +6,7 @@ namespace _5ECharacterBuilder
 {
     public interface ICharacter
     {
+        Alignment Alignment { get; }
         int ArmorClass { get; }
         SortedSet<AvailableArmor> ArmorProficiencies { get; }
         CharacterAbilities Abilities { get; }
@@ -47,7 +48,7 @@ namespace _5ECharacterBuilder
         void LearnTool(AvailableTool chosenTool);
         void LearnInstrument(AvailableInstrument chosenInstrument);
         void LearnLanguage(AvailableLanguages chosenLanguage);
-        void ChosePath(AvailablePaths chosenPath);
+        void ChoosePath(AvailablePaths chosenPath);
         void ImproveAbility(string ability);
         void ChooseExpertise(AvailableSkill skill);
         void ChooseExpertise(AvailableTool tool);
@@ -67,7 +68,8 @@ namespace _5ECharacterBuilder
             EquipArmor(AvailableArmor.Cloth);
 
             AttacksPerTurn = 1;
-            
+
+            Alignment = new Alignment(AvailableAlignmentFirst.Neutral, AvailableAlignmentSecond.Neutral);
             
             Abilities = new CharacterAbilities(abilityScores);
             ArmorProficiencies = new SortedSet<AvailableArmor>(new List<AvailableArmor>());
@@ -87,6 +89,8 @@ namespace _5ECharacterBuilder
         }
 
         private int ShieldBonus { get { return HasShield ? 2 : 0; } }
+
+        public Alignment Alignment { get; private set; }
 
         public int ArmorClass { get { return GetArmorClassBonus(EquippedArmor, Abilities.Dexterity.Modifier) + ShieldBonus; } }
         public SortedSet<AvailableArmor> ArmorProficiencies { get; private set; }
@@ -184,7 +188,7 @@ namespace _5ECharacterBuilder
             Languages.Chosen.Add(chosenLanguage);
         }
 
-        public void ChosePath(AvailablePaths chosenPath)
+        public void ChoosePath(AvailablePaths chosenPath)
         {
             throw new NotImplementedException();
         }

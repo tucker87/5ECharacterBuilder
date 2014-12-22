@@ -10,7 +10,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         protected CharacterClass(ICharacter character) { _character = character; }
 
         protected CharacterClass() { throw new System.NotImplementedException(); }
-        
+        public Alignment Alignment { get { return _character.Alignment; } }
         public virtual int ArmorClass { get { return _character.ArmorClass; } }
 
         public virtual CharacterAbilities Abilities
@@ -62,7 +62,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         public void LearnInstrument(AvailableInstrument chosenInstrument) { _character.LearnInstrument(chosenInstrument); }
         public void LearnLanguage(AvailableLanguages chosenLanguage) { _character.LearnLanguage(chosenLanguage); }
 
-        public void ChosePath(AvailablePaths chosenPath)
+        public void ChoosePath(AvailablePaths chosenPath)
         {
             if (ClassPath.Available.Contains(chosenPath))
                 _character.ClassPath.Chosen = chosenPath;
@@ -167,5 +167,12 @@ namespace _5ECharacterBuilder.CharacterClasses
             }
         }
 
+        public bool IsMulticlassing(string className)
+        {
+            if (Classes.Count == 0)
+                return false;
+
+            return Classes.First() != className;
+        }
     }
 }

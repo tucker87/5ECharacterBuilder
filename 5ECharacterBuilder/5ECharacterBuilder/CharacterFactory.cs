@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using _5ECharacterBuilder.CharacterBackgrounds;
@@ -44,6 +45,13 @@ namespace _5ECharacterBuilder
                 character = LevelUp(character, selectedClass);
 
             return character;
+        }
+
+        public static ICharacter BuildACharacter(AvailableRaces selectedRace, List<AvailableClasses> selectedClass, AvailableBackgrounds selectedBackground)
+        {
+            var character = BuildACharacter(selectedRace, selectedClass.First(), selectedBackground);
+
+            return selectedClass.Where(availableClass => availableClass != selectedClass.First()).Aggregate(character, LevelUp);
         }
 
         public static ICharacter LevelUp(ICharacter character, AvailableClasses characterClass)

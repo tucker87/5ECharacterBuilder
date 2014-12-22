@@ -208,7 +208,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
 
-            _monk.ChosePath(AvailablePaths.WayOfShadow);
+            _monk.ChoosePath(AvailablePaths.WayOfShadow);
 
             Assert.IsTrue(_monk.ClassPath.Chosen == AvailablePaths.WayOfShadow);
         }
@@ -218,7 +218,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
 
-            _monk.ChosePath(AvailablePaths.WayOfTheOpenHand);
+            _monk.ChoosePath(AvailablePaths.WayOfTheOpenHand);
 
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Open Hand Technique"));
         }
@@ -228,7 +228,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
 
-            _monk.ChosePath(AvailablePaths.WayOfTheOpenHand);
+            _monk.ChoosePath(AvailablePaths.WayOfTheOpenHand);
 
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Wholeness Of Body"));
             TestingUtility.LevelTo(_monk, 6, AvailableClasses.Monk);
@@ -240,7 +240,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
 
-            _monk.ChosePath(AvailablePaths.WayOfTheOpenHand);
+            _monk.ChoosePath(AvailablePaths.WayOfTheOpenHand);
 
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Tranquility"));
             TestingUtility.LevelTo(_monk, 11, AvailableClasses.Monk);
@@ -252,7 +252,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
 
-            _monk.ChosePath(AvailablePaths.WayOfTheOpenHand);
+            _monk.ChoosePath(AvailablePaths.WayOfTheOpenHand);
 
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Quivering Palm"));
             TestingUtility.LevelTo(_monk, 17, AvailableClasses.Monk);
@@ -264,7 +264,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
 
-            _monk.ChosePath(AvailablePaths.WayOfShadow);
+            _monk.ChoosePath(AvailablePaths.WayOfShadow);
 
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Shadow Arts"));
         }
@@ -274,7 +274,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
 
-            _monk.ChosePath(AvailablePaths.WayOfShadow);
+            _monk.ChoosePath(AvailablePaths.WayOfShadow);
 
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Shadow Step"));
             TestingUtility.LevelTo(_monk, 6, AvailableClasses.Monk);
@@ -286,7 +286,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
 
-            _monk.ChosePath(AvailablePaths.WayOfShadow);
+            _monk.ChoosePath(AvailablePaths.WayOfShadow);
 
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Cloak Of Shadows"));
             TestingUtility.LevelTo(_monk, 11, AvailableClasses.Monk);
@@ -298,7 +298,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
 
-            _monk.ChosePath(AvailablePaths.WayOfShadow);
+            _monk.ChoosePath(AvailablePaths.WayOfShadow);
 
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Opportunist"));
             TestingUtility.LevelTo(_monk, 17, AvailableClasses.Monk);
@@ -310,7 +310,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
 
-            _monk.ChosePath(AvailablePaths.WayOfTheFourElements);
+            _monk.ChoosePath(AvailablePaths.WayOfTheFourElements);
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Disciple Of The Elements"));
         }
 
@@ -319,8 +319,8 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
 
-            _monk.ChosePath(AvailablePaths.WayOfTheOpenHand);
-            _monk.ChosePath(AvailablePaths.WayOfShadow);
+            _monk.ChoosePath(AvailablePaths.WayOfTheOpenHand);
+            _monk.ChoosePath(AvailablePaths.WayOfShadow);
 
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Shadow Arts"));
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Open Hand Technique"));

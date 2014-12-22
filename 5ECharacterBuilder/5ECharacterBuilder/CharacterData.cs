@@ -122,7 +122,18 @@ namespace _5ECharacterBuilder
                     {"Relentless Rage", "Your rage can keep you fighting despite grievous wounds. If you drop to 0 hit points while you’re raging and don’t die outright, you can make a DC 10 Constitution saving throw. If you succeed, you drop to 1 hit point instead. Each time you use this feature after the first, the DC increases by 5. When you finish a short or long rest, the DC resets to 10."},
                     {"Persistent Rage", "Beginning at 15th level, your rage is so fierce that it ends early only if you fall unconscious or if you choose to end it."},
                     {"Indomitable Might", "Beginning at 18th level, if your total for a Strength check is less than your Strength score, you can use that score in place of the total."},
-                    {"Primal Champion", "At 20th level, you embody the power of the wilds. Your Strength and Constitution scores increase by 4. Your maximum for those scores is now 24."}
+                    {"Primal Champion", "At 20th level, you embody the power of the wilds. Your Strength and Constitution scores increase by 4. Your maximum for those scores is now 24."},
+
+                    {"Frenzy", "You can go into a frenzy when you rage. If you do so, for the duration of your rage you can make a single melee weapon attack as a bonus action on each of your turns after this one. When your rage ends, you suffer one level of exhaustion (as described in appendix A)."},
+                    {"Mindless Rage", "You can’t be charmed or frightened while raging. If you are charmed or frightened when you enter your rage, the effect is suspended for the duration of the rage."},
+                    {"Intimidating Presence", "You can use your action to frighten someone with your menacing presence. When you do so, choose one creature that you can see within 30 feet of you. If the creature can see or hear you, it must succeed on a Wisdom saving throw (DC equal to 8 + your proficiency bonus + your Charisma modifier) or be frightened of you until the end of your next turn. On subsequent turns, you can use your action to extend the duration of this effect on the frightened"},
+                    {"Retaliation", "When you take damage from a creature that is within 5 feet of you. you can use your reaction to make a melee weapon attack against that creature."}, 
+                    
+                    {"Spirit Seeker", "You gain the ability to cast the  beast sense and  speak with animals spells, but only as rituals, as described in chapter 10."},
+                    {"Totem Spirit", "You choose a totem spirit and gain its feature. You must make or acquire a physical totem object- an amulet or similar adornment—that incorporates fur or feathers, claws, teeth, or bones of the totem animal. At your option, you also gain minor physical attributes that are reminiscent of your totem spirit. For example, if you have a bear totem spirit, you might be unusually hairy and thick- skinned, or if your totem is the eagle, your eyes turn bright yellow."},
+                    {"Aspect of the Beast", "You gain a magical benefit based on the totem animal of your choice. You can choose the same animal you selected at 3rd level or a different one."},
+                    {"Spirit Walker", "You can cast the  commune with nature spell, but only as a ritual. When you do so, a spiritual version of one of the animals you chose for Totem Spirit or Aspect of the Beast appears to you to convey the information you seek."},
+                    {"Totemic Attunement", "You gain a magical benefit based on a totem animal of your choice. You can choose the same animal you selected previously or a different one."}
                 };
             }
         }
@@ -223,26 +234,42 @@ namespace _5ECharacterBuilder
             }
         }
 
-        public static AvailablePaths[] GetRoguePaths()
+        public static AvailablePaths[] BarbarianPaths
         {
-            return new[]
+            get
             {
-                
-                AvailablePaths.Thief,
-                AvailablePaths.Assassin,
-                AvailablePaths.ArcaneTrickster
-            };
+                return new[]
+                {
+                    AvailablePaths.PathOfTheBerserker,
+                    AvailablePaths.PathOfTheTotemWarrior
+                };
+            }
+        }
+
+        public static AvailablePaths[] RoguePaths
+        {
+            get
+            {
+                return new[]
+                {
+                    AvailablePaths.Thief,
+                    AvailablePaths.Assassin,
+                    AvailablePaths.ArcaneTrickster
+                };
+            }
         }
         
-        public static AvailablePaths[] GetMonkPaths()
+        public static AvailablePaths[] MonkPaths
         {
-            return new[]
+            get
             {
-                
-                AvailablePaths.WayOfShadow,
-                AvailablePaths.WayOfTheFourElements,
-                AvailablePaths.WayOfTheOpenHand
-            };
+                return new[]
+                {
+                    AvailablePaths.WayOfShadow,
+                    AvailablePaths.WayOfTheFourElements,
+                    AvailablePaths.WayOfTheOpenHand
+                };
+            }
         }
     }
 }

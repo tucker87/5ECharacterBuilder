@@ -1,0 +1,28 @@
+﻿@using System
+@using NetFrontEnd
+@using _5ECharacterBuilder
+
+<script type="text/javascript">
+    window.race = "";
+    window.classes = [];
+    window.background = [];
+</script>
+
+<div class="raceSelection">
+    @foreach (AvailableRaces availableRaces in Enum.GetValues(typeof(AvailableRaces)))
+    {
+        <input type="button" value="@availableRaces.GetDescription()" onclick="javascript:window.race = '@availableRaces';" />
+    }
+</div>
+<div class="classSelection">
+    @foreach (AvailableClasses availableClasses in Enum.GetValues(typeof(AvailableClasses)))
+    {
+        <input type="button" value="@availableClasses.GetDescription()" onclick="javascript:window.classes.push('@availableClasses');" />
+    }
+</div>
+<div class="backgroundSelection">
+    @foreach (AvailableBackgrounds availableBackgrounds in Enum.GetValues(typeof(AvailableBackgrounds)))
+    {
+        <input type="submit" value="@availableBackgrounds.GetDescription()" onclick="javascript:window.background = '@availableBackgrounds'; window.location.href = $(location).attr('href').split('?')[0] + '?' + $.param({race:race, classes:classes, background:background});" />
+    }
+</div>

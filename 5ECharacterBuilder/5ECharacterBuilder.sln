@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleFrontEnd", "ExampleF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleExampleFrontEnd", "SimpleExampleFrontEnd\SimpleExampleFrontEnd.csproj", "{BDF1CAE6-722A-4F36-9BFE-1B311920E0C2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFrontEnd", "NetFrontEnd\NetFrontEnd.csproj", "{5B21D06C-38D3-40FE-87B2-D51E59F50A01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{BDF1CAE6-722A-4F36-9BFE-1B311920E0C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDF1CAE6-722A-4F36-9BFE-1B311920E0C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDF1CAE6-722A-4F36-9BFE-1B311920E0C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B21D06C-38D3-40FE-87B2-D51E59F50A01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B21D06C-38D3-40FE-87B2-D51E59F50A01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B21D06C-38D3-40FE-87B2-D51E59F50A01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B21D06C-38D3-40FE-87B2-D51E59F50A01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
