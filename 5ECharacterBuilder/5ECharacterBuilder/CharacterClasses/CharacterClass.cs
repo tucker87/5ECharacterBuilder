@@ -80,7 +80,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         {
             var features = new Dictionary<string, string>();
             foreach (var path in paths)
-                features.Add(GetClassFeature("" + path));
+                features.UnionDictionary(GetClassFeature("" + path));
 
             return features;
         }

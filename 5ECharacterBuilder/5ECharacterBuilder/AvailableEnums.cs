@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Security.Cryptography;
 
 namespace _5ECharacterBuilder
 {
