@@ -107,29 +107,14 @@ namespace _5ECharacterBuilder.CharacterClasses
                 classFeatures.Add(GetClassFeature("Sneak Attack"));
                 classFeatures.Add(GetClassFeature("Thieves' Cant"));
 
-                if (classLevel >= 2)
-                    classFeatures.Add(GetClassFeature("Cunning Action"));
-                        
-                if (classLevel >= 5)
-                    classFeatures.Add(GetClassFeature("Uncanny Dodge"));
-                        
-                if (classLevel >= 7)
-                    classFeatures.Add(GetClassFeature("Evasion"));
-                        
-                if (classLevel >= 11)
-                    classFeatures.Add(GetClassFeature("Reliable Talent"));
-
-                if (classLevel >= 14)
-                    classFeatures.Add(GetClassFeature("Blindsense"));
-                    
-                if (classLevel >= 15)
-                    classFeatures.Add(GetClassFeature("Slippery Mind"));
-                        
-                if (classLevel >= 18)
-                    classFeatures.Add(GetClassFeature("Elusive"));
-                        
-                if (classLevel >= 20)
-                    classFeatures.Add(GetClassFeature("Stroke Of Luck"));
+                if (classLevel >= 2) classFeatures.Add(GetClassFeature("Cunning Action"));
+                if (classLevel >= 5) classFeatures.Add(GetClassFeature("Uncanny Dodge"));
+                if (classLevel >= 7) classFeatures.Add(GetClassFeature("Evasion"));
+                if (classLevel >= 11) classFeatures.Add(GetClassFeature("Reliable Talent"));
+                if (classLevel >= 14) classFeatures.Add(GetClassFeature("Blindsense"));
+                if (classLevel >= 15) classFeatures.Add(GetClassFeature("Slippery Mind"));
+                if (classLevel >= 18) classFeatures.Add(GetClassFeature("Elusive"));
+                if (classLevel >= 20) classFeatures.Add(GetClassFeature("Stroke Of Luck"));
 
                 features.ClassFeatures = classFeatures.UnionDictionary(features.ClassFeatures);
 
@@ -140,40 +125,24 @@ namespace _5ECharacterBuilder.CharacterClasses
                     {
                         classPathFeatures.Add("Fast Hands", CharacterData.RogueFeatures["Fast Hands"]);
                         classPathFeatures.Add("Second-Story Work", CharacterData.RogueFeatures["Second-Story Work"]);
-                        if (classLevel >= 9)
-                            classPathFeatures.Add("Supreme Sneak", CharacterData.RogueFeatures["Supreme Sneak"]);
-
-                        if (classLevel >= 12)
-                            classPathFeatures.Add("Use Magic Device", CharacterData.RogueFeatures["Use Magic Device"]);
-
-                        if (classLevel >= 17)
-                            classPathFeatures.Add("Thief's Reflexes", CharacterData.RogueFeatures["Thief's Reflexes"]);
-
+                        if (classLevel >= 9) classPathFeatures.Add("Supreme Sneak", CharacterData.RogueFeatures["Supreme Sneak"]);
+                        if (classLevel >= 12) classPathFeatures.Add("Use Magic Device", CharacterData.RogueFeatures["Use Magic Device"]);
+                        if (classLevel >= 17) classPathFeatures.Add("Thief's Reflexes", CharacterData.RogueFeatures["Thief's Reflexes"]);
                     }
                     if (ClassPath.Chosen == AvailablePaths.Assassin)
                     {
                         classPathFeatures.Add("Assassinate", CharacterData.RogueFeatures["Assassinate"]);
-                        if (classLevel >= 9)
-                            classPathFeatures.Add("Infiltration Expertise", CharacterData.RogueFeatures["Infiltration Expertise"]);
-
-                        if (classLevel >= 13)
-                            classPathFeatures.Add("Imposter", CharacterData.RogueFeatures["Imposter"]);
-
-                        if (classLevel >= 17)
-                            classPathFeatures.Add("Death Strike", CharacterData.RogueFeatures["Death Strike"]);
+                        if (classLevel >= 9) classPathFeatures.Add("Infiltration Expertise", CharacterData.RogueFeatures["Infiltration Expertise"]);
+                        if (classLevel >= 13) classPathFeatures.Add("Imposter", CharacterData.RogueFeatures["Imposter"]);
+                        if (classLevel >= 17) classPathFeatures.Add("Death Strike", CharacterData.RogueFeatures["Death Strike"]);
                     }
                     if (ClassPath.Chosen == AvailablePaths.ArcaneTrickster)
                     {
                         classPathFeatures.Add("Spellcasting", CharacterData.RogueFeatures["Spellcasting"]);
                         classPathFeatures.Add("Mage Hand Legerdemain", CharacterData.RogueFeatures["Mage Hand Legerdemain"]);
-                        if (classLevel >= 9)
-                            classPathFeatures.Add("Magical Ambush", CharacterData.RogueFeatures["Magical Ambush"]);
-
-                        if (classLevel >= 13)
-                            classPathFeatures.Add("Versatile Trickster", CharacterData.RogueFeatures["Versatile Trickster"]);
-
-                        if (classLevel >= 17)
-                            classPathFeatures.Add("Spell Thief", CharacterData.RogueFeatures["Spell Thief"]);
+                        if (classLevel >= 9) classPathFeatures.Add("Magical Ambush", CharacterData.RogueFeatures["Magical Ambush"]);
+                        if (classLevel >= 13) classPathFeatures.Add("Versatile Trickster", CharacterData.RogueFeatures["Versatile Trickster"]);
+                        if (classLevel >= 17) classPathFeatures.Add("Spell Thief", CharacterData.RogueFeatures["Spell Thief"]);
                     }
                 }
                 features.ClassPathFeatures = classPathFeatures.UnionDictionary(features.ClassPathFeatures);
@@ -194,9 +163,7 @@ namespace _5ECharacterBuilder.CharacterClasses
                     skills.MaxExpertise += 2;
 
                 if (IsMulticlassing())
-                {
                     skills.Max += 1;
-                }
                 else
                 {
                     skills.Max += 4;

@@ -281,7 +281,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void BerserkerBarbariansGetFrenzyAtLevel3()
         {
             TestingUtility.LevelTo(_barbarian, 3, AvailableClasses.Barbarian);
-            _barbarian.ChoosePath(AvailablePaths.PathOfTheBerserker);
+            _barbarian.ChosePath(AvailablePaths.PathOfTheBerserker);
             Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Frenzy"));
         }
 
@@ -289,7 +289,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void BerserkerBarbariansGetMindLessRageAtLevel6()
         {
             TestingUtility.LevelTo(_barbarian, 6, AvailableClasses.Barbarian);
-            _barbarian.ChoosePath(AvailablePaths.PathOfTheBerserker);
+            _barbarian.ChosePath(AvailablePaths.PathOfTheBerserker);
             Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Mindless Rage"));
         }
 
@@ -297,7 +297,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void BerserkerBarbariansGetIntimidatingPresenceAtLevel10()
         {
             TestingUtility.LevelTo(_barbarian, 10, AvailableClasses.Barbarian);
-            _barbarian.ChoosePath(AvailablePaths.PathOfTheBerserker);
+            _barbarian.ChosePath(AvailablePaths.PathOfTheBerserker);
             Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Intimidating Presence"));
         }
 
@@ -305,7 +305,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void BerserkerBarbariansGetRetaliationAtLevel14()
         {
             TestingUtility.LevelTo(_barbarian, 14, AvailableClasses.Barbarian);
-            _barbarian.ChoosePath(AvailablePaths.PathOfTheBerserker);
+            _barbarian.ChosePath(AvailablePaths.PathOfTheBerserker);
             Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Retaliation"));
         }
 
@@ -313,7 +313,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void TotemBarbariansGetSpiritSeekerAndTotemSpiritAtLevel3()
         {
             TestingUtility.LevelTo(_barbarian, 3, AvailableClasses.Barbarian);
-            _barbarian.ChoosePath(AvailablePaths.PathOfTheTotemWarrior);
+            _barbarian.ChosePath(AvailablePaths.PathOfTheTotemWarrior);
             Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Spirit Seeker"));
             Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Totem Spirit"));
         }
@@ -322,7 +322,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void TotemBarbariansGetAspectOfTheBeastAtLevel6()
         {
             TestingUtility.LevelTo(_barbarian, 6, AvailableClasses.Barbarian);
-            _barbarian.ChoosePath(AvailablePaths.PathOfTheTotemWarrior);
+            _barbarian.ChosePath(AvailablePaths.PathOfTheTotemWarrior);
             Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Aspect of the Beast"));
         }
 
@@ -330,7 +330,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void TotemBarbariansGetSpiritWalkerAtLevel10()
         {
             TestingUtility.LevelTo(_barbarian, 10, AvailableClasses.Barbarian);
-            _barbarian.ChoosePath(AvailablePaths.PathOfTheTotemWarrior);
+            _barbarian.ChosePath(AvailablePaths.PathOfTheTotemWarrior);
             Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Spirit Walker"));
         }
 
@@ -338,7 +338,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         public void TotemBarbariansGetTotemicAttunementAtLevel14()
         {
             TestingUtility.LevelTo(_barbarian, 14, AvailableClasses.Barbarian);
-            _barbarian.ChoosePath(AvailablePaths.PathOfTheTotemWarrior);
+            _barbarian.ChosePath(AvailablePaths.PathOfTheTotemWarrior);
             Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Totemic Attunement"));
         }
     }

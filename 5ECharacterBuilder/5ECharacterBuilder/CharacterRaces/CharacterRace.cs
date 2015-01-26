@@ -47,7 +47,7 @@ namespace _5ECharacterBuilder.CharacterRaces
         public void LearnTool(AvailableTool chosenTool) { _character.LearnTool(chosenTool); }
         public void LearnInstrument(AvailableInstrument chosenInstrument) { _character.LearnInstrument(chosenInstrument); }
         public void LearnLanguage(AvailableLanguages chosenLanguage) { _character.LearnLanguage(chosenLanguage); }
-        public void ChosePath(AvailablePaths chosenPath) { _character.ChoosePath(chosenPath); }
+        public void ChosePath(AvailablePaths chosenPath) { _character.ChosePath(chosenPath); }
         public void ImproveAbility(string ability) { _character.ImproveAbility(ability); }
         public void ChooseExpertise(AvailableSkill skill) { _character.ChooseExpertise(skill); }
         public void ChooseExpertise(AvailableTool tool) { _character.ChooseExpertise(tool); }

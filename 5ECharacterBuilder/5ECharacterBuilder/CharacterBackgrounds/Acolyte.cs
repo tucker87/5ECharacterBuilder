@@ -6,7 +6,6 @@
         {
             Skills.Chosen.Add(AvailableSkill.Insight);
             Skills.Chosen.Add(AvailableSkill.Religion);
-
             Languages.Max += 2;
         }
 

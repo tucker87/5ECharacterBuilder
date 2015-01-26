@@ -196,5 +196,15 @@ namespace _5ECharacterBuilder
                 AvailablePaths.WayOfTheOpenHand
             };
         }
+
+        public static AvailablePaths[] GetBarbarianPaths()
+        {
+            return new[]
+            {
+
+                AvailablePaths.PathOfTheBerserker,
+                AvailablePaths.PathOfTheTotemWarrior
+            };
+        }
     }
 }

@@ -6,9 +6,7 @@
         {
             Skills.Chosen.Add(AvailableSkill.Deception);
             Skills.Chosen.Add(AvailableSkill.Stealth);
-
             Skills.Max += 2;
-
             Tools.Available.Add(AvailableTool.ThievesTools);
             Tools.Chosen.Add(AvailableTool.ThievesTools);
         }

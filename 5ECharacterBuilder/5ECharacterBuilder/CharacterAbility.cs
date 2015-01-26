@@ -103,12 +103,12 @@ namespace _5ECharacterBuilder
 
         private IEnumerable<CharacterAbility> Abilities => new List<CharacterAbility> {Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma};
 
-        public CharacterAbility Strength { get; private set; }
-        public CharacterAbility Dexterity { get; private set; }
-        public CharacterAbility Constitution { get; private set; }
-        public CharacterAbility Intelligence { get; private set; }
-        public CharacterAbility Wisdom { get; private set; }
-        public CharacterAbility Charisma { get; private set; }
+        public CharacterAbility Strength { get; }
+        public CharacterAbility Dexterity { get; }
+        public CharacterAbility Constitution { get; }
+        public CharacterAbility Intelligence { get; }
+        public CharacterAbility Wisdom { get; }
+        public CharacterAbility Charisma { get; }
 
         public int ImprovementPoints { get; internal set; }
         public int SpentAbilityImprovementPoints => Strength.ImprovementBonus +
@@ -139,12 +139,15 @@ namespace _5ECharacterBuilder
             RacialBonus = racialBonus;
         }
 
+        public int ClassBonus { get; internal set; }
+        
         public int Score
         {
             get { return _score + RacialBonus + ImprovementBonus; }
             set { _score = value; }
         }
 
+        public int MaxScore { get; internal set; }
         public int Modifier => CalculateModifier(Score);
         public int RacialBonus { get; internal set; }
         public int ImprovementBonus { get; internal set; }

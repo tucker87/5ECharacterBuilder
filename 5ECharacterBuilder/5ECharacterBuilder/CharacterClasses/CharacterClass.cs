@@ -134,16 +134,14 @@ namespace _5ECharacterBuilder.CharacterClasses
 
         public void ChooseExpertise(AvailableSkill skill)
         {
-            if (Skills.Expertise.Count + Tools.Expertise.Count < Skills.MaxExpertise)
-                if (Skills.Chosen.Contains(skill))
-                    Skills.Expertise.Add(skill);
+            if (Skills.Expertise.Count + Tools.Expertise.Count < Skills.MaxExpertise && Skills.Chosen.Contains(skill))
+                Skills.Expertise.Add(skill);
         }
 
         public void ChooseExpertise(AvailableTool tool)
         {
-            if (Skills.Expertise.Count + Tools.Expertise.Count < Skills.MaxExpertise)
-                if (Tools.Chosen.Contains(tool))
-                    Tools.Expertise.Add(tool);
+            if (Skills.Expertise.Count + Tools.Expertise.Count < Skills.MaxExpertise && Tools.Chosen.Contains(tool))
+                Tools.Expertise.Add(tool);
         }
 
         public string ClassesString
@@ -159,11 +157,8 @@ namespace _5ECharacterBuilder.CharacterClasses
                         classDictionary.Add(characterClass, 1);
                 }
 
-                var result = "";
-                foreach (var @class in classDictionary)
-                    result += string.Format(" {0} {1}", @class.Key, @class.Value);
-                
-                return result.Trim();
+                return (classDictionary.Aggregate("", (current, @class) => current + string.Format(" {0} {1}", @class.Key, @class.Value))).Trim();
+
             }
         }
 
