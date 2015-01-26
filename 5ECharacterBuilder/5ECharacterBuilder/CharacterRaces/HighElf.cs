@@ -19,9 +19,6 @@
             Languages.Max += 1;
         }
 
-        public override string Race
-        {
-            get { return "High Elf"; }
-        }
+        public override string Race => "High Elf";
     }
 }

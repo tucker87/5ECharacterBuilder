@@ -67,22 +67,22 @@ namespace _5ECharacterBuilder
 
         public CharacterAbilities(int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma)
         {
-            Strength = new CharacterAbility(strength, "Strength");
-            Dexterity = new CharacterAbility(dexterity, "Dexterity");
-            Constitution = new CharacterAbility(constitution, "Constitution");
-            Intelligence = new CharacterAbility(intelligence, "Intelligence");
-            Wisdom = new CharacterAbility(wisdom, "Wisdom");
-            Charisma = new CharacterAbility(charisma, "Charisma");
+            Strength = new CharacterAbility(strength);
+            Dexterity = new CharacterAbility(dexterity);
+            Constitution = new CharacterAbility(constitution);
+            Intelligence = new CharacterAbility(intelligence);
+            Wisdom = new CharacterAbility(wisdom);
+            Charisma = new CharacterAbility(charisma);
         }
 
         public CharacterAbilities(CharacterAbilityScores abilityScores)
         {
-            Strength = new CharacterAbility(abilityScores.Strength, "Strength");
-            Dexterity = new CharacterAbility(abilityScores.Dexterity, "Dexterity");
-            Constitution = new CharacterAbility(abilityScores.Constitution, "Constution");
-            Intelligence = new CharacterAbility(abilityScores.Intelligence, "Intelligence");
-            Wisdom = new CharacterAbility(abilityScores.Wisdom, "Wisdom");
-            Charisma = new CharacterAbility(abilityScores.Charisma, "Charisma");
+            Strength = new CharacterAbility(abilityScores.Strength);
+            Dexterity = new CharacterAbility(abilityScores.Dexterity);
+            Constitution = new CharacterAbility(abilityScores.Constitution);
+            Intelligence = new CharacterAbility(abilityScores.Intelligence);
+            Wisdom = new CharacterAbility(abilityScores.Wisdom);
+            Charisma = new CharacterAbility(abilityScores.Charisma);
         }
 
         public CharacterAbilities(CharacterAbilities abilities, CharacterAbilityScores racialBonuses)
@@ -101,13 +101,7 @@ namespace _5ECharacterBuilder
             Charisma.RacialBonus = racialBonuses.Charisma;
         }
 
-        private IEnumerable<CharacterAbility> Abilities
-        {
-            get
-            {
-                return new List<CharacterAbility> {Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma};
-            }
-        }
+        private IEnumerable<CharacterAbility> Abilities => new List<CharacterAbility> {Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma};
 
         public CharacterAbility Strength { get; private set; }
         public CharacterAbility Dexterity { get; private set; }
@@ -117,18 +111,12 @@ namespace _5ECharacterBuilder
         public CharacterAbility Charisma { get; private set; }
 
         public int ImprovementPoints { get; internal set; }
-        public int SpentAbilityImprovementPoints
-        {
-            get
-            {
-                return Strength.ImprovementBonus +
-                       Dexterity.ImprovementBonus +
-                       Constitution.ImprovementBonus +
-                       Intelligence.ImprovementBonus +
-                       Wisdom.ImprovementBonus +
-                       Charisma.ImprovementBonus;
-            }
-        }
+        public int SpentAbilityImprovementPoints => Strength.ImprovementBonus +
+                                                    Dexterity.ImprovementBonus +
+                                                    Constitution.ImprovementBonus +
+                                                    Intelligence.ImprovementBonus +
+                                                    Wisdom.ImprovementBonus +
+                                                    Charisma.ImprovementBonus;
 
         public IEnumerator<CharacterAbility> GetEnumerator()
         {
@@ -145,39 +133,25 @@ namespace _5ECharacterBuilder
     {
         private int _score;
 
-        public CharacterAbility(int score, string name, int racialBonus = 0)
+        public CharacterAbility(int score, int racialBonus = 0)
         {
             _score = score;
             RacialBonus = racialBonus;
-            MaxScore = 20;
-            Name = name;
         }
 
         public int Score
         {
-            get
-            {
-                var score = _score + RacialBonus + ImprovementBonus + ClassBonus;
-                return score > MaxScore ? MaxScore : score;
-            }
+            get { return _score + RacialBonus + ImprovementBonus; }
             set { _score = value; }
         }
 
-        public string Name { get; internal set; }
-        public int MaxScore { get; internal set; }
-        public int Modifier { get { return CalculateModifier(Score); } }
+        public int Modifier => CalculateModifier(Score);
         public int RacialBonus { get; internal set; }
         public int ImprovementBonus { get; internal set; }
-        public int ClassBonus { get; internal set; }
-
+        
         private static int CalculateModifier(int score)
         {
             return score / 2 - 5;
-        }
-
-        public override string ToString()
-        {
-            return Name;
         }
     }
 }

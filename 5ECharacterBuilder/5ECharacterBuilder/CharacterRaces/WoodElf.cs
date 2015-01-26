@@ -16,14 +16,8 @@
             WeaponProficiencies.Add(AvailableWeapon.LongBow);
         }
 
-        public override string Race
-        {
-            get { return "Wood Elf"; }
-        }
+        public override string Race => "Wood Elf";
 
-        public override int Speed
-        {
-            get { return 35; }
-        }
+        public override int Speed => 35;
     }
 }

@@ -64,14 +64,12 @@ namespace _5ECharacterBuilder
             abilityScores = abilityScores ?? new CharacterAbilityScores();
             EquipArmor(AvailableArmor.Cloth);
             AttacksPerTurn = 1;
-<<<<<<< HEAD
             Abilities = new CharacterAbilities(abilityScores);
         }
 
         private int ShieldBonus => HasShield ? 2 : 0;
         public int ArmorClass => GetArmorClassBonus(EquippedArmor, Abilities.Dexterity.Modifier) + ShieldBonus;
         public SortedSet<AvailableArmor> ArmorProficiencies { get; } = new SortedSet<AvailableArmor>(new List<AvailableArmor>());
-=======
 
             Alignment = new Alignment(AvailableAlignmentFirst.Neutral, AvailableAlignmentSecond.Neutral);
             
@@ -98,7 +96,6 @@ namespace _5ECharacterBuilder
 
         public int ArmorClass { get { return GetArmorClassBonus(EquippedArmor, Abilities.Dexterity.Modifier) + ShieldBonus; } }
         public SortedSet<AvailableArmor> ArmorProficiencies { get; private set; }
->>>>>>> ee047b17b8da0ed41e07fc92cfec710cbb24420d
         public CharacterAbilities Abilities { get; private set; }
         public string Background { get; private set; }
         public List<string> Classes { get; } = new List<string>();

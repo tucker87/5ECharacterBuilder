@@ -10,8 +10,8 @@ namespace _5ECharacterBuilder.CharacterClasses
         protected CharacterClass(ICharacter character) { _character = character; }
 
         protected CharacterClass() { throw new System.NotImplementedException(); }
-        public Alignment Alignment { get { return _character.Alignment; } }
-        public virtual int ArmorClass { get { return _character.ArmorClass; } }
+        
+        public virtual int ArmorClass => _character.ArmorClass;
 
         public virtual CharacterAbilities Abilities
         {
@@ -25,34 +25,34 @@ namespace _5ECharacterBuilder.CharacterClasses
             }
         }
 
-        public string Background { get { return _character.Background; } }
-        public List<string> Classes { get { return _character.Classes; } }
-        public virtual ClassPath ClassPath { get { return _character.ClassPath; } }
-        public Currency Currency { get { return _character.Currency; } }
-        public Armor EquippedArmor { get { return _character.EquippedArmor; } }
-        public bool HasShield { get { return _character.HasShield; } }
-        public HitDice HitDice { get { return _character.HitDice; } }
-        public int Initiative { get { return _character.Initiative; } }
-        public Proficiencies<AvailableInstrument> Instruments { get { return _character.Instruments; } }
-        public int Level { get { return _character.Level; } } 
-        public int MaxHp { get { return _character.MaxHp; } }
-        public string Name { get { return _character.Name; } }
-        public int ProficiencyBonus { get { return _character.ProficiencyBonus; } }
-        public string Race { get { return _character.Race; } }
-        public Languages Languages { get { return _character.Languages; } }
-        public virtual SortedSet<SavingThrow> SavingThrows { get { return _character.SavingThrows; } }
-        public virtual Skills Skills { get { return _character.Skills; } } 
-        public virtual int Speed { get { return _character.Speed; } }
-        public virtual Tools Tools { get { return _character.Tools; } } 
-        public SortedSet<AvailableWeapon> WeaponProficiencies { get { return _character.WeaponProficiencies; } } 
-        public SortedSet<AvailableArmor> ArmorProficiencies { get { return _character.ArmorProficiencies; } }
-        public string Size { get { return _character.Size; } }
-        public virtual CharacterFeatures Features { get { return _character.Features; } }
-        public virtual int MartialArts { get { return _character.MartialArts; } }
-        public virtual int AttacksPerTurn { get { return _character.AttacksPerTurn; } }
-        public virtual int SneakAttackDice { get { return _character.SneakAttackDice; } }
-        public virtual SortedSet<SpellcastingClass> SpellcastingClasses { get { return _character.SpellcastingClasses; } }
-        public virtual ClassTraits ClassTraits { get { return _character.ClassTraits; } }
+        public string Background => _character.Background;
+        public List<string> Classes => _character.Classes;
+        public virtual ClassPath ClassPath => _character.ClassPath;
+        public Currency Currency => _character.Currency;
+        public Armor EquippedArmor => _character.EquippedArmor;
+        public bool HasShield => _character.HasShield;
+        public HitDice HitDice => _character.HitDice;
+        public int Initiative => _character.Initiative;
+        public Proficiencies<AvailableInstrument> Instruments => _character.Instruments;
+        public int Level => _character.Level;
+        public int MaxHp => _character.MaxHp;
+        public string Name => _character.Name;
+        public int ProficiencyBonus => _character.ProficiencyBonus;
+        public string Race => _character.Race;
+        public Languages Languages => _character.Languages;
+        public virtual SortedSet<SavingThrow> SavingThrows => _character.SavingThrows;
+        public virtual Skills Skills => _character.Skills;
+        public virtual int Speed => _character.Speed;
+        public virtual Tools Tools => _character.Tools;
+        public SortedSet<AvailableWeapon> WeaponProficiencies => _character.WeaponProficiencies;
+        public SortedSet<AvailableArmor> ArmorProficiencies => _character.ArmorProficiencies;
+        public string Size => _character.Size;
+        public virtual CharacterFeatures Features => _character.Features;
+        public virtual int MartialArts => _character.MartialArts;
+        public virtual int AttacksPerTurn => _character.AttacksPerTurn;
+        public virtual int SneakAttackDice => _character.SneakAttackDice;
+        public virtual SortedSet<SpellcastingClass> SpellcastingClasses => _character.SpellcastingClasses;
+        public virtual ClassTraits ClassTraits => _character.ClassTraits;
 
         public void EquipArmor(AvailableArmor armor) { _character.EquipArmor(armor); }
         public void SetAttributes(CharacterAbilities characterAbilities) { _character.SetAttributes(characterAbilities); }
@@ -62,7 +62,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         public void LearnInstrument(AvailableInstrument chosenInstrument) { _character.LearnInstrument(chosenInstrument); }
         public void LearnLanguage(AvailableLanguages chosenLanguage) { _character.LearnLanguage(chosenLanguage); }
 
-        public void ChoosePath(AvailablePaths chosenPath)
+        public void ChosePath(AvailablePaths chosenPath)
         {
             if (ClassPath.Available.Contains(chosenPath))
                 _character.ClassPath.Chosen = chosenPath;
@@ -80,7 +80,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         {
             var features = new Dictionary<string, string>();
             foreach (var path in paths)
-                features.UnionDictionary(GetClassFeature("" + path));
+                features.Add(GetClassFeature("" + path));
 
             return features;
         }
@@ -167,12 +167,5 @@ namespace _5ECharacterBuilder.CharacterClasses
             }
         }
 
-        public bool IsMulticlassing(string className)
-        {
-            if (Classes.Count == 0)
-                return false;
-
-            return Classes.First() != className;
-        }
     }
 }

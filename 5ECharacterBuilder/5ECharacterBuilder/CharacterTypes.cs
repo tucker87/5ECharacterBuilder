@@ -5,26 +5,6 @@ using System.Linq;
 
 namespace _5ECharacterBuilder
 {
-    public class Alignment
-    {
-        public Alignment(AvailableAlignmentFirst first, AvailableAlignmentSecond second)
-        {
-            First = first;
-            Second = second;
-        }
-
-        public AvailableAlignmentFirst First { get; internal set; }
-        public AvailableAlignmentSecond Second { get; internal set; }
-
-        public override string ToString()
-        {
-            if (First == AvailableAlignmentFirst.Neutral && Second == AvailableAlignmentSecond.Neutral)
-                return "True Neutral";
-
-            return string.Format("{0} {1}", First, Second);
-        }
-    }
-
     public class CharacterFeatures
     {
         public CharacterFeatures()
@@ -37,6 +17,7 @@ namespace _5ECharacterBuilder
         public Dictionary<string, string> RaceFeatures { get; internal set; } 
         public Dictionary<string, string> ClassFeatures { get; internal set; } 
         public Dictionary<string, string> ClassPathFeatures { get; internal set; } 
+        //public List<Feature> BackgroundFeatures { get; internal set; } 
     }
 
     public class Proficiencies<T>
@@ -182,11 +163,11 @@ namespace _5ECharacterBuilder
         public List<int> List { get; set; } 
         
         public void Add(int hitDice) { List.Add(hitDice); }
-        public int Count { get { return List.Count(); } }
+        public int Count => List.Count();
         public int First() { return List.First(); }
         public int Last() { return List.Last(); }
         public void Remove(int index) { List.Remove(index); }
-        public int this[int i] { get { return List[i]; } }
+        public int this[int i] => List[i];
         public IEnumerator GetEnumerator() { return List.GetEnumerator(); }
 
         public override string ToString()

@@ -97,10 +97,10 @@ namespace SimpleExampleFrontEnd
             
             Console.WriteLine();
             Console.WriteLine("Skill Scores:");
-            Console.WriteLine("{0,15}|{1,10}|{2,10}|{3,10}", "Skill", "Score", "Chosen", "Expertise");
+            Console.WriteLine("Skill\tScore\tChosen\tExpertise");
             foreach (var skill in character.Skills.AllSkills)
             {
-                Console.WriteLine("{0,15}|{1,10}|{2,10}|{3,10}", skill, character.SkillBonus(skill), character.Skills.Chosen.Contains(skill) ? "*" : "", character.Skills.Expertise.Contains(skill) ? "*" : "");
+                Console.WriteLine("{0} | {1} | {2} | {3}", skill, character.SkillBonus(skill), character.Skills.Chosen.Contains(skill) ? "*" : "", character.Skills.Expertise.Contains(skill) ? "*" : "");
             }
 
             Console.WriteLine();
@@ -140,25 +140,19 @@ namespace SimpleExampleFrontEnd
         private static ICharacter _character;
         private static int _result;
 
-        public Dictionary<MenuOptions, Action> SystemDetailsProcessDictionary
+        public Dictionary<MenuOptions, Action> SystemDetailsProcessDictionary => new Dictionary<MenuOptions, Action>
         {
-            get
-            {
-                return new Dictionary<MenuOptions, Action>
-                {
-                    {MenuOptions.EquipArmor, EquipArmor},
-                    {MenuOptions.ToggleShield, ToggleShield},
-                    {MenuOptions.LearnSkill, LearnSkill},
-                    {MenuOptions.LearnTool, LearnTool},
-                    {MenuOptions.LearnInstrument, LearnInstrument},
-                    {MenuOptions.LevelUp, LevelUp},
-                    {MenuOptions.ShowFeatures, ShowFeatures},
-                    {MenuOptions.Exit, Exit}
-                };
-            }
-        }
+            {MenuOptions.EquipArmor, EquipArmor},
+            {MenuOptions.ToggleShield, ToggleShield},
+            {MenuOptions.LearnSkill, LearnSkill},
+            {MenuOptions.LearnTool, LearnTool},
+            {MenuOptions.LearnInstrument, LearnInstrument},
+            {MenuOptions.LevelUp, LevelUp},
+            {MenuOptions.ShowFeatures, ShowFeatures},
+            {MenuOptions.Exit, Exit}
+        };
 
-        
+
         //character.AddToolProfs(new List<AvailableTool> { AvailableTool.AlchemistsSupplies });
         //character.AddInstrumentProfs(new List<AvailableInstrument> { AvailableInstrument.Lute });
         //character.AddLanguages(new List<AvailableLanguages> { AvailableLanguages.Common });

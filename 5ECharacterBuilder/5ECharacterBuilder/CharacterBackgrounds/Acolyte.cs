@@ -10,10 +10,7 @@
             Languages.Max += 2;
         }
 
-        public override string Background
-        {
-            get { return "Acolyte"; }
-        }
+        public override string Background => "Acolyte";
 
         public override Skills Skills
         {

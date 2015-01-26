@@ -13,9 +13,6 @@
             Tools.Chosen.Add(AvailableTool.ThievesTools);
         }
 
-        public override string Background
-        {
-            get { return "Criminal"; }
-        }
+        public override string Background => "Criminal";
     }
 }

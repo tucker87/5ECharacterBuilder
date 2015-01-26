@@ -13,9 +13,6 @@ namespace _5ECharacterBuilder.CharacterRaces
             AddRaceFeature("Ability Score Increase");
         }
 
-        public override string Race
-        {
-            get { return "Human"; }
-        }
+        public override string Race => "Human";
     }
 }

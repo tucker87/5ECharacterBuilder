@@ -16,14 +16,8 @@
             WeaponProficiencies.Add(AvailableWeapon.HandCrossbows);
         }
 
-        public override string Race
-        {
-            get { return "Dark Elf"; }
-        }
+        public override string Race => "Dark Elf";
 
-        public override int Speed
-        {
-            get { return 35; }
-        }
+        public override int Speed => 35;
     }
 }

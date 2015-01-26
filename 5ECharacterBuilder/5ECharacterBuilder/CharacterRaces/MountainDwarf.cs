@@ -14,9 +14,6 @@ namespace _5ECharacterBuilder.CharacterRaces
             AddRaceFeature("Dwarven Armor Training");
         }
         
-        public override string Race
-        {
-            get { return "Mountain Dwarf"; }
-        }
+        public override string Race => "Mountain Dwarf";
     }
 }

@@ -9,14 +9,8 @@
             AddRaceFeature("Dwarven Toughness");
         }
 
-        public override string Race
-        {
-            get { return "Hill Dwarf"; }
-        }
+        public override string Race => "Hill Dwarf";
 
-        public override int MaxHp
-        {
-            get { return base.MaxHp + HitDice.Count; }
-        }
+        public override int MaxHp => base.MaxHp + HitDice.Count;
     }
 }

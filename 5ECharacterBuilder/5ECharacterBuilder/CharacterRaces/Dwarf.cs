@@ -26,9 +26,6 @@ namespace _5ECharacterBuilder.CharacterRaces
             Languages.Max += 2;
         }
         
-        public override int Speed
-        {
-            get { return 25; }
-        }
+        public override int Speed => 25;
     }
 }
