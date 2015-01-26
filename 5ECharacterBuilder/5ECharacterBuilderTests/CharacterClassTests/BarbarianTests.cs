@@ -203,13 +203,6 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         }
 
         [TestMethod]
-        public void BarbariansGetPrimalPathAtLevel3()
-        {
-            Assert.IsTrue(_barbarian.ClassPath.Available.Contains(AvailablePaths.PathOfTheBerserker));
-            Assert.IsTrue(_barbarian.ClassPath.Available.Contains(AvailablePaths.PathOfTheTotemWarrior));
-        }
-
-        [TestMethod]
         public void BarbariansGetAnExtraAttackAtLevel5()
         {
             TestingUtility.LevelTo(_barbarian, 5, AvailableClasses.Barbarian);
@@ -267,11 +260,86 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Primal Champion"));
             _barbarian.Abilities.Strength.Score = 20;
             _barbarian.Abilities.Constitution.Score = 20;
-            _barbarian.Abilities.Constitution.Score = 20;
+
+            Assert.AreEqual(4, _barbarian.Abilities.Strength.ClassBonus);
 
             Assert.AreEqual(24, _barbarian.Abilities.Strength.Score);
             Assert.AreEqual(24, _barbarian.Abilities.Constitution.Score);
+        }
 
+        [TestMethod]
+        public void BarbariansGetAPathAtLevel3()
+        {
+            Assert.AreEqual(0, _barbarian.ClassPath.Available.Count);
+            TestingUtility.LevelTo(_barbarian, 3, AvailableClasses.Barbarian);
+            Assert.AreEqual(2, _barbarian.ClassPath.Available.Count);
+            Assert.IsTrue(_barbarian.ClassPath.Available.Contains(AvailablePaths.PathOfTheBerserker));
+            Assert.IsTrue(_barbarian.ClassPath.Available.Contains(AvailablePaths.PathOfTheTotemWarrior));
+        }
+
+        [TestMethod]
+        public void BerserkerBarbariansGetFrenzyAtLevel3()
+        {
+            TestingUtility.LevelTo(_barbarian, 3, AvailableClasses.Barbarian);
+            _barbarian.ChoosePath(AvailablePaths.PathOfTheBerserker);
+            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Frenzy"));
+        }
+
+        [TestMethod]
+        public void BerserkerBarbariansGetMindLessRageAtLevel6()
+        {
+            TestingUtility.LevelTo(_barbarian, 6, AvailableClasses.Barbarian);
+            _barbarian.ChoosePath(AvailablePaths.PathOfTheBerserker);
+            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Mindless Rage"));
+        }
+
+        [TestMethod]
+        public void BerserkerBarbariansGetIntimidatingPresenceAtLevel10()
+        {
+            TestingUtility.LevelTo(_barbarian, 10, AvailableClasses.Barbarian);
+            _barbarian.ChoosePath(AvailablePaths.PathOfTheBerserker);
+            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Intimidating Presence"));
+        }
+
+        [TestMethod]
+        public void BerserkerBarbariansGetRetaliationAtLevel14()
+        {
+            TestingUtility.LevelTo(_barbarian, 14, AvailableClasses.Barbarian);
+            _barbarian.ChoosePath(AvailablePaths.PathOfTheBerserker);
+            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Retaliation"));
+        }
+
+        [TestMethod]
+        public void TotemBarbariansGetSpiritSeekerAndTotemSpiritAtLevel3()
+        {
+            TestingUtility.LevelTo(_barbarian, 3, AvailableClasses.Barbarian);
+            _barbarian.ChoosePath(AvailablePaths.PathOfTheTotemWarrior);
+            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Spirit Seeker"));
+            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Totem Spirit"));
+        }
+
+        [TestMethod]
+        public void TotemBarbariansGetAspectOfTheBeastAtLevel6()
+        {
+            TestingUtility.LevelTo(_barbarian, 6, AvailableClasses.Barbarian);
+            _barbarian.ChoosePath(AvailablePaths.PathOfTheTotemWarrior);
+            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Aspect of the Beast"));
+        }
+
+        [TestMethod]
+        public void TotemBarbariansGetSpiritWalkerAtLevel10()
+        {
+            TestingUtility.LevelTo(_barbarian, 10, AvailableClasses.Barbarian);
+            _barbarian.ChoosePath(AvailablePaths.PathOfTheTotemWarrior);
+            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Spirit Walker"));
+        }
+
+        [TestMethod]
+        public void TotemBarbariansGetTotemicAttunementAtLevel14()
+        {
+            TestingUtility.LevelTo(_barbarian, 14, AvailableClasses.Barbarian);
+            _barbarian.ChoosePath(AvailablePaths.PathOfTheTotemWarrior);
+            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Totemic Attunement"));
         }
     }
 }

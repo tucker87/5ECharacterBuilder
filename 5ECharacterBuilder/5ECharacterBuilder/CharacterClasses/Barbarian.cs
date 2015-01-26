@@ -30,6 +30,24 @@ namespace _5ECharacterBuilder.CharacterClasses
                     AvailableSkill.Perception,
                     AvailableSkill.Survival
                 });
+
+            Skills.Max += 2;
+        }
+        
+        public override CharacterAbilities Abilities
+        {
+            get
+            {
+                if (ClassLevel(Class) < 20) 
+                    return base.Abilities;
+
+                var abilities = new CharacterAbilities(base.Abilities)
+                {
+                    Strength = {ClassBonus = 4, MaxScore = 24},
+                    Constitution = {ClassBonus = 4, MaxScore = 24}
+                };
+                return abilities;
+            }
         }
 
         public override int ArmorClass
@@ -71,45 +89,90 @@ namespace _5ECharacterBuilder.CharacterClasses
             {
                 var features = base.Features;
                 var classLevel = ClassLevel(Class);
-
-                var classFeatures = new Dictionary<string, string>();
-
-                classFeatures.Add(GetClassFeature("Rage"));
-                classFeatures.Add(GetClassFeature("Barbarian Unarmored Defense"));
-
-                if (classLevel >= 2)
-                {
-                    classFeatures.Add(GetClassFeature("Reckless Attack"));
-                    classFeatures.Add(GetClassFeature("Danger Sense"));
-                }
-
-                if (classLevel >= 5)
-                {
-                    classFeatures.Add(GetClassFeature("Extra Attack"));
-                    classFeatures.Add(GetClassFeature("Fast Movement"));
-                }
-
-                if (classLevel >= 7)
-                    classFeatures.Add(GetClassFeature("Feral Instict"));
-
-                if (classLevel >= 9)
-                    classFeatures.Add(GetClassFeature("Brutal Critical"));
-
-                if (classLevel >= 11)
-                    classFeatures.Add(GetClassFeature("Relentless Rage"));
-
-                if (classLevel >= 15)
-                    classFeatures.Add(GetClassFeature("Persistent Rage"));
-
-                if (classLevel >= 18)
-                    classFeatures.Add(GetClassFeature("Indomitable Might"));
-
-                if (classLevel >= 20)
-                    classFeatures.Add(GetClassFeature("Primal Champion"));
                 
-                features.ClassFeatures = classFeatures.UnionDictionary(base.Features.ClassFeatures);
-                //features.ClassPathFeatures = classPathFeatures;
+                features.ClassFeatures = GetClassFeatures(classLevel).UnionDictionary(base.Features.ClassFeatures);
+                features.ClassPathFeatures = GetClassPathFeatures(classLevel).UnionDictionary(base.Features.ClassPathFeatures);
                 return features;
+            }
+        }
+
+        private Dictionary<string, string> GetClassFeatures(int classLevel)
+        {
+            var classFeatures = new Dictionary<string, string>();
+
+            classFeatures.Add(GetClassFeature("Rage"));
+            classFeatures.Add(GetClassFeature("Barbarian Unarmored Defense"));
+
+            if (classLevel >= 2)
+            {
+                classFeatures.Add(GetClassFeature("Reckless Attack"));
+                classFeatures.Add(GetClassFeature("Danger Sense"));
+            }
+
+            if (classLevel >= 5)
+            {
+                classFeatures.Add(GetClassFeature("Extra Attack"));
+                classFeatures.Add(GetClassFeature("Fast Movement"));
+            }
+
+            if (classLevel >= 7)
+                classFeatures.Add(GetClassFeature("Feral Instict"));
+
+            if (classLevel >= 9)
+                classFeatures.Add(GetClassFeature("Brutal Critical"));
+
+            if (classLevel >= 11)
+                classFeatures.Add(GetClassFeature("Relentless Rage"));
+
+            if (classLevel >= 15)
+                classFeatures.Add(GetClassFeature("Persistent Rage"));
+
+            if (classLevel >= 18)
+                classFeatures.Add(GetClassFeature("Indomitable Might"));
+
+            if (classLevel >= 20)
+                classFeatures.Add(GetClassFeature("Primal Champion"));
+
+            return classFeatures;
+        }
+
+        private Dictionary<string, string> GetClassPathFeatures(int classLevel)
+        {
+            var classPathFeatures = new Dictionary<string, string>();
+            if (ClassPath.Chosen == AvailablePaths.PathOfTheBerserker)
+            {
+                classPathFeatures.Add(GetClassFeature("Frenzy"));
+                if (classLevel >= 6)
+                    classPathFeatures.Add(GetClassFeature("Mindless Rage"));
+
+                if (classLevel >= 10)
+                    classPathFeatures.Add(GetClassFeature("Intimidating Presence"));
+
+                if (classLevel >= 14)
+                    classPathFeatures.Add(GetClassFeature("Retaliation"));
+            }
+
+            if (ClassPath.Chosen == AvailablePaths.PathOfTheTotemWarrior)
+            {
+                classPathFeatures.Add(GetClassFeature("Spirit Seeker"));
+                classPathFeatures.Add(GetClassFeature("Totem Spirit"));
+                if (classLevel >= 6)
+                    classPathFeatures.Add(GetClassFeature("Aspect of the Beast"));
+
+                if (classLevel >= 10)
+                    classPathFeatures.Add(GetClassFeature("Spirit Walker"));
+
+                if (classLevel >= 14)
+                    classPathFeatures.Add(GetClassFeature("Totemic Attunement"));
+            }
+            return classPathFeatures;
+        }
+
+        public override ClassPath ClassPath
+        {
+            get
+            {
+                return ClassLevel(Class) >= 3 ? new ClassPath(base.ClassPath) { CharacterData.BarbarianPaths } : base.ClassPath;
             }
         }
 
@@ -122,19 +185,9 @@ namespace _5ECharacterBuilder.CharacterClasses
         private int GetRagesPerDay()
         {
             var classLevel = ClassLevel(Class);
-            return classLevel >= 17 ? 6 : classLevel >= 12 ? 5 : classLevel >= 6 ? 4 : classLevel >= 3 ? 3 : 2;
+            return classLevel >= 20 ? 100 : classLevel >= 17 ? 6 : classLevel >= 12 ? 5 : classLevel >= 6 ? 4 : classLevel >= 3 ? 3 : 2;
         }
 
-        public override Skills Skills
-        {
-            get
-            {
-                var skills = new Skills(base.Skills);
-                if(Level == 1)
-                    skills.Max += 2;
-                return skills;
-            }
-        }
 
         public override int Speed
         {

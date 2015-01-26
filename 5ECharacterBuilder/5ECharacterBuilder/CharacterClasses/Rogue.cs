@@ -9,13 +9,11 @@ namespace _5ECharacterBuilder.CharacterClasses
 
         public Rogue(ICharacter character) : base(character)
         {
-
-            if (IsMulticlassing() && !MeetsRequirements())
+            if (IsMulticlassing(Class) && !MeetsRequirements())
                 throw new RequirementsExpection();
             
             ArmorProficiencies.UnionWith(Armory.LightArmor);
             WeaponProficiencies.UnionWith(Armory.SimpleWeapons);
-            
             
             var extraWeapons = new[]
             {
@@ -25,7 +23,7 @@ namespace _5ECharacterBuilder.CharacterClasses
                 AvailableWeapon.ShortSword
             };
 
-            if (!IsMulticlassing())
+            if (!IsMulticlassing(Class))
             {
                 WeaponProficiencies.UnionWith(extraWeapons);
 
@@ -55,14 +53,6 @@ namespace _5ECharacterBuilder.CharacterClasses
         private bool MeetsRequirements()
         {
             return Abilities.Dexterity.Score >= 13;
-        }
-
-        private bool IsMulticlassing()
-        {
-            if (Classes.Count == 0)
-                return false;
-
-            return Classes.First() != Class;
         }
 
         public override CharacterAbilities Abilities
@@ -103,92 +93,98 @@ namespace _5ECharacterBuilder.CharacterClasses
             {
                 var features = base.Features;
                 var classLevel = ClassLevel(Class);
-
-                var classFeatures = new Dictionary<string, string>();
-
-                classFeatures.Add(GetClassFeature("Expertise"));
-                classFeatures.Add(GetClassFeature("Sneak Attack"));
-                classFeatures.Add(GetClassFeature("Thieves' Cant"));
-
-                if (classLevel >= 2)
-                    classFeatures.Add(GetClassFeature("Cunning Action"));
-                        
-                if (classLevel >= 5)
-                    classFeatures.Add(GetClassFeature("Uncanny Dodge"));
-                        
-                if (classLevel >= 7)
-                    classFeatures.Add(GetClassFeature("Evasion"));
-                        
-                if (classLevel >= 11)
-                    classFeatures.Add(GetClassFeature("Reliable Talent"));
-
-                if (classLevel >= 14)
-                    classFeatures.Add(GetClassFeature("Blindsense"));
-                    
-                if (classLevel >= 15)
-                    classFeatures.Add(GetClassFeature("Slippery Mind"));
-                        
-                if (classLevel >= 18)
-                    classFeatures.Add(GetClassFeature("Elusive"));
-                        
-                if (classLevel >= 20)
-                    classFeatures.Add(GetClassFeature("Stroke Of Luck"));
-
-                features.ClassFeatures = classFeatures.UnionDictionary(features.ClassFeatures);
-
-                var classPathFeatures = new Dictionary<string, string>();
-                if (ClassPath.Chosen != null)
-                {
-                    if (ClassPath.Chosen == AvailablePaths.Thief)
-                    {
-                        classPathFeatures.Add("Fast Hands", CharacterData.RogueFeatures["Fast Hands"]);
-                        classPathFeatures.Add("Second-Story Work", CharacterData.RogueFeatures["Second-Story Work"]);
-                        if (classLevel >= 9)
-                            classPathFeatures.Add("Supreme Sneak", CharacterData.RogueFeatures["Supreme Sneak"]);
-
-                        if (classLevel >= 12)
-                            classPathFeatures.Add("Use Magic Device", CharacterData.RogueFeatures["Use Magic Device"]);
-
-                        if (classLevel >= 17)
-                            classPathFeatures.Add("Thief's Reflexes", CharacterData.RogueFeatures["Thief's Reflexes"]);
-
-                    }
-                    if (ClassPath.Chosen == AvailablePaths.Assassin)
-                    {
-                        classPathFeatures.Add("Assassinate", CharacterData.RogueFeatures["Assassinate"]);
-                        if (classLevel >= 9)
-                            classPathFeatures.Add("Infiltration Expertise", CharacterData.RogueFeatures["Infiltration Expertise"]);
-
-                        if (classLevel >= 13)
-                            classPathFeatures.Add("Imposter", CharacterData.RogueFeatures["Imposter"]);
-
-                        if (classLevel >= 17)
-                            classPathFeatures.Add("Death Strike", CharacterData.RogueFeatures["Death Strike"]);
-                    }
-                    if (ClassPath.Chosen == AvailablePaths.ArcaneTrickster)
-                    {
-                        classPathFeatures.Add("Spellcasting", CharacterData.RogueFeatures["Spellcasting"]);
-                        classPathFeatures.Add("Mage Hand Legerdemain", CharacterData.RogueFeatures["Mage Hand Legerdemain"]);
-                        if (classLevel >= 9)
-                            classPathFeatures.Add("Magical Ambush", CharacterData.RogueFeatures["Magical Ambush"]);
-
-                        if (classLevel >= 13)
-                            classPathFeatures.Add("Versatile Trickster", CharacterData.RogueFeatures["Versatile Trickster"]);
-
-                        if (classLevel >= 17)
-                            classPathFeatures.Add("Spell Thief", CharacterData.RogueFeatures["Spell Thief"]);
-                    }
-                }
-                features.ClassPathFeatures = classPathFeatures.UnionDictionary(features.ClassPathFeatures);
+                features.ClassFeatures = GetClassFeatures(classLevel).UnionDictionary(features.ClassFeatures);
+                features.ClassPathFeatures = GetClassPathFeatures(classLevel).UnionDictionary(features.ClassPathFeatures);
                 return features;
             }
+        }
+
+        private Dictionary<string, string> GetClassPathFeatures(int classLevel)
+        {
+            var classPathFeatures = new Dictionary<string, string>();
+            if (ClassPath.Chosen == null) 
+                return classPathFeatures;
+
+            if (ClassPath.Chosen == AvailablePaths.Thief)
+            {
+                classPathFeatures.Add("Fast Hands", CharacterData.RogueFeatures["Fast Hands"]);
+                classPathFeatures.Add("Second-Story Work", CharacterData.RogueFeatures["Second-Story Work"]);
+                if (classLevel >= 9)
+                    classPathFeatures.Add("Supreme Sneak", CharacterData.RogueFeatures["Supreme Sneak"]);
+
+                if (classLevel >= 12)
+                    classPathFeatures.Add("Use Magic Device", CharacterData.RogueFeatures["Use Magic Device"]);
+
+                if (classLevel >= 17)
+                    classPathFeatures.Add("Thief's Reflexes", CharacterData.RogueFeatures["Thief's Reflexes"]);
+            }
+            if (ClassPath.Chosen == AvailablePaths.Assassin)
+            {
+                classPathFeatures.Add("Assassinate", CharacterData.RogueFeatures["Assassinate"]);
+                if (classLevel >= 9)
+                    classPathFeatures.Add("Infiltration Expertise", CharacterData.RogueFeatures["Infiltration Expertise"]);
+
+                if (classLevel >= 13)
+                    classPathFeatures.Add("Imposter", CharacterData.RogueFeatures["Imposter"]);
+
+                if (classLevel >= 17)
+                    classPathFeatures.Add("Death Strike", CharacterData.RogueFeatures["Death Strike"]);
+            }
+            if (ClassPath.Chosen == AvailablePaths.ArcaneTrickster)
+            {
+                classPathFeatures.Add("Spellcasting", CharacterData.RogueFeatures["Spellcasting"]);
+                classPathFeatures.Add("Mage Hand Legerdemain", CharacterData.RogueFeatures["Mage Hand Legerdemain"]);
+                if (classLevel >= 9)
+                    classPathFeatures.Add("Magical Ambush", CharacterData.RogueFeatures["Magical Ambush"]);
+
+                if (classLevel >= 13)
+                    classPathFeatures.Add("Versatile Trickster", CharacterData.RogueFeatures["Versatile Trickster"]);
+
+                if (classLevel >= 17)
+                    classPathFeatures.Add("Spell Thief", CharacterData.RogueFeatures["Spell Thief"]);
+            }
+            return classPathFeatures;
+        }
+
+        private static Dictionary<string, string> GetClassFeatures(int classLevel)
+        {
+            var classFeatures = new Dictionary<string, string>();
+
+            classFeatures.Add(GetClassFeature("Expertise"));
+            classFeatures.Add(GetClassFeature("Sneak Attack"));
+            classFeatures.Add(GetClassFeature("Thieves' Cant"));
+
+            if (classLevel >= 2)
+                classFeatures.Add(GetClassFeature("Cunning Action"));
+
+            if (classLevel >= 5)
+                classFeatures.Add(GetClassFeature("Uncanny Dodge"));
+
+            if (classLevel >= 7)
+                classFeatures.Add(GetClassFeature("Evasion"));
+
+            if (classLevel >= 11)
+                classFeatures.Add(GetClassFeature("Reliable Talent"));
+
+            if (classLevel >= 14)
+                classFeatures.Add(GetClassFeature("Blindsense"));
+
+            if (classLevel >= 15)
+                classFeatures.Add(GetClassFeature("Slippery Mind"));
+
+            if (classLevel >= 18)
+                classFeatures.Add(GetClassFeature("Elusive"));
+
+            if (classLevel >= 20)
+                classFeatures.Add(GetClassFeature("Stroke Of Luck"));
+            return classFeatures;
         }
 
         public override ClassPath ClassPath
         {
             get
             {
-                return ClassLevel(Class) >= 3 ? new ClassPath(base.ClassPath) { CharacterData.GetRoguePaths() } : base.ClassPath;
+                return ClassLevel(Class) >= 3 ? new ClassPath(base.ClassPath) { CharacterData.RoguePaths } : base.ClassPath;
             }
         }
 
@@ -208,7 +204,7 @@ namespace _5ECharacterBuilder.CharacterClasses
                 if (ClassLevel(Class) >= 6)
                     skills.MaxExpertise += 2;
 
-                if (IsMulticlassing())
+                if (IsMulticlassing(Class))
                 {
                     skills.Max += 1;
                 }

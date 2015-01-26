@@ -6,6 +6,7 @@ namespace _5ECharacterBuilder
 {
     public interface ICharacter
     {
+        Alignment Alignment { get; }
         int ArmorClass { get; }
         SortedSet<AvailableArmor> ArmorProficiencies { get; }
         CharacterAbilities Abilities { get; }
@@ -45,7 +46,7 @@ namespace _5ECharacterBuilder
         void LearnTool(AvailableTool chosenTool);
         void LearnInstrument(AvailableInstrument chosenInstrument);
         void LearnLanguage(AvailableLanguages chosenLanguage);
-        void ChosePath(AvailablePaths chosenPath);
+        void ChoosePath(AvailablePaths chosenPath);
         void ImproveAbility(string ability);
         void ChooseExpertise(AvailableSkill skill);
         void ChooseExpertise(AvailableTool tool);
@@ -63,12 +64,41 @@ namespace _5ECharacterBuilder
             abilityScores = abilityScores ?? new CharacterAbilityScores();
             EquipArmor(AvailableArmor.Cloth);
             AttacksPerTurn = 1;
+<<<<<<< HEAD
             Abilities = new CharacterAbilities(abilityScores);
         }
 
         private int ShieldBonus => HasShield ? 2 : 0;
         public int ArmorClass => GetArmorClassBonus(EquippedArmor, Abilities.Dexterity.Modifier) + ShieldBonus;
         public SortedSet<AvailableArmor> ArmorProficiencies { get; } = new SortedSet<AvailableArmor>(new List<AvailableArmor>());
+=======
+
+            Alignment = new Alignment(AvailableAlignmentFirst.Neutral, AvailableAlignmentSecond.Neutral);
+            
+            Abilities = new CharacterAbilities(abilityScores);
+            ArmorProficiencies = new SortedSet<AvailableArmor>(new List<AvailableArmor>());
+            ClassPath = new ClassPath();
+            Instruments = new Proficiencies<AvailableInstrument>();
+            Languages = new Languages();
+            Tools = new Tools();
+            Skills = new Skills();
+            WeaponProficiencies = new SortedSet<AvailableWeapon>(new List<AvailableWeapon>());
+            SavingThrows = new SortedSet<SavingThrow>(new List<SavingThrow>());
+            SpellcastingClasses = new SortedSet<SpellcastingClass>();
+            Features = new CharacterFeatures();
+            HitDice = new HitDice();
+            Currency = new Currency();
+            Classes = new List<string>();
+            ClassTraits = new ClassTraits();
+        }
+
+        private int ShieldBonus { get { return HasShield ? 2 : 0; } }
+
+        public Alignment Alignment { get; private set; }
+
+        public int ArmorClass { get { return GetArmorClassBonus(EquippedArmor, Abilities.Dexterity.Modifier) + ShieldBonus; } }
+        public SortedSet<AvailableArmor> ArmorProficiencies { get; private set; }
+>>>>>>> ee047b17b8da0ed41e07fc92cfec710cbb24420d
         public CharacterAbilities Abilities { get; private set; }
         public string Background { get; private set; }
         public List<string> Classes { get; } = new List<string>();
@@ -168,7 +198,7 @@ namespace _5ECharacterBuilder
             Languages.Chosen.Add(chosenLanguage);
         }
 
-        public void ChosePath(AvailablePaths chosenPath)
+        public void ChoosePath(AvailablePaths chosenPath)
         {
             throw new NotImplementedException();
         }

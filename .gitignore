@@ -168,3 +168,5 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+5ECharacterBuilder/5ECharacterBuilder.sln.ide/storage.ide
