@@ -12,7 +12,7 @@ namespace _5ECharacterBuilder
         CharacterAbilities Abilities { get; }
         string Background { get; }
         List<string> Classes { get; }
-        ClassPath ClassPath { get; }
+        ClassPath ClassPath { get; } 
         string ClassesString { get; }
         Currency Currency { get; }
         Armor EquippedArmor { get; }
