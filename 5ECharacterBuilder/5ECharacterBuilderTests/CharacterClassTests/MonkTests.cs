@@ -10,7 +10,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         private static ICharacter _monk;
 
         [TestInitialize]
-        public static void Setup()
+        public void Setup()
         {
             _monk = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
         }

@@ -10,7 +10,7 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         private static ICharacter _character;
 
         [TestInitialize]
-        public static void Setup()
+        public void Setup()
         {
             _character = CharacterFactory.BuildACharacter(AvailableRaces.WoodElf, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
         }
