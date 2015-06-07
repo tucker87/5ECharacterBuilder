@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace _5ECharacterBuilder.CharacterClasses
@@ -12,11 +13,10 @@ namespace _5ECharacterBuilder.CharacterClasses
 
             if (IsMulticlassing() && !MeetsRequirements())
                 throw new RequirementsExpection();
-            
+
             ArmorProficiencies.UnionWith(Armory.LightArmor);
             WeaponProficiencies.UnionWith(Armory.SimpleWeapons);
-            
-            
+
             var extraWeapons = new[]
             {
                 AvailableWeapon.HandCrossbows,
@@ -75,8 +75,8 @@ namespace _5ECharacterBuilder.CharacterClasses
                 return abilities;
             }
         }
-        
-        public override int SneakAttackDice => ClassLevel(Class)/2+1;
+
+        public override int SneakAttackDice => ClassLevel(Class) / 2 + 1;
 
         public override Tools Tools
         {
@@ -87,7 +87,7 @@ namespace _5ECharacterBuilder.CharacterClasses
                 tools.Chosen.Add(AvailableTool.ThievesTools);
                 if (ClassPath.Chosen == AvailablePaths.Assassin)
                 {
-                    tools.Available = new SortedSet<AvailableTool>(tools.Available) {AvailableTool.DisguiseKit, AvailableTool.PoisonersKit};
+                    tools.Available = new SortedSet<AvailableTool>(tools.Available) { AvailableTool.DisguiseKit, AvailableTool.PoisonersKit };
                     tools.Chosen = new SortedSet<AvailableTool>(tools.Chosen) { AvailableTool.DisguiseKit, AvailableTool.PoisonersKit };
                 }
                 return tools;
@@ -152,7 +152,7 @@ namespace _5ECharacterBuilder.CharacterClasses
 
         public override ClassPath ClassPath => ClassLevel(Class) >= 3 ? new ClassPath(base.ClassPath) { CharacterData.GetRoguePaths() } : base.ClassPath;
 
-        public override SortedSet<SavingThrow> SavingThrows => ClassLevel(Class) >= 15 ? new SortedSet<SavingThrow>(base.SavingThrows){SavingThrow.Wisdom} : base.SavingThrows;
+        public override SortedSet<SavingThrow> SavingThrows => ClassLevel(Class) >= 15 ? new SortedSet<SavingThrow>(base.SavingThrows) { SavingThrow.Wisdom } : base.SavingThrows;
 
         public override Skills Skills
         {
@@ -169,7 +169,7 @@ namespace _5ECharacterBuilder.CharacterClasses
                     skills.Max += 4;
                     skills.MaxExpertise += 2;
                 }
-                
+
                 return skills;
             }
         }
@@ -178,7 +178,7 @@ namespace _5ECharacterBuilder.CharacterClasses
         {
             get
             {
-                if (ClassPath.Chosen != AvailablePaths.ArcaneTrickster) 
+                if (ClassPath.Chosen != AvailablePaths.ArcaneTrickster)
                     return base.SpellcastingClasses;
 
                 const int baseValue = 8;
@@ -190,64 +190,105 @@ namespace _5ECharacterBuilder.CharacterClasses
 
                 var classLevel = ClassLevel(Class);
 
-                if (classLevel >= 3)
+                arcaneTrickster.MaxCantrips = classLevel >= 10 ? 4 : classLevel >= 3 ? 3 : 0;
+
+                arcaneTrickster.SpellSlots.First = classLevel >= 7 ? 4 : classLevel >= 4 ? 3 : classLevel >= 3 ? 2 : 0;
+                arcaneTrickster.SpellSlots.Second = classLevel >= 10 ? 3 : classLevel >= 7 ? 2 : 0;
+                arcaneTrickster.SpellSlots.Third = classLevel >= 16 ? 3 : classLevel >= 13 ? 2 : 0;
+                arcaneTrickster.SpellSlots.Fourth = classLevel >= 19 ? 1 : 0;
+                
+                //Version 1
+                arcaneTrickster.MaxSpells = new Func<int>(() =>
                 {
-                    arcaneTrickster.MaxCantrips = 3;
-                    arcaneTrickster.MaxSpells = 3;
-                    arcaneTrickster.SpellSlots.First = 2;
-                }
+                    switch (classLevel)
+                    {
+                        case 3:
+                            return 3;
+                        case 4:
+                        case 5:
+                        case 6:
+                            return 4;
+                        case 7:
+                            return 5;
+                        case 8:
+                        case 9:
+                            return 6;
+                        case 10:
+                            return 7;
+                        case 11:
+                        case 12:
+                            return 8;
+                        case 13:
+                            return 9;
+                        case 14:
+                        case 15:
+                            return 10;
+                        case 16:
+                        case 17:
+                        case 18:
+                            return 11;
+                        case 19:
+                            return 12;
+                        case 20:
+                            return 13;
+                        default:
+                            return 0;
+                    }
+                })();
 
-                if (classLevel >= 4)
+                //Version 2
+                var maxSpells = new Dictionary<int, int>
                 {
-                    arcaneTrickster.MaxSpells = 4;
-                    arcaneTrickster.SpellSlots.First = 3;
-                }
+                    {1, 0},
+                    {2, 0},
+                    {3, 3},
+                    {4, 4},
+                    {5, 4},
+                    {6, 4},
+                    {7, 5},
+                    {8, 6},
+                    {9, 6},
+                    {10, 7},
+                    {11, 8},
+                    {12, 8},
+                    {13, 9},
+                    {14, 10},
+                    {15, 10},
+                    {16, 11},
+                    {17, 11},
+                    {18, 11},
+                    {19, 12},
+                    {20, 13}
+                };
 
-                if (classLevel >= 7)
-                {
-                    arcaneTrickster.MaxSpells = 5;
-                    arcaneTrickster.SpellSlots.First = 4;
-                    arcaneTrickster.SpellSlots.Second = 2;
-                }
+                arcaneTrickster.MaxSpells = maxSpells[classLevel];
 
-                if (classLevel >= 8)
-                    arcaneTrickster.MaxSpells = 6;
+                //Version 3
+                arcaneTrickster.MaxSpells = classLevel >= 20
+                    ? 13
+                    : classLevel >= 19
+                        ? 12
+                        : classLevel >= 16
+                            ? 11
+                            : classLevel >= 14
+                                ? 10
+                                : classLevel >= 13
+                                    ? 9
+                                    : classLevel >= 11
+                                        ? 8
+                                        : classLevel >= 10
+                                            ? 7
+                                            : classLevel >= 8
+                                                ? 6
+                                                : classLevel >= 7
+                                                    ? 5
+                                                    : classLevel >= 4
+                                                        ? 4
+                                                        : classLevel >= 3
+                                                            ? 3
+                                                            : 0;
 
-                if (classLevel >= 10)
-                {
-                    arcaneTrickster.MaxCantrips = 4;
-                    arcaneTrickster.MaxSpells = 7;
-                    arcaneTrickster.SpellSlots.Second = 3;
-                }
-
-                if (classLevel >= 11)
-                    arcaneTrickster.MaxSpells = 8;
-
-                if (classLevel >= 13)
-                {
-                    arcaneTrickster.MaxSpells = 9;
-                    arcaneTrickster.SpellSlots.Third = 2;
-                }
-
-                if (classLevel >= 14)
-                    arcaneTrickster.MaxSpells = 10;
-
-                if (classLevel >= 16)
-                {
-                    arcaneTrickster.MaxSpells = 11;
-                    arcaneTrickster.SpellSlots.Third = 3;
-                }
-
-                if (classLevel >= 19)
-                {
-                    arcaneTrickster.MaxSpells = 12;
-                    arcaneTrickster.SpellSlots.Fourth = 1;
-                }
-
-                if (classLevel >= 20)
-                    arcaneTrickster.MaxSpells = 13;
-
-                return new SortedSet<SpellcastingClass>(base.SpellcastingClasses.Concat(new[] {arcaneTrickster}));
+                return new SortedSet<SpellcastingClass>(base.SpellcastingClasses.Concat(new[] { arcaneTrickster }));
             }
         }
     }

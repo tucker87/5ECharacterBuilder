@@ -50,6 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ArcaneTricksterSpells.cs" />
     <Compile Include="ArmoryTests.cs" />
     <Compile Include="CharacterClassTests\BarbarianTests.cs" />
     <Compile Include="CharacterClassTests\RogueTests.cs" />
