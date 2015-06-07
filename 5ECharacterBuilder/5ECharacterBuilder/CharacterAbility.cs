@@ -101,7 +101,17 @@ namespace _5ECharacterBuilder
             Charisma.RacialBonus = racialBonuses.Charisma;
         }
 
-        private IEnumerable<CharacterAbility> Abilities => new List<CharacterAbility> {Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma};
+        private Dictionary<string, CharacterAbility> Abilities
+            =>
+                new Dictionary<string, CharacterAbility>
+                {
+                    {"Strength", Strength},
+                    {"Dexterity", Dexterity},
+                    {"Constitution", Constitution},
+                    {"Intelligence", Intelligence},
+                    {"Wisdom", Wisdom},
+                    {"Charisma", Charisma}
+                };
 
         public CharacterAbility Strength { get; }
         public CharacterAbility Dexterity { get; }
@@ -118,9 +128,9 @@ namespace _5ECharacterBuilder
                                                     Wisdom.ImprovementBonus +
                                                     Charisma.ImprovementBonus;
 
-        public IEnumerator<CharacterAbility> GetEnumerator()
+        public Dictionary<string, CharacterAbility>.Enumerator GetEnumerator()
         {
-            return Abilities.TakeWhile(o => o != null).GetEnumerator();
+            return Abilities.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

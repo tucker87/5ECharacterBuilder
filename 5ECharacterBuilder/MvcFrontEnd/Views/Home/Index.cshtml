@@ -1,0 +1,36 @@
+﻿@model _5ECharacterBuilder.ICharacter
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div>
+        <div><label>Race:</label> <span data-bind="text: race"></span></div>
+        <div><label>Class:</label> @Model.ClassesString</div>
+        <div><label>Background:</label> @Model.Background</div>
+    </div>
+    <div>
+        @*@foreach (var abilityPair in Model.Abilities)
+        {
+            @Html.DisplayFor(m => abilityPair, "CharacterAbility")
+        }*@
+
+        <!-- ko foreach: abilities -->
+            <div>
+                <label data-bind="text: $data.Key"></label> <input data-bind="value: $.Value.Score" /> <input data-bind="value: $.Value.Modifier"/>
+            </div>
+        <!--/ko-->
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        function BasicData() {
+            this.race = "@Model.Race";
+            this.abilities = "@Model.Abilities";
+        }
+
+        ko.applyBindings(new BasicData());
+    </script>
+}

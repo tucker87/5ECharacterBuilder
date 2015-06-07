@@ -1,6 +1,5 @@
 ﻿@using System
 @using System.Collections.Generic
-@using System.Linq
 @using System.Web
 @using NetFrontEnd
 @using _5ECharacterBuilder
@@ -8,7 +7,7 @@
 @{
     var paramerters = HttpContext.Current.Request.Params;
     var raceName = paramerters["race"];
-    var classes = HttpUtility.UrlDecode(paramerters["classes[]"]).Split(',');
+    var className = HttpUtility.UrlDecode(paramerters["class"]);
     var backgroundName = paramerters["background"];
 }
 
@@ -44,7 +43,7 @@
         <title>5E Character Builder</title>
     </head>
     <body>
-            @if (string.IsNullOrEmpty(raceName) || !classes.Any() || string.IsNullOrEmpty(backgroundName))
+            @if (String.IsNullOrEmpty(raceName) || String.IsNullOrEmpty(className) || String.IsNullOrEmpty(backgroundName))
             {
                 <div id="BaseCharacterSelect"></div>
                 <script type="text/javascript">
@@ -53,11 +52,10 @@
             }
             else
             {
-                var classesEnums = classes.Select(className => (AvailableClasses) Enum.Parse(typeof(AvailableClasses), className)).ToList();
-                var character = CharacterFactory.BuildACharacter((AvailableRaces)Enum.Parse(typeof(AvailableRaces), raceName), classesEnums, (AvailableBackgrounds)Enum.Parse(typeof(AvailableBackgrounds), backgroundName));
+                var classEnums = new List<AvailableClasses> { (AvailableClasses)Enum.Parse(typeof(AvailableClasses), className)};
+                var character = CharacterFactory.BuildACharacter((AvailableRaces)Enum.Parse(typeof(AvailableRaces), raceName), classEnums, (AvailableBackgrounds)Enum.Parse(typeof(AvailableBackgrounds), backgroundName));
                 <div class="toolBar">
-                    
-                    <input type="button" value="Level Up" onclick="javascript: window.location.href = $(location).attr('href').split('?')[0] + '?' + $.param({ race:'@raceName', class:'@classes', background:'@backgroundName'});" />
+                                        <input type="button" value="Level Up" onclick="javascript: window.location.href = $(location).attr('href').split('?')[0] + '?' + $.param({ race:'@raceName', class:'@className', background:'@backgroundName'});" />
                 </div>
                 
                 <div>
@@ -89,7 +87,7 @@
                             </div>
                             <div class="description">
                                 <label>Alignment</label>
-                                <input value="@character.Alignment"/>
+                                <input value=""/>
                             </div>
                             <div class="description">
                                 <label>Experience Points</label>
@@ -113,9 +111,9 @@
                         @foreach (var ability in character.Abilities)
                         {
                             <div>
-                                <label>@ability.ToString()</label>
-                                <input class="number" value="@ability.Score" />
-                                <input class="number" value="@ability.Modifier" />
+                                <label>@ability.Key</label>
+                                <input class="number" value="@ability.Value.Score" />
+                                <input class="number" value="@ability.Value.Modifier" />
                             </div>
                         }
                     </div>

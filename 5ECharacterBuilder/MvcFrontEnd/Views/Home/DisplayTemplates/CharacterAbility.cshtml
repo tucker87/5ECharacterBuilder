@@ -1,0 +1,17 @@
+﻿@model KeyValuePair<string, _5ECharacterBuilder.CharacterAbility>
+
+
+<div>
+    <label>@Model.Key:</label> <input data-bind="value: score" /> <input value="@Model.Value.Modifier" />
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        function BindTest() {
+            this.score = @Model.Value.Score;
+        }
+
+        ko.applyBindings(new BindTest());
+    </script>
+}

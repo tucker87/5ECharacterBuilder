@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _5ECharacterBuilder;
+using static System.Console;
 
 namespace SimpleExampleFrontEnd
 {
@@ -8,11 +9,15 @@ namespace SimpleExampleFrontEnd
     {
         private static void Main()
         {
-            Console.WriteLine("Choose a Race: ");
+            var x = "of";
+            var y = "$";
+            var test = $"This is a test {x} {y}";
+
+            WriteLine("Choose a Race: ");
             var characterRace = Generics.AskFor<AvailableRaces>();
-            Console.WriteLine("Choose a Class: ");
+            WriteLine("Choose a Class: ");
             var characterClass = Generics.AskFor<AvailableClasses>();
-            Console.WriteLine("Choose a Background: ");
+            WriteLine("Choose a Background: ");
             var characterBackground = Generics.AskFor<AvailableBackgrounds>();
 
 
@@ -21,7 +26,7 @@ namespace SimpleExampleFrontEnd
             var exit = false;
             while (!exit)
             {
-                Console.Clear();
+                Clear();
                 WriteCharacter(character);
                 
                 var selectedAction = Generics.AskFor<Menu.MenuOptions>();
@@ -43,95 +48,95 @@ namespace SimpleExampleFrontEnd
 
         private static void WriteCharacter(ICharacter character)
         {
-            Console.WriteLine(character.Race + "," + character.ClassesString + ", " + character.Background);
-            Console.Write("Hit Dice: {0}", character.HitDice);
+            WriteLine(character.Race + "," + character.ClassesString + ", " + character.Background);
+            Write("Hit Dice: {0}", character.HitDice);
 
-            Console.WriteLine();
-            Console.WriteLine("Hit Points: " + character.MaxHp);
+            WriteLine();
+            WriteLine("Hit Points: " + character.MaxHp);
 
-            Console.WriteLine();
-            Console.Write("Armor Proficiencies:");
+            WriteLine();
+            Write("Armor Proficiencies:");
             foreach (var armor in character.ArmorProficiencies)
-                Console.Write(" " + armor);
-            Console.WriteLine();
+                Write(" " + armor);
+            WriteLine();
 
-            Console.WriteLine("Equipped Armor: " + character.EquippedArmor.Name);
+            WriteLine("Equipped Armor: " + character.EquippedArmor.Name);
 
 
-            Console.WriteLine();
-            Console.WriteLine("Has Shield: " + (character.HasShield ? "Yes" : "No"));
+            WriteLine();
+            WriteLine("Has Shield: " + (character.HasShield ? "Yes" : "No"));
 
-            Console.WriteLine("Armor Class: " + character.ArmorClass);
-            Console.WriteLine("Initiative: " + character.Initiative);
-            Console.WriteLine("Size: " + character.Size);
-            Console.WriteLine("Speed: " + character.Speed);
-            Console.WriteLine();
-            Console.WriteLine("Strength: {0} Modifier: {1}", character.Abilities.Strength.Score, character.Abilities.Strength.Modifier);
-            Console.WriteLine("Dexterity: {0} Modifier: {1}", character.Abilities.Dexterity.Score, character.Abilities.Dexterity.Modifier);
-            Console.WriteLine("Constitution: {0} Modifier: {1}", character.Abilities.Constitution.Score, character.Abilities.Constitution.Modifier);
-            Console.WriteLine("Intelligence: {0} Modifier: {1}", character.Abilities.Intelligence.Score, character.Abilities.Intelligence.Modifier);
-            Console.WriteLine("Wisdom: {0} Modifier: {1}", character.Abilities.Wisdom.Score, character.Abilities.Wisdom.Modifier);
-            Console.WriteLine("Charisma: {0} Modifier: {1}", character.Abilities.Charisma.Score, character.Abilities.Charisma.Modifier);
-            Console.WriteLine();
-            Console.WriteLine("Feats: TODO"); //TODO
-            Console.WriteLine("AllFeatures: ");
+            WriteLine("Armor Class: " + character.ArmorClass);
+            WriteLine("Initiative: " + character.Initiative);
+            WriteLine("Size: " + character.Size);
+            WriteLine("Speed: " + character.Speed);
+            WriteLine();
+            WriteLine("Strength: {0} Modifier: {1}", character.Abilities.Strength.Score, character.Abilities.Strength.Modifier);
+            WriteLine("Dexterity: {0} Modifier: {1}", character.Abilities.Dexterity.Score, character.Abilities.Dexterity.Modifier);
+            WriteLine("Constitution: {0} Modifier: {1}", character.Abilities.Constitution.Score, character.Abilities.Constitution.Modifier);
+            WriteLine("Intelligence: {0} Modifier: {1}", character.Abilities.Intelligence.Score, character.Abilities.Intelligence.Modifier);
+            WriteLine("Wisdom: {0} Modifier: {1}", character.Abilities.Wisdom.Score, character.Abilities.Wisdom.Modifier);
+            WriteLine("Charisma: {0} Modifier: {1}", character.Abilities.Charisma.Score, character.Abilities.Charisma.Modifier);
+            WriteLine();
+            WriteLine("Feats: TODO"); //TODO
+            WriteLine("AllFeatures: ");
             foreach (var feature in character.Features.AllFeatures)
-                Console.WriteLine(" " + feature.Key);
+                WriteLine(" " + feature.Key);
 
 
-            Console.Write("Weapon Proficiencies:");
+            Write("Weapon Proficiencies:");
             foreach (var weapon in character.WeaponProficiencies)
-                Console.Write(" " + weapon);
+                Write(" " + weapon);
 
-            Console.WriteLine();
-            Console.Write("Saving Throw Proficiencies:");
+            WriteLine();
+            Write("Saving Throw Proficiencies:");
             foreach (var savingThrowProficiency in character.SavingThrows)
-                Console.Write(" " + savingThrowProficiency);
+                Write(" " + savingThrowProficiency);
 
 
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.Write("Available Skill Proficiencies:");
+            WriteLine();
+            WriteLine();
+            Write("Available Skill Proficiencies:");
             foreach (var skill in character.Skills.Available)
-                Console.Write(" " + skill);
+                Write(" " + skill);
             
-            Console.WriteLine();
-            Console.WriteLine("Skill Scores:");
-            Console.WriteLine("Skill\tScore\tChosen\tExpertise");
+            WriteLine();
+            WriteLine("Skill Scores:");
+            WriteLine("Skill\tScore\tChosen\tExpertise");
             foreach (var skill in character.Skills.AllSkills)
             {
-                Console.WriteLine("{0} | {1} | {2} | {3}", skill, character.SkillBonus(skill), character.Skills.Chosen.Contains(skill) ? "*" : "", character.Skills.Expertise.Contains(skill) ? "*" : "");
+                WriteLine("{0} | {1} | {2} | {3}", skill, character.SkillBonus(skill), character.Skills.Chosen.Contains(skill) ? "*" : "", character.Skills.Expertise.Contains(skill) ? "*" : "");
             }
 
-            Console.WriteLine();
+            WriteLine();
 
-            Console.Write("Tool Proficiencies:");
+            Write("Tool Proficiencies:");
             foreach (var tool in character.Tools.Chosen)
-                Console.Write(" " + tool);
+                Write(" " + tool);
 
-            Console.WriteLine();
-            Console.WriteLine();
+            WriteLine();
+            WriteLine();
 
-            Console.Write("Instrument Proficiencies:");
+            Write("Instrument Proficiencies:");
             foreach (var instrument in character.Instruments.Chosen)
-                Console.Write(" " + instrument);
+                Write(" " + instrument);
 
-            Console.WriteLine();
+            WriteLine();
 
 
-            Console.WriteLine();
-            Console.Write("Languagues:");
+            WriteLine();
+            Write("Languagues:");
             foreach (var language in character.Languages.Chosen)
             {
-                Console.Write(" " + language);
+                Write(" " + language);
             }
 
-            Console.WriteLine();
-            Console.WriteLine("Gold: " + character.Currency.Gold);
-            Console.WriteLine("Silver: " + character.Currency.Silver);
-            Console.WriteLine("Copper: " + character.Currency.Copper);
+            WriteLine();
+            WriteLine("Gold: " + character.Currency.Gold);
+            WriteLine("Silver: " + character.Currency.Silver);
+            WriteLine("Copper: " + character.Currency.Copper);
             
-            Console.WriteLine();
+            WriteLine();
         }
     }
 
@@ -194,12 +199,12 @@ namespace SimpleExampleFrontEnd
 
         private static void ShowFeatures()
         {
-            Console.Clear();
+            Clear();
             foreach (var feature in _character.Features.AllFeatures)
-                Console.WriteLine(feature.Key + " - " + feature.Value + "\r\n");
+                WriteLine(feature.Key + " - " + feature.Value + "\r\n");
              
-            Console.WriteLine("Press any key to return to Character");
-            Console.ReadLine();
+            WriteLine("Press any key to return to Character");
+            ReadLine();
 
         }
 
@@ -236,12 +241,12 @@ namespace SimpleExampleFrontEnd
         {
             var i = 1;
             foreach (var race in (T[])Enum.GetValues(typeof(T)))
-                Console.WriteLine("{0}: {1}", i++, race);
+                WriteLine("{0}: {1}", i++, race);
 
-            var chosen = Convert.ToInt32(Console.ReadLine()) - 1;
+            var chosen = Convert.ToInt32(ReadLine()) - 1;
 
             var characterRace = (T)(object)chosen;
-            Console.Clear();
+            Clear();
             return characterRace;
         }
     }

@@ -5,7 +5,7 @@ namespace _5ECharacterBuilder.CharacterRaces
         public Human(ICharacter character) : base(character)
         {
             foreach (var attribute in Abilities)
-                attribute.RacialBonus = 1;
+                attribute.Value.RacialBonus = 1;
 
             Languages.Chosen.Add(AvailableLanguages.Common);
             Languages.Max += 2;

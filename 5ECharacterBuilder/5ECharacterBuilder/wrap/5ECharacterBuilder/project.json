@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../5ECharacterBuilder.csproj",
+      "bin": {
+        "assembly": "../../obj/{configuration}/5ECharacterBuilder.dll",
+        "pdb": "../../obj/{configuration}/5ECharacterBuilder.pdb"
+      }
+    }
+  }
+}

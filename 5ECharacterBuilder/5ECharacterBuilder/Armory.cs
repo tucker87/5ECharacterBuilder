@@ -86,7 +86,7 @@ namespace _5ECharacterBuilder
         public static SortedSet<AvailableArmor> LightArmor { get; set; }
         public static SortedSet<AvailableArmor> MediumArmor { get; set; }
         public static SortedSet<AvailableArmor> HeavyArmor { get; set; }
-        public static List<AvailableArmor> AllArmor { get; private set; }
+        public static List<AvailableArmor> AllArmor { get; }
 
         public static SortedSet<AvailableWeapon> SimpleWeapons { get; private set; }
         public static SortedSet<AvailableWeapon> MartialWeapons { get; set; }
@@ -98,10 +98,14 @@ namespace _5ECharacterBuilder
 
         }
 
-        public List<AvailableTool> GetGamingSets()
-        {
-            return new List<AvailableTool>{AvailableTool.DiceSet, AvailableTool.DragonchessSet, AvailableTool.PlayingCardSet, AvailableTool.ThreeDragonAnteSet};
-        }
+        public List<AvailableTool> GetGamingSets() =>
+            new List<AvailableTool>
+            {
+                AvailableTool.DiceSet,
+                AvailableTool.DragonchessSet,
+                AvailableTool.PlayingCardSet,
+                AvailableTool.ThreeDragonAnteSet
+            };
     }
 
     public class Armor

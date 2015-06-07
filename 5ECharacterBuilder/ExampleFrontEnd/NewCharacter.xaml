@@ -1,0 +1,22 @@
+﻿<Window x:Class="ExampleFrontEnd.NewCharacter"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ExampleFrontEnd"
+        mc:Ignorable="d"
+        Title="NewCharacter" Height="370.455" Width="632.955" Loaded="OnLoad">
+    <UniformGrid Columns="4">
+        <StackPanel>
+            <Label Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox>John Doe</TextBox>
+            <Label Content="Race" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ComboBox Name="RaceBox" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Class"/>
+            <ComboBox Name="ClassBox" HorizontalAlignment="Left" Margin="10,0,0,0" Width="120"/>
+            <Label Content="Background"/>
+            <ComboBox Name="BackgroundBox" HorizontalAlignment="Left" Margin="10,0,0,0" Width="120"/>
+            </StackPanel>
+    </UniformGrid>
+
+</Window>
