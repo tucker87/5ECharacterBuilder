@@ -17,7 +17,7 @@ namespace _5ECharacterBuilder
         public Dictionary<string, string> RaceFeatures { get; internal set; } 
         public Dictionary<string, string> ClassFeatures { get; internal set; } 
         public Dictionary<string, string> ClassPathFeatures { get; internal set; } 
-        //public List<Feature> BackgroundFeatures { get; internal set; } 
+        //public All<Feature> BackgroundFeatures { get; internal set; } 
     }
 
     public class Proficiencies<T>

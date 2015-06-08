@@ -158,9 +158,9 @@ namespace SimpleExampleFrontEnd
         };
 
 
-        //character.AddToolProfs(new List<AvailableTool> { AvailableTool.AlchemistsSupplies });
-        //character.AddInstrumentProfs(new List<AvailableInstrument> { AvailableInstrument.Lute });
-        //character.AddLanguages(new List<AvailableLanguages> { AvailableLanguages.Common });
+        //character.AddToolProfs(new All<AvailableTool> { AvailableTool.AlchemistsSupplies });
+        //character.AddInstrumentProfs(new All<AvailableInstrument> { AvailableInstrument.Lute });
+        //character.AddLanguages(new All<AvailableLanguages> { AvailableLanguages.Common });
 
         private static void EquipArmor()
         {

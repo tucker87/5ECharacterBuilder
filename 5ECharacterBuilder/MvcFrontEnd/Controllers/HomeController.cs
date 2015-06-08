@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using MvcFrontEnd.Models;
 using _5ECharacterBuilder;
 using static _5ECharacterBuilder.AvailableRaces;
 using static _5ECharacterBuilder.AvailableClasses;
@@ -10,7 +11,7 @@ namespace MvcFrontEnd.Controllers
     {
         public ActionResult Index()
         {
-            var character = CharacterFactory.BuildACharacter(Human, Fighter, Criminal);
+            var character = new Character(CharacterFactory.BuildACharacter(Human, Fighter, Criminal));
             return View(character);
         }
 

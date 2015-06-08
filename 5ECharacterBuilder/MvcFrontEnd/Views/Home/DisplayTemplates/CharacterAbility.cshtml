@@ -1,17 +1,9 @@
-﻿@model KeyValuePair<string, _5ECharacterBuilder.CharacterAbility>
-
+﻿@using PerpetuumSoft.Knockout
+@model KnockoutWithContext<MvcFrontEnd.Models.Ability>
 
 <div>
-    <label>@Model.Key:</label> <input data-bind="value: score" /> <input value="@Model.Value.Modifier" />
+    @Model.Html.Span(m => m.Name)
+    @Model.Html.TextBox(m => m.Score)
+    @Model.Html.Span(m => m.Score)
+    @Model.Html.Span(m => m.Modifier)
 </div>
-
-@section scripts
-{
-    <script type="text/javascript">
-        function BindTest() {
-            this.score = @Model.Value.Score;
-        }
-
-        ko.applyBindings(new BindTest());
-    </script>
-}

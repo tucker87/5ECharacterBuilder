@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace _5ECharacterBuilder
 {
@@ -49,7 +48,7 @@ namespace _5ECharacterBuilder
         }
     }
 
-    public class CharacterAbilities : IEnumerable
+    public class CharacterAbilities : IEnumerable<CharacterAbility>
     {
         public CharacterAbilities() { }
 
@@ -67,22 +66,22 @@ namespace _5ECharacterBuilder
 
         public CharacterAbilities(int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma)
         {
-            Strength = new CharacterAbility(strength);
-            Dexterity = new CharacterAbility(dexterity);
-            Constitution = new CharacterAbility(constitution);
-            Intelligence = new CharacterAbility(intelligence);
-            Wisdom = new CharacterAbility(wisdom);
-            Charisma = new CharacterAbility(charisma);
+            Strength.Score = strength;
+            Dexterity.Score = dexterity;
+            Constitution.Score = constitution;
+            Intelligence.Score = intelligence;
+            Wisdom.Score = wisdom;
+            Charisma.Score = charisma;
         }
 
         public CharacterAbilities(CharacterAbilityScores abilityScores)
         {
-            Strength = new CharacterAbility(abilityScores.Strength);
-            Dexterity = new CharacterAbility(abilityScores.Dexterity);
-            Constitution = new CharacterAbility(abilityScores.Constitution);
-            Intelligence = new CharacterAbility(abilityScores.Intelligence);
-            Wisdom = new CharacterAbility(abilityScores.Wisdom);
-            Charisma = new CharacterAbility(abilityScores.Charisma);
+            Strength.Score = abilityScores.Strength;
+            Dexterity.Score = abilityScores.Dexterity;
+            Constitution.Score = abilityScores.Constitution;
+            Intelligence.Score = abilityScores.Intelligence;
+            Wisdom.Score = abilityScores.Wisdom;
+            Charisma.Score = abilityScores.Charisma;
         }
 
         public CharacterAbilities(CharacterAbilities abilities, CharacterAbilityScores racialBonuses)
@@ -100,25 +99,24 @@ namespace _5ECharacterBuilder
             Charisma = abilities.Charisma;
             Charisma.RacialBonus = racialBonuses.Charisma;
         }
-
-        private Dictionary<string, CharacterAbility> Abilities
-            =>
-                new Dictionary<string, CharacterAbility>
+        
+        private List<CharacterAbility> List =>
+                new List<CharacterAbility>
                 {
-                    {"Strength", Strength},
-                    {"Dexterity", Dexterity},
-                    {"Constitution", Constitution},
-                    {"Intelligence", Intelligence},
-                    {"Wisdom", Wisdom},
-                    {"Charisma", Charisma}
+                    Strength,
+                    Dexterity,
+                    Constitution,
+                    Intelligence,
+                    Wisdom,
+                    Charisma
                 };
 
-        public CharacterAbility Strength { get; }
-        public CharacterAbility Dexterity { get; }
-        public CharacterAbility Constitution { get; }
-        public CharacterAbility Intelligence { get; }
-        public CharacterAbility Wisdom { get; }
-        public CharacterAbility Charisma { get; }
+        public CharacterAbility Strength { get; } = new CharacterAbility(AbilityName.Strength);
+        public CharacterAbility Dexterity { get; } = new CharacterAbility(AbilityName.Dexterity);
+        public CharacterAbility Constitution { get; } = new CharacterAbility(AbilityName.Constitution);
+        public CharacterAbility Intelligence { get; } = new CharacterAbility(AbilityName.Intelligence);
+        public CharacterAbility Wisdom { get; } = new CharacterAbility(AbilityName.Wisdom);
+        public CharacterAbility Charisma { get; } = new CharacterAbility(AbilityName.Charisma);
 
         public int ImprovementPoints { get; internal set; }
         public int SpentAbilityImprovementPoints => Strength.ImprovementBonus +
@@ -128,9 +126,9 @@ namespace _5ECharacterBuilder
                                                     Wisdom.ImprovementBonus +
                                                     Charisma.ImprovementBonus;
 
-        public Dictionary<string, CharacterAbility>.Enumerator GetEnumerator()
+        public IEnumerator<CharacterAbility> GetEnumerator()
         {
-            return Abilities.GetEnumerator();
+            return List.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -142,11 +140,11 @@ namespace _5ECharacterBuilder
     public class CharacterAbility
     {
         private int _score;
+        private readonly AbilityName _name;
 
-        public CharacterAbility(int score, int racialBonus = 0)
+        public CharacterAbility(AbilityName name)
         {
-            _score = score;
-            RacialBonus = racialBonus;
+            _name = name;
         }
 
         public int ClassBonus { get; internal set; }
@@ -157,14 +155,25 @@ namespace _5ECharacterBuilder
             set { _score = value; }
         }
 
+        public string Name => _name.ToString();
         public int MaxScore { get; internal set; }
         public int Modifier => CalculateModifier(Score);
         public int RacialBonus { get; internal set; }
         public int ImprovementBonus { get; internal set; }
-        
-        private static int CalculateModifier(int score)
+
+        public static int CalculateModifier(int score)
         {
-            return score / 2 - 5;
+            return score/2 - 5;
         }
+    }
+
+    public enum AbilityName
+    {
+        Strength,
+        Dexterity,
+        Constitution,
+        Intelligence,
+        Wisdom,
+        Charisma
     }
 }
