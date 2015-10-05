@@ -11,6 +11,11 @@
         <div>@Html.LabelFor(m => m.Classes) @Html.DisplayFor(m => m.Classes)</div>
         <div>@Html.LabelFor(m => m.Background) @Html.DisplayFor(m => m.Background)</div>
     </div>
+    
+    @using (var ability = @ko.With(m => m.Strength))
+    {
+        @Html.EditorFor(m => ability, "CharacterAbility")
+    }
 
     @using (var ability = @ko.With(m => m.Strength))
     {
@@ -46,9 +51,5 @@
 @section scripts
 {
     @ko.Initialize(Model)
-    <script type="text/javascript">
-        viewModel.AbilityList = [];
-        viewModel.AbilityList.push(viewModel.Strength);
-    </script>
     @ko.Apply(Model)
 }

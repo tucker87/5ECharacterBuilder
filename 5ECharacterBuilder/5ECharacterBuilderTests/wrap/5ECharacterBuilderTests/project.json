@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../5ECharacterBuilderTests.csproj",
+      "bin": {
+        "assembly": "../../obj/{configuration}/5ECharacterBuilderTests.dll",
+        "pdb": "../../obj/{configuration}/5ECharacterBuilderTests.pdb"
+      },
+      "dependencies": {
+        "5ECharacterBuilder": "1.0.0-*",
+        "Microsoft.VisualStudio.QualityTools.UnitTestFramework": "1.0.0-*"
+      }
+    }
+  }
+}

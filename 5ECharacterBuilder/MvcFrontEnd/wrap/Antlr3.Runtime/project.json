@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net452": {
+      "bin": {
+        "assembly": "../../../packages/Antlr.3.4.1.9004/lib/Antlr3.Runtime.dll",
+        "pdb": "../../../packages/Antlr.3.4.1.9004/lib/Antlr3.Runtime.pdb"
+      }
+    }
+  }
+}

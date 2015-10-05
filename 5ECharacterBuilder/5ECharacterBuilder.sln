@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFrontEnd", "NetFrontEnd\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcFrontEnd", "MvcFrontEnd\MvcFrontEnd.csproj", "{F045400F-E8B2-4ECA-A830-4EE73533F087}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Mvc5FrontEnd", "Mvc5FrontEnd\Mvc5FrontEnd.xproj", "{AD08FA5D-AD86-4507-AA28-5C795F6A6A53}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MVC5Library", "MVC5Library\MVC5Library.xproj", "{8DC1FF7A-3531-4104-A364-1589BEDBFEC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{F045400F-E8B2-4ECA-A830-4EE73533F087}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F045400F-E8B2-4ECA-A830-4EE73533F087}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F045400F-E8B2-4ECA-A830-4EE73533F087}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD08FA5D-AD86-4507-AA28-5C795F6A6A53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD08FA5D-AD86-4507-AA28-5C795F6A6A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD08FA5D-AD86-4507-AA28-5C795F6A6A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD08FA5D-AD86-4507-AA28-5C795F6A6A53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DC1FF7A-3531-4104-A364-1589BEDBFEC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DC1FF7A-3531-4104-A364-1589BEDBFEC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DC1FF7A-3531-4104-A364-1589BEDBFEC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DC1FF7A-3531-4104-A364-1589BEDBFEC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

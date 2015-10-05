@@ -1,0 +1,11 @@
+﻿@using PerpetuumSoft.Knockout
+@model KnockoutWithContext<MvcFrontEnd.Models.Ability>
+
+<div>
+    @Html.LabelFor(m => m.Model.Name)
+    @{
+        var keyUpTestBox = Model.Html.TextBox(m => m.Score);
+        keyUpTestBox.ValueUpdate(KnockoutValueUpdateKind.KeyUp);
+    }
+    @keyUpTestBox
+</div>

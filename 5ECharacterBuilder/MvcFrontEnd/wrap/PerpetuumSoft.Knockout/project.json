@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net452": {
+      "bin": {
+        "assembly": "../../../packages/kMVC.0.6.0/lib/net40/PerpetuumSoft.Knockout.dll"
+      }
+    }
+  }
+}

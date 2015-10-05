@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "bin": {
+        "assembly": "../../../packages/Newtonsoft.Json.5.0.4/lib/net45/Newtonsoft.Json.dll"
+      }
+    },
+    "net451": {
+      "bin": {
+        "assembly": "../../../packages/Newtonsoft.Json.5.0.4/lib/net45/Newtonsoft.Json.dll"
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "bin": {
+        "assembly": "../../../packages/Mono.Reflection.1.0.0.0/lib/Mono.Reflection.dll"
+      }
+    },
+    "net451": {
+      "bin": {
+        "assembly": "../../../packages/Mono.Reflection.1.0.0.0/lib/Mono.Reflection.dll"
+      }
+    }
+  }
+}

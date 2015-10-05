@@ -1,0 +1,43 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net452": {
+      "wrappedProject": "../../MvcFrontEnd.csproj",
+      "bin": {
+        "assembly": "../../obj/{configuration}/MvcFrontEnd.dll",
+        "pdb": "../../obj/{configuration}/MvcFrontEnd.pdb"
+      },
+      "dependencies": {
+        "Antlr": "3.4.1.9004",
+        "bootstrap": "3.0.0",
+        "DelegateDecompiler": "0.9.1.0",
+        "jQuery": "2.1.1",
+        "jQuery.Validation": "1.11.1",
+        "kMVC": "0.6.0",
+        "Knockout.Mapping": "2.4.0",
+        "knockoutjs": "3.3.0",
+        "Microsoft.AspNet.Mvc": "5.2.3",
+        "Microsoft.AspNet.Razor": "3.2.3",
+        "Microsoft.AspNet.Web.Optimization": "1.1.3",
+        "Microsoft.AspNet.WebPages": "3.2.3",
+        "Microsoft.jQuery.Unobtrusive.Validation": "3.2.3",
+        "Microsoft.Web.Infrastructure": "1.0.0.0",
+        "Modernizr": "2.6.2",
+        "Mono.Reflection": "1.0.0.0",
+        "Newtonsoft.Json": "6.0.4",
+        "Respond": "1.2.0",
+        "WebGrease": "1.5.2",
+        "5ECharacterBuilder": "1.0.0-*",
+        "Antlr3.Runtime": "1.0.0-*",
+        "PerpetuumSoft.Knockout": "1.0.0-*",
+        "System.Web.Helpers": "1.0.0-*",
+        "System.Web.Mvc": "1.0.0-*",
+        "System.Web.Optimization": "1.0.0-*",
+        "System.Web.Razor": "1.0.0-*",
+        "System.Web.WebPages.Deployment": "1.0.0-*",
+        "System.Web.WebPages": "1.0.0-*",
+        "System.Web.WebPages.Razor": "1.0.0-*"
+      }
+    }
+  }
+}

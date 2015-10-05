@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../ExampleFrontEnd.csproj",
+      "bin": {
+        "assembly": "../../obj/{configuration}/ExampleFrontEnd.exe",
+        "pdb": "../../obj/{configuration}/ExampleFrontEnd.pdb"
+      },
+      "dependencies": {
+        "5ECharacterBuilder": "1.0.0-*"
+      }
+    }
+  }
+}

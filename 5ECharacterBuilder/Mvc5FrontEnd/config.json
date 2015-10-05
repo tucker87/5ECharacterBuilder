@@ -1,0 +1,10 @@
+{
+  "AppSettings": {
+    "SiteTitle": "Mvc5FrontEnd"
+  },
+  "Data": {
+    "DefaultConnection": {
+      "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=aspnet5-Mvc5FrontEnd-176934ee-360f-4311-bc11-afcc9b46596a;Trusted_Connection=True;MultipleActiveResultSets=true"
+    }
+  }
+}

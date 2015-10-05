@@ -1,6 +1,4 @@
-﻿using System.Web.Script.Serialization;
-using DelegateDecompiler;
-using Newtonsoft.Json;
+﻿using DelegateDecompiler;
 using _5ECharacterBuilder;
 
 namespace MvcFrontEnd.Models
@@ -45,10 +43,8 @@ namespace MvcFrontEnd.Models
 
         public string Name { get; set; }
         public int Score;
-
+        
         [Computed]
-        [JsonIgnore]
-        [ScriptIgnore]
         public int Modifier => Score / 2 - 5;
     }
 }

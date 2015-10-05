@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../NetFrontEnd.csproj",
+      "bin": {
+        "assembly": "../../obj/{configuration}/NetFrontEnd.dll",
+        "pdb": "../../obj/{configuration}/NetFrontEnd.pdb"
+      },
+      "dependencies": {
+        "jQuery": "2.1.1",
+        "5ECharacterBuilder": "1.0.0-*"
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.Props" Condition="'$(VSToolsPath)' != ''" />
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>ad08fa5d-ad86-4507-aa28-5c795f6a6a53</ProjectGuid>
+    <RootNamespace>Mvc5FrontEnd</RootNamespace>
+    <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">..\artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
+    <OutputPath Condition="'$(OutputPath)'=='' ">..\artifacts\bin\$(MSBuildProjectName)\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AssemblyName>Mvc5FrontEnd</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <DevelopmentServerPort>51449</DevelopmentServerPort>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\5ECharacterBuilderTests\5ECharacterBuilderTests.csproj" />
+    <ProjectReference Include="..\5ECharacterBuilder\5ECharacterBuilder.csproj" />
+    <ProjectReference Include="..\ExampleFrontEnd\ExampleFrontEnd.csproj" />
+    <ProjectReference Include="..\MvcFrontEnd\MvcFrontEnd.csproj" />
+    <ProjectReference Include="..\NetFrontEnd\NetFrontEnd.csproj" />
+    <ProjectReference Include="..\SimpleExampleFrontEnd\SimpleExampleFrontEnd.csproj" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
+</Project>
