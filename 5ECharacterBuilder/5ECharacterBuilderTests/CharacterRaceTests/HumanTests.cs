@@ -1,39 +1,39 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using _5ECharacterBuilder;
 
 namespace _5ECharacterBuilderTests.CharacterRaceTests
 {
-    [TestClass]
+    [TestFixture]
     public class HumanTests
     {
         private static ICharacter _character;
 
-        [TestInitialize]
-        public void Setup()
+        [SetUp]
+        public void SetUp()
         {
             _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Fighter,
                 AvailableBackgrounds.Criminal);
         }
 
-        [TestMethod]
+        [Test]
         public void MountainDwarvesSizeIsMedium()
         {
             Assert.AreEqual("Medium", _character.Size);
         }
 
-        [TestMethod]
+        [Test]
         public void MountainDwarvesSpeedIs25()
         {
             Assert.AreEqual(30, _character.Speed);
         }
 
-        [TestMethod]
+        [Test]
         public void RaceNameIsSet()
         {
             Assert.AreEqual("Human", _character.Race);
         }
 
-        [TestMethod]
+        [Test]
         public void HumansGetPlusOneToAllAttributeScores()
         {
             Assert.IsTrue(_character.Features.AllFeatures.ContainsKey("Ability Score Increase"));
@@ -45,13 +45,13 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
             Assert.AreEqual(11, _character.Abilities.Charisma.Score);
         }
 
-        [TestMethod]
+        [Test]
         public void HumansSpeakCommon()
         {
             Assert.IsTrue(_character.Languages.Chosen.Contains(AvailableLanguages.Common));
         }
 
-        [TestMethod]
+        [Test]
         public void HumansCanSpeakOneOtherLanguage()
         {
             _character.LearnLanguage(AvailableLanguages.Draconic);

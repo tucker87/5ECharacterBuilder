@@ -1,36 +1,36 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using _5ECharacterBuilder;
 
 namespace _5ECharacterBuilderTests
 {
-    [TestClass]
+    [TestFixture]
     public class CharacterBackgroundTests
     {
-        [TestClass]
+        [TestFixture]
         public class CriminalTests
         {
             private static ICharacter _character;
 
-            [TestInitialize]
-            public void Setup()
+            [SetUp]
+            public void SetUp()
             {
                 _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
             }
 
-            [TestMethod]
+            [Test]
             public void CriminalsBackSetBackgroundName()
             {
                 Assert.AreEqual("Criminal", _character.Background);
             }
 
-            [TestMethod]
+            [Test]
             public void CriminalsHaveDeceptionAndStealthSkillProfsAvailableAndTrained()
             {
                 Assert.IsTrue(_character.Skills.Chosen.Contains(AvailableSkill.Deception));
                 Assert.IsTrue(_character.Skills.Chosen.Contains(AvailableSkill.Stealth));
             }
 
-            [TestMethod]
+            [Test]
             public void CriminalsHaveThievesToolsProf()
             {
                 Assert.IsTrue(_character.Tools.Available.Contains(AvailableTool.ThievesTools));

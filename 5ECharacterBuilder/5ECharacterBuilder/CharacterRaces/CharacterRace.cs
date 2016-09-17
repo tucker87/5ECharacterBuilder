@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _5EDatabase;
 
 namespace _5ECharacterBuilder.CharacterRaces
 {

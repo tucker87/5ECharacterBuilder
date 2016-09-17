@@ -1,28 +1,29 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using _5ECharacterBuilder;
 
-namespace _5ECharacterBuilder
+namespace _5EDatabase
 {
-    class CharacterData
+    public class CharacterData
     {
-        public static List<Armor> ArmorData => new List<Armor>
-        {
-            new Armor("Cloth", 0, 10, 0, ArmorCategory.None),
-            new Armor("Padded",	5,	11, 10, ArmorCategory.Light),
-            new Armor("Leather", 10, 11, 8,	ArmorCategory.Light, stealthDisadvantage: true),
-            new Armor("Studded Leather", 45, 12, 13, ArmorCategory.Light),
+        //public static IEnumerable<Armor> ArmorData new List<Armor>
+        //{
+        //    new Armor("Cloth", 0, 10, 0, ArmorCategory.None),
+        //    new Armor("Padded",	5,	11, 10, ArmorCategory.Light),
+        //    new Armor("Leather", 10, 11, 8,	ArmorCategory.Light, stealthDisadvantage: true),
+        //    new Armor("Studded Leather", 45, 12, 13, ArmorCategory.Light),
 
-            new Armor("Hide", 0, 12, 0, ArmorCategory.Medium, 2),
-            new Armor("Chain Shirt",50,13,20,ArmorCategory.Medium, 2),
-            new Armor("Scale Mail",50,14,45,ArmorCategory.Medium, 2, stealthDisadvantage:true),
-            new Armor("Breastplate", 400, 14, 20, ArmorCategory.Medium, 2),
-            new Armor("Half Plate",	750, 15, 40, ArmorCategory.Medium,2, stealthDisadvantage:true),
+        //    new Armor("Hide", 0, 12, 0, ArmorCategory.Medium, 2),
+        //    new Armor("Chain Shirt",50,13,20,ArmorCategory.Medium, 2),
+        //    new Armor("Scale Mail",50,14,45,ArmorCategory.Medium, 2, stealthDisadvantage:true),
+        //    new Armor("Breastplate", 400, 14, 20, ArmorCategory.Medium, 2),
+        //    new Armor("Half Plate",	750, 15, 40, ArmorCategory.Medium,2, stealthDisadvantage:true),
 
-            new Armor("Ring Mail", 30, 14, 40, ArmorCategory.Heavy,	0, stealthDisadvantage:true),
-            new Armor("Chain Mail",	75,	16,55, ArmorCategory.Heavy,	0,	13,	true),
-            new Armor("Splint",	200, 17,60, ArmorCategory.Heavy, 0, 15,	true),
-            new Armor("Plate", 0, 18, 0, ArmorCategory.Heavy, 0)
-        };
+        //    new Armor("Ring Mail", 30, 14, 40, ArmorCategory.Heavy,	0, stealthDisadvantage:true),
+        //    new Armor("Chain Mail",	75,	16,55, ArmorCategory.Heavy,	0,	13,	true),
+        //    new Armor("Splint",	200, 17,60, ArmorCategory.Heavy, 0, 15,	true),
+        //    new Armor("Plate", 0, 18, 0, ArmorCategory.Heavy, 0)
+        //};
 
         public static Dictionary<string, string> AllFeatures =>
             new Dictionary<string, string>(GeneralClassFeatures).Union(RaceFeatures).Union(ClassFeatures).ToDictionary(k => k.Key, v => v.Value);

@@ -1,27 +1,28 @@
 ﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using _5ECharacterBuilder;
+using _5EDatabase;
 
 namespace _5ECharacterBuilderTests.CharacterClassTests
 {
-    [TestClass]
+    [TestFixture]
     public class MonkClassTests
     {
         private static ICharacter _monk;
 
-        [TestInitialize]
-        public void Setup()
+        [SetUp]
+        public void SetUp()
         {
             _monk = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
         }
         
-        [TestMethod]
+        [Test]
         public void MonksHave1D8HitDiceAtLevelOne()
         {
             Assert.AreEqual(8, _monk.HitDice[0]);
         }
 
-        [TestMethod]
+        [Test]
         public void MonksCanChooseTwoSkillsFromTheirProficiencyList()
         {
             _monk.ChooseSkill(AvailableSkill.Acrobatics);
@@ -30,19 +31,19 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Skills.Chosen.Contains(AvailableSkill.Religion));
         }
         
-        [TestMethod]
+        [Test]
         public void MonksAreProfientWithNoArmor()
         {
             Assert.AreEqual(0, _monk.ArmorProficiencies.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void MonksAreProficientWithShortSwords()
         {
             Assert.IsTrue(_monk.WeaponProficiencies.Contains(AvailableWeapon.ShortSword));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksAreProficientWithSimpleWeapons()
         {
             foreach (var weapon in Armory.SimpleWeapons)
@@ -50,7 +51,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
                 Assert.IsTrue(_monk.WeaponProficiencies.Contains(weapon));
             }
         }
-        [TestMethod]
+        [Test]
         public void MonksAreProficientWithOneToolOrMusicalInstrument()
         {
             _monk.LearnTool(AvailableTool.AlchemistsSupplies);
@@ -60,26 +61,26 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.AreEqual(_monk.Instruments.Chosen.First(), AvailableInstrument.Lute);
         }
 
-        [TestMethod]
+        [Test]
         public void MonksAreProficientInStrengthSavingThrows()
         {
             Assert.IsTrue(_monk.SavingThrows.Contains(SavingThrow.Strength));
         }
 
-        [TestMethod]
+        [Test]
         public void MonkAreProficientInDexteritySavingThrows()
         {
             Assert.IsTrue(_monk.SavingThrows.Contains(SavingThrow.Dexterity));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetUnarmoredDefenseAndMartialArtsAtFirstLevel()
         {
             Assert.IsTrue(_monk.Features.ClassFeatures.ContainsKey("Monk Unarmored Defense"));
             Assert.IsTrue(_monk.Features.ClassFeatures.ContainsKey("Martial Arts"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksUnarmoredDefenseIs10PlusDexPlusWis()
         {
             _monk.Abilities.Dexterity.Score = 13;
@@ -87,7 +88,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.AreEqual(14, _monk.ArmorClass);
         }
 
-        [TestMethod]
+        [Test]
         public void MonksLoseUnarmoredDefenseWhenWearingArmor()
         {
             _monk.Abilities.Dexterity.Score = 13;
@@ -96,7 +97,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.AreEqual(13, _monk.ArmorClass);
         }
 
-        [TestMethod]
+        [Test]
         public void MonksLoseUnarmoredDefenseWhenWearingAShield()
         {
             _monk.Abilities.Dexterity.Score = 13;
@@ -105,13 +106,13 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.AreEqual(14, _monk.ArmorClass);
         }
 
-        [TestMethod]
+        [Test]
         public void MonksAtFirstLevelDoNotGetKi()
         {
             Assert.IsFalse(_monk.Features.ClassFeatures.ContainsKey("Ki"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetOneKiPointPerLevelWhileTheyHaveKi()
         {
             Assert.AreEqual(0, _monk.ClassTraits.KiPoints);
@@ -122,7 +123,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetKiAndUnarmoredMovementAtSecondLevel()
         {
             CharacterFactory.LevelUp(_monk, AvailableClasses.Monk);
@@ -130,7 +131,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.ClassFeatures.Any(f => f.Key == "Unarmored Movement"));
         }
 
-        [TestMethod]
+        [Test]
         public void UnarmoredMovementGives10SpeedAt2()
         {
             Assert.AreEqual(30, _monk.Speed);
@@ -138,62 +139,62 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.AreEqual(40, _monk.Speed);
         }
 
-        [TestMethod]
+        [Test]
         public void UnarmoredMovementGives15SpeedAt6()
         {
             TestingUtility.LevelTo(_monk, 6, AvailableClasses.Monk);
             Assert.AreEqual(45, _monk.Speed);
         }
 
-        [TestMethod]
+        [Test]
         public void UnarmoredMovementGives20SpeedAt10()
         {
             TestingUtility.LevelTo(_monk, 10, AvailableClasses.Monk);
             Assert.AreEqual(50, _monk.Speed);
         }
 
-        [TestMethod]
+        [Test]
         public void UnarmoredMovementGives25SpeedAt14()
         {
             TestingUtility.LevelTo(_monk, 14, AvailableClasses.Monk);
             Assert.AreEqual(55, _monk.Speed);
         }
 
-        [TestMethod]
+        [Test]
         public void UnarmoredMovementGives30SpeedAt18()
         {
             TestingUtility.LevelTo(_monk, 18, AvailableClasses.Monk);
             Assert.AreEqual(60, _monk.Speed);
         }
 
-        [TestMethod]
+        [Test]
         public void MonksMartialArtsDamageAtLevel1Is4()
         {
             Assert.AreEqual(4, _monk.MartialArts);
         }
 
-        [TestMethod]
+        [Test]
         public void MonksMartialArtsDamageAtLevel5Is6()
         {
             TestingUtility.LevelTo(_monk, 6, AvailableClasses.Monk);
             Assert.AreEqual(6, _monk.MartialArts);
         }
 
-        [TestMethod]
+        [Test]
         public void MonksMartialArtsDamageAtLevel11Is8()
         {
             TestingUtility.LevelTo(_monk, 11, AvailableClasses.Monk);
             Assert.AreEqual(8, _monk.MartialArts);
         }
 
-        [TestMethod]
+        [Test]
         public void MonksMartialArtsDamageAtLevel17Is10()
         {
             TestingUtility.LevelTo(_monk, 17, AvailableClasses.Monk);
             Assert.AreEqual(10, _monk.MartialArts);
         }
 
-        [TestMethod]
+        [Test]
         public void MonksHaveAChoiceOf3PathsAtLevel3()
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
@@ -203,7 +204,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.ClassPath.Available.Contains(AvailablePaths.WayOfTheOpenHand));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksCanChoseAPath()
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
@@ -213,7 +214,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.ClassPath.Chosen == AvailablePaths.WayOfShadow);
         }
 
-        [TestMethod]
+        [Test]
         public void MonksWithWayOfTheOpenHandGainTheOpenHandTechnique()
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
@@ -223,7 +224,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Open Hand Technique"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksWithWayOfTheOpenHandGainWholnessOfBodyAtLevel6()
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
@@ -235,7 +236,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Wholeness Of Body"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksWithWayOfTheOpenHandGainTranquilityAtLevel11()
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
@@ -247,7 +248,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Tranquility"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksWithWayOfTheOpenHandGainQuiveringPalmAtLevel17()
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
@@ -259,7 +260,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Quivering Palm"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksWithWayOfShadowGainShadowArts()
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
@@ -269,7 +270,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Shadow Arts"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksWithWayOfShadowGainShadowStepAtLevel6()
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
@@ -281,7 +282,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Shadow Step"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksWithWayOfShadowGainCloakOfShadowsAtLevel11()
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
@@ -293,7 +294,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Cloak Of Shadows"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksWithWayOfShadowGainOpportunistAtLevel17()
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
@@ -305,7 +306,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Opportunist"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksWithWayOfTheFourElementsGainDiscipleOfTheElements()
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
@@ -314,7 +315,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Disciple Of The Elements"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksCanChangePaths()
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
@@ -326,21 +327,21 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Open Hand Technique"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGainDeflectMissilesAtLevel3()
         {
             TestingUtility.LevelTo(_monk, 3, AvailableClasses.Monk);
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Deflect Missiles"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetSlowFallAtLevel4()
         {
             TestingUtility.LevelTo(_monk, 4, AvailableClasses.Monk);
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Slow Fall"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetAnExtraAttackAtLevel5()
         {
             Assert.AreEqual(1, _monk.AttacksPerTurn);
@@ -349,7 +350,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetStunningStrikeAtLevel5()
         {
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Stunning Strike"));
@@ -357,7 +358,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Stunning Strike"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetKiEmpoweredStrikesAtLevel6()
         {
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Ki-Empowered Strikes"));
@@ -365,7 +366,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Ki-Empowered Strikes"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetEvasionAtLevel7()
         {
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Evasion"));
@@ -373,7 +374,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Evasion"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetStillnessOfMindAtLevel7()
         {
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Stillness Of Mind"));
@@ -381,7 +382,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Stillness Of Mind"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetPurityOfBodyAtLevel10()
         {
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Purity Of Body"));
@@ -389,7 +390,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Purity Of Body"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetToungeOfTheSunAndMoonAtLevel13()
         {
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Tounge Of The Sun And Moon"));
@@ -397,7 +398,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Tounge Of The Sun And Moon"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetDiamondSoulAtLevel14()
         {
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Diamond Soul"));
@@ -419,7 +420,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.SavingThrows.Contains(SavingThrow.Charisma));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetTimelessBodyAtLevel15()
         {
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Timeless Body"));
@@ -427,7 +428,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Timeless Body"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetEmptyBodyAtLevel18()
         {
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Empty Body"));
@@ -435,7 +436,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_monk.Features.AllFeatures.ContainsKey("Empty Body"));
         }
 
-        [TestMethod]
+        [Test]
         public void MonksGetPerfectSelfAtLevel20()
         {
             Assert.IsFalse(_monk.Features.AllFeatures.ContainsKey("Perfect Self"));

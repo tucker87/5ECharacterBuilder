@@ -1,50 +1,51 @@
 ﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using _5ECharacterBuilder;
+using _5EDatabase;
 
 namespace _5ECharacterBuilderTests.CharacterRaceTests
 {
-    [TestClass]
+    [TestFixture]
     public class DarkElfTests
     {
         private static ICharacter _character;
 
-        [TestInitialize]
-        public void Setup()
+        [SetUp]
+        public void SetUp()
         {
             _character = CharacterFactory.BuildACharacter(AvailableRaces.Drow, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
         }
 
-        [TestMethod]
+        [Test]
         public void RaceNameIsSet()
         {
             Assert.AreEqual("Dark Elf", _character.Race);
         }
 
-        [TestMethod]
+        [Test]
         public void DarkElvesDexterityIsRaisedBy2()
         {
             Assert.AreEqual(12, _character.Abilities.Dexterity.Score);
         }
 
-        [TestMethod]
+        [Test]
         public void DarkElvesCharismaIsRaisedBy1()
         {
             Assert.AreEqual(11, _character.Abilities.Charisma.Score);
         }
-        [TestMethod]
+        [Test]
         public void DarkElvesAreMedium()
         {
             Assert.AreEqual("Medium", _character.Size);
         }
 
-        [TestMethod]
+        [Test]
         public void DarkElvesHaveDarkVision()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Darkvision"));
         }
 
-        [TestMethod]
+        [Test]
         public void DarkElvesHaveKeenSenses()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Keen Senses"));
@@ -52,37 +53,37 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
             Assert.IsTrue(_character.Skills.Chosen.Contains(AvailableSkill.Perception));
         }
 
-        [TestMethod]
+        [Test]
         public void DarkElvesHaveFeyAncestry()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Fey Ancestry"));
         }
 
-        [TestMethod]
+        [Test]
         public void DarkElvesHaveTrance()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Trance"));
         }
 
-        [TestMethod]
+        [Test]
         public void DarkElvesHaveSuperiorDarkvision()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Superior Darkvision"));
         }
 
-        [TestMethod]
+        [Test]
         public void DarkElvesHaveSunlightSensitivity()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Sunlight Sensitivity"));
         }
 
-        [TestMethod]
+        [Test]
         public void DarkElvesHaveDrowMagic()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Drow Magic"));
         }
 
-        [TestMethod]
+        [Test]
         public void DarkElvesHaveElvenCombatTraining()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Drow Weapon Training"));

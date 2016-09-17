@@ -1,20 +1,20 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using _5ECharacterBuilder;
 
 namespace _5ECharacterBuilderTests
 {
-    [TestClass]
+    [TestFixture]
     public class ArmoryTests
     {
         private ICharacter _character;
-        [TestInitialize]
-        public void Setup()
+        [SetUp]
+        public void SetUp()
         {
             _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
             
         }
 
-        [TestMethod]
+        [Test]
         public void ClothArmorGivesFullDexBonus()
         {
             _character.SetAttributes(new CharacterAbilities(new CharacterAbilityScores(dexterity:20)));
@@ -22,7 +22,7 @@ namespace _5ECharacterBuilderTests
             Assert.AreEqual(15, _character.ArmorClass);
         }
 
-        [TestMethod]
+        [Test]
         public void HideArmorGivesMax2DexBonus()
         {
             _character.SetAttributes(new CharacterAbilities(new CharacterAbilityScores(dexterity: 20)));
@@ -30,7 +30,7 @@ namespace _5ECharacterBuilderTests
             Assert.AreEqual(14, _character.ArmorClass);
         }
 
-        [TestMethod]
+        [Test]
         public void PlateArmorGiveNoDexBonus()
         {
             _character.SetAttributes(new CharacterAbilities(new CharacterAbilityScores(dexterity: 20)));
@@ -38,7 +38,7 @@ namespace _5ECharacterBuilderTests
             Assert.AreEqual(18, _character.ArmorClass);
         }
 
-        [TestMethod]
+        [Test]
         public void ShieldsGive2AcOnTopOfDex()
         {
             _character.SetAttributes(new CharacterAbilities(new CharacterAbilityScores(dexterity: 20)));
@@ -46,7 +46,7 @@ namespace _5ECharacterBuilderTests
             Assert.AreEqual(17, _character.ArmorClass);
         }
 
-        [TestMethod]
+        [Test]
         public void ShieldsGive2AcOnTopOfArmor()
         {
             _character.SetAttributes(new CharacterAbilities(new CharacterAbilityScores(dexterity: 20)));

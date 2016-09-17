@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using _5EDatabase;
 
 namespace _5ECharacterBuilder
 {
@@ -201,11 +202,11 @@ namespace _5ECharacterBuilder
 
         private static int GetArmorClassBonus(Armor armor, int dex)
         {
-            if (armor.MaxDexBonus == -1)
+            if (armor.MaxDexBonus == null)
                 return armor.BaseArmor + dex;
 
             if (dex > armor.MaxDexBonus)
-                dex = armor.MaxDexBonus;
+                dex = (int) armor.MaxDexBonus;
 
             return armor.BaseArmor + dex;
         }

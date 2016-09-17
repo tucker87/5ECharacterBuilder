@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using _5EDatabase;
 
 namespace _5ECharacterBuilder.CharacterClasses
 {

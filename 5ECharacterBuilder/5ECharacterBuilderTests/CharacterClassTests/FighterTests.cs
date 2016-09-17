@@ -1,26 +1,26 @@
-﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using _5ECharacterBuilder;
+using _5EDatabase;
 
 namespace _5ECharacterBuilderTests.CharacterClassTests
 {
-    [TestClass]
+    [TestFixture]
     public class FighterTests
     {
         private ICharacter _fighter;
-        [TestInitialize]
-        public void Setup()
+        [SetUp]
+        public void SetUp()
         {
             _fighter = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
         }
 
-        [TestMethod]
+        [Test]
         public void FightersHitDiceIs10()
         {
             Assert.AreEqual(10, _fighter.HitDice.First());
         }
 
-        [TestMethod]
+        [Test]
         public void FightersAreProficientWithAllArmorsAndShields()
         {
             Assert.IsTrue(_fighter.ArmorProficiencies.Contains(AvailableArmor.Shield));
@@ -29,7 +29,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_fighter.ArmorProficiencies.Contains(AvailableArmor.Cloth));
         }
 
-        [TestMethod]
+        [Test]
         public void FightersAreProficientWithAllSimpleAndMartialWeapons()
         {
             Assert.IsTrue(_fighter.WeaponProficiencies.Contains(AvailableWeapon.Club));
@@ -38,14 +38,14 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
             Assert.IsTrue(_fighter.WeaponProficiencies.Contains(AvailableWeapon.ShortSword));
         }
 
-        [TestMethod]
+        [Test]
         public void FightersSavingThrowsAreStrengthAndConstitution()
         {
             Assert.IsTrue(_fighter.SavingThrows.Contains(SavingThrow.Strength));
             Assert.IsTrue(_fighter.SavingThrows.Contains(SavingThrow.Constitution));
         }
 
-        [TestMethod]
+        [Test]
         public void FighterClassSkills()
         {
             Assert.IsTrue(_fighter.Skills.Available.Contains(AvailableSkill.Acrobatics));

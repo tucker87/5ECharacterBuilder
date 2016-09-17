@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace _5ECharacterBuilderTests
 {
-    [TestClass]
+    [TestFixture]
     public class CharacterValidationTests
     {
-        [TestMethod]
+        [Test]
         public void CharactersCanBeValidated()
         {
 

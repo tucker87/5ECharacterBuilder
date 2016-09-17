@@ -1,57 +1,58 @@
 ﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using _5ECharacterBuilder;
+using _5EDatabase;
 
 namespace _5ECharacterBuilderTests.CharacterRaceTests
 {
-    [TestClass]
+    [TestFixture]
     public class MountainDwarfTests
     {
         private static ICharacter _character;
 
-        [TestInitialize]
-        public void Setup()
+        [SetUp]
+        public void SetUp()
         {
             _character = CharacterFactory.BuildACharacter(AvailableRaces.MountainDwarf, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
         }
 
-        [TestMethod]
+        [Test]
         public void RaceNameIsSet()
         {
             Assert.AreEqual("Mountain Dwarf", _character.Race);
         }
 
-        [TestMethod]
+        [Test]
         public void MountainDwarvesSizeIsMedium()
         {
             Assert.AreEqual("Medium", _character.Size);
         }
 
-        [TestMethod]
+        [Test]
         public void MountainDwarvesSpeedIs25()
         {
             Assert.AreEqual(25, _character.Speed);
         }
 
-        [TestMethod]
+        [Test]
         public void MountainDwarvesConstitutionIsRaisedBy2()
         {
             Assert.AreEqual(12, _character.Abilities.Constitution.Score);
         }
 
-        [TestMethod]
+        [Test]
         public void MountainDwarvesStrengthIsRaisedBy2()
         {
             Assert.AreEqual(12, _character.Abilities.Strength.Score);
         }
 
-        [TestMethod]
+        [Test]
         public void MountainDwarvesAreMedium()
         {
             Assert.AreEqual("Medium", _character.Size);
         }
 
-        [TestMethod]
+        [Test]
         public void MountainDwavesHaveDwarvenCombatTraining()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Dwarven Combat Training"));
@@ -61,7 +62,7 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
             Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.Warhammer));
         }
 
-        [TestMethod]
+        [Test]
         public void MountainDwarvesCanBeProfienctDwarvenTools()
         {
             Assert.IsTrue(_character.Tools.Available.Contains(AvailableTool.SmithsTools));
@@ -69,25 +70,25 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
             Assert.IsTrue(_character.Tools.Available.Contains(AvailableTool.MasonsTools));
         }
 
-        [TestMethod]
+        [Test]
         public void MountainDwavesHaveDarkVision()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Darkvision"));
         }
 
-        [TestMethod]
+        [Test]
         public void MountainDwavesHaveDwarvenResilience()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Dwarven Resilience"));
         }
 
-        [TestMethod]
+        [Test]
         public void MountainDwavesHaveStoneCunning()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Stonecunning"));
         }
 
-        [TestMethod]
+        [Test]
         public void MountainDwarvesHaveDwarvenArmorTraining()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Dwarven Armor Training"));

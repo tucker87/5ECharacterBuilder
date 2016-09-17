@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using _5EDatabase;
 
 namespace _5ECharacterBuilder.CharacterClasses
 {
@@ -76,10 +77,12 @@ namespace _5ECharacterBuilder.CharacterClasses
 
         private static Dictionary<string, string> GetClassFeatures(int classLevel)
         {
-            var classFeatures = new Dictionary<string, string>();
+            var classFeatures = new Dictionary<string, string>
+            {
+                GetClassFeature("Rage"),
+                GetClassFeature("Barbarian Unarmored Defense")
+            };
 
-            classFeatures.Add(GetClassFeature("Rage"));
-            classFeatures.Add(GetClassFeature("Barbarian Unarmored Defense"));
 
             if (classLevel >= 2)
             {

@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using PetaPoco;
+using _5ECharacterBuilder;
 
-namespace _5ECharacterBuilder
+namespace _5EDatabase
 {
     public class Armory
     {
@@ -93,9 +96,7 @@ namespace _5ECharacterBuilder
         
         public static Armor GetArmor(AvailableArmor armorName)
         {
-            var armor = CharacterData.ArmorData.Find(a => a.Name == armorName.ToString()) ?? CharacterData.ArmorData[0];
-            return armor;
-
+            return ItemData.GetArmor(armorName);
         }
 
         public List<AvailableTool> GetGamingSets() =>
@@ -110,23 +111,13 @@ namespace _5ECharacterBuilder
 
     public class Armor
     {
-        public Armor(string name, int cost, int baseArmor, int weight, ArmorCategory category, int maxDexBonus = -1, int requiredStrength = 0, bool stealthDisadvantage = false)
-        {
-            Name = name;
-            Cost = cost;
-            BaseArmor = baseArmor;
-            MaxDexBonus = maxDexBonus;
-            Weight = weight;
-            Category = category;
-            RequiredStrength = requiredStrength;
-            StealthDisadvantage = stealthDisadvantage;
-        }
-
+        public int Id { get; set; }
+        [Column("ArmorName")]
         public string Name { get; set; }
-        public int Cost { get; set; }
+        public int CostId { get; set; }
         public int BaseArmor { get; set; }
-        public int MaxDexBonus { get; set; }
-        public int RequiredStrength { get; set; }
+        public int? MaxDexBonus { get; set; }
+        public int? RequiredStrength { get; set; }
         public bool StealthDisadvantage { get; set; }
         public int Weight { get; set; }
         public ArmorCategory Category { get; set; }

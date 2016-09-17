@@ -1,4 +1,6 @@
-﻿namespace _5ECharacterBuilder.CharacterRaces
+﻿using _5EDatabase;
+
+namespace _5ECharacterBuilder.CharacterRaces
 {
     class Drow : Elf
     {

@@ -1,35 +1,35 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using _5ECharacterBuilder;
+using _5EDatabase;
 
 namespace _5ECharacterBuilderTests.MulticlassTests
 {
-    [TestClass]
+    [TestFixture]
     class MonkToRogueTests
     {
         private ICharacter _multiclass;
-        [TestInitialize]
-        public void TestSetup()
+        [SetUp]
+        public void TestSetUp()
         {
             _multiclass = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Acolyte);
             _multiclass.Abilities.Dexterity.Score = 13;
             _multiclass = CharacterFactory.LevelUp(_multiclass, AvailableClasses.Rogue);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(RequirementsExpection))]
+        [Test]
         public void CannotMulticlassMonkWithout13Dex()
         {
             var monk = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Acolyte);
-            CharacterFactory.LevelUp(monk, AvailableClasses.Rogue);
+            Assert.Throws<RequirementsExpection>(() =>CharacterFactory.LevelUp(monk, AvailableClasses.Rogue));
         }
 
-        [TestMethod]
+        [Test]
         public void CanMulticlassMonkWith13Dex()
         {
             Assert.AreEqual(2, _multiclass.Level);
         }
 
-        [TestMethod]
+        [Test]
         public void RogueGainsAd8HitDice()
         {
             Assert.AreEqual(2, _multiclass.HitDice.Count);
@@ -37,14 +37,14 @@ namespace _5ECharacterBuilderTests.MulticlassTests
             Assert.AreEqual(8, _multiclass.HitDice.Last());
         }
 
-        [TestMethod]
+        [Test]
         public void ProficienyBonusIsBasedOnTotalLevel()
         {
             TestingUtility.LevelTo(_multiclass, 5, AvailableClasses.Monk);
             Assert.AreEqual(3, _multiclass.ProficiencyBonus);
         }
 
-        [TestMethod]
+        [Test]
         public void MulticlassingRogueOnlyGetsYouLightArmorOneSkillAndThievesTools()
         {
             foreach (var armor in Armory.LightArmor)
@@ -62,7 +62,7 @@ namespace _5ECharacterBuilderTests.MulticlassTests
             Assert.IsFalse(_multiclass.SavingThrows.Contains(SavingThrow.Intelligence));
         }
 
-        [TestMethod]
+        [Test]
         public void YouStillGainMonkFeaturesOrRogueFeaturesBasedOnClassLevel()
         {
             Assert.IsFalse(_multiclass.Features.AllFeatures.ContainsKey("Ki"));

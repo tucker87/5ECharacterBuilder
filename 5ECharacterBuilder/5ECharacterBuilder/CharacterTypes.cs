@@ -17,7 +17,6 @@ namespace _5ECharacterBuilder
         public Dictionary<string, string> RaceFeatures { get; internal set; } 
         public Dictionary<string, string> ClassFeatures { get; internal set; } 
         public Dictionary<string, string> ClassPathFeatures { get; internal set; } 
-        //public All<Feature> BackgroundFeatures { get; internal set; } 
     }
 
     public class Proficiencies<T>
@@ -142,7 +141,7 @@ namespace _5ECharacterBuilder
 
             var otherSpellcastingClass = obj as SpellcastingClass;
             if (otherSpellcastingClass != null)
-                return String.Compare(Name, otherSpellcastingClass.Name, StringComparison.Ordinal);
+                return string.Compare(Name, otherSpellcastingClass.Name, StringComparison.Ordinal);
 
             throw new ArgumentException("Object is not a Temperature");
         }
@@ -179,7 +178,7 @@ namespace _5ECharacterBuilder
                 else
                     dice.Add(hitDie, 1);
 
-            return dice.Aggregate("", (current, die) => current + string.Format("{0}d{1} ", die.Value, die.Key).Trim());
+            return dice.Aggregate("", (current, die) => current + $"{die.Value}d{die.Key} ".Trim());
         }
     }
 

@@ -1,21 +1,20 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using _5ECharacterBuilder;
 
 namespace _5ECharacterBuilderTests
 {
-    [TestClass]
+    [TestFixture]
     class CharacterMulticlassTests
     {
         private static ICharacter _character;
 
-        [TestInitialize]
-        public static void Setup()
+        [SetUp]
+        public static void SetUp()
         {
             _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
         }
 
-        [TestMethod]
+        [Test]
         public void CanRetrieveCharacterClassString()
         {
             Assert.AreEqual("Monk 1", _character.ClassesString);

@@ -1,44 +1,45 @@
 ﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using _5ECharacterBuilder;
+using _5EDatabase;
 
 namespace _5ECharacterBuilderTests.CharacterRaceTests
 {
-    [TestClass]
+    [TestFixture]
     public class HighElfTests
     {
         private static ICharacter _character;
 
-        [TestInitialize]
-        public void Setup()
+        [SetUp]
+        public void SetUp()
         {
             _character = CharacterFactory.BuildACharacter(AvailableRaces.HighElf, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
         }
 
-        [TestMethod]
+        [Test]
         public void RaceNameIsSet()
         {
             Assert.AreEqual("High Elf", _character.Race);
         }
 
-        [TestMethod]
+        [Test]
         public void HighElvesDexterityIsRaisedBy2()
         {
             Assert.AreEqual(12, _character.Abilities.Dexterity.Score);
         }
 
-        [TestMethod]
+        [Test]
         public void HighElvesIntelligenceIsRaisedBy1()
         {
             Assert.AreEqual(11, _character.Abilities.Intelligence.Score);
         }
-        [TestMethod]
+        [Test]
         public void HighElvesAreMedium()
         {
             Assert.AreEqual("Medium", _character.Size);
         }
 
-        [TestMethod]
+        [Test]
         public void HighElvesHaveElvenCombatTraining()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Elf Weapon Training"));
@@ -48,13 +49,13 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
             Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.LongBow));
         }
         
-        [TestMethod]
+        [Test]
         public void HighElvesHaveDarkVision()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Darkvision"));
         }
 
-        [TestMethod]
+        [Test]
         public void HighElvesHaveKeenSenses()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Keen Senses"));
@@ -62,25 +63,25 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
             Assert.IsTrue(_character.Skills.Chosen.Contains(AvailableSkill.Perception));
         }
 
-        [TestMethod]
+        [Test]
         public void HighElvesHaveFeyAncestry()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Fey Ancestry"));
         }
 
-        [TestMethod]
+        [Test]
         public void HighElvesHaveTrance()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Trance"));
         }
 
-        [TestMethod]
+        [Test]
         public void HighElvesHaveCantrip()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Cantrip"));
         }
 
-        [TestMethod]
+        [Test]
         public void HighElvesHaveExtraLanguage()
         {
             Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Extra Language"));
