@@ -1,14 +1,16 @@
-﻿namespace _5ECharacterBuilder.CharacterBackgrounds
+﻿using _5EDatabase;
+
+namespace _5ECharacterBuilder.CharacterBackgrounds
 {
-    sealed class Criminal : CharacterBackground
+    internal sealed class Criminal : CharacterBackground
     {
         public Criminal(ICharacter character) : base(character)
         {
-            Skills.Chosen.Add(AvailableSkill.Deception);
-            Skills.Chosen.Add(AvailableSkill.Stealth);
+            Skills.Chosen.Add(Skill.Deception);
+            Skills.Chosen.Add(Skill.Stealth);
             Skills.Max += 2;
-            Tools.Available.Add(AvailableTool.ThievesTools);
-            Tools.Chosen.Add(AvailableTool.ThievesTools);
+            Tools.Available.Add(Tool.ThievesTools);
+            Tools.Chosen.Add(Tool.ThievesTools);
         }
 
         public override string Background => "Criminal";

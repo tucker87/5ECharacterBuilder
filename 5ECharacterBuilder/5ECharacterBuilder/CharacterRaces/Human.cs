@@ -1,13 +1,15 @@
+using _5EDatabase;
+
 namespace _5ECharacterBuilder.CharacterRaces
 {
-    class Human : CharacterRace
+    internal class Human : CharacterRace
     {
         public Human(ICharacter character) : base(character)
         {
             foreach (var attribute in Abilities)
                 attribute.RacialBonus = 1;
 
-            Languages.Chosen.Add(AvailableLanguages.Common);
+            Languages.Chosen.Add(Language.Common);
             Languages.Max += 2;
 
             AddRaceFeature("Ability Score Increase");

@@ -13,7 +13,7 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [SetUp]
         public void SetUp()
         {
-            _character = CharacterFactory.BuildACharacter(AvailableRaces.WoodElf, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
+            _character = CharacterFactory.BuildACharacter(Race.WoodElf, Class.Fighter, Background.Criminal);
         }
 
         [Test]
@@ -42,50 +42,50 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [Test]
         public void WoodElvesHaveElvenCombatTraining()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Elf Weapon Training"));
-            Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.LongSword));
-            Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.ShortSword));
-            Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.ShortBow));
-            Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.LongBow));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Elf Weapon Training"));
+            Assert.IsTrue(_character.WeaponProficiencies.Contains(WeaponType.LongSword));
+            Assert.IsTrue(_character.WeaponProficiencies.Contains(WeaponType.ShortSword));
+            Assert.IsTrue(_character.WeaponProficiencies.Contains(WeaponType.ShortBow));
+            Assert.IsTrue(_character.WeaponProficiencies.Contains(WeaponType.LongBow));
         }
         
         [Test]
         public void WoodElvesHaveDarkVision()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Darkvision"));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Darkvision"));
         }
 
         [Test]
         public void WoodElvesHaveKeenSenses()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Keen Senses"));
-            Assert.IsTrue(_character.Skills.Available.Contains(AvailableSkill.Perception));
-            Assert.IsTrue(_character.Skills.Chosen.Contains(AvailableSkill.Perception));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Keen Senses"));
+            Assert.IsTrue(_character.Skills.Available.Contains(Skill.Perception));
+            Assert.IsTrue(_character.Skills.Chosen.Contains(Skill.Perception));
         }
 
         [Test]
         public void WoodElvesHaveFeyAncestry()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Fey Ancestry"));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Fey Ancestry"));
         }
 
         [Test]
         public void WoodElvesHaveTrance()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Trance"));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Trance"));
         }
 
         [Test]
         public void WoodElvesHaveFleetOfFoot()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Fleet of Foot"));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Fleet of Foot"));
             Assert.AreEqual(35, _character.Speed);
         }
 
         [Test]
         public void WoodElvesHaveMaskOfTheWild()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Mask of the Wild"));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Mask of the Wild"));
         }
     }
 }

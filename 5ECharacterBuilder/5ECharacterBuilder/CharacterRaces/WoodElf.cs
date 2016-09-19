@@ -2,7 +2,7 @@
 
 namespace _5ECharacterBuilder.CharacterRaces
 {
-    class WoodElf : Elf
+    internal class WoodElf : Elf
     {
         public WoodElf(ICharacter character) : base(character)
         {
@@ -12,10 +12,10 @@ namespace _5ECharacterBuilder.CharacterRaces
             AddRaceFeature("Mask of the Wild");
             AddRaceFeature("Fleet of Foot");
 
-            WeaponProficiencies.Add(AvailableWeapon.LongSword);
-            WeaponProficiencies.Add(AvailableWeapon.ShortSword);
-            WeaponProficiencies.Add(AvailableWeapon.ShortBow);
-            WeaponProficiencies.Add(AvailableWeapon.LongBow);
+            WeaponProficiencies.Add(WeaponType.LongSword);
+            WeaponProficiencies.Add(WeaponType.ShortSword);
+            WeaponProficiencies.Add(WeaponType.ShortBow);
+            WeaponProficiencies.Add(WeaponType.LongBow);
         }
 
         public override string Race => "Wood Elf";

@@ -8,52 +8,60 @@ namespace _5ECharacterBuilder
     public interface ICharacter
     {
         int ArmorClass { get; }
-        SortedSet<AvailableArmor> ArmorProficiencies { get; }
+        SortedSet<ArmorType> ArmorProficiencies { get; }
         CharacterAbilities Abilities { get; }
         string Background { get; }
-        List<string> Classes { get; }
-        ClassPath ClassPath { get; }
+        IEnumerable<Class> Classes { get; }
+        List<Path> AvailablePaths { get; }
+        List<Path> ChosenPaths { get; }
         string ClassesString { get; }
         Currency Currency { get; }
         Armor EquippedArmor { get; }
         bool HasShield { get; }
         HitDice HitDice { get; }
         int Initiative { get; }
-        Proficiencies<AvailableInstrument> Instruments { get; }
+        Proficiencies<Instrument> Instruments { get; }
         int Level { get; }
         int MaxHp { get; }
         string Name { get; }
-        int ProficiencyBonus { get; }
         string Race { get; }
         Languages Languages { get; }
-        SortedSet<SavingThrow> SavingThrows { get; }
+        IEnumerable<SavingThrow> SavingThrows { get; }
         string Size { get; }
         Skills Skills { get; }
         int Speed { get; }
         Tools Tools { get; }
-        SortedSet<AvailableWeapon> WeaponProficiencies { get; }
-        CharacterFeatures Features { get; }
+        SortedSet<WeaponType> WeaponProficiencies { get; }
+        List<Feature> AllFeatures { get; }
+        List<ClassFeature> ClassFeatures { get; }
+        List<ClassPathFeature> ClassPathFeatures { get; }
+        List<RaceFeature> RaceFeatures { get; }
+        int ProficiencyBonus { get; }
+
         int MartialArts { get; }
         int AttacksPerTurn { get; }
         int SneakAttackDice { get; }
         SortedSet<SpellcastingClass> SpellcastingClasses { get; }
         ClassTraits ClassTraits { get; }
-        void EquipArmor(AvailableArmor armor);
+        void EquipArmor(ArmorType armor);
         void SetAttributes(CharacterAbilities characterAbilities);
         void ToggleShield();
         void SetName(string name);
-        void ChooseSkill(AvailableSkill chosenSkill);
-        void LearnTool(AvailableTool chosenTool);
-        void LearnInstrument(AvailableInstrument chosenInstrument);
-        void LearnLanguage(AvailableLanguages chosenLanguage);
-        void ChosePath(AvailablePaths chosenPath);
+        void ChooseSkill(Skill chosenSkill);
+        void LearnTool(Tool chosenTool);
+        void LearnInstrument(Instrument chosenInstrument);
+        void LearnLanguage(Language chosenLanguage);
+        void ChosePath(Path chosenPath);
         void ImproveAbility(string ability);
-        void ChooseExpertise(AvailableSkill skill);
-        void ChooseExpertise(AvailableTool tool);
-        int ClassLevel(string className);
-        int SkillBonus(AvailableSkill skill);
-        void LevelUp(AvailableClasses cclass);
+        void ChooseExpertise(Skill skill);
+        void ChooseExpertise(Tool tool);
+        int GetClassLevel(Class className);
+        int SkillBonus(Skill skill, int? profBonus = null);
+        //void LevelUp(Class cclass);
         void LevelDown();
+        int CalculateMaxHp(HitDice hitDice);
+        int CalculateProficiencyBonus(int level);
+
     }
 
     internal class CharacterBase : ICharacter
@@ -62,49 +70,62 @@ namespace _5ECharacterBuilder
         {
             Name = name;
             abilityScores = abilityScores ?? new CharacterAbilityScores();
-            EquipArmor(AvailableArmor.Cloth);
+            EquipArmor(ArmorType.Cloth);
             AttacksPerTurn = 1;
             Abilities = new CharacterAbilities(abilityScores);
         }
 
         private int ShieldBonus => HasShield ? 2 : 0;
         public int ArmorClass => GetArmorClassBonus(EquippedArmor, Abilities.Dexterity.Modifier) + ShieldBonus;
-        public SortedSet<AvailableArmor> ArmorProficiencies { get; } = new SortedSet<AvailableArmor>(new List<AvailableArmor>());
+        public SortedSet<ArmorType> ArmorProficiencies { get; } = new SortedSet<ArmorType>(new List<ArmorType>());
         public CharacterAbilities Abilities { get; internal set; }
         public string Background { get; internal set; }
-        public List<string> Classes { get; } = new List<string>();
-        public ClassPath ClassPath { get; } = new ClassPath();
+        public IEnumerable<Class> Classes { get; } = new List<Class>();
+        public List<Path> AvailablePaths { get; } = new List<Path>();
+        public List<Path> ChosenPaths { get; } = new List<Path>();
         public string ClassesString { get; internal set; }
         public Currency Currency { get; } = new Currency();
         public Armor EquippedArmor { get; internal set; }
         public bool HasShield { get; internal set; }
-        public HitDice HitDice { get; } = new HitDice();
+        public virtual HitDice HitDice { get; } = new HitDice();
         public int Initiative { get; internal set; }
-        public Proficiencies<AvailableInstrument> Instruments { get; } = new Proficiencies<AvailableInstrument>();
-        public int Level => Classes.Count;
+        public Proficiencies<Instrument> Instruments { get; } = new Proficiencies<Instrument>();
+        public int Level { get; }
 
-        public int MaxHp => CalculateMaxHp();
+        public virtual int MaxHp { get; }
 
         public string Name { get; private set; }
 
-        public int ProficiencyBonus => Level >= 17 ? 6 : Level >= 13 ? 5 : Level >= 9 ? 4 : Level >= 5 ? 3 : 2;
+        public int ProficiencyBonus => CalculateProficiencyBonus(Level);
+        public int CalculateProficiencyBonus(int level) => level >= 17 ? 6 : level >= 13 ? 5 : level >= 9 ? 4 : level >= 5 ? 3 : 2;
 
         public string Race { get; internal set; }
         public Languages Languages { get; } = new Languages();
-        public SortedSet<SavingThrow> SavingThrows { get; } = new SortedSet<SavingThrow>(new List<SavingThrow>());
+        public IEnumerable<SavingThrow> SavingThrows { get; } = new List<SavingThrow>();
         public string Size { get; internal set; }
         public Skills Skills { get; } = new Skills();
         public int Speed { get; internal set; }
         public Tools Tools { get; } = new Tools();
-        public SortedSet<AvailableWeapon> WeaponProficiencies { get; } = new SortedSet<AvailableWeapon>(new List<AvailableWeapon>());
-        public CharacterFeatures Features { get; } = new CharacterFeatures();
+        public SortedSet<WeaponType> WeaponProficiencies { get; } = new SortedSet<WeaponType>(new List<WeaponType>());
+
+        public List<Feature> AllFeatures => 
+            new List<Feature>()
+                .Union(RaceFeatures)
+                .Union(ClassFeatures)
+                .Union(ClassPathFeatures)
+                .ToList();
+
+        public List<RaceFeature> RaceFeatures { get; } = new List<RaceFeature>();
+        public List<ClassFeature> ClassFeatures { get; } = new List<ClassFeature>();
+        public List<ClassPathFeature> ClassPathFeatures { get; } = new List<ClassPathFeature>();
+
         public int MartialArts { get; internal set; }
         public int AttacksPerTurn { get; }
         public int SneakAttackDice { get; internal set; }
         public SortedSet<SpellcastingClass> SpellcastingClasses { get; } = new SortedSet<SpellcastingClass>();
         public ClassTraits ClassTraits { get; } = new ClassTraits();
 
-        public void EquipArmor(AvailableArmor armor)
+        public void EquipArmor(ArmorType armor)
         {
             EquippedArmor = Armory.GetArmor(armor);
         }
@@ -131,27 +152,27 @@ namespace _5ECharacterBuilder
             Name = name;
         }
 
-        public void ChooseSkill(AvailableSkill chosenSkill)
+        public void ChooseSkill(Skill chosenSkill)
         {
             throw new NotImplementedException();
         }
 
-        public void LearnTool(AvailableTool chosenTool)
+        public void LearnTool(Tool chosenTool)
         {
             Tools.Chosen.Add(chosenTool);
         }
 
-        public void LearnInstrument(AvailableInstrument chosenInstrument)
+        public void LearnInstrument(Instrument chosenInstrument)
         {
             Instruments.Chosen.Add(chosenInstrument);
         }
 
-        public void LearnLanguage(AvailableLanguages chosenLanguage)
+        public void LearnLanguage(Language chosenLanguage)
         {
             Languages.Chosen.Add(chosenLanguage);
         }
 
-        public void ChosePath(AvailablePaths chosenPath)
+        public void ChosePath(Path chosenPath)
         {
             throw new NotImplementedException();
         }
@@ -161,39 +182,40 @@ namespace _5ECharacterBuilder
             throw new NotImplementedException();
         }
 
-        public void ChooseExpertise(AvailableSkill skill)
+        public void ChooseExpertise(Skill skill)
         {
             throw new NotImplementedException();
         }
 
-        public void ChooseExpertise(AvailableTool tool)
+        public void ChooseExpertise(Tool tool)
         {
             throw new NotImplementedException();
         }
 
-        public int ClassLevel(string className)
+        public int GetClassLevel(Class className)
         {
-            return Classes.Count(x => x == className);
+            return 0;
         }
 
-        public int SkillBonus(AvailableSkill skill)
+        public int SkillBonus(Skill skill, int? profBonus)
         {
-            var ability =
-                (CharacterAbility)
+            var abilityMod =
+                ((CharacterAbility)
                     Abilities.GetType()
                         .GetProperty(CharacterData.SkillMods.First(s => s.Key == skill).Value.ToString())
-                        .GetValue(Abilities);
-            var abilityMod = ability.Modifier;
-            var profBonus = Skills.Expertise.Contains(skill)
-                ? ProficiencyBonus * 2
-                : Skills.Chosen.Contains(skill) ? ProficiencyBonus : 0;
-            return abilityMod + profBonus;
+                        .GetValue(Abilities)).Modifier;
+
+            profBonus = Skills.Expertise.Contains(skill)
+                ? profBonus * 2
+                : Skills.Chosen.Contains(skill) ? profBonus : 0;
+
+            return abilityMod + (profBonus ?? 0);
         }
 
-        public void LevelUp(AvailableClasses cclass)
-        {
-            CharacterFactory.LevelUp(this, cclass);
-        }
+        //public void LevelUp(Class cclass)
+        //{
+        //    CharacterFactory.LevelUp(ref this, cclass);
+        //}
 
         public void LevelDown()
         {
@@ -211,10 +233,10 @@ namespace _5ECharacterBuilder
             return armor.BaseArmor + dex;
         }
 
-        private int CalculateMaxHp()
+        public int CalculateMaxHp(HitDice hitDice)
         {
-            var halfDie = HitDice.List.GetRange(1, HitDice.List.Count - 1).Sum(hitDie => (hitDie / 2) + 1);
-            return HitDice[0] + halfDie + Abilities.Constitution.Modifier;
+            var halfDie = hitDice.List.GetRange(1, hitDice.List.Count - 1).Sum(hitDie => (hitDie / 2) + 1);
+            return hitDice[0] + halfDie + Abilities.Constitution.Modifier;
         }
     }
 }

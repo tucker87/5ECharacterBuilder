@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace _5ECharacterBuilder
 {
-    static class ExtensionMethods
+    internal static class ExtensionMethods
     {
         public static void Add<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Dictionary<TKey, TValue> dictionaryToAdd)
         {
@@ -33,6 +33,16 @@ namespace _5ECharacterBuilder
 
             var attr = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
             return attr != null ? attr.Description : name;
+        }
+
+        public static IEnumerable<T> Union<T>(this IEnumerable<T> source, T item)
+        {
+            return source.Union(Enumerable.Repeat(item, 1));
+        }
+
+        public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T item)
+        {
+            return source.Concat(Enumerable.Repeat(item, 1));
         }
     }
 }

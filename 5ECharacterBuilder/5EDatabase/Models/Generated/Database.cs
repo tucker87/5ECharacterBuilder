@@ -90,7 +90,7 @@ namespace _5ECB
 
 		public class Record<T> where T:new()
 		{
-			public static _5ECB repo { get { return _5ECB.GetInstance(); } }
+			public static _5ECB repo { get { return GetInstance(); } }
 			public bool IsNew() { return repo.IsNew(this); }
 			public object Insert() { return repo.Insert(this); }
 
@@ -136,7 +136,7 @@ namespace _5ECB
 
     
 
-	[TableName("Item.Armor")]
+	[TableName("Item.ArmorType")]
 
 
 

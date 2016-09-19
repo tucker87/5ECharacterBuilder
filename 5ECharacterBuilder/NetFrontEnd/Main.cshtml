@@ -3,6 +3,7 @@
 @using System.Web
 @using NetFrontEnd
 @using _5ECharacterBuilder
+@using _5EDatabase
 
 @{
     var paramerters = HttpContext.Current.Request.Params;
@@ -52,8 +53,8 @@
             }
             else
             {
-                var classEnums = new List<AvailableClasses> { (AvailableClasses)Enum.Parse(typeof(AvailableClasses), className)};
-                var character = CharacterFactory.BuildACharacter((AvailableRaces)Enum.Parse(typeof(AvailableRaces), raceName), classEnums, (AvailableBackgrounds)Enum.Parse(typeof(AvailableBackgrounds), backgroundName));
+                var classEnums = new List<Class> { (Class)Enum.Parse(typeof(Class), className)};
+                var character = CharacterFactory.BuildACharacter((Race)Enum.Parse(typeof(Race), raceName), classEnums, (Background)Enum.Parse(typeof(Background), backgroundName));
                 <div class="toolBar">
                                         <input type="button" value="Level Up" onclick="javascript: window.location.href = $(location).attr('href').split('?')[0] + '?' + $.param({ race:'@raceName', class:'@className', background:'@backgroundName'});" />
                 </div>
@@ -154,7 +155,7 @@
                         }
                     </div>
                     <div class="group">
-                        <label>Armor Class</label>
+                        <label>ArmorType Class</label>
                         <input class="number" value="@character.ArmorClass" />
                         <label>Initiative</label>
                         <input class="number" value="@character.Initiative" />

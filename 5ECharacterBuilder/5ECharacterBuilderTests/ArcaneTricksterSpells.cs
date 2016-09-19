@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using _5ECharacterBuilder;
+using _5EDatabase;
 
 namespace _5ECharacterBuilderTests
 {
@@ -13,8 +14,8 @@ namespace _5ECharacterBuilderTests
         [SetUp]
         public void SetUp()
         {
-            _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Rogue,
-                AvailableBackgrounds.Criminal);
+            _character = CharacterFactory.BuildACharacter(Race.Human, Class.Rogue,
+                Background.Criminal);
         }
 
         [Test, TestCaseSource(typeof(CharacterData), nameof(CharacterData.Levels))]

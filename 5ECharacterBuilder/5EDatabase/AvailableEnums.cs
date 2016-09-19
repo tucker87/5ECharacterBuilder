@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace _5ECharacterBuilder
+namespace _5EDatabase
 {
-    public enum AvailableAbility
+    public enum Ability
     {
         Strength,
         Dexterity,
@@ -12,21 +12,22 @@ namespace _5ECharacterBuilder
         Charisma
     }
 
-    public enum AvailableAlignmentFirst
+    public enum AlignmentFirst
     {
         Lawful,
         Neutral,
         Chaotic
     }
 
-    public enum AvailableAlignmentSecond
+    public enum AlignmentSecond
     {
         Good,
         Neutral,
         Evil
     }
 
-    public enum AvailableRaces {
+    public enum Race {
+        Any,
         Human,
         [Description("Hill Dwarf")]
         HillDwarf,
@@ -38,15 +39,18 @@ namespace _5ECharacterBuilder
         WoodElf,
         Drow
     }
-    public enum AvailableClasses { 
+    public enum Class {
+        Any,
         Monk, 
         Fighter, 
         Rogue,
-        Barbarian
+        Barbarian,
+        Cleric
+        
     }
-    public enum AvailableBackgrounds { Acolyte, Criminal }
-    public enum AvailableArmor { Cloth, Padded, Leather, StuddedLeather, Hide, ChainShirt, ScaleMail, Breastplate, HalfPlate, RingMail, ChainMail, Splint, Plate, Shield }
-    public enum AvailableSkill { 
+    public enum Background { Acolyte, Criminal }
+    public enum ArmorType { Cloth, Padded, Leather, StuddedLeather, Hide, ChainShirt, ScaleMail, Breastplate, HalfPlate, RingMail, ChainMail, Splint, Plate, Shield }
+    public enum Skill { 
         Acrobatics,
         [Description("Animal Handling")]
         AnimalHandling, 
@@ -68,7 +72,7 @@ namespace _5ECharacterBuilder
         Stealth,
         Survival
     }
-    public enum AvailableTool {
+    public enum Tool {
         [Description("Alchemist's Supplies")]
         AlchemistsSupplies,
         [Description("Thieve's Tools")]
@@ -92,9 +96,9 @@ namespace _5ECharacterBuilder
         [Description("Poisoner's Kit")]
         PoisonersKit
     }
-    public enum AvailableInstrument { Lute }
-    public enum AvailableLanguages { Common, Elvish, Sylvan, Goblin, Draconic, Gnomish, Dwarvish }
-    public enum AvailablePaths { WayOfTheOpenHand, WayOfShadow, WayOfTheFourElements,
+    public enum Instrument { Lute }
+    public enum Language { Common, Elvish, Sylvan, Goblin, Draconic, Gnomish, Dwarvish }
+    public enum Path { WayOfTheOpenHand, WayOfShadow, WayOfTheFourElements,
         Thief,
         Assassin,
         [Description("Arcane Trickster")]
@@ -105,4 +109,53 @@ namespace _5ECharacterBuilder
         PathOfTheTotemWarrior
     }
     public enum SavingThrow { Strength, Constitution, Dexterity, Intelligence, Wisdom, Charisma }
+
+    public enum ArmorCategory
+    {
+        None,
+        Light,
+        Medium,
+        Heavy
+    }
+
+    public enum WeaponType
+    {
+        ShortSword,
+        Club,
+        Dagger,
+        GreatSword,
+        BattleAxe,
+        HandAxe,
+        ThrowingHammer,
+        Warhammer,
+        LongSword,
+        ShortBow,
+        LongBow,
+        HandCrossbows,
+        Rapier,
+        Greatclub,
+        Handaxe,
+        Javelin,
+        LightHammer,
+        Mace,
+        Quarterstaff,
+        Sickle,
+        Spear,
+        UnarmedStrike,
+        CrossbowLight,
+        Dart,
+        Sling,
+        Flail,
+        Glaive,
+        Greataxe,
+        Halberd,
+        Lance,
+        Maul,
+        Morningstar,
+        Pike,
+        Scimitar,
+        Trident,
+        WarPick,
+        Whip
+    }
 }

@@ -26,10 +26,10 @@ namespace _5ECharacterBuilder
         protected static int VerifyScore(int score)
         {
             if (score < 1)
-                throw new Exception("Score cannot be less than one");
+                throw new ArgumentOutOfRangeException(nameof(score), "Score cannot be less than one");
 
             if (score > 20)
-                throw new Exception("Score cannot be greater than twenty");
+                throw new ArgumentOutOfRangeException(nameof(score), "Score cannot be greater than twenty");
 
             return score;
         }
@@ -147,18 +147,22 @@ namespace _5ECharacterBuilder
             _name = name;
         }
 
-        public int ClassBonus { get; internal set; }
-        
         public int Score
         {
-            get { return _score + RacialBonus + ImprovementBonus; }
-            set { _score = value; }
+            get
+            {
+                var totalScore = _score + RacialBonus + ImprovementBonus + ClassBonus;
+                return totalScore < MinScore ? MinScore : totalScore > MaxScore ? MaxScore : totalScore;
+            }
+            set { _score = value < MinScore ? MinScore : value > MaxScore ? MaxScore : value; }
         }
 
         public string Name => _name.ToString();
-        public int MaxScore { get; internal set; }
+        public int MinScore { get; internal set; } = 1;
+        public int MaxScore { get; internal set; } = 20;
         public int Modifier => CalculateModifier(Score);
         public int RacialBonus { get; internal set; }
+        public int ClassBonus { get; internal set; }
         public int ImprovementBonus { get; internal set; }
 
         public static int CalculateModifier(int score)

@@ -2,23 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using _5EDatabase;
 
 namespace _5ECharacterBuilder
 {
-    public class CharacterFeatures
-    {
-        public CharacterFeatures()
-        {
-            RaceFeatures = new Dictionary<string, string>();
-            ClassFeatures = new Dictionary<string, string>();
-            ClassPathFeatures = new Dictionary<string, string>();
-        }
-        public Dictionary<string, string> AllFeatures { get { return RaceFeatures.Concat(ClassFeatures).Distinct().Concat(ClassPathFeatures).ToList().ToDictionary(k => k.Key, v => v.Value); } } 
-        public Dictionary<string, string> RaceFeatures { get; internal set; } 
-        public Dictionary<string, string> ClassFeatures { get; internal set; } 
-        public Dictionary<string, string> ClassPathFeatures { get; internal set; } 
-    }
-
     public class Proficiencies<T>
     {
         public Proficiencies()
@@ -26,8 +13,8 @@ namespace _5ECharacterBuilder
             Available = new SortedSet<T>();
             Chosen = new SortedSet<T>();
         }
-        public  SortedSet<T> Available { get; internal set; }
-        public  SortedSet<T> Chosen { get; internal set; }
+        public SortedSet<T> Available { get; internal set; }
+        public SortedSet<T> Chosen { get; internal set; }
         public int Max { get; internal set; }
     }
 
@@ -35,9 +22,9 @@ namespace _5ECharacterBuilder
     {
         public Tools()
         {
-            Available = new SortedSet<AvailableTool>();
-            Chosen = new SortedSet<AvailableTool>();
-            Expertise = new SortedSet<AvailableTool>();
+            Available = new SortedSet<Tool>();
+            Chosen = new SortedSet<Tool>();
+            Expertise = new SortedSet<Tool>();
         }
 
         public Tools(Tools tools)
@@ -47,9 +34,9 @@ namespace _5ECharacterBuilder
             Expertise = tools.Expertise;
             Max = tools.Max;
         }
-        public SortedSet<AvailableTool> Available { get; internal set; }
-        public SortedSet<AvailableTool> Chosen { get; internal set; }
-        public SortedSet<AvailableTool> Expertise { get; internal set; }
+        public SortedSet<Tool> Available { get; internal set; }
+        public SortedSet<Tool> Chosen { get; internal set; }
+        public SortedSet<Tool> Expertise { get; internal set; }
         public int Max { get; internal set; }
     }
 
@@ -57,10 +44,10 @@ namespace _5ECharacterBuilder
     {
         public Skills()
         {
-            AllSkills = (AvailableSkill[]) Enum.GetValues(typeof(AvailableSkill));
-            Available = new SortedSet<AvailableSkill>();
-            Chosen = new SortedSet<AvailableSkill>();
-            Expertise = new SortedSet<AvailableSkill>();
+            AllSkills = (Skill[]) Enum.GetValues(typeof(Skill));
+            Available = new SortedSet<Skill>();
+            Chosen = new SortedSet<Skill>();
+            Expertise = new SortedSet<Skill>();
         }
 
         public Skills(Skills skills)
@@ -73,49 +60,21 @@ namespace _5ECharacterBuilder
             MaxExpertise = skills.MaxExpertise;
         }
 
-        public AvailableSkill[] AllSkills { get; private set; }
-        public SortedSet<AvailableSkill> Available { get; internal set; }
-        public SortedSet<AvailableSkill> Chosen { get; internal set; }
-        public SortedSet<AvailableSkill> Expertise { get; internal set; } 
+        public Skill[] AllSkills { get; private set; }
+        public SortedSet<Skill> Available { get; internal set; }
+        public SortedSet<Skill> Chosen { get; internal set; }
+        public SortedSet<Skill> Expertise { get; internal set; } 
         public int Max { get; internal set; }
         public int MaxExpertise { get; internal set; }
     }
-
-    public class ClassPath : IEnumerable
-    {
-        public ClassPath()
-        {
-            Available = new SortedSet<AvailablePaths>();
-        }
-
-        public ClassPath(ClassPath classPath)
-        {
-            Available = classPath.Available;
-            Chosen = classPath.Chosen;
-        }
-
-        public SortedSet<AvailablePaths> Available { get; internal set; }
-        public AvailablePaths? Chosen { get; internal set; }
-
-        public void Add(AvailablePaths[] paths)
-        {
-            foreach (var path in paths)
-                Available.Add(path);
-        }
-
-        public IEnumerator GetEnumerator()
-        {
-            return ((IEnumerable) Available).GetEnumerator();
-        }
-    }
-
+    
     public class Languages
     {
         public Languages()
         {
-            Chosen = new SortedSet<AvailableLanguages>();
+            Chosen = new SortedSet<Language>();
         }
-        public SortedSet<AvailableLanguages> Chosen { get; internal set; }
+        public SortedSet<Language> Chosen { get; internal set; }
         public int Max { get; internal set; }
     }
 
@@ -157,12 +116,23 @@ namespace _5ECharacterBuilder
 
     public class HitDice : IEnumerable
     {
-        public HitDice() { List = new List<int>(); }
+        public List<int> List { get; set; } = new List<int>();
 
-        public List<int> List { get; set; } 
-        
         public void Add(int hitDice) { List.Add(hitDice); }
-        public int Count => List.Count();
+
+        public HitDice Union(int hitDie)
+        {
+            List.Add(hitDie);
+            return this;
+        }
+
+        public HitDice Union(List<int> hitDice)
+        {
+            List.AddRange(hitDice);
+            return this;
+        }
+
+        public int Count => List.Count;
         public int First() { return List.First(); }
         public int Last() { return List.Last(); }
         public void Remove(int index) { List.Remove(index); }

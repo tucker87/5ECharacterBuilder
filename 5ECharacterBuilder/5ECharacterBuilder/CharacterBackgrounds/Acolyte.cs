@@ -1,11 +1,13 @@
-﻿namespace _5ECharacterBuilder.CharacterBackgrounds
+﻿using _5EDatabase;
+
+namespace _5ECharacterBuilder.CharacterBackgrounds
 {
     internal sealed class Acolyte : CharacterBackground
     {
         public Acolyte(ICharacter character) : base(character)
         {
-            Skills.Chosen.Add(AvailableSkill.Insight);
-            Skills.Chosen.Add(AvailableSkill.Religion);
+            Skills.Chosen.Add(Skill.Insight);
+            Skills.Chosen.Add(Skill.Religion);
             Languages.Max += 2;
         }
 

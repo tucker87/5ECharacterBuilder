@@ -84,9 +84,9 @@
                 <Label Name="InitiativeLabel" />
             </StackPanel>
 
-            <Label Content="Armor Proficiencies" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <ListBox Name="ArmorProfListBox" Height="87"/>
-            <Label Content="Equipped Armor" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="ArmorType Proficiencies" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ListBox Name="ArmorTypeProfListBox" Height="87"/>
+            <Label Content="Equipped ArmorType" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label Name="EquippedLabel" Content=""/>
         </StackPanel>
         <StackPanel>
@@ -102,7 +102,7 @@
         </StackPanel>
         <StackPanel>
             <Label Content="Available Skill Proficiencies"/>
-            <ListBox Name="AvailableSkillListBox" SelectionChanged="SkillProfListBox_OnSelectionChanged"/>
+            <ListBox Name="SkillListBox" SelectionChanged="SkillProfListBox_OnSelectionChanged"/>
             <Label Content="Chosen Skill Proficiencies" />
             <ListBox Name="ChosenSkillListBox"/>
         </StackPanel>

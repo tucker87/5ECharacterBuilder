@@ -1,6 +1,7 @@
 ﻿@using System
 @using NetFrontEnd
 @using _5ECharacterBuilder
+@using _5EDatabase
 
 <script type="text/javascript">
     window.race = "";
@@ -21,25 +22,25 @@
     <div class="race section">
         <label>Race</label>
         <select name="race">
-            @foreach (AvailableRaces availableRaces in Enum.GetValues(typeof (AvailableRaces)))
+            @foreach (Race Race in Enum.GetValues(typeof (Race)))
             {
-                <option value="@availableRaces">@availableRaces.GetDescription()</option>
+                <option value="@Race">@Race.GetDescription()</option>
             }
         </select>
     </div>
     <div class="class section">
         <select name="class">
-            @foreach (AvailableClasses availableClasses in Enum.GetValues(typeof(AvailableClasses)))
+            @foreach (Class Class in Enum.GetValues(typeof(Class)))
             {
-                <option value="@availableClasses">@availableClasses.GetDescription()</option>
+                <option value="@Class">@Class.GetDescription()</option>
             }
         </select>
     </div>
     <div class="background section">
         <select name="background">
-            @foreach (AvailableBackgrounds availableBackgrounds in Enum.GetValues(typeof(AvailableBackgrounds)))
+            @foreach (Background Background in Enum.GetValues(typeof(Background)))
             {
-                <option value="@availableBackgrounds">@availableBackgrounds.GetDescription()</option>
+                <option value="@Background">@Background.GetDescription()</option>
             }
         </select>
     </div>

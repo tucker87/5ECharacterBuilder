@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using PetaPoco;
-using _5ECharacterBuilder;
 
 namespace _5EDatabase
 {
@@ -9,166 +8,135 @@ namespace _5EDatabase
     {
         static Armory()
         {
-            SimpleWeapons = new SortedSet<AvailableWeapon>
+            SimpleWeapons = new SortedSet<WeaponType>
             {
-                AvailableWeapon.Club,
-                AvailableWeapon.Dagger,
-                AvailableWeapon.Greatclub,
-                AvailableWeapon.Handaxe,
-                AvailableWeapon.Javelin,
-                AvailableWeapon.LightHammer,
-                AvailableWeapon.Mace,
-                AvailableWeapon.Quarterstaff,
-                AvailableWeapon.Sickle,
-                AvailableWeapon.Spear,
-                AvailableWeapon.UnarmedStrike
+                WeaponType.Club,
+                WeaponType.Dagger,
+                WeaponType.Greatclub,
+                WeaponType.Handaxe,
+                WeaponType.Javelin,
+                WeaponType.LightHammer,
+                WeaponType.Mace,
+                WeaponType.Quarterstaff,
+                WeaponType.Sickle,
+                WeaponType.Spear,
+                WeaponType.UnarmedStrike
             };
 
-            SimpleRangedWeapons = new SortedSet<AvailableWeapon>
+            SimpleRangedWeapons = new SortedSet<WeaponType>
             {
-                AvailableWeapon.CrossbowLight,
-                AvailableWeapon.Dart,
-                AvailableWeapon.ShortBow,
-                AvailableWeapon.Sling
+                WeaponType.CrossbowLight,
+                WeaponType.Dart,
+                WeaponType.ShortBow,
+                WeaponType.Sling
             };
 
-            MartialWeapons = new SortedSet<AvailableWeapon>
+            MartialWeapons = new SortedSet<WeaponType>
             {
-                AvailableWeapon.BattleAxe,
-                AvailableWeapon.Flail,
-                AvailableWeapon.Glaive,
-                AvailableWeapon.Greataxe,
-                AvailableWeapon.GreatSword,
-                AvailableWeapon.Halberd,
-                AvailableWeapon.Lance,
-                AvailableWeapon.LongSword,
-                AvailableWeapon.Maul,
-                AvailableWeapon.Morningstar,
-                AvailableWeapon.Pike,
-                AvailableWeapon.Rapier,
-                AvailableWeapon.Scimitar,
-                AvailableWeapon.ShortSword,
-                AvailableWeapon.Trident,
-                AvailableWeapon.WarPick,
-                AvailableWeapon.Warhammer,
-                AvailableWeapon.Whip
+                WeaponType.BattleAxe,
+                WeaponType.Flail,
+                WeaponType.Glaive,
+                WeaponType.Greataxe,
+                WeaponType.GreatSword,
+                WeaponType.Halberd,
+                WeaponType.Lance,
+                WeaponType.LongSword,
+                WeaponType.Maul,
+                WeaponType.Morningstar,
+                WeaponType.Pike,
+                WeaponType.Rapier,
+                WeaponType.Scimitar,
+                WeaponType.ShortSword,
+                WeaponType.Trident,
+                WeaponType.WarPick,
+                WeaponType.Warhammer,
+                WeaponType.Whip
             };
 
-            LightArmor = new SortedSet<AvailableArmor>
+            LightArmor = new SortedSet<ArmorType>
             {
-                AvailableArmor.Padded,
-                AvailableArmor.Leather,
-                AvailableArmor.StuddedLeather
+                ArmorType.Padded,
+                ArmorType.Leather,
+                ArmorType.StuddedLeather
             };
 
-            MediumArmor = new SortedSet<AvailableArmor>
+            MediumArmor = new SortedSet<ArmorType>
             {
-                AvailableArmor.Hide,
-                AvailableArmor.ChainShirt,
-                AvailableArmor.ScaleMail,
-                AvailableArmor.Breastplate,
-                AvailableArmor.HalfPlate
+                ArmorType.Hide,
+                ArmorType.ChainShirt,
+                ArmorType.ScaleMail,
+                ArmorType.Breastplate,
+                ArmorType.HalfPlate
             };
 
-            HeavyArmor = new SortedSet<AvailableArmor>
+            HeavyArmor = new SortedSet<ArmorType>
             {
-                AvailableArmor.RingMail,
-                AvailableArmor.ChainMail,
-                AvailableArmor.Splint,
-                AvailableArmor.Plate
+                ArmorType.RingMail,
+                ArmorType.ChainMail,
+                ArmorType.Splint,
+                ArmorType.Plate
             };
 
-            AllArmor = new List<AvailableArmor> { AvailableArmor.Cloth };
+            AllArmor = new List<ArmorType> { ArmorType.Cloth };
             AllArmor.AddRange(LightArmor);
             AllArmor.AddRange(MediumArmor);
             AllArmor.AddRange(HeavyArmor);
         }
 
-        public static SortedSet<AvailableWeapon> SimpleRangedWeapons { get; set; }
+        public static SortedSet<WeaponType> SimpleRangedWeapons { get; set; }
 
-        public static SortedSet<AvailableArmor> LightArmor { get; set; }
-        public static SortedSet<AvailableArmor> MediumArmor { get; set; }
-        public static SortedSet<AvailableArmor> HeavyArmor { get; set; }
-        public static List<AvailableArmor> AllArmor { get; }
+        public static SortedSet<ArmorType> LightArmor { get; set; }
+        public static SortedSet<ArmorType> MediumArmor { get; set; }
+        public static SortedSet<ArmorType> HeavyArmor { get; set; }
+        public static List<ArmorType> AllArmor { get; }
 
-        public static SortedSet<AvailableWeapon> SimpleWeapons { get; private set; }
-        public static SortedSet<AvailableWeapon> MartialWeapons { get; set; }
+        public static SortedSet<WeaponType> SimpleWeapons { get; private set; }
+        public static SortedSet<WeaponType> MartialWeapons { get; set; }
         
-        public static Armor GetArmor(AvailableArmor armorName)
+        public static Armor GetArmor(ArmorType armorName)
         {
-            return ItemData.GetArmor(armorName);
+            return CharacterData.ArmorData.First(a => a.Name == armorName);
         }
 
-        public List<AvailableTool> GetGamingSets() =>
-            new List<AvailableTool>
+        public List<Tool> GetGamingSets() =>
+            new List<Tool>
             {
-                AvailableTool.DiceSet,
-                AvailableTool.DragonchessSet,
-                AvailableTool.PlayingCardSet,
-                AvailableTool.ThreeDragonAnteSet
+                Tool.DiceSet,
+                Tool.DragonchessSet,
+                Tool.PlayingCardSet,
+                Tool.ThreeDragonAnteSet
             };
     }
 
     public class Armor
     {
+        public Armor()
+        {
+            
+        }
+
+        public Armor(ArmorType armorName, int cost, int baseArmor, int weight, ArmorCategory category, int? maxDexBonus = null, int? requiredStrength = null, bool stealthDisadvantage = false)
+        {
+            Name = armorName;
+            Cost = cost;
+            BaseArmor = baseArmor;
+            MaxDexBonus = maxDexBonus;
+            Weight = weight;
+            Category = category;
+            RequiredStrength = requiredStrength;
+            StealthDisadvantage = stealthDisadvantage;
+        }
+
         public int Id { get; set; }
         [Column("ArmorName")]
-        public string Name { get; set; }
-        public int CostId { get; set; }
+        public ArmorType Name { get; set; }
+        //public int CostId { get; set; }
+        public int Cost { get; set; }
         public int BaseArmor { get; set; }
         public int? MaxDexBonus { get; set; }
         public int? RequiredStrength { get; set; }
         public bool StealthDisadvantage { get; set; }
         public int Weight { get; set; }
         public ArmorCategory Category { get; set; }
-    }
-
-    public enum ArmorCategory
-    {
-        None,
-        Light,
-        Medium,
-        Heavy
-    }
-
-    public enum AvailableWeapon
-    {
-        ShortSword,
-        Club,
-        Dagger,
-        GreatSword,
-        BattleAxe,
-        HandAxe,
-        ThrowingHammer,
-        Warhammer,
-        LongSword,
-        ShortBow,
-        LongBow,
-        HandCrossbows,
-        Rapier,
-        Greatclub,
-        Handaxe,
-        Javelin,
-        LightHammer,
-        Mace,
-        Quarterstaff,
-        Sickle,
-        Spear,
-        UnarmedStrike,
-        CrossbowLight,
-        Dart,
-        Sling,
-        Flail,
-        Glaive,
-        Greataxe,
-        Halberd,
-        Lance,
-        Maul,
-        Morningstar,
-        Pike,
-        Scimitar,
-        Trident,
-        WarPick,
-        Whip
     }
 }

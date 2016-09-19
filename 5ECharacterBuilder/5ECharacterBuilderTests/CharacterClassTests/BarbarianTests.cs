@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 using _5ECharacterBuilder;
 using _5EDatabase;
 
@@ -12,13 +13,13 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [SetUp]
         public void SetUp()
         {
-            _barbarian = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Barbarian, AvailableBackgrounds.Acolyte);
+            _barbarian = CharacterFactory.BuildACharacter(Race.Human, Class.Barbarian, Background.Acolyte);
         }
 
         [Test]
         public void BarbariansAreBarbarians()
         {
-            Assert.IsTrue(_barbarian.Classes.Contains("Barbarian"));
+            Assert.IsTrue(_barbarian.Classes.Contains(Class.Barbarian));
         }
 
         [Test]
@@ -30,62 +31,35 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [Test]
         public void BarbariansAreProficientWithLightArmor()
         {
-            Assert.IsTrue(_barbarian.ArmorProficiencies.Contains(AvailableArmor.Padded));
-            Assert.IsTrue(_barbarian.ArmorProficiencies.Contains(AvailableArmor.Leather));
-            Assert.IsTrue(_barbarian.ArmorProficiencies.Contains(AvailableArmor.StuddedLeather));
+            Assert.IsTrue(_barbarian.ArmorProficiencies.Contains(ArmorType.Padded));
+            Assert.IsTrue(_barbarian.ArmorProficiencies.Contains(ArmorType.Leather));
+            Assert.IsTrue(_barbarian.ArmorProficiencies.Contains(ArmorType.StuddedLeather));
         }
 
         [Test]
         public void BarbariansAreProficientWithMediumArmor()
         {
-            Assert.IsTrue(_barbarian.ArmorProficiencies.Contains(AvailableArmor.HalfPlate));
-            Assert.IsTrue(_barbarian.ArmorProficiencies.Contains(AvailableArmor.ChainShirt));
-            Assert.IsTrue(_barbarian.ArmorProficiencies.Contains(AvailableArmor.ScaleMail));
+            Assert.IsTrue(_barbarian.ArmorProficiencies.Contains(ArmorType.HalfPlate));
+            Assert.IsTrue(_barbarian.ArmorProficiencies.Contains(ArmorType.ChainShirt));
+            Assert.IsTrue(_barbarian.ArmorProficiencies.Contains(ArmorType.ScaleMail));
         }
 
         [Test]
         public void BarbariansAreProficientWithShields()
         {
-            Assert.IsTrue(_barbarian.ArmorProficiencies.Contains(AvailableArmor.Shield));
+            Assert.IsTrue(_barbarian.ArmorProficiencies.Contains(ArmorType.Shield));
         }
 
         [Test]
         public void BarbariansAreProficientWithSimpleWeapons()
         {
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Club));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Dagger));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Greatclub));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Handaxe));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Javelin));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.LightHammer));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Mace));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Quarterstaff));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Sickle));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Spear));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.UnarmedStrike));
+            Assert.IsTrue(Armory.SimpleWeapons.IsSubsetOf(_barbarian.WeaponProficiencies));
         }
 
         [Test]
-        public void BarbariansAreProficientWithMartialeWeapons()
+        public void BarbariansAreProficientWithMartialWeapons()
         {
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.BattleAxe));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Flail));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Glaive));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Greataxe));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.GreatSword));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Halberd));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Lance));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.LongSword));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Maul));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Morningstar));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Pike));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Rapier));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Scimitar));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.ShortSword));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Trident));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.WarPick));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Warhammer));
-            Assert.IsTrue(_barbarian.WeaponProficiencies.Contains(AvailableWeapon.Whip));
+            Assert.IsTrue(Armory.MartialWeapons.IsSubsetOf(_barbarian.WeaponProficiencies));
         }
 
         [Test]
@@ -100,19 +74,19 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             Assert.AreEqual(2, _barbarian.Skills.Max - _barbarian.Skills.Chosen.Count);
 
-            Assert.IsTrue(_barbarian.Skills.Available.Contains(AvailableSkill.AnimalHandling));
-            Assert.IsTrue(_barbarian.Skills.Available.Contains(AvailableSkill.Athletics));
-            Assert.IsTrue(_barbarian.Skills.Available.Contains(AvailableSkill.Intimidation));
-            Assert.IsTrue(_barbarian.Skills.Available.Contains(AvailableSkill.Nature));
-            Assert.IsTrue(_barbarian.Skills.Available.Contains(AvailableSkill.Perception));
-            Assert.IsTrue(_barbarian.Skills.Available.Contains(AvailableSkill.Survival));
+            Assert.IsTrue(_barbarian.Skills.Available.Contains(Skill.AnimalHandling));
+            Assert.IsTrue(_barbarian.Skills.Available.Contains(Skill.Athletics));
+            Assert.IsTrue(_barbarian.Skills.Available.Contains(Skill.Intimidation));
+            Assert.IsTrue(_barbarian.Skills.Available.Contains(Skill.Nature));
+            Assert.IsTrue(_barbarian.Skills.Available.Contains(Skill.Perception));
+            Assert.IsTrue(_barbarian.Skills.Available.Contains(Skill.Survival));
         }
 
         [Test]
         public void BarbariansGetRageAndUnarmoredDefenseAtLevel1()
         {
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Rage"));
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Barbarian Unarmored Defense"));
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Rage"));
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Barbarian Unarmored Defense"));
         }
 
         [Test]
@@ -128,7 +102,7 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         {
             _barbarian.Abilities.Dexterity.Score = 13;
             _barbarian.Abilities.Constitution.Score = 13;
-            _barbarian.EquipArmor(AvailableArmor.Leather);
+            _barbarian.EquipArmor(ArmorType.Leather);
             Assert.AreEqual(13, _barbarian.ArmorClass);
         }
 
@@ -150,28 +124,28 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [Test]
         public void BarbariansCanRage3TimesPerDayAtLevel3()
         {
-            TestingUtility.LevelTo(_barbarian, 3, AvailableClasses.Barbarian);
+            TestingUtility.LevelTo(ref _barbarian, 3, Class.Barbarian);
             Assert.AreEqual(3, _barbarian.ClassTraits.RagesPerDay);
         }
 
         [Test]
         public void BarbariansCanRage4TimesPerDayAtLevel6()
         {
-            TestingUtility.LevelTo(_barbarian, 6, AvailableClasses.Barbarian);
+            TestingUtility.LevelTo(ref _barbarian, 6, Class.Barbarian);
             Assert.AreEqual(4, _barbarian.ClassTraits.RagesPerDay);
         }
 
         [Test]
         public void BarbariansCanRage5TimesPerDayAtLevel12()
         {
-            TestingUtility.LevelTo(_barbarian, 12, AvailableClasses.Barbarian);
+            TestingUtility.LevelTo(ref _barbarian, 12, Class.Barbarian);
             Assert.AreEqual(5, _barbarian.ClassTraits.RagesPerDay);
         }
 
         [Test]
         public void BarbariansCanRage6TimesPerDayAtLevel17()
         {
-            TestingUtility.LevelTo(_barbarian, 17, AvailableClasses.Barbarian);
+            TestingUtility.LevelTo(ref _barbarian, 17, Class.Barbarian);
             Assert.AreEqual(6, _barbarian.ClassTraits.RagesPerDay);
         }
 
@@ -184,163 +158,168 @@ namespace _5ECharacterBuilderTests.CharacterClassTests
         [Test]
         public void BarbariansDo3RageDamageAtLevel9()
         {
-            TestingUtility.LevelTo(_barbarian, 9, AvailableClasses.Barbarian);
+            TestingUtility.LevelTo(ref _barbarian, 9, Class.Barbarian);
             Assert.AreEqual(3, _barbarian.ClassTraits.RageDamage);
         }
 
         [Test]
         public void BarbariansDo4RageDamageAtLevel16()
         {
-            TestingUtility.LevelTo(_barbarian, 16, AvailableClasses.Barbarian);
+            TestingUtility.LevelTo(ref _barbarian, 16, Class.Barbarian);
             Assert.AreEqual(4, _barbarian.ClassTraits.RageDamage);
         }
 
         [Test]
         public void BarbariansGetRecklessAttackAndDangerSenseAtLevel2()
         {
-            TestingUtility.LevelTo(_barbarian, 2, AvailableClasses.Barbarian);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Reckless Attack"));
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Danger Sense"));
+            TestingUtility.LevelTo(ref _barbarian, 2, Class.Barbarian);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Reckless Attack"));
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Danger Sense"));
         }
 
         [Test]
         public void BarbariansGetAnExtraAttackAtLevel5()
         {
-            TestingUtility.LevelTo(_barbarian, 5, AvailableClasses.Barbarian);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Extra Attack"));
+            TestingUtility.LevelTo(ref _barbarian, 5, Class.Barbarian);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Extra Attack"));
             Assert.AreEqual(2, _barbarian.AttacksPerTurn);
         }
 
         [Test]
         public void BarbariansGetFastMovementAtLevel5()
         {
-            TestingUtility.LevelTo(_barbarian, 5, AvailableClasses.Barbarian);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Fast Movement"));
+            TestingUtility.LevelTo(ref _barbarian, 5, Class.Barbarian);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Fast Movement"));
             Assert.AreEqual(40, _barbarian.Speed);
         }
 
         [Test]
         public void BarbariansGetFeralInstinctAtLevel7()
         {
-            TestingUtility.LevelTo(_barbarian, 7, AvailableClasses.Barbarian);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Feral Instict"));
+            TestingUtility.LevelTo(ref _barbarian, 7, Class.Barbarian);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Feral Instict"));
         }
 
         [Test]
         public void BarbariansGetBrutalCriticalAtLevel9()
         {
-            TestingUtility.LevelTo(_barbarian, 9, AvailableClasses.Barbarian);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Brutal Critical"));
+            TestingUtility.LevelTo(ref _barbarian, 9, Class.Barbarian);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Brutal Critical"));
         }
 
         [Test]
         public void BarbariansGetRelentlessRageAtLevel11()
         {
-            TestingUtility.LevelTo(_barbarian, 11, AvailableClasses.Barbarian);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Relentless Rage"));
+            TestingUtility.LevelTo(ref _barbarian, 11, Class.Barbarian);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Relentless Rage"));
         }
 
         [Test]
         public void BarbariansGetPersistentRageAtLevel15()
         {
-            TestingUtility.LevelTo(_barbarian, 15, AvailableClasses.Barbarian);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Persistent Rage"));
+            TestingUtility.LevelTo(ref _barbarian, 15, Class.Barbarian);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Persistent Rage"));
         }
 
         [Test]
         public void BarbariansGetIndomitableMightAtLevel18()
         {
-            TestingUtility.LevelTo(_barbarian, 18, AvailableClasses.Barbarian);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Indomitable Might"));
+            TestingUtility.LevelTo(ref _barbarian, 18, Class.Barbarian);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Indomitable Might"));
         }
 
         [Test]
         public void BarbariansGetPrimalChampionAtLevel20()
         {
-            TestingUtility.LevelTo(_barbarian, 20, AvailableClasses.Barbarian);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Primal Champion"));
             _barbarian.Abilities.Strength.Score = 20;
             _barbarian.Abilities.Constitution.Score = 20;
+            TestingUtility.LevelTo(ref _barbarian, 20, Class.Barbarian);
+
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Primal Champion"));
+           
 
             Assert.AreEqual(4, _barbarian.Abilities.Strength.ClassBonus);
-
+            Assert.AreEqual(24, _barbarian.Abilities.Strength.MaxScore);
             Assert.AreEqual(24, _barbarian.Abilities.Strength.Score);
+
+            Assert.AreEqual(4, _barbarian.Abilities.Constitution.ClassBonus);
+            Assert.AreEqual(24, _barbarian.Abilities.Constitution.MaxScore);
             Assert.AreEqual(24, _barbarian.Abilities.Constitution.Score);
         }
 
         [Test]
         public void BarbariansGetAPathAtLevel3()
         {
-            Assert.AreEqual(0, _barbarian.ClassPath.Available.Count);
-            TestingUtility.LevelTo(_barbarian, 3, AvailableClasses.Barbarian);
-            Assert.AreEqual(2, _barbarian.ClassPath.Available.Count);
-            Assert.IsTrue(_barbarian.ClassPath.Available.Contains(AvailablePaths.PathOfTheBerserker));
-            Assert.IsTrue(_barbarian.ClassPath.Available.Contains(AvailablePaths.PathOfTheTotemWarrior));
+            Assert.AreEqual(0, _barbarian.ChosenPaths.Count);
+            TestingUtility.LevelTo(ref _barbarian, 3, Class.Barbarian);
+            Assert.AreEqual(2, _barbarian.AvailablePaths.Count);
+            Assert.IsTrue(_barbarian.AvailablePaths.Contains(Path.PathOfTheBerserker));
+            Assert.IsTrue(_barbarian.AvailablePaths.Contains(Path.PathOfTheTotemWarrior));
         }
 
         [Test]
         public void BerserkerBarbariansGetFrenzyAtLevel3()
         {
-            TestingUtility.LevelTo(_barbarian, 3, AvailableClasses.Barbarian);
-            _barbarian.ChosePath(AvailablePaths.PathOfTheBerserker);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Frenzy"));
+            TestingUtility.LevelTo(ref _barbarian, 3, Class.Barbarian);
+            _barbarian.ChosePath(Path.PathOfTheBerserker);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Frenzy"));
         }
 
         [Test]
         public void BerserkerBarbariansGetMindLessRageAtLevel6()
         {
-            TestingUtility.LevelTo(_barbarian, 6, AvailableClasses.Barbarian);
-            _barbarian.ChosePath(AvailablePaths.PathOfTheBerserker);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Mindless Rage"));
+            TestingUtility.LevelTo(ref _barbarian, 6, Class.Barbarian);
+            _barbarian.ChosePath(Path.PathOfTheBerserker);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Mindless Rage"));
         }
 
         [Test]
         public void BerserkerBarbariansGetIntimidatingPresenceAtLevel10()
         {
-            TestingUtility.LevelTo(_barbarian, 10, AvailableClasses.Barbarian);
-            _barbarian.ChosePath(AvailablePaths.PathOfTheBerserker);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Intimidating Presence"));
+            TestingUtility.LevelTo(ref _barbarian, 10, Class.Barbarian);
+            _barbarian.ChosePath(Path.PathOfTheBerserker);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Intimidating Presence"));
         }
 
         [Test]
         public void BerserkerBarbariansGetRetaliationAtLevel14()
         {
-            TestingUtility.LevelTo(_barbarian, 14, AvailableClasses.Barbarian);
-            _barbarian.ChosePath(AvailablePaths.PathOfTheBerserker);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Retaliation"));
+            TestingUtility.LevelTo(ref _barbarian, 14, Class.Barbarian);
+            _barbarian.ChosePath(Path.PathOfTheBerserker);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Retaliation"));
         }
 
         [Test]
         public void TotemBarbariansGetSpiritSeekerAndTotemSpiritAtLevel3()
         {
-            TestingUtility.LevelTo(_barbarian, 3, AvailableClasses.Barbarian);
-            _barbarian.ChosePath(AvailablePaths.PathOfTheTotemWarrior);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Spirit Seeker"));
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Totem Spirit"));
+            TestingUtility.LevelTo(ref _barbarian, 3, Class.Barbarian);
+            _barbarian.ChosePath(Path.PathOfTheTotemWarrior);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Spirit Seeker"));
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Totem Spirit"));
         }
 
         [Test]
         public void TotemBarbariansGetAspectOfTheBeastAtLevel6()
         {
-            TestingUtility.LevelTo(_barbarian, 6, AvailableClasses.Barbarian);
-            _barbarian.ChosePath(AvailablePaths.PathOfTheTotemWarrior);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Aspect of the Beast"));
+            TestingUtility.LevelTo(ref _barbarian, 6, Class.Barbarian);
+            _barbarian.ChosePath(Path.PathOfTheTotemWarrior);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Aspect of the Beast"));
         }
 
         [Test]
         public void TotemBarbariansGetSpiritWalkerAtLevel10()
         {
-            TestingUtility.LevelTo(_barbarian, 10, AvailableClasses.Barbarian);
-            _barbarian.ChosePath(AvailablePaths.PathOfTheTotemWarrior);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Spirit Walker"));
+            TestingUtility.LevelTo(ref _barbarian, 10, Class.Barbarian);
+            _barbarian.ChosePath(Path.PathOfTheTotemWarrior);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Spirit Walker"));
         }
 
         [Test]
         public void TotemBarbariansGetTotemicAttunementAtLevel14()
         {
-            TestingUtility.LevelTo(_barbarian, 14, AvailableClasses.Barbarian);
-            _barbarian.ChosePath(AvailablePaths.PathOfTheTotemWarrior);
-            Assert.IsTrue(_barbarian.Features.AllFeatures.ContainsKey("Totemic Attunement"));
+            TestingUtility.LevelTo(ref _barbarian, 14, Class.Barbarian);
+            _barbarian.ChosePath(Path.PathOfTheTotemWarrior);
+            Assert.IsTrue(_barbarian.AllFeatures.Any(af => af.Name == "Totemic Attunement"));
         }
     }
 }

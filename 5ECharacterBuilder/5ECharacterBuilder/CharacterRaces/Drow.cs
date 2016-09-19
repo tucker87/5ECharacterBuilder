@@ -2,7 +2,7 @@
 
 namespace _5ECharacterBuilder.CharacterRaces
 {
-    class Drow : Elf
+    internal class Drow : Elf
     {
         public Drow(ICharacter character) : base(character)
         {
@@ -13,9 +13,9 @@ namespace _5ECharacterBuilder.CharacterRaces
             AddRaceFeature("Drow Magic");
             AddRaceFeature("Drow Weapon Training");
 
-            WeaponProficiencies.Add(AvailableWeapon.Rapier);
-            WeaponProficiencies.Add(AvailableWeapon.ShortSword);
-            WeaponProficiencies.Add(AvailableWeapon.HandCrossbows);
+            WeaponProficiencies.Add(WeaponType.Rapier);
+            WeaponProficiencies.Add(WeaponType.ShortSword);
+            WeaponProficiencies.Add(WeaponType.HandCrossbows);
         }
 
         public override string Race => "Dark Elf";

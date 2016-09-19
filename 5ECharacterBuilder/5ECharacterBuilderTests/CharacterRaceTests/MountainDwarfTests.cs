@@ -13,7 +13,7 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [SetUp]
         public void SetUp()
         {
-            _character = CharacterFactory.BuildACharacter(AvailableRaces.MountainDwarf, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
+            _character = CharacterFactory.BuildACharacter(Race.MountainDwarf, Class.Monk, Background.Criminal);
         }
 
         [Test]
@@ -55,45 +55,45 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [Test]
         public void MountainDwavesHaveDwarvenCombatTraining()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Dwarven Combat Training"));
-            Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.BattleAxe));
-            Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.HandAxe));
-            Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.ThrowingHammer));
-            Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.Warhammer));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Dwarven Combat Training"));
+            Assert.IsTrue(_character.WeaponProficiencies.Contains(WeaponType.BattleAxe));
+            Assert.IsTrue(_character.WeaponProficiencies.Contains(WeaponType.HandAxe));
+            Assert.IsTrue(_character.WeaponProficiencies.Contains(WeaponType.ThrowingHammer));
+            Assert.IsTrue(_character.WeaponProficiencies.Contains(WeaponType.Warhammer));
         }
 
         [Test]
         public void MountainDwarvesCanBeProfienctDwarvenTools()
         {
-            Assert.IsTrue(_character.Tools.Available.Contains(AvailableTool.SmithsTools));
-            Assert.IsTrue(_character.Tools.Available.Contains(AvailableTool.BrewersSupplies));
-            Assert.IsTrue(_character.Tools.Available.Contains(AvailableTool.MasonsTools));
+            Assert.IsTrue(_character.Tools.Available.Contains(Tool.SmithsTools));
+            Assert.IsTrue(_character.Tools.Available.Contains(Tool.BrewersSupplies));
+            Assert.IsTrue(_character.Tools.Available.Contains(Tool.MasonsTools));
         }
 
         [Test]
         public void MountainDwavesHaveDarkVision()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Darkvision"));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Darkvision"));
         }
 
         [Test]
         public void MountainDwavesHaveDwarvenResilience()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Dwarven Resilience"));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Dwarven Resilience"));
         }
 
         [Test]
         public void MountainDwavesHaveStoneCunning()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Stonecunning"));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Stonecunning"));
         }
 
         [Test]
         public void MountainDwarvesHaveDwarvenArmorTraining()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Dwarven Armor Training"));
-            Assert.IsTrue(_character.ArmorProficiencies.Contains(AvailableArmor.Leather));
-            Assert.IsTrue(_character.ArmorProficiencies.Contains(AvailableArmor.Hide));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Dwarven Armor Training"));
+            Assert.IsTrue(_character.ArmorProficiencies.Contains(ArmorType.Leather));
+            Assert.IsTrue(_character.ArmorProficiencies.Contains(ArmorType.Hide));
         }
     }
 }

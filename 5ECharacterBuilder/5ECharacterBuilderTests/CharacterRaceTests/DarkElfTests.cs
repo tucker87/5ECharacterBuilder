@@ -13,7 +13,7 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [SetUp]
         public void SetUp()
         {
-            _character = CharacterFactory.BuildACharacter(AvailableRaces.Drow, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
+            _character = CharacterFactory.BuildACharacter(Race.Drow, Class.Fighter, Background.Criminal);
         }
 
         [Test]
@@ -42,54 +42,54 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [Test]
         public void DarkElvesHaveDarkVision()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Darkvision"));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Darkvision"));
         }
 
         [Test]
         public void DarkElvesHaveKeenSenses()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Keen Senses"));
-            Assert.IsTrue(_character.Skills.Available.Contains(AvailableSkill.Perception));
-            Assert.IsTrue(_character.Skills.Chosen.Contains(AvailableSkill.Perception));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Keen Senses"));
+            Assert.IsTrue(_character.Skills.Available.Contains(Skill.Perception));
+            Assert.IsTrue(_character.Skills.Chosen.Contains(Skill.Perception));
         }
 
         [Test]
         public void DarkElvesHaveFeyAncestry()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Fey Ancestry"));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Fey Ancestry"));
         }
 
         [Test]
         public void DarkElvesHaveTrance()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Trance"));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Trance"));
         }
 
         [Test]
         public void DarkElvesHaveSuperiorDarkvision()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Superior Darkvision"));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Superior Darkvision"));
         }
 
         [Test]
         public void DarkElvesHaveSunlightSensitivity()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Sunlight Sensitivity"));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Sunlight Sensitivity"));
         }
 
         [Test]
         public void DarkElvesHaveDrowMagic()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Drow Magic"));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Drow Magic"));
         }
 
         [Test]
         public void DarkElvesHaveElvenCombatTraining()
         {
-            Assert.IsTrue(_character.Features.RaceFeatures.Any(feature => feature.Key == "Drow Weapon Training"));
-            Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.Rapier));
-            Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.ShortSword));
-            Assert.IsTrue(_character.WeaponProficiencies.Contains(AvailableWeapon.HandCrossbows));
+            Assert.IsTrue(_character.RaceFeatures.Any(feature => feature.Name == "Drow Weapon Training"));
+            Assert.IsTrue(_character.WeaponProficiencies.Contains(WeaponType.Rapier));
+            Assert.IsTrue(_character.WeaponProficiencies.Contains(WeaponType.ShortSword));
+            Assert.IsTrue(_character.WeaponProficiencies.Contains(WeaponType.HandCrossbows));
         }
     }
 }

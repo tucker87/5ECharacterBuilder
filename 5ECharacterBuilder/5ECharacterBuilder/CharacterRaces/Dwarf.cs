@@ -2,23 +2,23 @@ using _5EDatabase;
 
 namespace _5ECharacterBuilder.CharacterRaces
 {
-    class Dwarf : CharacterRace
+    internal class Dwarf : CharacterRace
     {
         public Dwarf(ICharacter character) : base(character)
         {
             Abilities.Constitution.RacialBonus = 2;
 
-            Languages.Chosen.Add(AvailableLanguages.Common);
-            Languages.Chosen.Add(AvailableLanguages.Dwarvish);
+            Languages.Chosen.Add(Language.Common);
+            Languages.Chosen.Add(Language.Dwarvish);
 
-            WeaponProficiencies.Add(AvailableWeapon.BattleAxe);
-            WeaponProficiencies.Add(AvailableWeapon.HandAxe);
-            WeaponProficiencies.Add(AvailableWeapon.ThrowingHammer);
-            WeaponProficiencies.Add(AvailableWeapon.Warhammer);
+            WeaponProficiencies.Add(WeaponType.BattleAxe);
+            WeaponProficiencies.Add(WeaponType.HandAxe);
+            WeaponProficiencies.Add(WeaponType.ThrowingHammer);
+            WeaponProficiencies.Add(WeaponType.Warhammer);
 
-            Tools.Available.Add(AvailableTool.SmithsTools);
-            Tools.Available.Add(AvailableTool.BrewersSupplies);
-            Tools.Available.Add(AvailableTool.MasonsTools);
+            Tools.Available.Add(Tool.SmithsTools);
+            Tools.Available.Add(Tool.BrewersSupplies);
+            Tools.Available.Add(Tool.MasonsTools);
 
             AddRaceFeature("Darkvision");
             AddRaceFeature("Dwarven Resilience");

@@ -117,6 +117,7 @@
     <Compile Include="CharacterAbility.cs" />
     <Compile Include="CharacterClasses\Barbarian.cs" />
     <Compile Include="CharacterClasses\CharacterClass.cs" />
+    <Compile Include="CharacterClasses\Cleric.cs" />
     <Compile Include="CharacterClasses\Fighter.cs" />
     <Compile Include="CharacterClasses\Monk.cs" />
     <Compile Include="CharacterClasses\Rogue.cs" />

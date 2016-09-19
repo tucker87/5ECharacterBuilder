@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using WebGrease.Css.Extensions;
 using _5ECharacterBuilder.CharacterBackgrounds;
 using _5ECharacterBuilder.CharacterClasses;
 using _5ECharacterBuilder.CharacterRaces;
+using _5EDatabase;
 
 namespace _5ECharacterBuilder
 {
     public class CharacterFactory
     {
-        public static ICharacter BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground)
+        public static ICharacter BuildACharacter(Race selectedRace, Class selectedClass, Background selectedBackground)
         {
             GenerateDictionaries();
 
@@ -38,23 +40,25 @@ namespace _5ECharacterBuilder
         }
 
 
-        public static ICharacter BuildACharacter(AvailableRaces selectedRace, AvailableClasses selectedClass, AvailableBackgrounds selectedBackground, int level)
+        public static ICharacter BuildACharacter(Race selectedRace, Class selectedClass, Background selectedBackground, int level)
         {
             var character = BuildACharacter(selectedRace, selectedClass, selectedBackground);
             for (var l = 1; l < level; l++)
-                character = LevelUp(character, selectedClass);
+                character = LevelUp(ref character, selectedClass);
 
             return character;
         }
 
-        public static ICharacter BuildACharacter(AvailableRaces selectedRace, List<AvailableClasses> selectedClass, AvailableBackgrounds selectedBackground)
+        public static ICharacter BuildACharacter(Race selectedRace, List<Class> selectedClass, Background selectedBackground)
         {
             var character = BuildACharacter(selectedRace, selectedClass.First(), selectedBackground);
 
-            return selectedClass.Where(availableClass => availableClass != selectedClass.First()).Aggregate(character, LevelUp);
+            selectedClass.Where(availableClass => availableClass != selectedClass.First()).ForEach(sClass => LevelUp(ref character, sClass));
+
+            return character;
         }
 
-        public static ICharacter LevelUp(ICharacter character, AvailableClasses characterClass)
+        public static ICharacter LevelUp(ref ICharacter character, Class characterClass)
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
             var characterClasses = currentAssembly.GetTypes()

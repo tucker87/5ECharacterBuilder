@@ -3,7 +3,7 @@ using _5EDatabase;
 
 namespace _5ECharacterBuilder.CharacterRaces
 {
-    class MountainDwarf : Dwarf
+    internal class MountainDwarf : Dwarf
     {
         public MountainDwarf(ICharacter character) : base(character)
         {

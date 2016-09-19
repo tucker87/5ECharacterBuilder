@@ -1,35 +1,41 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using _5EDatabase;
 
 namespace _5ECharacterBuilder.CharacterClasses
 {
-    sealed class Fighter : CharacterClass
+    internal sealed class Fighter : CharacterClass
     {
         public Fighter(ICharacter character) : base(character)
         {
-            HitDice.Add(10);
+            Class = Class.Fighter;
+
             foreach (var armor in Armory.AllArmor)
                 ArmorProficiencies.Add(armor);
             
-            ArmorProficiencies.Add(AvailableArmor.Shield);
+            ArmorProficiencies.Add(ArmorType.Shield);
             foreach (var weapon in Armory.SimpleWeapons.Concat(Armory.MartialWeapons))
                 WeaponProficiencies.Add(weapon);
             
-            SavingThrows.Add(SavingThrow.Strength);
-            SavingThrows.Add( SavingThrow.Constitution);
-
-            Classes.Add("Fighter");
-
-            Skills.Available.Add(AvailableSkill.Acrobatics);
-            Skills.Available.Add(AvailableSkill.AnimalHandling);
-            Skills.Available.Add(AvailableSkill.Athletics);
-            Skills.Available.Add(AvailableSkill.History);
-            Skills.Available.Add(AvailableSkill.Insight);
-            Skills.Available.Add(AvailableSkill.Intimidation);
-            Skills.Available.Add(AvailableSkill.Perception);
-            Skills.Available.Add(AvailableSkill.Survival);
+            Skills.Available.Add(Skill.Acrobatics);
+            Skills.Available.Add(Skill.AnimalHandling);
+            Skills.Available.Add(Skill.Athletics);
+            Skills.Available.Add(Skill.History);
+            Skills.Available.Add(Skill.Insight);
+            Skills.Available.Add(Skill.Intimidation);
+            Skills.Available.Add(Skill.Perception);
+            Skills.Available.Add(Skill.Survival);
 
             Skills.Max = 2;
         }
+
+        public override IEnumerable<Class> Classes => base.Classes.Concat(Class.Fighter);
+
+        public override IEnumerable<SavingThrow> SavingThrows
+            => base.SavingThrows.Union(SavingThrow.Strength).Union(SavingThrow.Constitution);
+
+        internal override int AddedHitDice => 10;
+        internal override List<ClassFeature> ClassFeatureData => new List<ClassFeature>();
+        internal override List<ClassPathFeature> ClassPathFeatureData => new List<ClassPathFeature>();
     }
 }

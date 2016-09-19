@@ -54,6 +54,7 @@
     <Compile Include="ArcaneTricksterSpells.cs" />
     <Compile Include="ArmoryTests.cs" />
     <Compile Include="CharacterClassTests\BarbarianTests.cs" />
+    <Compile Include="CharacterClassTests\ClericTests.cs" />
     <Compile Include="CharacterClassTests\RogueTests.cs" />
     <Compile Include="CharacterMulticlassTests.cs" />
     <Compile Include="CharacterAttributeTests.cs" />

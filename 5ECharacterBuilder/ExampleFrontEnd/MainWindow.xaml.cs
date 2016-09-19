@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using _5ECharacterBuilder;
+using _5EDatabase;
 
 namespace ExampleFrontEnd
 {
@@ -18,9 +19,9 @@ namespace ExampleFrontEnd
 
         private void OnLoad(object sender, RoutedEventArgs e)
         {
-            ClassBox.ItemsSource = Enum.GetNames(typeof(AvailableClasses));
-            RaceBox.ItemsSource = Enum.GetNames(typeof(AvailableRaces));
-            BackgroundBox.ItemsSource = Enum.GetNames(typeof (AvailableBackgrounds));
+            ClassBox.ItemsSource = Enum.GetNames(typeof(Class));
+            RaceBox.ItemsSource = Enum.GetNames(typeof(Race));
+            BackgroundBox.ItemsSource = Enum.GetNames(typeof (Background));
             ClassBox.SelectedIndex = 0;
             RaceBox.SelectedIndex = 0;
             BackgroundBox.SelectedIndex = 0;
@@ -52,9 +53,9 @@ namespace ExampleFrontEnd
         private void MakeNewCharacter()
         {
             if (RaceBox.SelectedIndex < 0 || ClassBox.SelectedIndex < 0) return;
-            var selectedRace = (AvailableRaces) RaceBox.SelectedIndex;
-            var selectedClass = (AvailableClasses) ClassBox.SelectedIndex;
-            var selectedBackground = (AvailableBackgrounds) ClassBox.SelectedIndex;
+            var selectedRace = (Race) RaceBox.SelectedIndex;
+            var selectedClass = (Class) ClassBox.SelectedIndex;
+            var selectedBackground = (Background) ClassBox.SelectedIndex;
             _character = "" + LevelLabel.Content == "1"
                 ? CharacterFactory.BuildACharacter(selectedRace, selectedClass, selectedBackground)
                 : CharacterFactory.BuildACharacter(selectedRace, selectedClass, selectedBackground, Convert.ToInt32(LevelLabel.Content));
@@ -120,14 +121,14 @@ namespace ExampleFrontEnd
 
         private void UpdateLists()
         {
-            UpdateAvailableSkillListBox();
+            UpdateSkillListBox();
             UpdateChosenSkillListBox();
         }
 
-        private void UpdateAvailableSkillListBox()
+        private void UpdateSkillListBox()
         {
-            AvailableSkillListBox.ItemsSource = _character.Skills.Available.Where(s => !_character.Skills.Chosen.Contains(s));
-            AvailableSkillListBox.Items.Refresh();
+            SkillListBox.ItemsSource = _character.Skills.Available.Where(s => !_character.Skills.Chosen.Contains(s));
+            SkillListBox.Items.Refresh();
         }
 
         private void UpdateChosenSkillListBox()
@@ -146,7 +147,7 @@ namespace ExampleFrontEnd
 
         private void LevelUpButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _character.LevelUp((AvailableClasses) Enum.Parse(typeof(AvailableClasses), "" + ClassBox.SelectedValue));
+            CharacterFactory.LevelUp(ref _character, (Class) Enum.Parse(typeof(Class), "" + ClassBox.SelectedValue));
             UpdateAll();
         }
 
@@ -157,7 +158,7 @@ namespace ExampleFrontEnd
                 var item = "" + e.AddedItems[0];
                 try
                 {
-                    _character.ChooseSkill((AvailableSkill) Enum.Parse(typeof (AvailableSkill), "" + item));
+                    _character.ChooseSkill((Skill) Enum.Parse(typeof (Skill), "" + item));
                 }
                 catch(TooManySkillsException ex)
                 {

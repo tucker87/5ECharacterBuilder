@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using _5ECharacterBuilder;
+using _5EDatabase;
 
 namespace _5ECharacterBuilderTests
 {
@@ -14,20 +15,20 @@ namespace _5ECharacterBuilderTests
         public static void SetUp()
         {
             _characterAbilityScrores = new CharacterAbilityScores();
-            _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
+            _character = CharacterFactory.BuildACharacter(Race.Human, Class.Monk, Background.Criminal);
         }
         [Test]
         public void AttributesCanNotBeLessThanOne()
         {
             // ReSharper disable once ObjectCreationAsStatement
-            Assert.Throws<Exception>(() => new CharacterAbilityScores(0, 0, 0, 0, 0, 0));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new CharacterAbilityScores(0, 0, 0, 0, 0, 0));
         }
 
         [Test]
         public void AttributesCanNotBeGreaterThanTwenty()
         {
             // ReSharper disable once ObjectCreationAsStatement
-            Assert.Throws<Exception>(() => new CharacterAbilityScores(21, 21, 21, 21, 21, 21));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new CharacterAbilityScores(21, 21, 21, 21, 21, 21));
         }
 
         [Test]
@@ -79,6 +80,13 @@ namespace _5ECharacterBuilderTests
             var attributesScore = new CharacterAbilityScores(8, 8, 8, 8, 8, 8);
             var attributes = new CharacterAbilities(attributesScore);
             Assert.AreEqual(-1, attributes.Wisdom.Modifier);
+        }
+
+        [Test]
+        public void AttibutesCannotExceedMaxScore()
+        {
+            _character.Abilities.Strength.Score = 21;
+            Assert.AreEqual(20, _character.Abilities.Strength.Score);
         }
     }
 }

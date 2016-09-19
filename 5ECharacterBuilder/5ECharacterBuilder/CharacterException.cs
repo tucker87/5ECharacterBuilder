@@ -1,4 +1,5 @@
 ﻿using System;
+using _5EDatabase;
 
 namespace _5ECharacterBuilder
 {
@@ -6,11 +7,11 @@ namespace _5ECharacterBuilder
 
     public class TooManySkillsException : Exception
     {
-        public TooManySkillsException(AvailableSkill chosenSkill) : base("" + chosenSkill) { }
+        public TooManySkillsException(Skill chosenSkill) : base("" + chosenSkill) { }
     }
 
     public class SkillNotAvailableException : Exception
     {
-        public SkillNotAvailableException(AvailableSkill chosenSkill) : base("" + chosenSkill) { }
+        public SkillNotAvailableException(Skill chosenSkill) : base("" + chosenSkill) { }
     }
 }

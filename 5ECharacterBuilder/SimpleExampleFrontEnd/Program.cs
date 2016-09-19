@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _5ECharacterBuilder;
+using _5EDatabase;
 using static System.Console;
 
 namespace SimpleExampleFrontEnd
@@ -14,11 +15,11 @@ namespace SimpleExampleFrontEnd
             var test = $"This is a test {x} {y}";
 
             WriteLine("Choose a Race: ");
-            var characterRace = Generics.AskFor<AvailableRaces>();
+            var characterRace = Generics.AskFor<Race>();
             WriteLine("Choose a Class: ");
-            var characterClass = Generics.AskFor<AvailableClasses>();
+            var characterClass = Generics.AskFor<Class>();
             WriteLine("Choose a Background: ");
-            var characterBackground = Generics.AskFor<AvailableBackgrounds>();
+            var characterBackground = Generics.AskFor<Background>();
 
 
             var character = CreateCharacter(characterRace, characterClass, characterBackground);
@@ -37,8 +38,8 @@ namespace SimpleExampleFrontEnd
             }
         }
 
-        private static ICharacter CreateCharacter(AvailableRaces characterRace, AvailableClasses characterClass,
-            AvailableBackgrounds characterBackground)
+        private static ICharacter CreateCharacter(Race characterRace, Class characterClass,
+            Background characterBackground)
         {
             var character = CharacterFactory.BuildACharacter(characterRace, characterClass, characterBackground);
             character.SetAttributes(new CharacterAbilities(11, 11, 11, 11, 11, 11));
@@ -55,18 +56,18 @@ namespace SimpleExampleFrontEnd
             WriteLine("Hit Points: " + character.MaxHp);
 
             WriteLine();
-            Write("Armor Proficiencies:");
+            Write("ArmorType Proficiencies:");
             foreach (var armor in character.ArmorProficiencies)
                 Write(" " + armor);
             WriteLine();
 
-            WriteLine("Equipped Armor: " + character.EquippedArmor.Name);
+            WriteLine("Equipped ArmorType: " + character.EquippedArmor.Name);
 
 
             WriteLine();
             WriteLine("Has Shield: " + (character.HasShield ? "Yes" : "No"));
 
-            WriteLine("Armor Class: " + character.ArmorClass);
+            WriteLine("ArmorType Class: " + character.ArmorClass);
             WriteLine("Initiative: " + character.Initiative);
             WriteLine("Size: " + character.Size);
             WriteLine("Speed: " + character.Speed);
@@ -80,8 +81,8 @@ namespace SimpleExampleFrontEnd
             WriteLine();
             WriteLine("Feats: TODO"); //TODO
             WriteLine("AllFeatures: ");
-            foreach (var feature in character.Features.AllFeatures)
-                WriteLine(" " + feature.Key);
+            foreach (var feature in character.AllFeatures)
+                WriteLine(" " + feature.Name);
 
 
             Write("Weapon Proficiencies:");
@@ -158,13 +159,13 @@ namespace SimpleExampleFrontEnd
         };
 
 
-        //character.AddToolProfs(new All<AvailableTool> { AvailableTool.AlchemistsSupplies });
-        //character.AddInstrumentProfs(new All<AvailableInstrument> { AvailableInstrument.Lute });
-        //character.AddLanguages(new All<AvailableLanguages> { AvailableLanguages.Common });
+        //character.AddToolProfs(new All<Tool> { Tool.AlchemistsSupplies });
+        //character.AddInstrumentProfs(new All<Instrument> { Instrument.Lute });
+        //character.AddLanguages(new All<Language> { Language.Common });
 
         private static void EquipArmor()
         {
-            var chosenArmor = Generics.AskFor<AvailableArmor>();
+            var chosenArmor = Generics.AskFor<ArmorType>();
             _character.EquipArmor(chosenArmor);
         }
 
@@ -175,33 +176,33 @@ namespace SimpleExampleFrontEnd
 
         private static void LearnSkill()
         {
-            var chosenSkill = Generics.AskFor<AvailableSkill>();
+            var chosenSkill = Generics.AskFor<Skill>();
             _character.ChooseSkill(chosenSkill);
         }
 
         private static void LearnTool()
         {
-            var chosenTool = Generics.AskFor<AvailableTool>();
+            var chosenTool = Generics.AskFor<Tool>();
             _character.LearnTool(chosenTool);
         }
 
         private static void LearnInstrument()
         {
-            var chosenInstrument = Generics.AskFor<AvailableInstrument>();
+            var chosenInstrument = Generics.AskFor<Instrument>();
             _character.LearnInstrument(chosenInstrument);
         }
 
         private static void LevelUp()
         {
-            var chosenClass = Generics.AskFor<AvailableClasses>();
-            CharacterFactory.LevelUp(_character, chosenClass);
+            var chosenClass = Generics.AskFor<Class>();
+            CharacterFactory.LevelUp(ref _character, chosenClass);
         }
 
         private static void ShowFeatures()
         {
             Clear();
-            foreach (var feature in _character.Features.AllFeatures)
-                WriteLine(feature.Key + " - " + feature.Value + "\r\n");
+            foreach (var feature in _character.AllFeatures)
+                WriteLine(feature.Name + " - " + feature.Description + "\r\n");
              
             WriteLine("Press any key to return to Character");
             ReadLine();

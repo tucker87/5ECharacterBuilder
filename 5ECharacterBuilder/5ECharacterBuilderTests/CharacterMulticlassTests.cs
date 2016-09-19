@@ -1,5 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 using _5ECharacterBuilder;
+using _5EDatabase;
 
 namespace _5ECharacterBuilderTests
 {
@@ -11,18 +13,21 @@ namespace _5ECharacterBuilderTests
         [SetUp]
         public static void SetUp()
         {
-            _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Monk, AvailableBackgrounds.Criminal);
+            _character = CharacterFactory.BuildACharacter(Race.Human, Class.Monk, Background.Criminal);
         }
 
         [Test]
         public void CanRetrieveCharacterClassString()
         {
             Assert.AreEqual("Monk 1", _character.ClassesString);
-            CharacterFactory.LevelUp(_character, AvailableClasses.Monk);
+            CharacterFactory.LevelUp(ref _character, Class.Monk);
+
+            var test = _character.Classes.Union(new[] {Class.Monk}).Union(new[] {Class.Monk});
+
             Assert.AreEqual("Monk 2", _character.ClassesString);
-            CharacterFactory.LevelUp(_character, AvailableClasses.Fighter);
+            CharacterFactory.LevelUp(ref _character, Class.Fighter);
             Assert.AreEqual("Monk 2 Fighter 1", _character.ClassesString);
-            CharacterFactory.LevelUp(_character, AvailableClasses.Fighter);
+            CharacterFactory.LevelUp(ref _character, Class.Fighter);
             Assert.AreEqual("Monk 2 Fighter 2", _character.ClassesString);
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace _5ECharacterBuilder.CharacterRaces
 {
-    class HillDwarf : Dwarf
+    internal class HillDwarf : Dwarf
     {
         public HillDwarf(ICharacter character) : base(character)
         {
@@ -10,6 +10,6 @@
 
         public override string Race => "Hill Dwarf";
         
-        public override int MaxHp => base.MaxHp + HitDice.Count;
+        public override int CalculateMaxHp(HitDice hitDice) => base.CalculateMaxHp(hitDice) + hitDice.Count;
     }
 }

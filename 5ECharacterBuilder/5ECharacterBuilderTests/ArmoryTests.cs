@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using _5ECharacterBuilder;
+using _5EDatabase;
 
 namespace _5ECharacterBuilderTests
 {
@@ -10,7 +11,7 @@ namespace _5ECharacterBuilderTests
         [SetUp]
         public void SetUp()
         {
-            _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Fighter, AvailableBackgrounds.Criminal);
+            _character = CharacterFactory.BuildACharacter(Race.Human, Class.Fighter, Background.Criminal);
             
         }
 
@@ -18,7 +19,7 @@ namespace _5ECharacterBuilderTests
         public void ClothArmorGivesFullDexBonus()
         {
             _character.SetAttributes(new CharacterAbilities(new CharacterAbilityScores(dexterity:20)));
-            _character.EquipArmor(AvailableArmor.Cloth);
+            _character.EquipArmor(ArmorType.Cloth);
             Assert.AreEqual(15, _character.ArmorClass);
         }
 
@@ -26,7 +27,7 @@ namespace _5ECharacterBuilderTests
         public void HideArmorGivesMax2DexBonus()
         {
             _character.SetAttributes(new CharacterAbilities(new CharacterAbilityScores(dexterity: 20)));
-            _character.EquipArmor(AvailableArmor.Hide);
+            _character.EquipArmor(ArmorType.Hide);
             Assert.AreEqual(14, _character.ArmorClass);
         }
 
@@ -34,7 +35,7 @@ namespace _5ECharacterBuilderTests
         public void PlateArmorGiveNoDexBonus()
         {
             _character.SetAttributes(new CharacterAbilities(new CharacterAbilityScores(dexterity: 20)));
-            _character.EquipArmor(AvailableArmor.Plate);
+            _character.EquipArmor(ArmorType.Plate);
             Assert.AreEqual(18, _character.ArmorClass);
         }
 
@@ -50,7 +51,7 @@ namespace _5ECharacterBuilderTests
         public void ShieldsGive2AcOnTopOfArmor()
         {
             _character.SetAttributes(new CharacterAbilities(new CharacterAbilityScores(dexterity: 20)));
-            _character.EquipArmor(AvailableArmor.Plate);
+            _character.EquipArmor(ArmorType.Plate);
             _character.ToggleShield();
             Assert.AreEqual(20, _character.ArmorClass);
         }

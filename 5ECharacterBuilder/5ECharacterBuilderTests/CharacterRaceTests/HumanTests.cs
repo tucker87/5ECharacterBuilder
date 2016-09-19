@@ -1,5 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 using _5ECharacterBuilder;
+using _5EDatabase;
 
 namespace _5ECharacterBuilderTests.CharacterRaceTests
 {
@@ -11,8 +13,8 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [SetUp]
         public void SetUp()
         {
-            _character = CharacterFactory.BuildACharacter(AvailableRaces.Human, AvailableClasses.Fighter,
-                AvailableBackgrounds.Criminal);
+            _character = CharacterFactory.BuildACharacter(Race.Human, Class.Fighter,
+                Background.Criminal);
         }
 
         [Test]
@@ -36,7 +38,7 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [Test]
         public void HumansGetPlusOneToAllAttributeScores()
         {
-            Assert.IsTrue(_character.Features.AllFeatures.ContainsKey("Ability Score Increase"));
+            Assert.IsTrue(_character.AllFeatures.Any(af => af.Name == "Ability Score Increase"));
             Assert.AreEqual(11, _character.Abilities.Strength.Score);
             Assert.AreEqual(11, _character.Abilities.Constitution.Score);
             Assert.AreEqual(11, _character.Abilities.Dexterity.Score);
@@ -48,14 +50,14 @@ namespace _5ECharacterBuilderTests.CharacterRaceTests
         [Test]
         public void HumansSpeakCommon()
         {
-            Assert.IsTrue(_character.Languages.Chosen.Contains(AvailableLanguages.Common));
+            Assert.IsTrue(_character.Languages.Chosen.Contains(Language.Common));
         }
 
         [Test]
         public void HumansCanSpeakOneOtherLanguage()
         {
-            _character.LearnLanguage(AvailableLanguages.Draconic);
-            Assert.IsTrue(_character.Languages.Chosen.Contains(AvailableLanguages.Draconic));
+            _character.LearnLanguage(Language.Draconic);
+            Assert.IsTrue(_character.Languages.Chosen.Contains(Language.Draconic));
         }
     }
 }
